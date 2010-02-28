@@ -50,7 +50,7 @@ public class MeitanServiceIntegrationTest {
 
 	@Test
 	public void testSomething() {
-		System.out.println("" + megaCream.getName() +
+		System.out.println("Mega cream name:" + megaCream.getName() +
 				"");
 	}
 }
