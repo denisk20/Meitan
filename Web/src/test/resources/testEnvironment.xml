@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd 
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	   ">
+
+	<context:component-scan base-package="com.meitan.lubov.services"/>
+	<!-- Instructs Spring to perform declarative transaction management on annotated classes -->
+	<tx:annotation-driven/>
+
+	<bean id="dbUnitInitializer" class="com.meitan.lubov.DbUnitInitializer">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSetLocations">
+			<list value-type="org.springframework.core.io.Resource">
+				<value>classpath:/dataset1.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver"/>
+		<!--todo make path relative-->
+		<property name="url" value="jdbc:h2:/media/Windows_data/Mama/Meitan-Mama/Web/src/test/resources/testdb/testmeitan;AUTO_SERVER=TRUE"/>
+		<property name="username" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+
+	<!-- Drives transactions using local JPA APIs -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+	<!-- Creates a EntityManagerFactory for use with the Hibernate JPA provider and a simple in-memory data source populated with test data -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="persistenceUnitManager">
+			<bean class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+				<!--todo: make the path relative-->
+				<property name="persistenceXmlLocation" value="file:/media/Windows_data/Mama/Meitan-Mama/Web/src/test/resources/META-INF/persistence.xml"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="customEditorConfigurer"
+		  class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date">
+					<bean class="org.springframework.beans.propertyeditors.CustomDateEditor">
+						<constructor-arg index="0">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg value="MM/dd/yy"/>
+							</bean>
+						</constructor-arg>
+						<constructor-arg index="1" value="false"/>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>
