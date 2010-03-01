@@ -1,0 +1,6 @@
+.idea
+testdb/*
+db/*
+Parent.iml
+Web/Web.iml
+Model/Model.iml
