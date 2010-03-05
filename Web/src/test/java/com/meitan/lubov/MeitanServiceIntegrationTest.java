@@ -1,7 +1,9 @@
 package com.meitan.lubov;
 
+import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.MeitanService;
+import com.meitan.lubov.services.dao.ProductDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,12 +26,20 @@ import javax.persistence.PersistenceContext;
 public class MeitanServiceIntegrationTest {
 
 	@Autowired
-	MeitanService meitanService;
+	ProductDao productDao;
 	EntityManager em;
 
 	@Autowired
 	@Qualifier("megaCream")
 	private Product megaCream;
+
+	@Autowired
+	@Qualifier("purchase1")
+	private BuyingAct purchase1;
+
+	@Autowired
+	@Qualifier("purchase2")
+	private BuyingAct purchase2;
 
 	@Autowired
 	@Qualifier("gigaCream")
@@ -42,9 +52,7 @@ public class MeitanServiceIntegrationTest {
 
 	@Before
 	public void setupData() {
-
-		//todo DAOs!!!
-		meitanService.persistProduct(megaCream);
+		productDao.makePersistent(megaCream);
 		//meitanService.persistProduct(gigaCream);
 	}
 

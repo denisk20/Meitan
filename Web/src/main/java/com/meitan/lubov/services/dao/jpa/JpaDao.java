@@ -1,8 +1,12 @@
 package com.meitan.lubov.services.dao.jpa;
 
 import com.meitan.lubov.services.dao.Dao;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Example;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -16,12 +20,10 @@ import javax.persistence.PersistenceContext;
  *
  * @author denisk
  */
-@Service("dao")
-@Repository
-public class JpaDao <T, ID extends Serializable> implements Dao<T, ID> {
+public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID> {
 
 	private Class<T> persistentClass;
-	private EntityManager em;
+	protected EntityManager em;
 
 	@SuppressWarnings("unchecked")
 	protected JpaDao() {
@@ -35,28 +37,49 @@ public class JpaDao <T, ID extends Serializable> implements Dao<T, ID> {
 	}
 
 	@Override
+	@Transactional
 	public T findById(ID id) {
 		T result;
-		result = em.find(persistentClass, id)
+		result = em.find(persistentClass, id);
+		return result;
 	}
 
 	@Override
 	public List<T> findAll() {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		return findByCriteria();
 	}
 
+    @SuppressWarnings("unchecked")
+	@Transactional
+    protected List<T> findByCriteria(Criterion... criterions) {
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(persistentClass);
+        for (Criterion c : criterions) {
+            criteria.add(c);
+        }
+        return criteria.list();
+    }
+
 	@Override
+	@Transactional
 	public List<T> findByExample(T exampleInstance, String... excludeProperty) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Criteria criteria = ((Session) em.getDelegate()).createCriteria(persistentClass);
+        Example example = Example.create(exampleInstance);
+        for (String exclude : excludeProperty) {
+            example.excludeProperty(exclude);
+        }
+        criteria.add(example);
+        return criteria.list();
 	}
 
 	@Override
-	public T makePersistent(T entity) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void makePersistent(T entity) {
+		em.persist(entity);
 	}
 
 	@Override
+	@Transactional
 	public void makeTransient(T entity) {
-		//To change body of implemented methods use File | Settings | File Templates.
+		em.remove(entity);
 	}
 }

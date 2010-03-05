@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>com.springsource.org.hibernate.ejb</artifactId>
-			<version>3.3.1.ga</version>
+			<version>3.4.0.GA</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.facelets</groupId>
