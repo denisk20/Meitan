@@ -4,8 +4,10 @@ import com.meitan.lubov.model.Image;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -37,6 +39,7 @@ public class ProductCategory {
 	}
 
 	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}
@@ -63,7 +66,7 @@ public class ProductCategory {
 		this.products = products;
 	}
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	public Image getImage() {
 		return image;
 	}
@@ -97,6 +100,6 @@ public class ProductCategory {
 
 	@Override
 	public String toString() {
-		return "ProductCategory{" + "id=" + id + ", name='" + name + '\'' + ", products=" + products + '}';
+		return "ProductCategory{" + "id=" + id + ", name='" + name + '\'' + '}';
 	}
 }

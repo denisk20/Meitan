@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -41,6 +42,7 @@ public class BuyingAct {
 	}
 
 	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}
@@ -118,6 +120,6 @@ public class BuyingAct {
 
 	@Override
 	public String toString() {
-		return "BuyingAct{" + "id=" + id + ", date=" + date + ", client=" + client + ", products=" + products + ", totalPrice=" + totalPrice + '}';
+		return "BuyingAct{" + "id=" + id + ", date=" + date + ", products=" + products + ", totalPrice=" + totalPrice + '}';
 	}
 }

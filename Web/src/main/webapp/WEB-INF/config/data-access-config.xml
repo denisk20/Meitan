@@ -27,10 +27,15 @@
 	<!-- Deploys a in-memory "booking" datasource populated -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver"/>
-		<!--todo do not hardcode this-->
-		<property name="url" value="jdbc:h2:/media/Windows_data/Мама/Meitan-Mama/db/meitan;AUTO_SERVER=TRUE"/>
+		<property name="url" value="jdbc:h2:${MEITAN_HOME}/db/meitan;AUTO_SERVER=TRUE"/>
 		<property name="username" value="sa"/>
 		<property name="password" value=""/>
+	</bean>
+
+		<bean id="propertyConfigurer"
+			  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
+		<property name="searchSystemEnvironment" value="true"/>
 	</bean>
 
 </beans>

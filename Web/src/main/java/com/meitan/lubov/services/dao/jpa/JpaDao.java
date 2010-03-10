@@ -72,7 +72,7 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID> 
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
+	@Transactional
 	public void makePersistent(T entity) {
 		em.persist(entity);
 	}
