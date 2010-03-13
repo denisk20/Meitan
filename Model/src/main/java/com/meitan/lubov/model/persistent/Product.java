@@ -5,6 +5,7 @@ import com.meitan.lubov.model.Price;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -98,7 +99,7 @@ public class Product {
 		this.purchases = purchases;
 	}
 
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	public Set<Image> getImages() {
 		return images;
 	}
@@ -140,6 +141,6 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", isNew=" + isNew + ", categories=" + categories + ", images=" + images + ", price=" + price + '}';
+		return "Product{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", isNew=" + isNew  + ", images=" + images + ", price=" + price + '}';
 	}
 }

@@ -16,7 +16,7 @@ public interface Dao<T, ID extends Serializable> {
 
     List<T> findByExample(T exampleInstance, String... excludeProperty);
 
-    T makePersistent(T entity);
+    void makePersistent(T entity);
 
     void makeTransient(T entity);
 

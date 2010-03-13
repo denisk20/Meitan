@@ -16,6 +16,7 @@
 	<!-- Instructs Spring to perform declarative transaction management on annotated classes -->
 	<tx:annotation-driven/>
 
+<!--
 	<bean id="dbUnitInitializer" class="com.meitan.lubov.DbUnitInitializer">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="dataSetLocations">
@@ -24,11 +25,11 @@
 			</list>
 		</property>
 	</bean>
+-->
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver"/>
-		<!--todo make path relative-->
-		<property name="url" value="jdbc:h2:/media/Windows_data/Mama/Meitan-Mama/Web/src/test/resources/testdb/testmeitan;AUTO_SERVER=TRUE"/>
+		<property name="url" value="${hibernate.connection.url}"/>
 		<property name="username" value="sa"/>
 		<property name="password" value=""/>
 	</bean>
@@ -41,13 +42,27 @@
 	<!-- Creates a EntityManagerFactory for use with the Hibernate JPA provider and a simple in-memory data source populated with test data -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.connection.url">${hibernate.connection.url}</prop>
+				<prop key="hibernate.connection.username">${hibernate.connection.username}</prop>
+				<prop key="hibernate.connection.password">${hibernate.connection.password}</prop>
+			</props>
+		</property>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 		</property>
 		<property name="persistenceUnitManager">
 			<bean class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
-				<!--todo: make the path relative-->
-				<property name="persistenceXmlLocation" value="file:/media/Windows_data/Mama/Meitan-Mama/Web/src/test/resources/META-INF/persistence.xml"/>
+				<property name="persistenceXmlLocation" value="file:${MEITAN_HOME}/Web/src/test/resources/META-INF/persistence.xml"/>
+<!--
+				<property name="resourceLoader">
+					<bean class="org.springframework.core.io.FileSystemResource">
+						<constructor-arg index="0" value="file:${MEITAN_PROPS}/hibernate.properties"/>
+					</bean>
+				</property>
+-->
 			</bean>
 		</property>
 	</bean>
@@ -67,6 +82,15 @@
 					</bean>
 				</entry>
 			</map>
+		</property>
+	</bean>
+
+	<bean id="propertyConfigurer"
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
+		<property name="searchSystemEnvironment" value="true"/>
+		<property name="locations">
+			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
 		</property>
 	</bean>
 
