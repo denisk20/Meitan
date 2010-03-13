@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>com.springsource.org.hibernate.ejb</artifactId>
-			<version>3.3.1.ga</version>
+			<version>3.4.0.GA</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.facelets</groupId>
@@ -157,7 +157,7 @@
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>2.4.7</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -209,8 +209,7 @@
 						<jdk5>true</jdk5>
 						<outputfilename>schema.ddl</outputfilename>
 						<persistenceunit>testMeitanDatabase</persistenceunit>
-						<!--todo not hardcode this-->
-						<propertyfile>/media/Windows_data/Mama/Meitan-Mama/Web/src/test/resources/hibernate.properties</propertyfile>
+						<propertyfile>${MEITAN_PROPS}/hibernate.properties</propertyfile>
 					</componentProperties>
 				</configuration>
 
@@ -222,6 +221,46 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+                    <execution>
+                        <id>cleanDB</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <tasks>
+								<delete dir="${basedir}/../testdb"/>
+								<mkdir dir="${basedir}/../testdb"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+
+					<execution>
+						<id>generateTestXml</id>
+						<phase>process-test-resources</phase>
+						<configuration>
+							<tasks>
+								<property name="test_classpath" refid="maven.test.classpath"/>
+								<property name="test_classes_dir" value="${project.build.testOutputDirectory}"/>
+								<echo message="project.build.outputDirectory: ${project.build.testOutputDirectory}"/>
+								<java classname="com.meitan.lubov.services.util.DbunitXmlGenerator"
+									  classpath="${test_classpath}">
+
+									<arg value="${test_classes_dir}"/>
+								</java>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -229,9 +268,8 @@
 		<spring.version>3.0.1.RELEASE</spring.version>
 		<jsf.version>1.2.0.09</jsf.version>
 		<webflow.version>2.0.8.RELEASE</webflow.version>
-		
-		<!--todo not hardcode this-->
-		<test.db>/media/Windows_data/Mama/Meitan-Mama/testdb</test.db>
+
+		<test.db>${env.MEITAN_HOME}/testdb</test.db>
 	</properties>
 
 	<repositories>

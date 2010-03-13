@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -39,6 +40,7 @@ public class Client {
 	}
 
 	@Id
+	@GeneratedValue
 	public long getId() {
 		return id;
 	}
