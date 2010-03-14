@@ -1,7 +1,8 @@
-package com.meitan.lubov.model;
+package com.meitan.lubov.model.persistent;
+
+import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
  * @author denisk
  */
 @Entity
-public class Image {
+public class Image extends PersistentOrderableImpl {
 	private long id;
 	private String url;
 

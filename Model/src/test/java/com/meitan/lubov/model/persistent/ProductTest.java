@@ -1,6 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Image;
+import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.Name;
 import com.meitan.lubov.model.Price;
 import org.junit.Before;

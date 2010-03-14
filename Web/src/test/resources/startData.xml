@@ -56,7 +56,9 @@
 				<ref bean="ent_purchase2"/>
 			</set>
 		</property>
-	</bean>
+        <property name="order" value="1"/>
+
+    </bean>
 
 	<bean id="ent_gigaCream" class="com.meitan.lubov.model.persistent.Product">
 		<constructor-arg index="0" value="Giga Cream"/>
@@ -112,7 +114,8 @@
 				<ref bean="ent_purchase3"/>
 			</set>
 		</property>
-	</bean>
+        <property name="order" value="1"/>
+    </bean>
 
 	<bean id="ent_creams" class="com.meitan.lubov.model.persistent.Category">
 		<constructor-arg index="0" value="Creams"/>
@@ -123,26 +126,32 @@
 				<ref bean="ent_gigaCream"/>
 			</set>
 		</property>
+        <property name="order" value="2"/>
 	</bean>
 
-	<bean id="ent_creamsImage" class="com.meitan.lubov.model.Image">
+	<bean id="ent_creamsImage" class="com.meitan.lubov.model.persistent.Image">
 		<property name="url" value="path/to/creams/image.jpeg"/>
+        <property name="order" value="2"/>
 	</bean>
 
-	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.Image">
+	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
 		<property name="url" value="path/to/creams/megacreamimagefront.jpeg"/>
+        <property name="order" value="2"/>
 	</bean>
 
-	<bean id="ent_megaCreamImageProfile" class="com.meitan.lubov.model.Image">
+	<bean id="ent_megaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
 		<property name="url" value="path/to/creams/megacreamimageprofile.jpeg"/>
+        <property name="order" value="2"/>
 	</bean>
 
-	<bean id="ent_gigaCreamImageFront" class="com.meitan.lubov.model.Image">
+	<bean id="ent_gigaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
 		<property name="url" value="path/to/creams/gigacreamimagefront.jpeg"/>
+        <property name="order" value="2"/>
 	</bean>
 
-	<bean id="ent_gigaCreamImageProfile" class="com.meitan.lubov.model.Image">
+	<bean id="ent_gigaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
 		<property name="url" value="path/to/creams/gigacreamimageprofile.jpeg"/>
+        <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_purchase1" class="com.meitan.lubov.model.persistent.BuyingAct" depends-on="ent_creamAdmier">
@@ -159,6 +168,7 @@
 				<property name="amount" value="100.03"/>
 			</bean>
 		</property>
+        <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_purchase2" class="com.meitan.lubov.model.persistent.BuyingAct">
@@ -174,7 +184,8 @@
 				<property name="amount" value="85.05"/>
 			</bean>
 		</property>
-	</bean>
+        <property name="order" value="2"/>
+    </bean>
 
 	<bean id="ent_purchase3" class="com.meitan.lubov.model.persistent.BuyingAct" depends-on="ent_creamLover">
 		<constructor-arg index="0" value="12/31/2009"/>
@@ -189,6 +200,7 @@
 				<property name="amount" value="122.14"/>
 			</bean>
 		</property>
+        <property name="order" value="2"/>
 	</bean>
 	
 	<bean id="ent_creamAdmier" class="com.meitan.lubov.model.persistent.Consultant">
@@ -263,6 +275,7 @@
 				<ref bean="ent_purchase1"/>
 			</set>
 		</property>
+        <property name="order" value="1"/>
 	</bean>
 
 	<bean id="ent_creamLover" class="com.meitan.lubov.model.persistent.Client">
@@ -338,6 +351,7 @@
 				<ref bean="ent_purchase3"/>
 			</set>
 		</property>
+        <property name="order" value="1"/>
 	</bean>
 
 </beans>

@@ -11,7 +11,7 @@
 		<class>com.meitan.lubov.model.persistent.Consultant</class>
 		<class>com.meitan.lubov.model.persistent.Product</class>
 		<class>com.meitan.lubov.model.persistent.Category</class>
-		<class>com.meitan.lubov.model.Image</class>
+		<class>com.meitan.lubov.model.persistent.Image</class>
 		
 		<properties>
 			<property name="hibernate.show_sql" value="true"/>

@@ -1,5 +1,7 @@
 package com.meitan.lubov.services.util;
 
+import com.meitan.lubov.model.util.PersistentComparator;
+import com.meitan.lubov.model.util.PersistentOrderable;
 import org.apache.log4j.Logger;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -21,11 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,7 +34,7 @@ public class DbunitXmlGenerator {
 	public final static String ENTITY_PREFIX = "ent_";
 
 	private String[] beanNames;
-	private List beans;
+	private List<PersistentOrderable> beans = new ArrayList<PersistentOrderable>();
 
 	private static final String SPRING_XML_FILE_NAME = "startData.xml";
 	private ListableBeanFactory context = null;
@@ -126,12 +124,12 @@ public class DbunitXmlGenerator {
 	}
 
 	private void setUpBeans() {
-		beans = new ArrayList();
 		for (String beanName : beanNames) {
 			if (!beanName.startsWith(ENTITY_PREFIX)) {
 				continue;
 			}
-			Object bean = context.getBean(beanName);
+            //we assume it
+			PersistentOrderable bean = (PersistentOrderable) context.getBean(beanName);
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("For spring configuration name " + beanName + " got bean " + bean);
 			}
@@ -145,10 +143,12 @@ public class DbunitXmlGenerator {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
+            Collections.sort(beans, new PersistentComparator());
 			for (Object bean : beans) {
 				if (LOGGER.isDebugEnabled()) {
 					LOGGER.debug("Saving bean " + bean);
-				}
+				}					LOGGER.error("Saving bean " + bean);
+
 				session.saveOrUpdate(bean);
 			}
 			tx.commit();

@@ -2,6 +2,7 @@ package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.Name;
 import com.meitan.lubov.model.Passport;
+import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Client {
+public class Client extends PersistentOrderableImpl {
 	private long id;
 	private Name name;
 	private String email;
