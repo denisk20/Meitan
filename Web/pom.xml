@@ -119,12 +119,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.5.10</version>
+			<version>1.5.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.5.10</version>
+			<version>1.5.11</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -209,7 +209,7 @@
 						<jdk5>true</jdk5>
 						<outputfilename>schema.ddl</outputfilename>
 						<persistenceunit>testMeitanDatabase</persistenceunit>
-						<propertyfile>${MEITAN_PROPS}/hibernate.properties</propertyfile>
+						<propertyfile>${env.MEITAN_PROPS}/hibernate.properties</propertyfile>
 					</componentProperties>
 				</configuration>
 
@@ -230,8 +230,8 @@
                         <phase>clean</phase>
                         <configuration>
                             <tasks>
-								<delete dir="${basedir}/../testdb"/>
-								<mkdir dir="${basedir}/../testdb"/>
+								<delete dir="${test.db}"/>
+								<mkdir dir="${test.db}"/>
                             </tasks>
                         </configuration>
                         <goals>

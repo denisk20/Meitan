@@ -22,15 +22,6 @@ public class JpaProductDao extends JpaDao<Product, Long> implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public ArrayList<Product> getAll() {
-		ArrayList<Product> result = (ArrayList<Product>)
-				em.createNamedQuery("getProducts").getResultList();
-		return result;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
 	public ArrayList<Product> getNew() {
 		ArrayList<Product> result = (ArrayList<Product>)
 				em.createNamedQuery("getProductsNew").getResultList();

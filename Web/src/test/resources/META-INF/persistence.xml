@@ -10,7 +10,7 @@
 		<class>com.meitan.lubov.model.persistent.Client</class>
 		<class>com.meitan.lubov.model.persistent.Consultant</class>
 		<class>com.meitan.lubov.model.persistent.Product</class>
-		<class>com.meitan.lubov.model.persistent.ProductCategory</class>
+		<class>com.meitan.lubov.model.persistent.Category</class>
 		<class>com.meitan.lubov.model.Image</class>
 		
 		<properties>

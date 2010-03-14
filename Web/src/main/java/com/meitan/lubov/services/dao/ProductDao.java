@@ -11,8 +11,6 @@ import java.util.ArrayList;
  * @author denisk
  */
 public interface ProductDao extends Dao <Product, Long>{
-	ArrayList<Product> getAll();
-
 	ArrayList<Product> getNew();
 
 	ArrayList<Product> getForCategory(Long categoryId);

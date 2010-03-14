@@ -50,12 +50,12 @@ public class ProductTest {
 
 	@Test
 	public void testGetCategories() throws Exception {
-		ProductCategory cat1 = new ProductCategory();
+		Category cat1 = new Category();
 		cat1.setName("some name");
-		ProductCategory cat2 = new ProductCategory();
+		Category cat2 = new Category();
 		cat2.setName("some name");
 
-		HashSet<ProductCategory> categories = new HashSet<ProductCategory>();
+		HashSet<Category> categories = new HashSet<Category>();
 		categories.add(cat1);
 		categories.add(cat2);
 		testable.getCategories().addAll(categories);

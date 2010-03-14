@@ -5,7 +5,6 @@ import com.meitan.lubov.model.Image;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,24 +20,21 @@ import javax.persistence.OneToOne;
  * @author denisk
  */
 @Entity
-@NamedQueries({
-		@NamedQuery(name = "getProductCategories", query = "from ProductCategory c")
-})
-public class ProductCategory {
+public class Category {
 	private long id;
 	private String name;
 	private Image image;
 
 	private Set<Product> products = new HashSet<Product>();
 
-	public ProductCategory() {
+	public Category() {
 	}
 
-	public ProductCategory(String name) {
+	public Category(String name) {
 		this.name = name;
 	}
 
-	@Id
+    @Id
 	@GeneratedValue
 	public long getId() {
 		return id;
@@ -80,11 +76,11 @@ public class ProductCategory {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof ProductCategory)) {
+		if (!(o instanceof Category)) {
 			return false;
 		}
 
-		final ProductCategory that = (ProductCategory) o;
+		final Category that = (Category) o;
 
 		if (!name.equals(that.name)) {
 			return false;
@@ -100,6 +96,6 @@ public class ProductCategory {
 
 	@Override
 	public String toString() {
-		return "ProductCategory{" + "id=" + id + ", name='" + name + '\'' + '}';
+		return "Category{" + "id=" + id + ", name='" + name + '\'' + '}';
 	}
 }

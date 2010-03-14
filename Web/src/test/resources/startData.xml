@@ -114,7 +114,7 @@
 		</property>
 	</bean>
 
-	<bean id="ent_creams" class="com.meitan.lubov.model.persistent.ProductCategory">
+	<bean id="ent_creams" class="com.meitan.lubov.model.persistent.Category">
 		<constructor-arg index="0" value="Creams"/>
 		<property name="image" ref="ent_creamsImage"/>
 		<property name="products">

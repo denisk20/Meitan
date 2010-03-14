@@ -15,10 +15,10 @@ import static org.junit.Assert.*;
  * @author denisk
  */
 public class ProductCategoryTest {
-	private ProductCategory testable;
+	private Category testable;
 	@Before
 	public void setUp() throws Exception {
-		testable = new ProductCategory();
+		testable = new Category();
 	}
 
 	@Test

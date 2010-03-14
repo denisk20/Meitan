@@ -43,12 +43,12 @@ public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUn
 		Dao<T, Long> dao = getDAO();
 		for (String beanName : beanNames) {
 			T beanFromSpring = (T) applicationContext.getBean(beanName);
-			List resultDBList = dao.findByExample(beanFromSpring);
+			List<T> resultDBList = dao.findByExample(beanFromSpring);
 			int itemsFound = resultDBList.size();
 			if (itemsFound != 1) {
 				fail("Found " + itemsFound + " items using " + beanFromSpring + " as example");
 			}
-			T beanFromDB = (T) resultDBList.get(0);
+			T beanFromDB = resultDBList.get(0);
 			beansFromXml.add(beanFromSpring);
 			beansFromDb.add(beanFromDB);
 		}

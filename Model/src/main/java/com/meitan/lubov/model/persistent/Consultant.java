@@ -65,7 +65,7 @@ public class Consultant extends Client {
 
 		final Consultant that = (Consultant) o;
 
-		if (!joinDate.equals(that.joinDate)) {
+		if (!Long.valueOf(joinDate.getTime()).equals(that.joinDate.getTime())) {
 			return false;
 		}
 		if (!passport.equals(that.passport)) {

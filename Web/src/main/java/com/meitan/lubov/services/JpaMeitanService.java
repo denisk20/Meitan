@@ -1,7 +1,7 @@
 package com.meitan.lubov.services;
 
+import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Product;
-import com.meitan.lubov.model.persistent.ProductCategory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,8 +59,8 @@ public class JpaMeitanService implements MeitanService {
 	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public ArrayList<ProductCategory> getAllCategories() {
-		ArrayList<ProductCategory> result = (ArrayList<ProductCategory>)
+	public ArrayList<Category> getAllCategories() {
+		ArrayList<Category> result = (ArrayList<Category>)
 				em.createNamedQuery("getProductCategories")
 						.getResultList();
 		return result;
