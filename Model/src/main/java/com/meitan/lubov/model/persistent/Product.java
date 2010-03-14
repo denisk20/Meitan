@@ -1,7 +1,8 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Image;
+import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.Price;
+import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "getProductsNew", query = "from Product p where p.new=true"),
 		@NamedQuery(name = "getProductsForCategory", query = "select c.products from Category c where c.id=:categoryId")
 })
-public class Product {
+public class Product extends PersistentOrderableImpl {
 	private long id;
 	private String name;
 	private String description;

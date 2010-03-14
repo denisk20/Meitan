@@ -1,22 +1,13 @@
 package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.Price;
+import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  * Date: Jan 27, 2010
@@ -26,7 +17,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "buying_act")
-public class BuyingAct implements Cloneable {
+public class BuyingAct extends PersistentOrderableImpl implements Cloneable {
 	private long id;
 	private Date date;
 	private Client client;
@@ -66,7 +57,6 @@ public class BuyingAct implements Cloneable {
 		this.date = date;
 	}
 
-	//todo this shouldn't be null in the DB. Add constraint
 	@ManyToOne(targetEntity = Client.class, optional = false)
 	@JoinColumn(name="client_id")
 	public Client getClient() {
