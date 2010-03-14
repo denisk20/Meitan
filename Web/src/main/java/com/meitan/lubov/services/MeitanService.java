@@ -1,8 +1,7 @@
 package com.meitan.lubov.services;
 
 import com.meitan.lubov.model.persistent.Product;
-import com.meitan.lubov.model.persistent.ProductCategory;
-import org.springframework.transaction.annotation.Transactional;
+import com.meitan.lubov.model.persistent.Category;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ public interface MeitanService {
 
 	ArrayList<Product> getProductsForCategory(long categoryId);
 
-	ArrayList<ProductCategory> getAllCategories();
+	ArrayList<Category> getAllCategories();
 
 	void persistProduct(Product product);
 }

@@ -23,16 +23,15 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "getProducts", query = "from Product p"),
 		@NamedQuery(name = "getProductsNew", query = "from Product p where p.new=true"),
-		@NamedQuery(name = "getProductsForCategory", query = "select c.products from ProductCategory c where c.id=:categoryId")
+		@NamedQuery(name = "getProductsForCategory", query = "select c.products from Category c where c.id=:categoryId")
 })
 public class Product {
 	private long id;
 	private String name;
 	private String description;
 	private boolean isNew;
-	private Set<ProductCategory> categories = new HashSet<ProductCategory>();
+	private Set<Category> categories = new HashSet<Category>();
 
 	private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
 	private Set<Image> images = new HashSet<Image>();
@@ -82,11 +81,11 @@ public class Product {
 	}
 
 	@ManyToMany(mappedBy = "products")
-	public Set<ProductCategory> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<ProductCategory> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 
@@ -116,30 +115,27 @@ public class Product {
 		this.price = price;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof Product)) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
 
-		final Product product = (Product) o;
+        Product product = (Product) o;
 
-		if (!name.equals(product.name)) {
-			return false;
-		}
+        if (description != null ? !description.equals(product.description) : product.description != null) return false;
+        if (!name.equals(product.name)) return false;
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public int hashCode() {
-		return name.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
 
-	@Override
+    @Override
 	public String toString() {
 		return "Product{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", isNew=" + isNew  + ", images=" + images + ", price=" + price + '}';
 	}

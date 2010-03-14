@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "buying_act")
-public class BuyingAct {
+public class BuyingAct implements Cloneable {
 	private long id;
 	private Date date;
 	private Client client;
@@ -41,7 +41,12 @@ public class BuyingAct {
 		this.client = client;
 	}
 
-	@Id
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Id
 	@GeneratedValue
 	public long getId() {
 		return id;
@@ -51,8 +56,8 @@ public class BuyingAct {
 		this.id = id;
 	}
 
-	//todo add DB not null constraint
 	@Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
 	public Date getDate() {
 		return date;
 	}
@@ -62,7 +67,7 @@ public class BuyingAct {
 	}
 
 	//todo this shouldn't be null in the DB. Add constraint
-	@ManyToOne(targetEntity = Client.class)
+	@ManyToOne(targetEntity = Client.class, optional = false)
 	@JoinColumn(name="client_id")
 	public Client getClient() {
 		return client;
@@ -90,35 +95,27 @@ public class BuyingAct {
 		this.totalPrice = totalPrice;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (!(o instanceof BuyingAct)) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BuyingAct)) return false;
 
-		final BuyingAct buyingAct = (BuyingAct) o;
+        BuyingAct act = (BuyingAct) o;
 
-		if (!client.equals(buyingAct.client)) {
-			return false;
-		}
-		if (!date.equals(buyingAct.date)) {
-			return false;
-		}
+        if (client != null ? !client.equals(act.client) : act.client != null) return false;
+        if (date != null ? !Long.valueOf(date.getTime()).equals(act.date.getTime()) : act.date != null) return false;
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public int hashCode() {
-		int result = date.hashCode();
-		result = 31 * result + client.hashCode();
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        int result = date != null ? date.hashCode() : 0;
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        return result;
+    }
 
-	@Override
+    @Override
 	public String toString() {
 		return "BuyingAct{" + "id=" + id + ", date=" + date + ", products=" + products + ", totalPrice=" + totalPrice + '}';
 	}

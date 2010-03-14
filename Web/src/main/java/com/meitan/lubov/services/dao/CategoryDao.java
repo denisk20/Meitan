@@ -1,6 +1,6 @@
 package com.meitan.lubov.services.dao;
 
-import com.meitan.lubov.model.persistent.ProductCategory;
+import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.services.dao.Dao;
 
 import java.util.List;
@@ -11,6 +11,5 @@ import java.util.List;
  *
  * @author denisk
  */
-public interface CategoryDao extends Dao<ProductCategory, Long> {
-	List<ProductCategory> getAll();
+public interface CategoryDao extends Dao<Category, Long> {
 }

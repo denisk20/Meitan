@@ -16,17 +16,6 @@
 	<!-- Instructs Spring to perform declarative transaction management on annotated classes -->
 	<tx:annotation-driven/>
 
-<!--
-	<bean id="dbUnitInitializer" class="com.meitan.lubov.DbUnitInitializer">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="dataSetLocations">
-			<list value-type="org.springframework.core.io.Resource">
-				<value>classpath:/dataset1.xml</value>
-			</list>
-		</property>
-	</bean>
--->
-
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver"/>
 		<property name="url" value="${hibernate.connection.url}"/>

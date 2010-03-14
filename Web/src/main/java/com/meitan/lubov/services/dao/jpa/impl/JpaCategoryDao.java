@@ -1,6 +1,6 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
-import com.meitan.lubov.model.persistent.ProductCategory;
+import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import org.springframework.stereotype.Repository;
@@ -17,12 +17,5 @@ import java.util.List;
  */
 @Service("categoryDao")
 @Repository
-public class JpaCategoryDao extends JpaDao<ProductCategory, Long> implements CategoryDao {
-	@Override
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public List<ProductCategory> getAll() {
-		List<ProductCategory> result = em.createNamedQuery("getProductCategories").getResultList();
-		return result;
-	}
+public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDao {
 }
