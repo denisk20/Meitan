@@ -6,6 +6,7 @@ import com.meitan.lubov.services.dao.Dao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -17,29 +18,50 @@ import static org.junit.Assert.assertThat;
  *         Time: 10:27:22
  */
 public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
-    @Autowired
-    private CategoryDao categoryDao;
-    private static final Integer EXPECTED_CATEGORY_COUNT = 1;
+	@Autowired
+	private CategoryDao categoryDao;
+	private static final Integer EXPECTED_CATEGORY_COUNT = 1;
 
-    @Override
-    protected void setUpBeanNames() {
-        beanNames.add("ent_creams");
-    }
+	@Override
+	protected void setUpBeanNames() {
+		beanNames.add("ent_creams");
+	}
 
-    @Override
-    protected Dao<Category, Long> getDAO() {
-        return categoryDao;
-    }
+	@Override
+	protected Dao<Category, Long> getDAO() {
+		return categoryDao;
+	}
 
-    @Override
-    protected void compareAdditionalProperties(Category beanFromSpring, Category beanFromDB) {
-        assertThat(beanFromSpring.getImage(), is(beanFromDB.getImage()));
-        assertThat(beanFromSpring.getProducts(), is(beanFromDB.getProducts()));
-    }
+	@Override
+	protected void compareAdditionalProperties(Category beanFromSpring, Category beanFromDB) {
+		assertThat(beanFromSpring.getImage(), is(beanFromDB.getImage()));
+		assertThat(beanFromSpring.getProducts(), is(beanFromDB.getProducts()));
+	}
 
-    @Test
-    public void testFindAll() {
-        List<Category> all = categoryDao.findAll();
-        assertThat(EXPECTED_CATEGORY_COUNT, is(all.size()));
-    }
+	@Test
+	public void testFindAll() {
+		List<Category> all = categoryDao.findAll();
+		assertThat(EXPECTED_CATEGORY_COUNT, is(all.size()));
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void testNullName() {
+		Category c = beansFromDb.get(0);
+		c.setName(null);
+
+		categoryDao.makePersistent(c);
+		categoryDao.flush();
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void testNonUniqueName() {
+		Category c = beansFromDb.get(0);
+		String name = c.getName();
+
+		Category created = new Category(name);
+
+		categoryDao.makePersistent(created);
+
+		categoryDao.flush();
+	}
 }

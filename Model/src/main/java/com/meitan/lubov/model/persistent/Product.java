@@ -7,6 +7,7 @@ import com.meitan.lubov.model.util.PersistentOrderableImpl;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -55,7 +56,7 @@ public class Product extends PersistentOrderableImpl {
 		this.id = id;
 	}
 
-	//todo add DB unique not null constraint
+	@Column(nullable = false, unique = true)
 	public String getName() {
 		return name;
 	}

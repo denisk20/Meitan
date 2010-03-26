@@ -147,7 +147,7 @@ public class DbunitXmlGenerator {
 			for (Object bean : beans) {
 				if (LOGGER.isDebugEnabled()) {
 					LOGGER.debug("Saving bean " + bean);
-				}					LOGGER.error("Saving bean " + bean);
+				}
 
 				session.saveOrUpdate(bean);
 			}

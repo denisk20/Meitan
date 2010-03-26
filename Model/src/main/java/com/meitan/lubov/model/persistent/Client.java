@@ -6,9 +6,11 @@ import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -22,7 +24,7 @@ import javax.persistence.OneToMany;
  * @author denisk
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Client extends PersistentOrderableImpl {
 	private long id;
 	private Name name;
@@ -41,7 +43,7 @@ public class Client extends PersistentOrderableImpl {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	public long getId() {
 		return id;
 	}
@@ -50,7 +52,6 @@ public class Client extends PersistentOrderableImpl {
 		this.id = id;
 	}
 
-	//todo add DB not null constraint
 	@Embedded
 	public Name getName() {
 		return name;
@@ -69,7 +70,7 @@ public class Client extends PersistentOrderableImpl {
 		this.purchases = purchases;
 	}
 
-	//todo add DB unique not null constraint
+	@Column(nullable = false, unique = true)
 	public String getEmail() {
 		return email;
 	}
