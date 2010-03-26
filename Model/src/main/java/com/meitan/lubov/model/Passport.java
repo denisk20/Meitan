@@ -17,7 +17,7 @@ public class Passport {
 	public Passport() {
 	}
 
-	@Column(name = "passport_series")
+	@Column(name = "passport_series", nullable = false)
 	public String getSeries() {
 		return series;
 	}
@@ -26,7 +26,7 @@ public class Passport {
 		this.series = series;
 	}
 
-	@Column(name = "passport_number")
+	@Column(name = "passport_number", nullable = false)
 	public String getNumber() {
 		return number;
 	}

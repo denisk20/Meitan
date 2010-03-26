@@ -20,7 +20,7 @@ public interface Dao<T, ID extends Serializable> {
 
     void makeTransient(T entity);
 
-    //void flush();
+    void flush();
 
     //void clear();
 

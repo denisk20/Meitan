@@ -17,6 +17,12 @@ public class Name {
 	public Name() {
 	}
 
+	public Name(String firstName, String patronymic, String secondName) {
+		this.firstName = firstName;
+		this.patronymic = patronymic;
+		this.secondName = secondName;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

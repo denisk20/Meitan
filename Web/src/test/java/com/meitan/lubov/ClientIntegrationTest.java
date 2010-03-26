@@ -4,9 +4,11 @@ import com.meitan.lubov.model.Name;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.Dao;
+import org.hibernate.PropertyValueException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -47,6 +49,8 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
         name.setPatronymic("xy");
         name.setSecondName("cd");
 
+		newClient.setEmail("a@b.com");
+
         clientDao.makePersistent(newClient);
 
         List<Client> clients = clientDao.findAll();
@@ -74,4 +78,22 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
         Client reloaded = clientDao.findById(client.getId());
         assertNull(reloaded);
     }
+
+	@Test(expected = PersistenceException.class)
+	public void insertNullableEmail() {
+		Client c = beansFromDb.get(0);
+		c.setEmail(null);
+		clientDao.makePersistent(c);
+		clientDao.flush();
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void insertNonUniqueEmail() {
+		Client c = beansFromDb.get(0);
+		String nonUniqueEmail = c.getEmail();
+
+		Client created = new Client(new Name("first", "second", "third"), nonUniqueEmail);
+		clientDao.makePersistent(created);
+		clientDao.flush();
+	}
 }

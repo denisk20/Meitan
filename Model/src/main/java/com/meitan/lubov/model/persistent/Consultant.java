@@ -4,12 +4,15 @@ import com.meitan.lubov.model.Name;
 import com.meitan.lubov.model.Passport;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Date: Jan 28, 2010
@@ -18,6 +21,7 @@ import javax.persistence.TemporalType;
  * @author denisk
  */
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"passport_series", "passport_number"})})
 public class Consultant extends Client {
 	private Passport passport;
 	private Date joinDate;
@@ -31,7 +35,6 @@ public class Consultant extends Client {
 		this.joinDate = joinDate;
 	}
 
-	//todo add DB unique not null constraint
 	@Embedded
 	public Passport getPassport() {
 		return passport;
@@ -41,7 +44,7 @@ public class Consultant extends Client {
 		this.passport = passport;
 	}
 
-	//todo add DB not null constraint
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getJoinDate() {
 		return joinDate;
