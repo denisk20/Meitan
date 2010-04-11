@@ -4,7 +4,24 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
 	<view-state id="aboutUs">
-		
+        <transition on="viewGoods" to="goods"/>
+		<transition on="about" to="aboutUs"/>
+		<transition on="joinUs" to="join"/>
+	</view-state>
+
+	<view-state id="goods">
+        <on-render>
+            <evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="dataModel" />
+        </on-render>
+        <transition on="viewGoods" to="goods"/>
+		<transition on="about" to="aboutUs"/>
+		<transition on="joinUs" to="join"/>
+	</view-state>
+
+	<view-state id="join">
+        <transition on="viewGoods" to="goods"/>
+		<transition on="about" to="aboutUs"/>
+		<transition on="joinUs" to="join"/>
 	</view-state>
 
 	<end-state id="finish"/>

@@ -4,6 +4,7 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
         xmlns:c="http://java.sun.com/jstl/core"
         xmlns:sf="http://www.springframework.org/tags/faces"
         contentType="text/html" encoding="UTF-8">
@@ -15,10 +16,30 @@
 
     </head>
     <body>
-    <div>Тележка будет тут</div>
+    <div align="right">Тележка будет тут</div>
     <table>
         <tr>
-            <td>Тут будет список ссылок(честно!)</td>
+            <td>
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>
+                                <sf:commandButton id="aboutLink" value="О компании" action="about"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <sf:commandButton id="goodsLink" value="Продукция" action="viewGoods"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <sf:commandButton id="aboutLink" value="Стань консультантом!" action="joinUs"/>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </td>
             <td>
                 <ui:insert name="content"/>
             </td>

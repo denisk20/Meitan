@@ -3,6 +3,7 @@ package com.meitan.lubov.model.persistent;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -20,7 +21,7 @@ import javax.persistence.OneToOne;
  * @author denisk
  */
 @Entity
-public class Category extends PersistentOrderableImpl {
+public class Category extends PersistentOrderableImpl implements Serializable {
 	private long id;
 	private String name;
 	private Image image;

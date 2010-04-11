@@ -45,6 +45,7 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID> 
 	}
 
 	@Override
+    @Transactional
 	public List<T> findAll() {
 		return findByCriteria();
 	}
