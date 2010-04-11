@@ -4,6 +4,7 @@ import com.meitan.lubov.model.Name;
 import com.meitan.lubov.model.Passport;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Client extends PersistentOrderableImpl {
+public class Client extends PersistentOrderableImpl implements Serializable {
 	private long id;
 	private Name name;
 	private String email;

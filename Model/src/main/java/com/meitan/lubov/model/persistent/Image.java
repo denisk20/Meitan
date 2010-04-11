@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Date: Jan 27, 2010
@@ -14,7 +15,7 @@ import javax.persistence.Id;
  * @author denisk
  */
 @Entity
-public class Image extends PersistentOrderableImpl {
+public class Image extends PersistentOrderableImpl implements Serializable {
 	private long id;
 	private String url;
 
