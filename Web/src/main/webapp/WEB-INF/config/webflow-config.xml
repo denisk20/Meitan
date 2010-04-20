@@ -36,4 +36,16 @@
 	<!-- Installs a listener to apply Spring Security authorities -->
 	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000"/>
+		<property name="uploadTempDir" ref="uploadDirResource"/>
+	</bean>
+
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>temp</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>
 </beans>

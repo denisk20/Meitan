@@ -140,6 +140,6 @@ public class Product extends PersistentOrderableImpl implements Serializable {
 
     @Override
 	public String toString() {
-		return "Product{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", isNew=" + isNew  + ", images=" + images + ", price=" + price + '}';
+		return "Product{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", isNew=" + isNew  + ", price=" + price + '}';
 	}
 }

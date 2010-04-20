@@ -1,5 +1,6 @@
 package com.meitan.lubov.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -10,7 +11,7 @@ import javax.persistence.Embeddable;
  * @author denisk
  */
 @Embeddable
-public class Passport {
+public class Passport implements Serializable {
 	private String series;
 	private String number;
 
