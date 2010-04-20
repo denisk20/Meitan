@@ -8,16 +8,18 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-        <h1>Тут будут категории товаров</h1>
+        <h:form>
+            <h1>Тут будут категории товаров</h1>
 
-        <p>Много категорий...</p>
-        <h:dataTable id="categories" value="#{categories}" var="category"
-                     rendered="#{categories.rowCount > 0}">
-            <h:column>
-                <f:facet name="header">Category</f:facet>
-                #{category.name}
-            </h:column>
+            <p>Много категорий...</p>
+            <h:dataTable id="categories" value="#{categories}" var="category"
+                         rendered="#{categories.rowCount > 0}">
+                <h:column>
+                    <f:facet name="header">Category</f:facet>
+                    <sf:commandLink value="#{category.name}" action="selectCategory"/>
+                </h:column>
 
-        </h:dataTable>
+            </h:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>

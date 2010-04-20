@@ -8,13 +8,11 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-            <h1>На этой страничке будет информация о компании</h1>
-        <p>Компания очень интересная и классная!!!</p>
+        <h1>Товары! Самые лучшие!!!</h1>
 
-                <h:form>
-            <p>Новинки!</p>
-            <h:dataTable id="newProducts" value="#{newProducts}" var="product"
-                         rendered="#{newProducts.rowCount > 0}">
+        <h:form>
+            <h:dataTable id="products" value="#{products}" var="product"
+                         rendered="#{products.rowCount > 0}">
                 <h:column>
                     <f:facet name="header">Product</f:facet>
                     <sf:commandLink value="#{product.name}" action="selectGood"/>
@@ -22,6 +20,5 @@
 
             </h:dataTable>
         </h:form>
-
     </ui:define>
 </ui:composition>

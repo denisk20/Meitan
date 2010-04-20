@@ -1,5 +1,6 @@
 package com.meitan.lubov.model;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
@@ -9,7 +10,7 @@ import javax.persistence.Embeddable;
  * @author denisk
  */
 @Embeddable
-public class Name {
+public class Name implements Serializable {
 	private String firstName;
 	private String patronymic;
 	private String secondName;

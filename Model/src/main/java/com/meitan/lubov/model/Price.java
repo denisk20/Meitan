@@ -1,5 +1,6 @@
 package com.meitan.lubov.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,7 +12,7 @@ import javax.persistence.Embeddable;
  * @author denisk
  */
 @Embeddable
-public class Price {
+public class Price implements Serializable {
 	private BigDecimal amount;
 
 	public Price() {
