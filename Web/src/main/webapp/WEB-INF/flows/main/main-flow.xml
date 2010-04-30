@@ -41,16 +41,15 @@
 		<!--</on-render>-->
 	</view-state>
 
-	<view-state id="addCategory">
-		<!--<var name="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>-->
+	<view-state id="addCategory" model="newCategory">
 		<!--<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>-->
-		<!--<transition on="create" to="aboutUs">-->
-			<!--<evaluate expression="categoryDao.makePersistent(newCategory)"/>-->
-		<!--</transition>-->
-
-		<transition on="upload">
-			<evaluate expression="fileUploadHandler.processFile(messageContext, flowRequestContext)"/>
+		<transition on="create" to="aboutUs">
+			<evaluate expression="newCategoryPrototype" result="viewScope.newCategory" result-type="dataModel"/>
 		</transition>
+
+		<!--<transition on="upload">-->
+			<!--<evaluate expression="fileUploadHandler.processFile('category', '12', flowRequestContext)"/>-->
+		<!--</transition>-->
 	</view-state>
 
 	<end-state id="finish"/>
