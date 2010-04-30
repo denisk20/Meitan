@@ -3,10 +3,6 @@
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-	<on-start>
-		<set name="flowScope.uploadBean" value="fileUploadHandler" />
-	</on-start>
-
 	<view-state id="aboutUs">
         <on-render>
             <evaluate expression="productDao.getNew()" result="viewScope.newProducts" result-type="dataModel"/>
@@ -45,7 +41,7 @@
 		<!--</on-render>-->
 	</view-state>
 
-	<view-state id="addCategory" model="fileUploadHandler">
+	<view-state id="addCategory">
 		<!--<var name="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>-->
 		<!--<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>-->
 		<!--<transition on="create" to="aboutUs">-->
