@@ -15,6 +15,7 @@
             <sf:clientTextValidator promptMessage="Enter category name">
                 <h:inputText id="categoryName" value="#{newCategory.name}"/>
             </sf:clientTextValidator>
+            <br/>
             <sf:commandButton id="createCategoryButton" value="Create category!" processIds="*" action="create"/>
         </h:form>
 
