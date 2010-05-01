@@ -19,7 +19,7 @@
         </on-render>
 
 		<transition on="selectCategory" to="goodsListForCategory">
-			<set name="flowScope.category" value="categories.selectedRow"/>
+			<set name="flashScope.category" value="categories.selectedRow"/>
 		</transition>
 	</view-state>
 
@@ -28,7 +28,7 @@
 
 	<view-state id="goodsListForCategory">
 		<on-render>
-			<evaluate expression="productDao.getForCategory(flowScope.category.id)" result="viewScope.products" result-type="dataModel"/>
+			<evaluate expression="productDao.getForCategory(flashScope.category.id)" result="viewScope.products" result-type="dataModel"/>
 		</on-render>
 		<transition on="selectGood" to="good">
 			<set name="flashScope.product" value="products.selectedRow"/>
@@ -41,10 +41,10 @@
 		<!--</on-render>-->
 	</view-state>
 
-	<view-state id="addCategory" model="newCategory">
-		<!--<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>-->
+	<view-state id="addCategory">
+		<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>
 		<transition on="create" to="aboutUs">
-			<evaluate expression="newCategoryPrototype" result="viewScope.newCategory" result-type="dataModel"/>
+			<evaluate expression="categoryDao.makePersistent(viewScope.newCategory)"/>
 		</transition>
 
 		<!--<transition on="upload">-->
