@@ -2,6 +2,7 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    <!--<persistence-context />-->
 
 	<view-state id="aboutUs">
         <on-render>
@@ -14,13 +15,17 @@
 	</view-state>
 
 	<view-state id="categories">
-        <on-render>
+        <on-entry>
             <evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="dataModel"/>
-        </on-render>
+        </on-entry>
 
 		<transition on="selectCategory" to="goodsListForCategory">
 			<set name="flashScope.category" value="categories.selectedRow"/>
 		</transition>
+
+        <transition on="edit" to="editCategory">
+            <set name="flashScope.category" value="categories.selectedRow"/>
+        </transition>
 	</view-state>
 
 	<view-state id="join">
@@ -51,6 +56,20 @@
 			<!--<evaluate expression="fileUploadHandler.processFile('category', '12', flowRequestContext)"/>-->
 		<!--</transition>-->
 	</view-state>
+
+    <!--<view-state id="editCategory" model="category">-->
+        <!--<on-entry>-->
+            <!--<set name="flashScope.category" value="category"/>-->
+        <!--</on-entry>-->
+        <!--<transition on="save" to="categories">-->
+            <!--<evaluate expression="categoryDao.makePersistent(category)"/>-->
+        <!--</transition>-->
+    <!--</view-state>-->
+
+    <subflow-state id="editCategory" subflow="editCategory">
+        <input name="categoryId" value="category.id"/>
+        <transition on="save" to="categories"/>
+    </subflow-state>
 
 	<end-state id="finish"/>
 

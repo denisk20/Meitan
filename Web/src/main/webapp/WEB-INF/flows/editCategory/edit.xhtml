@@ -12,11 +12,11 @@
     <ui:define name="content">
         <h1>Edit category</h1>
         <h:form>
-            <sf:clientTextValidator promptMessage="Enter category name">
-                <h:inputText id="categoryName" value="#{newCategory.name}"/>
+            <sf:clientTextValidator promptMessage="Change the name">
+                <h:inputText id="categoryName" value="#{category.name}"/>
             </sf:clientTextValidator>
             <br/>
-            <sf:commandButton id="createCategoryButton" value="Create category!" processIds="*" action="create"/>
+            <sf:commandButton id="createCategoryButton" value="Save" processIds="*" action="save"/>
         </h:form>
 
 <!--

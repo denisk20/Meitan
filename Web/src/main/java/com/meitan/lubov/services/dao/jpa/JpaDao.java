@@ -13,6 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 /**
  * Date: Mar 1, 2010
@@ -75,8 +76,8 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID> 
 	@Override
 	@Transactional
 	public void makePersistent(T entity) {
-		em.persist(entity);
-	}
+        em.persist(entity);
+    }
 
 	@Override
 	@Transactional
