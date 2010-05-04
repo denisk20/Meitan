@@ -47,7 +47,6 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			}
 			if (!uploadDir.isDirectory()) {
 				throw new IllegalStateException("Upload directory is not a directory: " + UPLOAD_DIR_NAME);
-
 			}
 			//rename it
 			String newName = IMAGE_PREFIX + DELIM + entityName + DELIM + id;
@@ -55,4 +54,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		}
 	}
 
+	public void sayHello() {
+		System.out.printf("Hello!");
+	}
 }
