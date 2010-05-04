@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    <!--<persistence-context />-->
+
+<!--
+	<view-state id="aboutUs">
+&lt;!&ndash;
+        <on-render>
+            <evaluate expression="productDao.getNew()" result="viewScope.newProducts" result-type="dataModel"/>
+        </on-render>
+&ndash;&gt;
+
+		&lt;!&ndash;<transition on="selectGood" to="good">&ndash;&gt;
+			&lt;!&ndash;<set name="flashScope.product" value="newProducts.selectedRow"/>&ndash;&gt;
+		&lt;!&ndash;</transition>&ndash;&gt;
+	</view-state>
+-->
+
+	<subflow-state id="aboutSubflow" subflow="about"/>
+	<subflow-state id="categoriesSubflow" subflow="categories"/>
+	<subflow-state id="joinSubflow" subflow="join"/>
+	<subflow-state id="addCategorySubflow" subflow="addCategory"/>
+	<!--<end-state id="about" view="externalRedirect:contextRelative:/spring/about"/>-->
+
+	<global-transitions>
+		<transition on="about_action" to="aboutSubflow"/>
+		<transition on="browseCategories" to="categoriesSubflow"/>
+		<transition on="joinUs" to="joinSubflow"/>
+		<transition on="addCategory" to="addCategorySubflow"/>
+	</global-transitions>
+
+</flow>
