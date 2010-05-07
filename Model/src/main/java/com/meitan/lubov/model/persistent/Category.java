@@ -1,10 +1,14 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.ImageAware;
+import com.meitan.lubov.model.NameAware;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  * Date: Jan 27, 2010
@@ -21,7 +26,7 @@ import javax.persistence.OneToOne;
  * @author denisk
  */
 @Entity
-public class Category extends PersistentOrderableImpl implements Serializable {
+public class Category extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable {
 	private long id;
 	private String name;
 	private Image image;
@@ -37,7 +42,7 @@ public class Category extends PersistentOrderableImpl implements Serializable {
 
     @Id
 	@GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -70,6 +75,19 @@ public class Category extends PersistentOrderableImpl implements Serializable {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	@Override
+	@Transient
+	public HashSet<Image> getImages() {
+		HashSet<Image> images = new HashSet<Image>();
+		images.add(image);
+		return images;
+	}
+
+	@Override
+	public void addImage(Image image) {
+		setImage(image);
 	}
 
 	@Override

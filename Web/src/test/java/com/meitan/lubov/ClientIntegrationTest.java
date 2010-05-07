@@ -1,10 +1,9 @@
 package com.meitan.lubov;
 
-import com.meitan.lubov.model.Name;
+import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.Dao;
-import org.hibernate.PropertyValueException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

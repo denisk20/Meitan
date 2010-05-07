@@ -1,7 +1,8 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.persistent.Image;
-import com.meitan.lubov.model.Price;
+import com.meitan.lubov.model.ImageAware;
+import com.meitan.lubov.model.NameAware;
+import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "getProductsNew", query = "from Product p where p.new=true"),
 		@NamedQuery(name = "getProductsForCategory", query = "select c.products from Category c where c.id=:categoryId")
 })
-public class Product extends PersistentOrderableImpl implements Serializable {
+public class Product extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable {
 	private long id;
 	private String name;
 	private String description;
@@ -49,7 +50,7 @@ public class Product extends PersistentOrderableImpl implements Serializable {
 
 	@Id
 	@GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -110,6 +111,11 @@ public class Product extends PersistentOrderableImpl implements Serializable {
 		this.images = images;
 	}
 
+	@Override
+	public void addImage(Image image) {
+		images.add(image);
+	}
+
 	public Price getPrice() {
 		return price;
 	}
@@ -117,6 +123,7 @@ public class Product extends PersistentOrderableImpl implements Serializable {
 	public void setPrice(Price price) {
 		this.price = price;
 	}
+
 
     @Override
     public boolean equals(Object o) {

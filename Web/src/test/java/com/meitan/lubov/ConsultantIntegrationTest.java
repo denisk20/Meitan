@@ -1,7 +1,7 @@
 package com.meitan.lubov;
 
-import com.meitan.lubov.model.Name;
-import com.meitan.lubov.model.Passport;
+import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.components.Passport;
 import com.meitan.lubov.model.persistent.Consultant;
 import com.meitan.lubov.services.dao.ConsultantDao;
 import com.meitan.lubov.services.dao.Dao;
