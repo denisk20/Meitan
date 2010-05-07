@@ -11,6 +11,7 @@
         <h1>Товары! Самые лучшие!!!</h1>
 
         <h:form>
+			<sf:commandLink value="Добавить продукт" action="addGood"/> 
             <h:dataTable id="products" value="#{products}" var="product"
                          rendered="#{products.rowCount > 0}">
                 <h:column>

@@ -1,7 +1,7 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Name;
-import com.meitan.lubov.model.Price;
+import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.components.Price;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

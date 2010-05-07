@@ -18,11 +18,12 @@
 	</view-state>
 -->
 
-	<subflow-state id="aboutSubflow" subflow="about"/>
+	<!--<subflow-state id="aboutSubflow" subflow="about"/>-->
 	<subflow-state id="categoriesSubflow" subflow="categories"/>
 	<subflow-state id="joinSubflow" subflow="join"/>
 	<subflow-state id="addCategorySubflow" subflow="addCategory"/>
-	<!--<end-state id="about" view="externalRedirect:contextRelative:/spring/about"/>-->
+	
+	<end-state id="aboutSubflow" view="externalRedirect:servletRelative:/spring/about"/>
 
 	<global-transitions>
 		<transition on="about_action" to="aboutSubflow"/>

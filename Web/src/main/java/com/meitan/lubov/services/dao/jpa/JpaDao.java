@@ -85,6 +85,13 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID> 
 		em.remove(entity);
 	}
 
+	@Override
+	@Transactional
+	public void deleteById(ID id) {
+		T entity = findById(id);
+		makeTransient(entity);
+	}
+
 	public void flush() {
 		em.flush();
 	}

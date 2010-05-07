@@ -46,7 +46,7 @@
 		</property>
 		<property name="new" value="false"/>
 		<property name="price">
-			<bean class="com.meitan.lubov.model.Price">
+			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="20.25"/>
 			</bean>
 		</property>
@@ -104,7 +104,7 @@
 		</property>
 		<property name="new" value="true"/>
 		<property name="price">
-			<bean class="com.meitan.lubov.model.Price">
+			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="40.50"/>
 			</bean>
 		</property>
@@ -164,7 +164,7 @@
 			</set>
 		</property>
 		<property name="totalPrice">
-			<bean class="com.meitan.lubov.model.Price">
+			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="100.03"/>
 			</bean>
 		</property>
@@ -180,7 +180,7 @@
 			</set>
 		</property>
 		<property name="totalPrice">
-			<bean class="com.meitan.lubov.model.Price">
+			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="85.05"/>
 			</bean>
 		</property>
@@ -196,7 +196,7 @@
 			</set>
 		</property>
 		<property name="totalPrice">
-			<bean class="com.meitan.lubov.model.Price">
+			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="122.14"/>
 			</bean>
 		</property>
@@ -205,7 +205,7 @@
 	
 	<bean id="ent_creamAdmier" class="com.meitan.lubov.model.persistent.Consultant">
 		<constructor-arg index="0">
-			<bean class="com.meitan.lubov.model.Name">
+			<bean class="com.meitan.lubov.model.components.Name">
 				<property name="firstName" value="Jim"/>
 				<property name="patronymic" value="Henry"/>
 				<property name="secondName" value="Brown"/>
@@ -213,7 +213,7 @@
 		</constructor-arg>
 		<constructor-arg index="1" value="jim@intel.com"/>
 		<constructor-arg index="2">
-			<bean class="com.meitan.lubov.model.Passport">
+			<bean class="com.meitan.lubov.model.components.Passport">
 				<property name="series" value="МН"/>
 				<property name="number" value="123432"/>
 			</bean>
@@ -280,7 +280,7 @@
 
 	<bean id="ent_creamLover" class="com.meitan.lubov.model.persistent.Client">
 		<constructor-arg index="0">
-			<bean class="com.meitan.lubov.model.Name">
+			<bean class="com.meitan.lubov.model.components.Name">
 				<property name="firstName" value="Mike"/>
 				<property name="patronymic" value="Lesley"/>
 				<property name="secondName" value="Curve"/>

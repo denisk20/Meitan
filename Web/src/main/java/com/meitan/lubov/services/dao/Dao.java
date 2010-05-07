@@ -18,6 +18,8 @@ public interface Dao<T, ID extends Serializable> {
 
     void makePersistent(T entity);
 
+	void deleteById(ID id);
+	
     void makeTransient(T entity);
 
     void flush();

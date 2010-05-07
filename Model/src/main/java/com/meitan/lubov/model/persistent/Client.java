@@ -1,7 +1,7 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Name;
-import com.meitan.lubov.model.Passport;
+import com.meitan.lubov.model.NameAware;
+import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
@@ -89,6 +89,7 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+
 
 	@Override
 	public boolean equals(Object o) {

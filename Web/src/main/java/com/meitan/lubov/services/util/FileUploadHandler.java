@@ -1,5 +1,8 @@
 package com.meitan.lubov.services.util;
 
+import com.meitan.lubov.model.ImageAware;
+import com.meitan.lubov.model.persistent.Image;
+import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,19 +30,34 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 
 	private ServletContext servletContext;
 
+	private static final String JPEG_TYPE = "image/jpeg";
+	private static final String BMP_TYPE = "image/bmp";
+	private static final String GIF_TYPE = "image/gif";
+
+	private static final String ERROR_RESULT = "error";
+	private static final String OK_RESULT = "ok";
+
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
 
-	public void processFile(String entityName, String id, RequestContext requestContext) throws IOException {
+	public void processFile(ImageAware entity, RequestContext requestContext) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
-    	file.getBytes();
 
 		if (file == null) {
 			throw new IllegalArgumentException("File was null");
 		}
 		if (file.getSize() > 0) {
+			String contentType = file.getContentType();
+			if (! (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE))) {
+				requestContext.getMessageContext()
+						.addMessage(new MessageBuilder()
+								.error()
+								.defaultText("Wrong uploaded file type, should be either JPEG or BMP, but was " + contentType)
+								.build());
+				return;
+			}
 			String uploadedFolderPath = servletContext.getRealPath(UPLOAD_DIR_NAME);
 			File uploadDir = new File(uploadedFolderPath);
 			if (!uploadDir.exists()) {
@@ -49,12 +67,38 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 				throw new IllegalStateException("Upload directory is not a directory: " + UPLOAD_DIR_NAME);
 			}
 			//rename it
-			String newName = IMAGE_PREFIX + DELIM + entityName + DELIM + id;
-			file.transferTo(new File(uploadDir, newName));
+			String fileName = file.getOriginalFilename();
+			int dotIndex = fileName.lastIndexOf(".");
+			String originalExtension = fileName.substring(dotIndex + 1);
+			String newName = IMAGE_PREFIX + DELIM + entity.getClass().getSimpleName() + DELIM + entity.getId() + "." + originalExtension;
+			File imageFile = new File(uploadDir, newName);
+			file.transferTo(imageFile);
+
+			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
+			Image image = createImage(imageRelativePath, imageFile.getAbsolutePath());
+
+			addImageToEntity(entity, image);
+		} else {
+			requestContext.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.defaultText("File was empty: " + file.getOriginalFilename())
+							.build());
 		}
+	}
+
+	private void addImageToEntity(ImageAware entity, Image image) {
+		entity.addImage(image);
+	}
+
+	private Image createImage(String imageRelativePath, String imageAbsolutePath) {
+		Image image = new Image(imageRelativePath);
+		image.setAbsolutePath(imageAbsolutePath);
+		return image;
 	}
 
 	public void sayHello() {
 		System.out.printf("Hello!");
 	}
+
 }

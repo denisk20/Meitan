@@ -1,14 +1,12 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Name;
-import com.meitan.lubov.model.Passport;
+import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.components.Passport;
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;

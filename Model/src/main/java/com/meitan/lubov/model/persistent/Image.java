@@ -18,6 +18,7 @@ import java.io.Serializable;
 public class Image extends PersistentOrderableImpl implements Serializable {
 	private long id;
 	private String url;
+	private String absolutePath;
 
 	public Image() {
 	}
@@ -44,6 +45,15 @@ public class Image extends PersistentOrderableImpl implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public String getAbsolutePath() {
+		return absolutePath;
+	}
+
+	public void setAbsolutePath(String absolutePath) {
+		this.absolutePath = absolutePath;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

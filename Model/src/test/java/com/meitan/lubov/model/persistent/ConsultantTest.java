@@ -1,6 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Passport;
+import com.meitan.lubov.model.components.Passport;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

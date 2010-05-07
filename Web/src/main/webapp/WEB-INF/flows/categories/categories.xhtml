@@ -18,6 +18,7 @@
                     <f:facet name="header">Category</f:facet>
                     <sf:commandLink value="#{category.name}" action="selectCategory"/>
                     <sf:commandLink value="[edit]" action="edit"/>
+                    <sf:commandLink value="[delete]" action="delete" processIds="*"/>
                 </h:column>
 
             </h:dataTable>

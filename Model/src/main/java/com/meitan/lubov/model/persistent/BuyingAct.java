@@ -1,10 +1,9 @@
 package com.meitan.lubov.model.persistent;
 
-import com.meitan.lubov.model.Price;
+import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

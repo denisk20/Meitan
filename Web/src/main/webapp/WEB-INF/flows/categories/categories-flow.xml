@@ -16,6 +16,10 @@
 		<transition on="edit" to="editCategory">
 			<set name="flashScope.category" value="categories.selectedRow"/>
 		</transition>
+
+		<transition on="delete" to="categories">
+			<evaluate expression="categoryDao.deleteById(categories.selectedRow.id)"/>
+		</transition>
 	</view-state>
 
 	<subflow-state id="editCategory" subflow="editCategory">
@@ -26,5 +30,5 @@
 	<subflow-state id="goodsListForCategory" subflow="viewGoods">
 		<input name="categoryId" value="category.id"/>
 	</subflow-state>
-	
+
 </flow>

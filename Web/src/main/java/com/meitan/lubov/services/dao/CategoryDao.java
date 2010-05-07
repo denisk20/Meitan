@@ -12,4 +12,5 @@ import java.util.List;
  * @author denisk
  */
 public interface CategoryDao extends Dao<Category, Long> {
+	void dropImage(Category c);
 }

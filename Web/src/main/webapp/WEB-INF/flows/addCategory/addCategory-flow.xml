@@ -25,9 +25,6 @@
 			<evaluate expression="categoryDao.makePersistent(viewScope.newCategory)"/>
 		</transition>
 
-		<!--<transition on="upload">-->
-			<!--<evaluate expression="fileUploadHandler.processFile('category', '12', flowRequestContext)"/>-->
-		<!--</transition>-->
 	</view-state>
 
 	<subflow-state id="aboutUs" subflow="about"/>
