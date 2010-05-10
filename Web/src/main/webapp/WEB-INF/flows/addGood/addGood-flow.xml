@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+		parent="global">
+
+	<view-state id="addGood">
+		<var name="newGood" class="com.meitan.lubov.model.persistent.Product"/>
+
+		<transition on="create" to="end">
+			<evaluate expression="productDao.makePersistent(viewScope.newGood)"/>
+		</transition>
+
+		<transition on="create" to="end"/>
+	</view-state>
+
+	<end-state id="end"/>
+</flow>
