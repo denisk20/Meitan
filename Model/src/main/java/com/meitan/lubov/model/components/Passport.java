@@ -1,4 +1,4 @@
-package com.meitan.lubov.model;
+package com.meitan.lubov.model.components;
 
 import java.io.Serializable;
 import javax.persistence.Column;
