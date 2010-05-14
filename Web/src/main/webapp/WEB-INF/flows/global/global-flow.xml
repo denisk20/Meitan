@@ -19,17 +19,19 @@
 -->
 
 	<!--<subflow-state id="aboutSubflow" subflow="about"/>-->
-	<subflow-state id="categoriesSubflow" subflow="categories"/>
-	<subflow-state id="joinSubflow" subflow="join"/>
-	<subflow-state id="addCategorySubflow" subflow="addCategory"/>
+	<!--<subflow-state id="categoriesSubflow" subflow="categories"/>-->
+	<!--<subflow-state id="joinSubflow" subflow="join"/>-->
+	<!--<subflow-state id="addCategorySubflow" subflow="addCategory"/>-->
 	
-	<end-state id="aboutSubflow" view="externalRedirect:servletRelative:/spring/about"/>
+	<end-state id="aboutFlow" view="flowRedirect:about"/>
+	<end-state id="joinFlow" view="flowRedirect:join"/>
+	<end-state id="categoriesFlow" view="flowRedirect:categories"/>
 
 	<global-transitions>
-		<transition on="about_action" to="aboutSubflow"/>
-		<transition on="browseCategories" to="categoriesSubflow"/>
-		<transition on="joinUs" to="joinSubflow"/>
-		<transition on="addCategory" to="addCategorySubflow"/>
+		<transition on="about_action" to="aboutFlow"/>
+		<transition on="browseCategories" to="categoriesFlow"/>
+		<transition on="joinUs" to="joinFlow"/>
+		<!--<transition on="addCategory" to="addCategorySubflow"/>-->
 	</global-transitions>
 
 </flow>

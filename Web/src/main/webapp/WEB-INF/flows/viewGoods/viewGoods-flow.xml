@@ -15,14 +15,18 @@
 		</transition>
 
 		<transition on="addGood" to="addGoodSubflow"/>
+		<transition on="back" to="back"/> 
 	</view-state>
 
 	<subflow-state id="goodSubflow" subflow="good">
 		<input name="goodId" value="product.id"/>
+		<transition to="goodsListForCategory"/>
 	</subflow-state>
 
 	<subflow-state id="addGoodSubflow" subflow="addGood">
 		<input name="categoryId" value="categoryId"/>
+		<transition to="goodsListForCategory"/>
 	</subflow-state>
 
+	<end-state id="back"/>
 </flow>

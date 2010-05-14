@@ -10,6 +10,8 @@
 		<on-render>
 			<evaluate expression="fileUploadHandler.sayHello()"/>
 		</on-render>
+		<transition on="back" to="back"/>
 	</view-state>
 
+	<end-state id="back"/>
 </flow>

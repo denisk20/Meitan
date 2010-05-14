@@ -10,7 +10,7 @@
     <ui:define name="content">
         <h:form>
             <h1>Тут будут категории товаров</h1>
-
+<h1>Just created category name: #{createdCategoryName}</h1>
             <p>Много категорий...</p>
             <h:dataTable id="categories" value="#{categories}" var="category"
                          rendered="#{categories.rowCount > 0}">
@@ -22,6 +22,8 @@
                 </h:column>
 
             </h:dataTable>
+
+			<sf:commandButton value="Add new category" action="add"/>
         </h:form>
     </ui:define>
 </ui:composition>
