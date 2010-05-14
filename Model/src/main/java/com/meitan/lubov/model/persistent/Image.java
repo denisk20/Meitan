@@ -79,6 +79,10 @@ public class Image extends PersistentOrderableImpl implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Image{" + "url='" + url + '\'' + '}';
+		return "Image{" +
+				"id=" + id +
+				", url='" + url + '\'' +
+				", absolutePath='" + absolutePath + '\'' +
+				'}';
 	}
 }

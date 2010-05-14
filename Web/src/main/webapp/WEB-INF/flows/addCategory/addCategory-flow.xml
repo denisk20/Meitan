@@ -16,18 +16,18 @@
 		</transition>
 	</view-state>
 -->
+	<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>
 
 
 	<view-state id="addCategory">
-		<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>
 
-		<transition on="create" to="aboutUs">
-			<evaluate expression="categoryDao.makePersistent(viewScope.newCategory)"/>
+		<transition on="create" to="categoryCreated">
+			<evaluate expression="categoryDao.makePersistent(newCategory)"/>
 		</transition>
 
+		<transition on="cancel" to="cancelled"/>
 	</view-state>
 
-	<subflow-state id="aboutUs" subflow="about"/>
     <!--<view-state id="editCategory" model="category">-->
         <!--<on-entry>-->
             <!--<set name="flashScope.category" value="category"/>-->
@@ -39,4 +39,9 @@
 
 	<!--<subflow-state id="aboutUs" subflow=""-->
 
+	<end-state id="categoryCreated" commit="true">
+		<output name="createdCategoryName" value="newCategory.name"/>
+	</end-state>
+
+	<end-state id="cancelled"/>
 </flow>

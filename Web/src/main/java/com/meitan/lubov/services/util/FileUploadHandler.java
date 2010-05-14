@@ -54,7 +54,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 				requestContext.getMessageContext()
 						.addMessage(new MessageBuilder()
 								.error()
-								.defaultText("Wrong uploaded file type, should be either JPEG or BMP, but was " + contentType)
+								.defaultText("Wrong uploaded file type, should be either JPEG, BMP or GIF, but was " + contentType)
 								.build());
 				return;
 			}
@@ -77,6 +77,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
 			Image image = createImage(imageRelativePath, imageFile.getAbsolutePath());
 
+			removeExistingImage(entity);
 			addImageToEntity(entity, image);
 		} else {
 			requestContext.getMessageContext()
@@ -85,6 +86,10 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 							.defaultText("File was empty: " + file.getOriginalFilename())
 							.build());
 		}
+	}
+
+	private void removeExistingImage(ImageAware entity) {
+		//To change body of created methods use File | Settings | File Templates.
 	}
 
 	private void addImageToEntity(ImageAware entity, Image image) {

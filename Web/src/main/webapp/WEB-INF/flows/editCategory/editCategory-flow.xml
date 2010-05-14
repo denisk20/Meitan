@@ -22,11 +22,14 @@
 			<evaluate expression="categoryDao.makePersistent(category)"/>
 		</transition>
 
-		<transition on="delete" to="edit">
+		<transition on="delete" to="save">
 			<evaluate expression="categoryDao.dropImage(category)"/>
 		</transition>
+
+		<transition on="back" to="cancel"/>
 	</view-state>
 
 
 	<end-state id="save" commit="true"/>
+	<end-state id="cancel"/>
 </flow>

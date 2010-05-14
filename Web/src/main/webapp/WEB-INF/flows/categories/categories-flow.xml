@@ -20,15 +20,22 @@
 		<transition on="delete" to="categories">
 			<evaluate expression="categoryDao.deleteById(categories.selectedRow.id)"/>
 		</transition>
+
+		<transition on="add" to="addCategory"/>
 	</view-state>
 
 	<subflow-state id="editCategory" subflow="editCategory">
 		<input name="categoryId" value="category.id"/>
-		<transition on="save" to="categories"/>
+		<transition to="categories"/>
 	</subflow-state>
 
 	<subflow-state id="goodsListForCategory" subflow="viewGoods">
 		<input name="categoryId" value="category.id"/>
+		<transition to="categories"/>
 	</subflow-state>
 
+	<subflow-state id="addCategory" subflow="addCategory">
+		<output name="createdCategoryName"/>
+		<transition to="categories"/>
+	</subflow-state>
 </flow>
