@@ -7,9 +7,9 @@
 	<input name="categoryId" required="true"/>
 
 	<view-state id="goodsListForCategory">
-		<on-render>
+		<on-entry>
 			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>
-		</on-render>
+		</on-entry>
 		<transition on="selectGood" to="goodSubflow">
 			<set name="flashScope.product" value="products.selectedRow"/>
 		</transition>

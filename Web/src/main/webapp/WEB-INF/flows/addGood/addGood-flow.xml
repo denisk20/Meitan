@@ -4,6 +4,8 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
+    <persistence-context/>
+    
 	<var name="newGood" class="com.meitan.lubov.model.persistent.Product"/>
 
 	<view-state id="addGood">
@@ -16,6 +18,7 @@
 		</transition>
 
 		<transition on="back" to="back"/>
+        
 	</view-state>
 
 	<end-state id="create" commit="true"/>
