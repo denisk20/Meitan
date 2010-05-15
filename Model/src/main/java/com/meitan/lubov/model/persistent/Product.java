@@ -8,16 +8,7 @@ import com.meitan.lubov.model.util.PersistentOrderableImpl;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Date: Jan 27, 2010
@@ -36,8 +27,18 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 	private String description;
 	private boolean isNew;
 	private Set<Category> categories = new HashSet<Category>();
+    private Object[] categoriesIdArray;
 
-	private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
+    @Transient
+    public Object[] getCategoriesIdArray() {
+        return categoriesIdArray;
+    }
+
+    public void setCategoriesIdArray(Object[] categoriesArray) {
+        this.categoriesIdArray = categoriesArray;
+    }
+
+    private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
 	private Set<Image> images = new HashSet<Image>();
 	private Price price;
 

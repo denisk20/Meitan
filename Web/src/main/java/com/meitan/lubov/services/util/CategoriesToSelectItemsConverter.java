@@ -15,7 +15,7 @@ import java.util.List;
 public class CategoriesToSelectItemsConverter implements Converter {
 	@Override
 	public Class getSourceClass() {
-		return Object.class;
+		return ArrayList.class;
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class CategoriesToSelectItemsConverter implements Converter {
 			for (Category c : categories) {
 				SelectItem it = new SelectItem();
 				it.setLabel(c.getName());
-				it.setValue(c);
+				it.setValue(c.getId());
 				result.add(it);
 			}
 		}

@@ -22,24 +22,12 @@
 
 			<h:selectBooleanCheckbox value="#{newGood.new}"/>
 
-			<h:selectManyListbox value="#{newGood.categories}">
-				<f:selectItems value="#{categories}"/>
-<!--
-				<ui:repeat value="#{categories}" var="category">
-					<f:selectItem itemLabel="#{category.name}" itemValue="#{category.id}" value=""/>
-				</ui:repeat>
--->
+			<h:selectManyListbox value="#{newGood.categoriesIdArray}" >
+                <f:selectItems value="#{categories}"/>
 			</h:selectManyListbox>
 
             <sf:commandButton value="Create product!" processIds="*" action="create"/>
 
-<!--
-			<ui:repeat value="#{categories}" var="category">
-				#{category.name}
-				<br/>
-				#{category.id}
-			</ui:repeat>
--->
 
         </h:form>
 

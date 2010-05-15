@@ -1,8 +1,13 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
+import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Product;
+import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +23,10 @@ import java.util.ArrayList;
 @Service("productDao")
 @Repository
 public class JpaProductDao extends JpaDao<Product, Long> implements ProductDao {
+
+private final Log log = LogFactory.getLog(getClass());
+    @Autowired
+    private CategoryDao categoryDao;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -38,4 +47,24 @@ public class JpaProductDao extends JpaDao<Product, Long> implements ProductDao {
 						.getResultList();
 		return result;
 	}
+
+    @Override
+    public void makePersistent(Product entity) {
+        Object[] categoryIds = entity.getCategoriesIdArray();
+
+        super.makePersistent(entity);
+        if (categoryIds != null) {
+            for (Object o : categoryIds) {
+                Long id = Long.parseLong((String) o);
+                Category c = categoryDao.findById(id);
+                entity.getCategories().add(c);
+                c.getProducts().add(entity);
+                categoryDao.makePersistent(c);
+            }
+        } else {
+            log.info("CategoriesIdArray was empty for product " + entity);
+        }
+    }
+
+    
 }
