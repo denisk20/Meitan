@@ -9,7 +9,11 @@
                 xmlns:form="http://www.springframework.org/tags/form"
                 xmlns:j4j="http://javascript4jsf.dev.java.net/"
                 template="/WEB-INF/templates/meitan-subflow.xhtml">
-    <sf:includeScripts/>
+    <ui:define name="header">
+        <!--<script type="text/javascript" src="/WEB-INF/js/jquery-1.4.min.js"></script>-->
+        <sf:resource path="/js/jquery-1.4.js"/>
+
+    </ui:define>
     <ui:define name="content">
         <h1>Add Product</h1>
         <h:form>
@@ -17,48 +21,56 @@
                 <h:inputText value="#{newGood.name}"/>
             </sf:clientTextValidator>
             <br/>
-			<sf:clientTextValidator promptMessage="Enter good description">
-				<h:inputText value="#{newGood.description}"/>
-			</sf:clientTextValidator>
+            <sf:clientTextValidator promptMessage="Enter good description">
+                <h:inputText value="#{newGood.description}"/>
+            </sf:clientTextValidator>
 
-			<h:selectBooleanCheckbox value="#{newGood.new}"/>
+            <h:selectBooleanCheckbox value="#{newGood.new}"/>
 
-            <h:selectManyListbox id="availableCategories" required="true">
+            <h:selectManyListbox id="availableCategoriesListbox">
                 <f:selectItems value="#{categories}"/>
-                <j4j:idProxy id="_avCat" />
+                <j4j:idProxy id="_avCat"/>
             </h:selectManyListbox>
-            <a href="#" id="addCategories">Add categories</a>
+            <a href="#" id="addCategoriesLink">Add categories</a>
 
-            <h:selectManyListbox id="selectedCategories" value="#{newGood.categoriesIdArray}">
-                <j4j:idProxy id="_selCat"></j4j:idProxy>
+            <h:selectManyListbox id="selectedCategoriesListbox" value="#{newGood.categoriesIdArray}" immediate="true">
+                <j4j:idProxy id="_selCat"/>
             </h:selectManyListbox>
-            <a href="#" id="removeCategories">Remove categories</a>
 
-            <a href="#" id="test" onclick="alert(document.getElementById('_avCat').title)">test</a>
-<!--
-            <h:selectManyListbox value="#{newGood.categoriesIdArray}" >
-                <f:selectItems value="#{categories}"/>
-			</h:selectManyListbox>
--->
+            <a href="#" id="removeCategoriesLink">Remove categories</a>
+
+            <div id="testDiv">This is a test</div>
+            <script type="text/javascript">
+                function myAlert() {
+                    alert($("#testDiv").html());
+                }
+            </script>
+
+            <a href="#" id="test" onclick="myAlert()">test</a>
+            <!--
+                        <h:selectManyListbox value="#{newGood.categoriesIdArray}" >
+                            <f:selectItems value="#{categories}"/>
+                        </h:selectManyListbox>
+            -->
 
             <sf:commandButton value="Create product!" processIds="*" action="create"/>
 
             <script type="text/javascript">
-                $(document).ready(function(){
-                    var availableCatId=document.getElementById("_avCat").title;
+                $(document).ready(function() {
+                    var availableCategoriesListId = document.getElementById("_avCat").title;
+                    var selectedCategoriesListId = document.getElementById("_selCat").title;
 
-                    alert(document.getElementById("_avCat").title)
-                    document.getElementById(availableCatId).click(function() {
-                        $("#availableCategories option:selected").each(function(el){
-                            $(this).appendTo("#selectedCategories");
-                        })
+                    $("#addCategoriesLink").click(function() {
+                        return ! $("#" + (availableCategoriesListId).replace(":", "\\:") + " option:selected").remove().appendTo("#" + (selectedCategoriesListId).replace(":", "\\:"));
                     })
-                    var selectedCatId=document.getElementById("_selCat").title;
-                     document.getElementById(selectedCatId).click(function() {
-                        $("#selectedCategories option:selected").each(function(el){
-                            $(this).appendTo("#availableCategories");
-                        })
+                    $("#removeCategoriesLink").click(function() {
+                        return ! $("#" + selectedCategoriesListId.replace(":", "\\:") + " option:selected").remove().appendTo("#" + (availableCategoriesListId).replace(":", "\\:"));
                     })
+                    $('form').submit(function() {
+                        $("#" + selectedCategoriesListId.replace(":", "\\:") + ' option').each(function(i) {
+                            $(this).attr("selected", "selected");
+                        });
+                    });
                 })
             </script>
 

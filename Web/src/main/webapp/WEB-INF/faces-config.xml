@@ -4,10 +4,12 @@
         "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
 
 <faces-config>
+<!--
     <component>
         <component-type>org.j4j.idProxy</component-type>
         <component-class>org.j4j.components.UIIDProxy</component-class>
     </component>
+-->
 
     <application>
         <!-- Enables Facelets -->
