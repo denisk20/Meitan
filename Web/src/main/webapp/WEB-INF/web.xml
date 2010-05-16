@@ -31,6 +31,10 @@
   		<param-value>1</param-value>
   	</context-param>
 
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/j4j.taglib.xml</param-value>
+    </context-param>
 	<!-- Enforce UTF-8 Character Encoding -->
 	<filter>
         <filter-name>charEncodingFilter</filter-name>
