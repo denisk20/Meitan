@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd 
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	   ">
+
+	<context:component-scan base-package="com.meitan.lubov.services"/>
+	<!-- Instructs Spring to perform declarative transaction management on annotated classes -->
+	<tx:annotation-driven/>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver"/>
+		<property name="url" value="${hibernate.connection.url}"/>
+		<property name="username" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+
+	<!-- Drives transactions using local JPA APIs -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+	<!-- Creates a EntityManagerFactory for use with the Hibernate JPA provider and a simple in-memory data source populated with test data -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.connection.url">${hibernate.connection.url}</prop>
+				<prop key="hibernate.connection.username">${hibernate.connection.username}</prop>
+				<prop key="hibernate.connection.password">${hibernate.connection.password}</prop>
+			</props>
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="persistenceUnitManager">
+			<bean class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+				<property name="persistenceXmlLocation" value="file:${MEITAN_HOME}/Web/src/test/resources/META-INF/persistence.xml"/>
+<!--
+				<property name="resourceLoader">
+					<bean class="org.springframework.core.io.FileSystemResource">
+						<constructor-arg index="0" value="file:${MEITAN_PROPS}/hibernate.properties"/>
+					</bean>
+				</property>
+-->
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="customEditorConfigurer"
+		  class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date">
+					<bean class="org.springframework.beans.propertyeditors.CustomDateEditor">
+						<constructor-arg index="0">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg value="MM/dd/yy"/>
+							</bean>
+						</constructor-arg>
+						<constructor-arg index="1" value="false"/>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="propertyConfigurer"
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
+		<property name="searchSystemEnvironment" value="true"/>
+		<property name="locations">
+			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
+		</property>
+	</bean>
+
+</beans>

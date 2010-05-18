@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+		parent="global">
+    <!--<persistence-context />-->
+
+<!--
+	<view-state id="aboutUs">
+        <on-render>
+            <evaluate expression="productDao.getNew()" result="viewScope.newProducts" result-type="dataModel"/>
+        </on-render>
+
+		<transition on="selectGood" to="good">
+			<set name="flashScope.product" value="newProducts.selectedRow"/>
+		</transition>
+	</view-state>
+-->
+	<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>
+
+
+	<view-state id="addCategory">
+
+		<transition on="create" to="categoryCreated">
+			<evaluate expression="categoryDao.makePersistent(newCategory)"/>
+		</transition>
+
+		<transition on="cancel" to="cancelled"/>
+	</view-state>
+
+    <!--<view-state id="editCategory" model="category">-->
+        <!--<on-entry>-->
+            <!--<set name="flashScope.category" value="category"/>-->
+        <!--</on-entry>-->
+        <!--<transition on="save" to="categories">-->
+            <!--<evaluate expression="categoryDao.makePersistent(category)"/>-->
+        <!--</transition>-->
+    <!--</view-state>-->
+
+	<!--<subflow-state id="aboutUs" subflow=""-->
+
+	<end-state id="categoryCreated" commit="true">
+		<output name="createdCategoryName" value="newCategory.name"/>
+	</end-state>
+
+	<end-state id="cancelled"/>
+</flow>

@@ -1,0 +1,29 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				template="/WEB-INF/templates/meitan.xhtml">
+
+	<ui:define name="content">
+		<h1>На этой страничке будет информация о компании</h1>
+
+		<p>Компания очень интересная и классная!!!</p>
+
+		<h:form>
+			<p>Новинки!!</p>
+			<img src="/uploaded/ava.jpg" alt="Denis should be here"/>
+			<h:dataTable id="newProducts" value="#{newProducts}" var="product"
+						 rendered="#{newProducts.rowCount > 0}">
+				<h:column>
+					<f:facet name="header">Product</f:facet>
+					<sf:commandLink value="#{product.name}" action="selectGood"/>
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,31 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                template="/WEB-INF/templates/meitan.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <h1>Тут будут категории товаров</h1>
+<h1>Just created category name: #{createdCategoryName}</h1>
+            <p>Много категорий...</p>
+			<sf:commandLink value="Добавить продукт" action="addGood"/>
+			<br/>
+            <h:dataTable id="categories" value="#{categories}" var="category"
+                         rendered="#{categories.rowCount > 0}">
+                <h:column>
+                    <f:facet name="header">Category</f:facet>
+                    <sf:commandLink value="#{category.name}" action="selectCategory"/>
+                    <sf:commandLink value="[edit]" action="edit"/>
+                    <sf:commandLink value="[delete]" action="delete" processIds="*"/>
+                </h:column>
+
+            </h:dataTable>
+
+			<sf:commandButton value="Add new category" action="add"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

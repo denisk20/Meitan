@@ -1,0 +1,25 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                template="/WEB-INF/templates/meitan-subflow.xhtml">
+
+    <ui:define name="content">
+        <h1>Товары! Самые лучшие!!!</h1>
+
+        <h:form>
+            <h:dataTable id="products" value="#{products}" var="product"
+                         rendered="#{products.rowCount > 0}">
+                <h:column>
+                    <f:facet name="header">Product</f:facet>
+                    <sf:commandLink value="#{product.name}" action="selectGood"/>
+                </h:column>
+
+            </h:dataTable>
+			<sf:commandButton value="Back" action="back"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

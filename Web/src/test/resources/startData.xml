@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="ent_megaCream" class="com.meitan.lubov.model.persistent.Product">
+		<constructor-arg index="0" value="Mega Cream"/>
+		<property name="description" value="Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		Cool cream! Cool cream! Cool cream! Cool cream! Cool cream!
+		"/>
+		<property name="categories">
+			<set>
+				<ref bean="ent_creams"/>
+			</set>
+		</property>
+		<property name="images">
+			<set>
+				<ref bean="ent_megaCreamImageFront"/>
+				<ref bean="ent_megaCreamImageProfile"/>
+			</set>
+		</property>
+		<property name="new" value="false"/>
+		<property name="price">
+			<bean class="com.meitan.lubov.model.components.Price">
+				<property name="amount" value="20.25"/>
+			</bean>
+		</property>
+		<property name="purchases">
+			<set>
+				<ref bean="ent_purchase1"/>
+				<ref bean="ent_purchase2"/>
+			</set>
+		</property>
+        <property name="order" value="1"/>
+
+    </bean>
+
+	<bean id="ent_gigaCream" class="com.meitan.lubov.model.persistent.Product">
+		<constructor-arg index="0" value="Giga Cream"/>
+		<property name="description" value="This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		This cream is reaaaaly something!!! This cream is reaaaaly something!!!This cream is reaaaaly something!!!
+		"/>
+		<property name="categories">
+			<set>
+				<ref bean="ent_creams"/>
+			</set>
+		</property>
+		<property name="images">
+			<set>
+				<ref bean="ent_gigaCreamImageFront"/>
+				<ref bean="ent_gigaCreamImageProfile"/>
+			</set>
+		</property>
+		<property name="new" value="true"/>
+		<property name="price">
+			<bean class="com.meitan.lubov.model.components.Price">
+				<property name="amount" value="40.50"/>
+			</bean>
+		</property>
+		<property name="purchases">
+			<set>
+				<ref bean="ent_purchase1"/>
+				<ref bean="ent_purchase3"/>
+			</set>
+		</property>
+        <property name="order" value="1"/>
+    </bean>
+
+	<bean id="ent_creams" class="com.meitan.lubov.model.persistent.Category">
+		<constructor-arg index="0" value="Creams"/>
+		<property name="image" ref="ent_creamsImage"/>
+		<property name="products">
+			<set>
+				<ref bean="ent_megaCream"/>
+				<ref bean="ent_gigaCream"/>
+			</set>
+		</property>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_creamsImage" class="com.meitan.lubov.model.persistent.Image">
+		<property name="url" value="path/to/creams/image.jpeg"/>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
+		<property name="url" value="path/to/creams/megacreamimagefront.jpeg"/>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_megaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
+		<property name="url" value="path/to/creams/megacreamimageprofile.jpeg"/>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_gigaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
+		<property name="url" value="path/to/creams/gigacreamimagefront.jpeg"/>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_gigaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
+		<property name="url" value="path/to/creams/gigacreamimageprofile.jpeg"/>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_purchase1" class="com.meitan.lubov.model.persistent.BuyingAct" depends-on="ent_creamAdmier">
+		<constructor-arg index="0" value="10/26/2008"/>
+		<constructor-arg index="1" ref="ent_creamAdmier"/>
+		<property name="products">
+			<set>
+				<ref bean="ent_megaCream"/>
+				<ref bean="ent_gigaCream"/>
+			</set>
+		</property>
+		<property name="totalPrice">
+			<bean class="com.meitan.lubov.model.components.Price">
+				<property name="amount" value="100.03"/>
+			</bean>
+		</property>
+        <property name="order" value="2"/>
+	</bean>
+
+	<bean id="ent_purchase2" class="com.meitan.lubov.model.persistent.BuyingAct">
+		<constructor-arg index="0" value="01/12/2010"/>
+		<constructor-arg index="1" ref="ent_creamLover"/>
+		<property name="products">
+			<set>
+				<ref bean="ent_megaCream"/>
+			</set>
+		</property>
+		<property name="totalPrice">
+			<bean class="com.meitan.lubov.model.components.Price">
+				<property name="amount" value="85.05"/>
+			</bean>
+		</property>
+        <property name="order" value="2"/>
+    </bean>
+
+	<bean id="ent_purchase3" class="com.meitan.lubov.model.persistent.BuyingAct" depends-on="ent_creamLover">
+		<constructor-arg index="0" value="12/31/2009"/>
+		<constructor-arg index="1" ref="ent_creamLover"/>
+		<property name="products">
+			<set>
+				<ref bean="ent_gigaCream"/>
+			</set>
+		</property>
+		<property name="totalPrice">
+			<bean class="com.meitan.lubov.model.components.Price">
+				<property name="amount" value="122.14"/>
+			</bean>
+		</property>
+        <property name="order" value="2"/>
+	</bean>
+	
+	<bean id="ent_creamAdmier" class="com.meitan.lubov.model.persistent.Consultant">
+		<constructor-arg index="0">
+			<bean class="com.meitan.lubov.model.components.Name">
+				<property name="firstName" value="Jim"/>
+				<property name="patronymic" value="Henry"/>
+				<property name="secondName" value="Brown"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="1" value="jim@intel.com"/>
+		<constructor-arg index="2">
+			<bean class="com.meitan.lubov.model.components.Passport">
+				<property name="series" value="МН"/>
+				<property name="number" value="123432"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="3" value="01/25/2008"/>
+		<property name="notes" value="This client is very cool.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		"/>
+		<property name="purchases">
+			<set>
+				<ref bean="ent_purchase1"/>
+			</set>
+		</property>
+        <property name="order" value="1"/>
+	</bean>
+
+	<bean id="ent_creamLover" class="com.meitan.lubov.model.persistent.Client">
+		<constructor-arg index="0">
+			<bean class="com.meitan.lubov.model.components.Name">
+				<property name="firstName" value="Mike"/>
+				<property name="patronymic" value="Lesley"/>
+				<property name="secondName" value="Curve"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="1" value="mike@intel.com"/>
+		<property name="email" value="mike@intel.com"/>
+		<property name="notes" value="This client is very cool.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
+		"/>
+
+		<property name="purchases">
+			<set>
+				<ref bean="ent_purchase2"/>
+				<ref bean="ent_purchase3"/>
+			</set>
+		</property>
+        <property name="order" value="1"/>
+	</bean>
+
+</beans>
