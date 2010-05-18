@@ -22,6 +22,8 @@
 		</transition>
 
 		<transition on="add" to="addCategory"/>
+
+		<transition on="addGood" to="addGoodSubflow"/>
 	</view-state>
 
 	<subflow-state id="editCategory" subflow="editCategory">
@@ -38,4 +40,9 @@
 		<output name="createdCategoryName"/>
 		<transition to="categories"/>
 	</subflow-state>
+	
+	<subflow-state id="addGoodSubflow" subflow="addGood">
+		<transition to="categories"/>
+	</subflow-state>
+
 </flow>

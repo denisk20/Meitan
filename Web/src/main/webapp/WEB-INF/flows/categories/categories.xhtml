@@ -12,6 +12,8 @@
             <h1>Тут будут категории товаров</h1>
 <h1>Just created category name: #{createdCategoryName}</h1>
             <p>Много категорий...</p>
+			<sf:commandLink value="Добавить продукт" action="addGood"/>
+			<br/>
             <h:dataTable id="categories" value="#{categories}" var="category"
                          rendered="#{categories.rowCount > 0}">
                 <h:column>
