@@ -13,4 +13,6 @@ public interface ImageAware extends IdAware {
 	Set<Image> getImages();
 
 	void addImage(Image image);
+
+	void removeImage(Image image);
 }

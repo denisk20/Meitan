@@ -3,18 +3,14 @@ package com.meitan.lubov.services.util;
 import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.persistent.Image;
 import org.springframework.binding.message.MessageBuilder;
-import org.springframework.binding.message.MessageContext;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.webflow.action.AbstractAction;
-import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Date: Apr 19, 2010
@@ -42,7 +38,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		this.servletContext = servletContext;
 	}
 
-	public void processFile(ImageAware entity, RequestContext requestContext) throws IOException {
+	public Image processFile(ImageAware entity, RequestContext requestContext) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
 		if (file == null) {
@@ -56,7 +52,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 								.error()
 								.defaultText("Wrong uploaded file type, should be either JPEG, BMP or GIF, but was " + contentType)
 								.build());
-				return;
+				return null;
 			}
 			String uploadedFolderPath = servletContext.getRealPath(UPLOAD_DIR_NAME);
 			File uploadDir = new File(uploadedFolderPath);
@@ -77,19 +73,17 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
 			Image image = createImage(imageRelativePath, imageFile.getAbsolutePath());
 
-			removeExistingImage(entity);
 			addImageToEntity(entity, image);
+
+			return image;
 		} else {
 			requestContext.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
 							.defaultText("File was empty: " + file.getOriginalFilename())
 							.build());
+			return null;
 		}
-	}
-
-	private void removeExistingImage(ImageAware entity) {
-		//To change body of created methods use File | Settings | File Templates.
 	}
 
 	private void addImageToEntity(ImageAware entity, Image image) {

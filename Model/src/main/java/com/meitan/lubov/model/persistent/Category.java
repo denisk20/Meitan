@@ -4,6 +4,8 @@ import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.NameAware;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Category extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable {
+	private final Log log = LogFactory.getLog(getClass());
+
 	private long id;
 	private String name;
 	private Image image;
@@ -80,14 +84,26 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 	@Override
 	@Transient
 	public HashSet<Image> getImages() {
-		HashSet<Image> images = new HashSet<Image>();
-		images.add(image);
+		HashSet<Image> images = null;
+		if (image != null) {
+			images = new HashSet<Image>();
+			images.add(image);
+		}
 		return images;
 	}
 
 	@Override
 	public void addImage(Image image) {
 		setImage(image);
+	}
+
+	@Override
+	public void removeImage(Image image) {
+		if (this.image.equals(image)) {
+			this.image = null;
+		} else {
+			log.error("Can't remove image " + image + " from category " + this);
+		}
 	}
 
 	@Override

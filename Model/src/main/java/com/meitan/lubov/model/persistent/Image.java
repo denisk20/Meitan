@@ -18,6 +18,7 @@ import java.io.Serializable;
 public class Image extends PersistentOrderableImpl implements Serializable {
 	private long id;
 	private String url;
+	//todo try to get rid of it
 	private String absolutePath;
 
 	public Image() {

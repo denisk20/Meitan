@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	  parent="global">
+
+	<persistence-context/>
+
+	<input name="imageAware" required="true"/>
+	<!--<input name="imagesDao" required="true"/>-->
+
+	<view-state id="imagesManager">
+<on-entry>
+	<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
+</on-entry>
+		<transition on="upload" to="imagesManager">
+			<evaluate expression="fileUploadHandler.processFile(imageAware, flowRequestContext)" result="requestScope.image"/>
+			<evaluate expression="imageDao.makePersistent(image)"/>
+			<evaluate expression="categoryDao.merge(imageAware)"/>
+		</transition>
+
+		<transition on="delete" to="imagesManager">
+			<evaluate expression="imageDao.dropImage(imageAware, images.selectedRow)"/>
+			<evaluate expression="categoryDao.merge(imageAware)"/>
+		</transition>
+
+		<transition on="save" to="save"/>
+		<transition on="back" to="cancel"/>
+	</view-state>
+
+
+	<end-state id="save" commit="true"/>
+	<end-state id="cancel"/>
+</flow>
