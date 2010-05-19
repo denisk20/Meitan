@@ -48,5 +48,5 @@
 	</bean>
 
 	<bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>
-
+	<bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
 </beans>

@@ -21,7 +21,7 @@ import javax.persistence.PersistenceException;
  *
  * @author denisk
  */
-public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID> {
+public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>, Serializable {
 
 	private Class<T> persistentClass;
 	protected EntityManager em;

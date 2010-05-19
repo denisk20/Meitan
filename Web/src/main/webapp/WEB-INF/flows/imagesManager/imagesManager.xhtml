@@ -1,0 +1,35 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:form="http://www.springframework.org/tags/form"
+				template="/WEB-INF/templates/meitan-subflow.xhtml">
+
+	<ui:define name="content">
+		<h:messages/>
+		<h1>Manage images</h1>
+		<h:form>
+				<br/>
+				<h:dataTable id="images" value="#{images}" var="image" rendered="#{! empty(images)}">
+					<h:column>
+						<f:facet name="header">Images attached</f:facet>
+						<img src="#{image.url}" alt=""/>
+						<sf:commandButton value="Delete" action="delete"/>
+					</h:column>
+				</h:dataTable>
+			
+			<sf:commandButton value="Save" action="save"/>
+			<sf:commandButton value="Back" action="back"/>
+		</h:form>
+
+
+		<h:form enctype="multipart/form-data">
+			<input type="file" name="file"/>
+			<h:commandButton action="upload" value="Upload"/>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

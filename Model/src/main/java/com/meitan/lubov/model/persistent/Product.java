@@ -55,7 +55,7 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -103,7 +103,7 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 		this.purchases = purchases;
 	}
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	public Set<Image> getImages() {
 		return images;
 	}
@@ -115,6 +115,11 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 	@Override
 	public void addImage(Image image) {
 		images.add(image);
+	}
+
+	@Override
+	public void removeImage(Image image) {
+		images.remove(image);
 	}
 
 	public Price getPrice() {
