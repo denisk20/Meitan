@@ -7,28 +7,32 @@
 	<persistence-context/>
 
 	<input name="imageAware" required="true"/>
+	<!--todo-->
 	<!--<input name="imagesDao" required="true"/>-->
 
 	<view-state id="imagesManager">
-<on-entry>
-	<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
-</on-entry>
+		<on-entry>
+			<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
+		</on-entry>
 		<transition on="upload" to="imagesManager">
-			<evaluate expression="fileUploadHandler.processFile(imageAware, flowRequestContext)" result="requestScope.image"/>
+			<evaluate expression="fileUploadHandler.precessTempFile(imageAware, flowRequestContext)" result="requestScope.image"/>
+			<evaluate expression="tempImagesService.addToPersistQueue(image)"/>
+<!--
 			<evaluate expression="imageDao.makePersistent(image)"/>
 			<evaluate expression="categoryDao.merge(imageAware)"/>
+-->
 		</transition>
 
 		<transition on="delete" to="imagesManager">
-			<evaluate expression="imageDao.dropImage(imageAware, images.selectedRow)"/>
-			<evaluate expression="categoryDao.merge(imageAware)"/>
+			<evaluate expression="imageAware.removeImage(images.selectedRow)"/>
+			<!--<evaluate expression="tempImagesService.addToDiscardQueue(images.selectedRow)"/>-->
+			<evaluate expression="imageDao.deleteFromDisk(images.selectedRow)"/>
+			<!--<evaluate expression="categoryDao.merge(imageAware)"/>-->
 		</transition>
 
 		<transition on="save" to="save"/>
-		<transition on="back" to="cancel"/>
 	</view-state>
 
-
-	<end-state id="save" commit="true"/>
+	<end-state id="save"/>
 	<end-state id="cancel"/>
 </flow>

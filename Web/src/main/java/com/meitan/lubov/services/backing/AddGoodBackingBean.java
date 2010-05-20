@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *         Date: 17.05.2010
  *         Time: 11:46:34
  */
+//todo do we need this?
 public class AddGoodBackingBean implements Serializable {
 
 	private ArrayList<SelectItem> availableCategories;

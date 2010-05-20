@@ -10,5 +10,5 @@ import com.meitan.lubov.model.persistent.Image;
  */
 //todo Unit test for this one
 public interface ImageDao extends Dao<Image, Long>{
-	void dropImage(ImageAware imageAware, Image image);
+	void deleteFromDisk(Image image);
 }

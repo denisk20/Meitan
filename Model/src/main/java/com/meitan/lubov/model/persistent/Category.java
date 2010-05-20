@@ -50,7 +50,7 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -84,9 +84,8 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 	@Override
 	@Transient
 	public HashSet<Image> getImages() {
-		HashSet<Image> images = null;
+		HashSet<Image> images = new HashSet<Image>();
 		if (image != null) {
-			images = new HashSet<Image>();
 			images.add(image);
 		}
 		return images;

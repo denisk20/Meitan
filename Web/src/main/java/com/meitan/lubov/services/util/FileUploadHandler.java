@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 public class FileUploadHandler implements Serializable, ServletContextAware {
 	private final static String FILE_PARAM_NAME = "file";
-	private static final String UPLOAD_DIR_NAME = "uploaded";
+	public static final String TEMP_DIR_NAME = "tmp";
 	private static final String IMAGE_PREFIX = "img";
 	private static final String DELIM = "_";
 
@@ -38,39 +38,30 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		this.servletContext = servletContext;
 	}
 
-	public Image processFile(ImageAware entity, RequestContext requestContext) throws IOException {
+	public Image precessTempFile(ImageAware entity, RequestContext requestContext) throws IOException {
+		return processFile(entity, requestContext, TEMP_DIR_NAME);
+	}
+
+	private Image processFile(ImageAware entity, RequestContext requestContext, String uploadDirName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
 		if (file == null) {
 			throw new IllegalArgumentException("File was null");
 		}
 		if (file.getSize() > 0) {
-			String contentType = file.getContentType();
-			if (! (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE))) {
-				requestContext.getMessageContext()
-						.addMessage(new MessageBuilder()
-								.error()
-								.defaultText("Wrong uploaded file type, should be either JPEG, BMP or GIF, but was " + contentType)
-								.build());
+			if (isFileValid(requestContext, file)) {
 				return null;
 			}
-			String uploadedFolderPath = servletContext.getRealPath(UPLOAD_DIR_NAME);
-			File uploadDir = new File(uploadedFolderPath);
-			if (!uploadDir.exists()) {
-				throw new IllegalStateException("Upload directory doesn't exist: " + UPLOAD_DIR_NAME);
-			}
-			if (!uploadDir.isDirectory()) {
-				throw new IllegalStateException("Upload directory is not a directory: " + UPLOAD_DIR_NAME);
-			}
-			//rename it
-			String fileName = file.getOriginalFilename();
-			int dotIndex = fileName.lastIndexOf(".");
-			String originalExtension = fileName.substring(dotIndex + 1);
-			String newName = IMAGE_PREFIX + DELIM + entity.getClass().getSimpleName() + DELIM + entity.getId() + "." + originalExtension;
-			File imageFile = new File(uploadDir, newName);
+			File imageFile = getDestFile(file, entity, uploadDirName);
 			file.transferTo(imageFile);
 
-			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
+//			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
+			//todo is this correct?
+			String fullPath = imageFile.getPath();
+			int directoryIndex = fullPath.indexOf(uploadDirName);
+			String imageRelativePath = fullPath.substring(directoryIndex);
+			imageRelativePath = imageRelativePath.replace("\\", "/");
+			imageRelativePath = "/" + imageRelativePath;
 			Image image = createImage(imageRelativePath, imageFile.getAbsolutePath());
 
 			addImageToEntity(entity, image);
@@ -84,6 +75,44 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 							.build());
 			return null;
 		}
+	}
+
+	private File getDestFile(MultipartFile file, ImageAware entity, String uploadDirName) {
+		String uploadedFolderPath = servletContext.getRealPath(uploadDirName);
+		File uploadDir = new File(uploadedFolderPath);
+		if (!uploadDir.exists()) {
+			throw new IllegalStateException("Upload directory doesn't exist: " + uploadDirName);
+		}
+		if (!uploadDir.isDirectory()) {
+			throw new IllegalStateException("Upload directory is not a directory: " + uploadDirName);
+		}
+		//rename it
+		String newName = getNewName(file, entity);
+		File imageFile = new File(uploadDir, newName);
+
+		return imageFile;
+	}
+
+	private String getNewName(MultipartFile file, ImageAware entity) {
+		String fileName = file.getOriginalFilename();
+		int dotIndex = fileName.lastIndexOf(".");
+		String originalExtension = fileName.substring(dotIndex + 1);
+		int imageIndex = entity.getImages().size() + 1;
+		String newName = IMAGE_PREFIX + DELIM + entity.getClass().getSimpleName() + DELIM + entity.getId() + DELIM + imageIndex + "." + originalExtension;
+		return newName;
+	}
+
+	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
+		String contentType = file.getContentType();
+		if (! (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE))) {
+			requestContext.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.defaultText("Wrong uploaded file type, should be either JPEG, BMP or GIF, but was " + contentType)
+							.build());
+			return true;
+		}
+		return false;
 	}
 
 	private void addImageToEntity(ImageAware entity, Image image) {
