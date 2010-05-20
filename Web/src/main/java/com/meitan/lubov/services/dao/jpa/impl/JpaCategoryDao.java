@@ -40,6 +40,6 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 	@Override
 	public void makeTransient(Category entity) {
 		super.makeTransient(entity);
-		imageDao.dropImage(entity, entity.getImage());
+		imageDao.deleteFromDisk(entity.getImage());
 	}
 }

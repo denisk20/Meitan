@@ -24,12 +24,13 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 	private final Log log = LogFactory.getLog(getClass());
 
 	@Override
-	@Transactional
-	public void dropImage(ImageAware c, Image i) {
-		if (i == null) {
-			throw new IllegalArgumentException("Image was null for category " + c);
-		}
-		c.removeImage(i);
+	public void makeTransient(Image entity) {
+		super.makeTransient(entity);
+		deleteFromDisk(entity);
+	}
+
+	@Override
+	public void deleteFromDisk(Image i) {
 		String path = i.getAbsolutePath();
 
 		if (path == null) {
