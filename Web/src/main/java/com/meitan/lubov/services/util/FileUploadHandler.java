@@ -21,8 +21,6 @@ import java.io.Serializable;
 public class FileUploadHandler implements Serializable, ServletContextAware {
 	private final static String FILE_PARAM_NAME = "file";
 	public static final String TEMP_DIR_NAME = "tmp";
-	private static final String IMAGE_PREFIX = "img";
-	private static final String DELIM = "_";
 
 	private ServletContext servletContext;
 
@@ -30,19 +28,16 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 	private static final String BMP_TYPE = "image/bmp";
 	private static final String GIF_TYPE = "image/gif";
 
-	private static final String ERROR_RESULT = "error";
-	private static final String OK_RESULT = "ok";
-
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
 
-	public Image precessTempFile(ImageAware entity, RequestContext requestContext) throws IOException {
-		return processFile(entity, requestContext, TEMP_DIR_NAME);
+	public Image precessTempFile(ImageAware entity, RequestContext requestContext, String imageName) throws IOException {
+		return processFile(entity, requestContext, TEMP_DIR_NAME, imageName);
 	}
 
-	private Image processFile(ImageAware entity, RequestContext requestContext, String uploadDirName) throws IOException {
+	private Image processFile(ImageAware entity, RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
 		if (file == null) {
@@ -52,19 +47,16 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			if (isFileValid(requestContext, file)) {
 				return null;
 			}
-			File imageFile = getDestFile(file, entity, uploadDirName);
+			File imageFile = getDestFile(file, entity, uploadDirName, imageName);
 			file.transferTo(imageFile);
 
 //			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
-			//todo is this correct?
 			String fullPath = imageFile.getPath();
 			int directoryIndex = fullPath.indexOf(uploadDirName);
 			String imageRelativePath = fullPath.substring(directoryIndex);
 			imageRelativePath = imageRelativePath.replace("\\", "/");
 			imageRelativePath = "/" + imageRelativePath;
 			Image image = createImage(imageRelativePath, imageFile.getAbsolutePath());
-
-			addImageToEntity(entity, image);
 
 			return image;
 		} else {
@@ -77,7 +69,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		}
 	}
 
-	private File getDestFile(MultipartFile file, ImageAware entity, String uploadDirName) {
+	private File getDestFile(MultipartFile file, ImageAware entity, String uploadDirName, String imageName) {
 		String uploadedFolderPath = servletContext.getRealPath(uploadDirName);
 		File uploadDir = new File(uploadedFolderPath);
 		if (!uploadDir.exists()) {
@@ -87,19 +79,9 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			throw new IllegalStateException("Upload directory is not a directory: " + uploadDirName);
 		}
 		//rename it
-		String newName = getNewName(file, entity);
-		File imageFile = new File(uploadDir, newName);
+		File imageFile = new File(uploadDir, imageName);
 
 		return imageFile;
-	}
-
-	private String getNewName(MultipartFile file, ImageAware entity) {
-		String fileName = file.getOriginalFilename();
-		int dotIndex = fileName.lastIndexOf(".");
-		String originalExtension = fileName.substring(dotIndex + 1);
-		int imageIndex = entity.getImages().size() + 1;
-		String newName = IMAGE_PREFIX + DELIM + entity.getClass().getSimpleName() + DELIM + entity.getId() + DELIM + imageIndex + "." + originalExtension;
-		return newName;
 	}
 
 	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
@@ -113,10 +95,6 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			return true;
 		}
 		return false;
-	}
-
-	private void addImageToEntity(ImageAware entity, Image image) {
-		entity.addImage(image);
 	}
 
 	private Image createImage(String imageRelativePath, String imageAbsolutePath) {
