@@ -14,6 +14,10 @@
 			<set name="flashScope.product" value="products.selectedRow"/>
 		</transition>
 
+		<transition on="edit" to="edit">
+			<set name="flashScope.product" value="products.selectedRow"/>
+		</transition>
+
 		<transition on="back" to="back"/> 
 	</view-state>
 
@@ -21,6 +25,12 @@
 		<input name="goodId" value="product.id"/>
 		<transition to="goodsListForCategory"/>
 	</subflow-state>
+
+	<subflow-state id="edit" subflow="editGood">
+		<input name="productId" value="product.id"/>
+		<transition to="goodsListForCategory"/>
+	</subflow-state>
+
 
 	<end-state id="back"/>
 </flow>

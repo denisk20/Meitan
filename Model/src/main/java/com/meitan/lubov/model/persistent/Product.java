@@ -85,7 +85,7 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 		isNew = aNew;
 	}
 
-	@ManyToMany(mappedBy = "products")
+	@ManyToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	public Set<Category> getCategories() {
 		return categories;
 	}

@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author denisk
  */
-public interface CategoryDao extends Dao<Category, Long> {
+public interface CategoryDao extends Dao<Category, Long>{
 	void merge(Category c);
 }
