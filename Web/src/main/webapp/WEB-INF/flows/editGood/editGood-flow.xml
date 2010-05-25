@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	  parent="global">
+
+	<persistence-context/>
+
+	<var name="categoriesSelector" class="com.meitan.lubov.services.util.selectors.CategoriesSelector"/>
+
+	<input name="productId" required="true"/>
+
+	<on-start>
+		<evaluate expression="productDao.findById(productId)" result="flowScope.product"/>
+		<evaluate expression="categoryDao.findAll()" result="requestScope.allCategories"/>
+		<evaluate expression="categoriesSelector.addItems(allCategories)"/>
+		<evaluate expression="categoriesSelector.selectAppropriateItems(product.categories)"/>
+	</on-start>
+
+	<view-state id="editGood" model="product">
+		<transition on="save" to="save">
+			<evaluate expression="productDao.assignCategoriesToProduct(product, categoriesSelector.items)"/>
+		</transition>
+
+		<!--
+		  <transition on="upload">
+			  <evaluate expression="fileUploadHandler.processFile(category, flowRequestContext)"/>
+			  &lt;!&ndash;<evaluate expression="categoryDao.makePersistent(category)"/>&ndash;&gt;
+		  </transition>
+  -->
+
+		<!--
+		  <transition on="delete" >
+			  <evaluate expression="categoryDao.dropImage(category)"/>
+		  </transition>
+  -->
+
+		<transition on="back" to="cancel">
+			<!--<evaluate expression="tempImagesService.discardImages()"/>-->
+		</transition>
+
+	</view-state>
+
+
+	<end-state id="save" commit="true"/>
+	<end-state id="cancel"/>
+</flow>

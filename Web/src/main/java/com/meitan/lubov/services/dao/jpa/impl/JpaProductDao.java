@@ -5,6 +5,7 @@ import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
+import com.meitan.lubov.services.util.Selectable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Date: Mar 4, 2010
@@ -66,5 +69,21 @@ private final Log log = LogFactory.getLog(getClass());
         }
     }
 
-    
+	@Override
+	@Transactional
+	public void assignCategoriesToProduct(Product p, Collection<Selectable<Category>> selectableCategories) {
+		p = findById(p.getId());
+
+		for (Selectable<Category> selectable : selectableCategories) {
+			Category category = selectable.getItem();
+			if (selectable.isSelected()) {
+				category.getProducts().add(p);
+				p.getCategories().add(category);
+			} else {
+				category.getProducts().remove(p);
+				p.getCategories().remove(category);
+			}
+		}
+		em.merge(p);
+	}
 }

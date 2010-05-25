@@ -5,12 +5,15 @@ import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
+import com.meitan.lubov.services.util.Selectable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 /**
  * Date: Mar 5, 2010
@@ -36,4 +39,5 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 		super.makeTransient(entity);
 		imageDao.deleteFromDisk(entity.getImage());
 	}
+
 }
