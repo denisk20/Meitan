@@ -96,9 +96,4 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 	public void flush() {
 		em.flush();
 	}
-
-	@Override
-	public boolean isAttached(T entity) {
-		return em.contains(entity);
-	}
 }

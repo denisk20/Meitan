@@ -15,4 +15,6 @@ public interface ImageAware extends IdAware {
 	void addImage(Image image);
 
 	void removeImage(Image image);
+
+	boolean isAllowedToAdd();
 }

@@ -27,8 +27,10 @@
 
 
 		<h:form enctype="multipart/form-data">
-			<input type="file" name="file"/>
-			<h:commandButton action="upload" value="Upload"/>
+			<h:panelGroup rendered="#{imageAware.allowedToAdd}">
+				<input type="file" name="file"/>
+				<h:commandButton action="upload" value="Upload"/>
+			</h:panelGroup>
 		</h:form>
 
 	</ui:define>
