@@ -72,7 +72,7 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 		this.products = products;
 	}
 
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
 	public Image getImage() {
 		return image;
 	}

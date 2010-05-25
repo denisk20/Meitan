@@ -11,7 +11,8 @@ import java.util.List;
  * @author denis_k
  *         Date: 14.05.2010
  *         Time: 14:26:31
- */
+ * I left this only as a reference
+*/
 public class CategoriesToSelectItemsConverter implements Converter {
 	@Override
 	public Class getSourceClass() {

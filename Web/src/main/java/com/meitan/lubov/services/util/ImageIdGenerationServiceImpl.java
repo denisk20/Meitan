@@ -19,7 +19,7 @@ public class ImageIdGenerationServiceImpl implements ImageIdGenerationService{
 	private static final String DELIM = "_";
 
 	@Override
-	public String generateIdForNextImage(ImageAware i) {
+	public StringWrap generateIdForNextImage(ImageAware i) {
 		Set<Image> images = i.getImages();
 		if (images == null) {
 			throw new IllegalArgumentException("No images for imageAware " + i);
@@ -28,6 +28,6 @@ public class ImageIdGenerationServiceImpl implements ImageIdGenerationService{
 		int imageIndex = imagesCount + 1;
 		String newName = IMAGE_PREFIX + DELIM + i.getClass().getSimpleName() + DELIM + i.getId() + DELIM + imageIndex;
 
-		return newName;
+		return new StringWrap(newName);
 	}
 }

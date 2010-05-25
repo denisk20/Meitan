@@ -10,8 +10,10 @@ import java.util.ArrayList;
  * @author denis_k
  *         Date: 14.05.2010
  *         Time: 15:57:16
+ * I left this only as a reference
  */
 @Component("myConversionService")
+//The value of above annotation is used in webflow-config.xml
 public class DenisConversionService extends FacesConversionService {
 	public DenisConversionService() {
 		super();

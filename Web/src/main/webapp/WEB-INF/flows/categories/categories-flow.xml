@@ -17,6 +17,10 @@
 			<set name="flashScope.category" value="categories.selectedRow"/>
 		</transition>
 
+		<transition on="editimages" to="editImages">
+			<set name="flashScope.category" value="categories.selectedRow"/>
+		</transition>
+
 		<transition on="delete" to="categories">
 			<evaluate expression="categoryDao.deleteById(categories.selectedRow.id)"/>
 		</transition>
@@ -43,6 +47,11 @@
 	
 	<subflow-state id="addGoodSubflow" subflow="addGood">
 		<transition to="categories"/>
+	</subflow-state>
+
+	<subflow-state id="editImages" subflow="imagesManager">
+		<input name="imageAware" value="category"/>
+		<transition on="save" to="categories"/>
 	</subflow-state>
 
 </flow>
