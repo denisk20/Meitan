@@ -6,8 +6,6 @@
 
 	<persistence-context/>
 
-	<var name="tempImagesService" class="com.meitan.lubov.services.util.TempImagesService"/>
-
 	<input name="categoryId" required="true"/>
 
 	<on-start>
@@ -17,11 +15,6 @@
 	<view-state id="edit" model="category">
 		<transition on="save" to="save">
 			<!--write on disk first-->
-			<evaluate expression="tempImagesService.persistImages()"/>
-			<!--persist to the database-->
-			<evaluate expression="categoryDao.makePersistent(category)"/>
-			<!--delete images that were deleted-->
-			<evaluate expression="tempImagesService.discardImages()"/>
 		</transition>
 
 		<!--
@@ -37,26 +30,12 @@
 		  </transition>
   -->
 
-		<transition on="editImages" to="editImagesSubflow"/>
-
 		<transition on="back" to="cancel">
-			<evaluate expression="tempImagesService.discardImages()"/>
-			<evaluate expression="tempImagesService.revertDeletedImages()"/>
+			<!--<evaluate expression="tempImagesService.discardImages()"/>-->
 		</transition>
 
 	</view-state>
 
-	<subflow-state id="editImagesSubflow" subflow="imagesManager">
-		<input name="imageAware" value="category"/>
-		<!--todo-->
-		<!--<input name="imagesDao" value="categoryDao"/>-->
-
-		<transition on="save" to="edit"/>
-		<transition on="cancel" to="edit">
-			<evaluate expression="tempImagesService.discardImages()"/>
-			<!--<evaluate expression="tempImagesService.revertDeletedImages()"/>-->
-		</transition>
-	</subflow-state>
 
 	<end-state id="save" commit="true"/>
 	<end-state id="cancel"/>

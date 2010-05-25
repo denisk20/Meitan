@@ -48,4 +48,30 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 			}
 		}
 	}
+
+	/**
+	 * This method does 1 assumption - ImageAware is persistent entity
+	 */
+	@Override
+	@Transactional
+	public void addImageToEntity(ImageAware entity, Image i) {
+		entity.addImage(i);
+		em.merge(entity);
+	}
+
+	@Override
+	@Transactional
+	public void removeImageFromEntity(ImageAware entity, Image i) {
+		if (i == null) {
+			throw new IllegalArgumentException("null image was passed to the method alongside with entity " + entity);
+		}
+		entity.removeImage(i);
+		//remove from disk
+		deleteFromDisk(i);
+		i = findById(i.getId());
+		if (i != null) {
+			makeTransient(i);
+		}
+		em.merge(entity);
+	}
 }

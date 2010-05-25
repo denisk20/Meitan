@@ -92,6 +92,7 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 		makeTransient(entity);
 	}
 
+	@Transactional
 	public void flush() {
 		em.flush();
 	}

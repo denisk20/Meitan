@@ -7,37 +7,24 @@
 	<persistence-context/>
 
 	<input name="imageAware" required="true"/>
-	<!--todo-->
-	<!--<input name="imagesDao" required="true"/>-->
 
 	<view-state id="imagesManager">
 		<on-entry>
 			<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
 		</on-entry>
-		<transition on="upload" to="imagesManager">
-			<evaluate expression="fileUploadHandler.sayHello()"/>
+
+			<transition on="upload" to="imagesManager">
 			<evaluate expression="imageIdGenerationService.generateIdForNextImage(imageAware)" result="requestScope.imageName"/>
-			<evaluate expression="fileUploadHandler.precessTempFile1(imageAware, flowRequestContext, imageName)" result="requestScope.image"/>
-			<evaluate expression="imageAware.addImage(image)"/>
-			<evaluate expression="flowScope.tempImagesService.addToPersistQueue(image)"/>
-			<evaluate expression="flowScope.tempImagesService.removeFromDiscardQueue(image)"/>
-<!--
-			<evaluate expression="imageDao.makePersistent(image)"/>
-			<evaluate expression="categoryDao.merge(imageAware)"/>
--->
+			<evaluate expression="fileUploadHandler.precessTempFile(imageAware, flowRequestContext, imageName)" result="requestScope.image"/>
+			<evaluate expression="imageDao.addImageToEntity(imageAware, image)"/>
 		</transition>
 
 		<transition on="delete" to="imagesManager">
-			<evaluate expression="imageAware.removeImage(images.selectedRow)"/>
-			<!--todo how about deleting persistent instances?-->
-			<evaluate expression="flowScope.tempImagesService.addToDiscardQueue(images.selectedRow)"/>
-			<!--<evaluate expression="flowScope.tempImagesService.removeFromPersistQueue(image)"/>-->
-			<!--<evaluate expression="imageDao.deleteFromDisk(images.selectedRow)"/>-->
+			<evaluate expression="imageDao.removeImageFromEntity(imageAware, images.selectedRow)"/>
 		</transition>
 
 		<transition on="save" to="save"/>
 	</view-state>
 
-	<end-state id="save"/>
-	<end-state id="cancel"/>
+	<end-state id="save" commit="true"/>
 </flow>

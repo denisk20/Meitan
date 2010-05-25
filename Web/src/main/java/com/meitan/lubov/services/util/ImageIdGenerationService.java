@@ -8,5 +8,5 @@ import com.meitan.lubov.model.ImageAware;
  *         Time: 15:43:51
  */
 public interface ImageIdGenerationService {
-	String generateIdForNextImage(ImageAware i);
+	StringWrap generateIdForNextImage(ImageAware i);
 }

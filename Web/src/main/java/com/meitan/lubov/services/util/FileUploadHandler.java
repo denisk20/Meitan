@@ -21,6 +21,7 @@ import java.io.Serializable;
 public class FileUploadHandler implements Serializable, ServletContextAware {
 	private final static String FILE_PARAM_NAME = "file";
 	public static final String TEMP_DIR_NAME = "tmp";
+	private static final String UPLOAD_DIR_NAME = "uploaded";
 
 	private ServletContext servletContext;
 
@@ -33,8 +34,8 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		this.servletContext = servletContext;
 	}
 
-	public Image precessTempFile(ImageAware entity, RequestContext requestContext, String imageName) throws IOException {
-		return processFile(entity, requestContext, TEMP_DIR_NAME, imageName);
+	public Image precessTempFile(ImageAware entity, RequestContext requestContext, StringWrap imageName) throws IOException {
+		return processFile(entity, requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
 	}
 
 	private Image processFile(ImageAware entity, RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
