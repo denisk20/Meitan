@@ -17,6 +17,7 @@
 
 	<subflow-state id="goodSubflow" subflow="good">
 		<input name="goodId" value="product.id"/>
+		<transition on="back" to="aboutUs"/>
 	</subflow-state>
 
 </flow>

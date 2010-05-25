@@ -130,8 +130,13 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 		this.price = price;
 	}
 
+	@Override
+	@Transient
+	public boolean isAllowedToAdd() {
+		return true;
+	}
 
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;

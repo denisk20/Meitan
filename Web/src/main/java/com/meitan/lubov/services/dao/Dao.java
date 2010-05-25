@@ -24,7 +24,4 @@ public interface Dao<T, ID extends Serializable> {
 
     void flush();
 
-	boolean isAttached(T entity);
-    //void clear();
-
 }

@@ -106,6 +106,12 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 	}
 
 	@Override
+	@Transient
+	public boolean isAllowedToAdd() {
+		return image == null;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
 			return true;

@@ -27,53 +27,13 @@
 
             <h:selectBooleanCheckbox value="#{newGood.new}"/>
 
-            <h:selectManyListbox id="availableCategoriesListbox">
+            <h:selectManyListbox id="availableCategoriesListbox" value="#{newGood.categoriesIdArray}">
                 <f:selectItems value="#{categories}"/>
                 <j4j:idProxy id="_avCat"/>
             </h:selectManyListbox>
-            <a href="#" id="addCategoriesLink">Add categories</a>
-
-            <h:selectManyListbox id="selectedCategoriesListbox" value="#{newGood.categoriesIdArray}" immediate="true">
-                <j4j:idProxy id="_selCat"/>
-            </h:selectManyListbox>
-
-            <a href="#" id="removeCategoriesLink">Remove categories</a>
-
-            <div id="testDiv">This is a test</div>
-            <script type="text/javascript">
-                function myAlert() {
-                    alert($("#testDiv").html());
-                }
-            </script>
-
-            <a href="#" id="test" onclick="myAlert()">test</a>
-            <!--
-                        <h:selectManyListbox value="#{newGood.categoriesIdArray}" >
-                            <f:selectItems value="#{categories}"/>
-                        </h:selectManyListbox>
-            -->
 
             <sf:commandButton value="Create product!" processIds="*" action="create"/>
             <sf:commandButton value="Back" action="back"/>
-
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    var availableCategoriesListId = document.getElementById("_avCat").title;
-                    var selectedCategoriesListId = document.getElementById("_selCat").title;
-
-                    $("#addCategoriesLink").click(function() {
-                        return ! $("#" + (availableCategoriesListId).replace(":", "\\:") + " option:selected").remove().appendTo("#" + (selectedCategoriesListId).replace(":", "\\:"));
-                    })
-                    $("#removeCategoriesLink").click(function() {
-                        return ! $("#" + selectedCategoriesListId.replace(":", "\\:") + " option:selected").remove().appendTo("#" + (availableCategoriesListId).replace(":", "\\:"));
-                    })
-                    $('form').submit(function() {
-                        $("#" + selectedCategoriesListId.replace(":", "\\:") + ' option').each(function(i) {
-                            $(this).attr("selected", "selected");
-                        });
-                    });
-                })
-            </script>
 
         </h:form>
 
