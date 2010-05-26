@@ -45,8 +45,8 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			throw new IllegalArgumentException("File was null");
 		}
 		if (file.getSize() > 0) {
-			if (isFileValid(requestContext, file)) {
-				return null;
+			if (! isFileValid(requestContext, file)) {
+				throw new IllegalArgumentException("Not valid image type: " + file.getContentType());
 			}
 			File imageFile = getDestFile(file, entity, uploadDirName, imageName);
 			file.transferTo(imageFile);
@@ -87,14 +87,14 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 
 	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
 		String contentType = file.getContentType();
-		if (! (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE))) {
-			requestContext.getMessageContext()
-					.addMessage(new MessageBuilder()
-							.error()
-							.defaultText("Wrong uploaded file type, should be either JPEG, BMP or GIF, but was " + contentType)
-							.build());
+		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)) {
 			return true;
 		}
+		requestContext.getMessageContext()
+				.addMessage(new MessageBuilder()
+						.error()
+						.defaultText("Wrong uploaded file type, should be either JPEG, BMP or GIF, but was " + contentType)
+						.build());
 		return false;
 	}
 

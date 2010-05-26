@@ -13,12 +13,14 @@
 			<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
 		</on-entry>
 
-			<transition on="upload" to="imagesManager">
+		<transition on="upload" to="imagesManager">
 			<evaluate expression="imageIdGenerationService.generateIdForNextImage(imageAware)" result="requestScope.imageName"/>
 			<evaluate expression="fileUploadHandler.precessTempFile(imageAware, flowRequestContext, imageName)" result="requestScope.image"/>
 			<evaluate expression="imageDao.addImageToEntity(imageAware, image)"/>
 		</transition>
 
+		<transition on-exception="java.lang.IllegalArgumentException" to="imagesManager"/>
+		
 		<transition on="delete" to="imagesManager">
 			<evaluate expression="imageDao.removeImageFromEntity(imageAware, images.selectedRow)"/>
 		</transition>

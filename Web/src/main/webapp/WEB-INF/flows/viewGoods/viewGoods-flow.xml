@@ -18,6 +18,10 @@
 			<set name="flashScope.product" value="products.selectedRow"/>
 		</transition>
 
+		<transition on="editImages" to="imagesManager">
+			<set name="flashScope.product" value="products.selectedRow"/>
+		</transition>
+
 		<transition on="back" to="back"/> 
 	</view-state>
 
@@ -31,6 +35,10 @@
 		<transition to="goodsListForCategory"/>
 	</subflow-state>
 
+	<subflow-state id="imagesManager" subflow="imagesManager">
+		<input name="imageAware" value="product"/>
+		<transition on="save" to="goodsListForCategory"/>
+	</subflow-state>
 
 	<end-state id="back"/>
 </flow>

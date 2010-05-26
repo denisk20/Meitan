@@ -103,7 +103,8 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 		this.purchases = purchases;
 	}
 
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@OneToMany(fetch = FetchType.EAGER,
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	public Set<Image> getImages() {
 		return images;
 	}
