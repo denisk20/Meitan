@@ -26,7 +26,7 @@ public class ImageIdGenerationServiceImpl implements ImageIdGenerationService{
 		}
 		int imagesCount = images.size();
 		int imageIndex = imagesCount + 1;
-		String newName = IMAGE_PREFIX + DELIM + i.getClass().getSimpleName() + DELIM + i.getId() + DELIM + imageIndex;
+		String newName = IMAGE_PREFIX + DELIM + i.getClass().getSimpleName() + DELIM + i.getId() + DELIM + imageIndex + System.currentTimeMillis();
 
 		return new StringWrap(newName);
 	}

@@ -16,7 +16,8 @@
                 <h:column>
                     <f:facet name="header">Product</f:facet>
                     <sf:commandLink value="#{product.name}" action="selectGood"/>
-					<sf:commandButton value="[edit]" action="edit"/>
+					<sf:commandLink value="[edit]" action="edit"/>
+					<sf:commandLink value="[edit images]" action="editImages"/>
                 </h:column>
 
             </h:dataTable>
