@@ -9,16 +9,20 @@
 			<evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="dataModel"/>
 		</on-entry>
 
+		<transition on="all" to="goodsListForCategory">
+			<set name="flashScope.categoryId" value="-1"/>
+		</transition>
+
 		<transition on="selectCategory" to="goodsListForCategory">
-			<set name="flashScope.category" value="categories.selectedRow"/>
+			<set name="flashScope.categoryId" value="categories.selectedRow.id"/>
 		</transition>
 
 		<transition on="edit" to="editCategory">
-			<set name="flashScope.category" value="categories.selectedRow"/>
+			<set name="flashScope.categoryId" value="categories.selectedRow.id"/>
 		</transition>
 
 		<transition on="editimages" to="editImages">
-			<set name="flashScope.category" value="categories.selectedRow"/>
+			<set name="flashScope.categoryId" value="categories.selectedRow.id"/>
 		</transition>
 
 		<transition on="delete" to="categories">
@@ -31,12 +35,12 @@
 	</view-state>
 
 	<subflow-state id="editCategory" subflow="editCategory">
-		<input name="categoryId" value="category.id"/>
+		<input name="categoryId" value="categoryId"/>
 		<transition to="categories"/>
 	</subflow-state>
 
 	<subflow-state id="goodsListForCategory" subflow="viewGoods">
-		<input name="categoryId" value="category.id"/>
+		<input name="categoryId" value="categoryId"/>
 		<transition to="categories"/>
 	</subflow-state>
 

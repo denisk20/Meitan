@@ -2,14 +2,16 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
+		parent="global"
+		start-state="allCategoriesQueried">
 
 	<input name="categoryId" required="true"/>
 
-	<view-state id="goodsListForCategory">
-		<on-entry>
-			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>
-		</on-entry>
+	<decision-state id="allCategoriesQueried">
+		<if test="categoryId != -1" then="goodsListForCategory" else="allGoodsList"/>
+	</decision-state>
+
+	<view-state id="baseGoodList">
 		<transition on="selectGood" to="goodSubflow">
 			<set name="flashScope.product" value="products.selectedRow"/>
 		</transition>
@@ -22,7 +24,19 @@
 			<set name="flashScope.product" value="products.selectedRow"/>
 		</transition>
 
-		<transition on="back" to="back"/> 
+		<transition on="back" to="back"/>
+	</view-state>
+
+	<view-state id="goodsListForCategory" parent="viewGoods#baseGoodList">
+		<on-entry>
+			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>
+		</on-entry>
+	</view-state>
+
+	<view-state id="allGoodsList" parent="viewGoods#baseGoodList" view="goodsListForCategory">
+		<on-entry>
+			<evaluate expression="productDao.findAll()" result="viewScope.products" result-type="dataModel"/>
+		</on-entry>
 	</view-state>
 
 	<subflow-state id="goodSubflow" subflow="good">

@@ -14,6 +14,8 @@
             <p>Много категорий...</p>
 			<sf:commandLink value="Добавить продукт" action="addGood"/>
 			<br/>
+			<sf:commandLink value="View all" action="all"/>
+			<br/>
             <h:dataTable id="categories" value="#{categories}" var="category"
                          rendered="#{categories.rowCount > 0}">
                 <h:column>
