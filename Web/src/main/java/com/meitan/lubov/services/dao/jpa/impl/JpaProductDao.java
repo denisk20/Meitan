@@ -13,9 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Date: Mar 4, 2010
@@ -86,4 +84,24 @@ private final Log log = LogFactory.getLog(getClass());
 		}
 		em.merge(p);
 	}
+
+    @Override
+    public List<Product> findAll() {
+        List<Product> result = super.findAll();
+        return getDistinct(result);
+    }
+
+    @Override
+    public List<Product> findByExample(Product exampleInstance, String... excludeProperty) {
+        List<Product> result = super.findByExample(exampleInstance, excludeProperty);
+        return getDistinct(result);
+    }
+
+    /**
+     * This is total hack to get rid of the fact that hibernate doesn't
+     * handle eager fetching properly
+     */
+    private List<Product> getDistinct(List<Product> source) {
+        return new ArrayList<Product>(new HashSet<Product>(source));
+    }
 }
