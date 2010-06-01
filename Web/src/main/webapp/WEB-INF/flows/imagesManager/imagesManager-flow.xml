@@ -10,6 +10,8 @@
 
 	<view-state id="imagesManager">
 		<on-entry>
+			<!--refresh imageAware-->
+			<evaluate expression="imageDao.getPersistentObject(imageAware)" result="viewScope.imageAware"/>
 			<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
 		</on-entry>
 

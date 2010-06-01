@@ -129,9 +129,15 @@
         <property name="order" value="2"/>
 	</bean>
 
-	<bean id="ent_creamsImage" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="path/to/creams/image.jpeg"/>
+	<bean id="ent_creamsImage" class="com.meitan.lubov.model.persistent.Image" >
+		<property name="url" value="./testUpload/img_Category_1_1_1275307423579"/>
+		<!--todo try to get rid of absolute path-->
+		<property name="absolutePath" ref="creamsImageAbsolutePath"/>
         <property name="order" value="2"/>
+	</bean>
+
+	<bean name="creamsImageAbsolutePath" class="java.lang.String">
+		<constructor-arg><value>${MEITAN_HOME}/testUpload/img_Category_1_1_1275307423579</value></constructor-arg>
 	</bean>
 
 	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
@@ -352,6 +358,10 @@
 			</set>
 		</property>
         <property name="order" value="1"/>
+	</bean>
+
+	<bean id="creamsImageRestoreManager" class="com.meitan.lubov.FileBackupRestoreManager">
+		<constructor-arg ref="creamsImageAbsolutePath"/>
 	</bean>
 
 </beans>

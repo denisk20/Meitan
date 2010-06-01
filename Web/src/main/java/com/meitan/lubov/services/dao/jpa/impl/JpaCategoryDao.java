@@ -35,9 +35,14 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 	}
 
 	@Override
+	//todo unit test this
 	public void makeTransient(Category entity) {
 		super.makeTransient(entity);
-		imageDao.deleteFromDisk(entity.getImage());
+		Image image = entity.getImage();
+		//todo what about deleting image from DB? Unit test this
+		if (image != null) {
+			imageDao.deleteFromDisk(image);
+		}
 	}
 
 }

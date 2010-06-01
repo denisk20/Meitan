@@ -1,11 +1,11 @@
 package com.meitan.lubov.services.dao.jpa;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.services.dao.Dao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -13,7 +13,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
 /**
  * Date: Mar 1, 2010
@@ -95,5 +94,11 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 	@Transactional
 	public void flush() {
 		em.flush();
+	}
+
+	@Override
+	@Transactional
+	public Object getPersistentObject(IdAware entity) {
+		return em.find(entity.getClass(), entity.getId());
 	}
 }

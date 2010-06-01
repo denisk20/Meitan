@@ -28,6 +28,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 	private static final String JPEG_TYPE = "image/jpeg";
 	private static final String BMP_TYPE = "image/bmp";
 	private static final String GIF_TYPE = "image/gif";
+	private static final String PNG_TYPE = "image/png";
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -87,7 +88,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 
 	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
 		String contentType = file.getContentType();
-		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)) {
+		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)|| contentType.equals(PNG_TYPE)) {
 			return true;
 		}
 		requestContext.getMessageContext()

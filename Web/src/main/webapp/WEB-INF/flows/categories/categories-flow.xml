@@ -22,7 +22,7 @@
 		</transition>
 
 		<transition on="editimages" to="editImages">
-			<set name="flashScope.categoryId" value="categories.selectedRow.id"/>
+			<set name="flashScope.imageAware" value="categories.selectedRow"/>
 		</transition>
 
 		<transition on="delete" to="categories">
@@ -54,7 +54,7 @@
 	</subflow-state>
 
 	<subflow-state id="editImages" subflow="imagesManager">
-		<input name="imageAware" value="category"/>
+		<input name="imageAware" value="imageAware"/>
 		<transition on="save" to="categories"/>
 	</subflow-state>
 

@@ -1,5 +1,7 @@
 package com.meitan.lubov.services.dao;
 
+import com.meitan.lubov.model.IdAware;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,5 +25,8 @@ public interface Dao<T, ID extends Serializable> {
     void makeTransient(T entity);
 
     void flush();
+
+	//generic method that can be used from every DAO
+	Object getPersistentObject(IdAware entity);
 
 }

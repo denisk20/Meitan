@@ -55,8 +55,8 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 	@Override
 	@Transactional
 	public void addImageToEntity(ImageAware entity, Image i) {
+		entity = em.find(entity.getClass(), entity.getId());
 		entity.addImage(i);
-		em.merge(entity);
 	}
 
 	@Override
@@ -65,6 +65,7 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 		if (i == null) {
 			throw new IllegalArgumentException("null image was passed to the method alongside with entity " + entity);
 		}
+
 		entity.removeImage(i);
 		//remove from disk
 		deleteFromDisk(i);

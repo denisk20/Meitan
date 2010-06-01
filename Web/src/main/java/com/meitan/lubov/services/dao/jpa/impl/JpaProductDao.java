@@ -1,8 +1,10 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
 import com.meitan.lubov.model.persistent.Category;
+import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
+import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import com.meitan.lubov.services.util.Selectable;
@@ -29,6 +31,9 @@ private final Log log = LogFactory.getLog(getClass());
     @Autowired
     private CategoryDao categoryDao;
 
+	@Autowired
+	private ImageDao imageDao;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -50,6 +55,7 @@ private final Log log = LogFactory.getLog(getClass());
 	}
 
     @Override
+	//todo unit test this
     public void makePersistent(Product entity) {
         Object[] categoryIds = entity.getCategoriesIdArray();
 
@@ -69,6 +75,7 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@Override
 	@Transactional
+	//todo unit test this
 	public void assignCategoriesToProduct(Product p, Collection<Selectable<Category>> selectableCategories) {
 		p = findById(p.getId());
 
@@ -97,7 +104,29 @@ private final Log log = LogFactory.getLog(getClass());
         return getDistinct(result);
     }
 
-    /**
+	@Override
+	@Transactional
+	//todo this definitely _MUST_ be unit tested
+	public void deleteById(Long aLong) {
+		Product p = findById(aLong);
+		Set<Category> categories = p.getCategories();
+
+		for (Category c : categories) {
+			c.getProducts().remove(p);
+		}
+		int imageCount = p.getImages().size();
+		for (int i = 0; i < imageCount; i++) {
+			Image image = p.getImages().iterator().next();
+			imageDao.removeImageFromEntity(p, image);
+		}
+//		for (Image i : p.getImages()) {
+//			imageDao.removeImageFromEntity(p, i);
+//		}
+
+		super.deleteById(aLong);
+	}
+
+	/**
      * This is total hack to get rid of the fact that hibernate doesn't
      * handle eager fetching properly
      */
