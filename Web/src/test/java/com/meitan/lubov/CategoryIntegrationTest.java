@@ -1,16 +1,19 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.persistent.Category;
+import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.Dao;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.PersistenceException;
+import java.io.File;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 /**
  * @author denis_k
@@ -18,9 +21,13 @@ import static org.junit.Assert.assertThat;
  *         Time: 10:27:22
  */
 public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
+	private final static Logger log = Logger.getLogger(CategoryIntegrationTest.class);
 	@Autowired
 	private CategoryDao categoryDao;
 	private static final Integer EXPECTED_CATEGORY_COUNT = 1;
+
+	@Autowired
+	private FileBackupRestoreManager creamsImageRestoreManager;
 
 	@Override
 	protected void setUpBeanNames() {
@@ -63,5 +70,15 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 		categoryDao.makePersistent(created);
 
 		categoryDao.flush();
+	}
+
+	@Test
+	public void testMakeTransient() {
+		Category c = beansFromDb.get(0);
+		Image image = c.getImage();
+		String absolutePath = image.getAbsolutePath();
+		File imageFile = new File(absolutePath);
+		log.info("File exists for path " + absolutePath + imageFile.exists());
+		assertTrue(imageFile.exists());
 	}
 }

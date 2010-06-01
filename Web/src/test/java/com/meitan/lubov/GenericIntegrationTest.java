@@ -24,6 +24,8 @@ import static org.junit.Assert.fail;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testEnvironment.xml", "classpath:startData.xml"})
 public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUnit4SpringContextTests {
+	protected static final String TEST_UPLOAD_DIRECTORY = "testUpload"; 
+	protected static final String PATH_DELIM = "/"; 
 	protected List<String> beanNames = new ArrayList<String>();
 	protected List<T> beansFromXml = new ArrayList<T>();
 	protected List<T> beansFromDb = new ArrayList<T>();
@@ -40,10 +42,11 @@ public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUn
 
 	@SuppressWarnings("unchecked")
 	private void getComparedBeans() {
+		String[] excludedProperties = getExcludedProperties();
 		Dao<T, Long> dao = getDAO();
 		for (String beanName : beanNames) {
 			T beanFromSpring = (T) applicationContext.getBean(beanName);
-			List<T> resultDBList = dao.findByExample(beanFromSpring);
+			List<T> resultDBList = dao.findByExample(beanFromSpring, excludedProperties);
 			int itemsFound = resultDBList.size();
 			if (itemsFound != 1) {
 				fail("Found " + itemsFound + " items using " + beanFromSpring + " as example");
@@ -54,7 +57,7 @@ public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUn
 		}
 	}
 
-    @Test
+	@Test
     public void compareSpringDBBeans() {
         final int beansFromDBCount = beansFromDb.size();
         final int beanFromSpringCount = beansFromXml.size();
@@ -69,6 +72,10 @@ public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUn
             compareAdditionalProperties(beanFromSpring, beanFromDB);
         }
     }
+
+	protected String[] getExcludedProperties() {
+		return new String[0];
+	}
 
     private void compareEquality(T beanFromSpring, T beanFromDB) {
         assertThat(beanFromSpring, is(beanFromDB));

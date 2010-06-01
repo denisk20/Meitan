@@ -40,6 +40,11 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 	}
 
 	@Override
+	protected String[] getExcludedProperties() {
+		return new String[] {"description"};
+	}
+
+	@Override
 	protected void compareAdditionalProperties(Product beanFromSpring, Product beanFromDB) {
 		assertThat(beanFromSpring.getCategories(), is(beanFromDB.getCategories()));
 		assertThat(beanFromSpring.getImages(), is(beanFromDB.getImages()));

@@ -82,5 +82,5 @@
 			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
 		</property>
 	</bean>
-
+	
 </beans>
