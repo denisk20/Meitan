@@ -16,6 +16,10 @@ import org.hibernate.Transaction;
 import org.hibernate.impl.SessionFactoryImpl;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
 import java.io.File;
@@ -28,6 +32,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+//todo unit test
 public class DbunitXmlGenerator {
 	private static final Logger LOGGER = Logger.getLogger(DbunitXmlGenerator.class);
 	public final static String TEST_XML_FILE_NAME = "dataset1.xml";
@@ -50,7 +55,8 @@ public class DbunitXmlGenerator {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testMeitanDatabase", props);
 		em = emf.createEntityManager();
 		File outputFile = new File(sourceRoot + "/" + TEST_XML_FILE_NAME);
-		context = new XmlBeanFactory(new FileSystemResource(sourceRoot + "/" + SPRING_XML_FILE_NAME));
+//		context = new XmlBeanFactory(new FileSystemResource(sourceRoot + "/" + SPRING_XML_FILE_NAME));
+		context = new FileSystemXmlApplicationContext(sourceRoot + "/" + SPRING_XML_FILE_NAME);
 		LOGGER.info("Using outputFileName: " + outputFile.getPath());
 
 		setUpBeanNames();

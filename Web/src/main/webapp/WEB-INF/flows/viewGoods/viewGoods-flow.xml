@@ -13,7 +13,7 @@
 		<if test="categoryId != -1" then="goodsListForCategory" else="allGoodsList"/>
 	</decision-state>
 
-	<view-state id="baseGoodList">
+	<view-state id="baseGoodList" view="goodsListForCategory.xhtml">
 		<transition on="selectGood" to="goodSubflow">
 			<set name="flashScope.product" value="products.selectedRow"/>
 		</transition>
@@ -40,7 +40,7 @@
 		</on-entry>
 	</view-state>
 
-	<view-state id="allGoodsList" parent="viewGoods#baseGoodList" view="goodsListForCategory.xhtml">
+	<view-state id="allGoodsList" parent="viewGoods#baseGoodList" >
 		<on-entry>
 			<evaluate expression="productDao.findAll()" result="viewScope.products" result-type="dataModel"/>
 		</on-entry>
@@ -48,12 +48,14 @@
 
 	<subflow-state id="goodSubflow" subflow="good">
 		<input name="goodId" value="product.id"/>
-		<transition to="goodsListForCategory"/>
+		<!--todo hack again... see above comment-->
+		<transition to="allCategoriesQueried"/>
 	</subflow-state>
 
 	<subflow-state id="edit" subflow="editGood">
 		<input name="productId" value="product.id"/>
-		<transition to="goodsListForCategory"/>
+		<!--todo hack again... see above comment-->
+		<transition to="allCategoriesQueried"/>
 	</subflow-state>
 
 	<subflow-state id="imagesManager" subflow="imagesManager">
