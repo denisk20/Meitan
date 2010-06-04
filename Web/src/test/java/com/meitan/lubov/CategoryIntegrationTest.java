@@ -4,12 +4,14 @@ import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.Dao;
+import com.meitan.lubov.services.dao.ImageDao;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.PersistenceException;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -24,10 +26,13 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 	private final static Logger log = Logger.getLogger(CategoryIntegrationTest.class);
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private ImageDao imageDao;
+
 	private static final Integer EXPECTED_CATEGORY_COUNT = 1;
 
 	@Autowired
-	private FileBackupRestoreManager creamsImageRestoreManager;
+	private com.meitan.lubov.services.util.FileBackupRestoreManager creamsImageRestoreManager;
 
 	@Override
 	protected void setUpBeanNames() {
@@ -73,12 +78,29 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 	}
 
 	@Test
-	public void testMakeTransient() {
+	public void testMakeTransient() throws IOException {
 		Category c = beansFromDb.get(0);
 		Image image = c.getImage();
 		String absolutePath = image.getAbsolutePath();
 		File imageFile = new File(absolutePath);
-		log.info("File exists for path " + absolutePath + imageFile.exists());
-		assertTrue(imageFile.exists());
+		assertTrue("File doesn't exist for path " + absolutePath, imageFile.exists());
+
+		creamsImageRestoreManager.backup();
+
+		try {
+			categoryDao.makeTransient(c);
+
+			Category deletedCategory = categoryDao.findById(c.getId());
+			assertNull("Category should have been deleted", deletedCategory);
+
+			Image deletedImage = imageDao.findById(image.getId());
+			assertNull("Image should have been deleted", deletedImage);
+
+			assertFalse("file should have been deleted, but still exists", imageFile.exists());
+		} finally {
+			creamsImageRestoreManager.restore();
+			assertTrue("Failed to restore image " + creamsImageRestoreManager.getBasePath(), imageFile.exists());
+		}
+
 	}
 }

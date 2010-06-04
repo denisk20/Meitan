@@ -19,4 +19,5 @@ public interface ProductDao extends Dao <Product, Long>{
 	ArrayList<Product> getForCategory(Long categoryId);
 
 	void assignCategoriesToProduct(Product p, Collection<Selectable<Category>> selectableCategories);
+
 }

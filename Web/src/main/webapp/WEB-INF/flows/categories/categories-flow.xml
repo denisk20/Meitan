@@ -35,12 +35,12 @@
 	</view-state>
 
 	<subflow-state id="editCategory" subflow="editCategory">
-		<input name="categoryId" value="categoryId"/>
+		<input name="categoryId" value="flashScope.categoryId"/>
 		<transition to="categories"/>
 	</subflow-state>
 
 	<subflow-state id="goodsListForCategory" subflow="viewGoods">
-		<input name="categoryId" value="categoryId"/>
+		<input name="categoryId" value="flashScope.categoryId"/>
 		<transition to="categories"/>
 	</subflow-state>
 

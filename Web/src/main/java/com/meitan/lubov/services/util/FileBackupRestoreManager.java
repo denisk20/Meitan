@@ -1,4 +1,4 @@
-package com.meitan.lubov;
+package com.meitan.lubov.services.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +25,7 @@ public class FileBackupRestoreManager {
 
 	public void backup() throws IOException {
 		File file = new File(basePath);
-		if (file.exists()) {
+		if (! file.exists()) {
 			throw new IllegalStateException("No file for path " + basePath);
 		}
 

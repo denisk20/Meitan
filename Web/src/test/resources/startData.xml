@@ -137,7 +137,7 @@
 	</bean>
 
 	<bean name="creamsImageAbsolutePath" class="java.lang.String">
-		<constructor-arg><value>${MEITAN_HOME}/testUpload/img_Category_1_1_1275307423579</value></constructor-arg>
+		<constructor-arg value="${MEITAN_HOME}/testUpload/img_Category_1_1_1275307423579"/>
 	</bean>
 
 	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
@@ -360,8 +360,21 @@
         <property name="order" value="1"/>
 	</bean>
 
-	<bean id="creamsImageRestoreManager" class="com.meitan.lubov.FileBackupRestoreManager">
+	<bean id="creamsImageRestoreManager" class="com.meitan.lubov.services.util.FileBackupRestoreManager">
 		<constructor-arg ref="creamsImageAbsolutePath"/>
+	</bean>
+
+<!--
+	todo this is hacky, testEnvironment should probably be imported to avoid code duplicates.
+	DbunitXmlGenerator should also be refactored to take advantage of this
+-->
+	<bean id="propertyConfigurer"
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
+		<property name="searchSystemEnvironment" value="true"/>
+		<property name="locations">
+			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
+		</property>
 	</bean>
 
 </beans>
