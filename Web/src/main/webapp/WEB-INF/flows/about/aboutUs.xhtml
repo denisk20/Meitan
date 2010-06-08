@@ -19,7 +19,7 @@
 						 rendered="#{newProducts.rowCount > 0}">
 				<h:column>
 					<f:facet name="header">Product</f:facet>
-					<sf:commandLink value="#{product.name}" action="selectGood"/>
+					<h:commandButton value="#{product.name}" action="selectGood"/>
 				</h:column>
 
 			</h:dataTable>

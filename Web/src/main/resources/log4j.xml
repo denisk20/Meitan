@@ -36,6 +36,10 @@
 	</logger>
 
 	<logger name="org.springframework.web">
+		<level value="debug" />
+	</logger>
+
+	<logger name="org.springframework.security">
 		<level value="info" />
 	</logger>
 
@@ -52,7 +56,7 @@
 	</logger>
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
 	

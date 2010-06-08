@@ -4,7 +4,10 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
-	<persistence-context/>
+
+    <secured attributes="ROLE_ADMIN"/>
+
+    <persistence-context/>
 
 	<input name="categoryId" required="true"/>
 

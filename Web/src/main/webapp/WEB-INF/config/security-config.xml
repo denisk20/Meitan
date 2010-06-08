@@ -4,13 +4,13 @@
 	   xmlns:security="http://www.springframework.org/schema/security"
 	   xsi:schemaLocation="
            http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/security
-           http://www.springframework.org/schema/security/spring-security-2.0.2.xsd">
+           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 	<!-- Configure Spring Security -->
 	<security:http auto-config="true">
-		<security:form-login login-page="/spring/login" login-processing-url="/spring/loginProcess" default-target-url="/spring/main" authentication-failure-url="/spring/login?login_error=1"/>
+		<security:form-login login-page="/spring/login" login-processing-url="/spring/loginProcess" default-target-url="/spring/about" authentication-failure-url="/spring/login?login_error=1"/>
 		<security:logout logout-url="/spring/logout" logout-success-url="/spring/logoutSuccess"/>
 	</security:http>
 
@@ -20,11 +20,13 @@
 		usernames/passwords are:
 			mama/123
 	-->
-	<security:authentication-provider>
-		<security:password-encoder hash="md5"/>
-		<security:user-service>
-			<security:user name="mama" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_USER, ROLE_SUPERVISOR"/>
-		</security:user-service>
-	</security:authentication-provider>
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:password-encoder hash="md5"/>
+            <security:user-service>
+                <security:user name="mama" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
 
 </beans>

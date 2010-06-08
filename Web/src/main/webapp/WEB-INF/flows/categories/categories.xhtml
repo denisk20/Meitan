@@ -5,6 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:sec="http://www.springframework.org/security/facelets/tags"
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
@@ -21,7 +22,9 @@
                 <h:column>
                     <f:facet name="header">Category</f:facet>
                     <sf:commandLink value="#{category.name}" action="selectCategory"/>
-                    <sf:commandLink value="[edit]" action="edit"/>
+                    <sec:ifAnyGranted roles="ROLE_ADMIN">
+                        <sf:commandLink value="[edit]" action="edit"/>
+                    </sec:ifAnyGranted>
                     <sf:commandLink value="[edit images]" action="editimages"/>
                     <sf:commandLink value="[delete]" action="delete" processIds="*"/>
                 </h:column>
