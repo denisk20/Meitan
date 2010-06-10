@@ -7,16 +7,16 @@
 
 	<view-state id="aboutUs" parent="good#good">
         <on-render>
-            <evaluate expression="productDao.getNew()" result="viewScope.newProducts" result-type="dataModel"/>
+            <evaluate expression="productDao.getNew()" result="flowScope.newProducts" result-type="dataModel"/>
         </on-render>
 
 		<transition on="selectGood" to="goodSubflow">
-			<set name="flashScope.product" value="newProducts.selectedRow"/>
+			<set name="requestScope.product" value="newProducts.selectedRow"/>
 		</transition>
 	</view-state>
 
 	<subflow-state id="goodSubflow" subflow="good">
-		<input name="goodId" value="product.id"/>
+		<input name="goodId" value="requestScope.product.id"/>
 		<transition on="back" to="aboutUs"/>
 	</subflow-state>
 
