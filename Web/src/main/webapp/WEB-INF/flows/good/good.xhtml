@@ -5,14 +5,11 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:sf="http://www.springframework.org/tags/faces"
-                template="/WEB-INF/templates/meitan-subflow.xhtml">
+                template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
         <h1>#{product.name}</h1>
 
         <p>#{product.description}</p>
-		<h:form>
-			<sf:commandButton value="Back" action="back"/>
-		</h:form>
     </ui:define>
 </ui:composition>

@@ -24,12 +24,6 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 	private final Log log = LogFactory.getLog(getClass());
 
 	@Override
-	public void makeTransient(Image entity) {
-		super.makeTransient(entity);
-		deleteFromDisk(entity);
-	}
-
-	@Override
 	public void deleteFromDisk(Image i) {
 		String path = i.getAbsolutePath();
 
@@ -73,6 +67,6 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 		if (i != null) {
 			makeTransient(i);
 		}
-		em.merge(entity);
+		//em.merge(entity);
 	}
 }

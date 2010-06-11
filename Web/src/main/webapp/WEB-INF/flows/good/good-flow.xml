@@ -6,14 +6,16 @@
 
     <secured attributes="ROLE_ADMIN"/>
 
-	<input name="goodId" required="true"/>
+	<input name="goodId" required="true" type="long" />
 
+	<on-start>
+		<evaluate expression="productDao.findById(goodId)" result="flowScope.product"/>
+	</on-start>
 	<view-state id="good">
 		<on-render>
 			<evaluate expression="fileUploadHandler.sayHello()"/>
 		</on-render>
-		<transition on="back" to="back"/>
 	</view-state>
 
-	<end-state id="back"/>
+	<end-state id="end"/>
 </flow>

@@ -131,6 +131,10 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 
 	@Override
 	public int hashCode() {
+		if (name == null) {
+			log.error("Name was null for entity " + this);
+			return 0;
+		}
 		return name.hashCode();
 	}
 

@@ -7,8 +7,10 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:c="http://java.sun.com/jstl/core"
         xmlns:sf="http://www.springframework.org/tags/faces"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         contentType="text/html" encoding="UTF-8">
 
+<!--todo move this into one template-->
     <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,7 +18,7 @@
 
     </head>
     <body>
-    <div align="right">Тележка будет тут</div>
+    <div align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}</div>
 	<c:if test="${not empty currentUser.name}">
 		Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
 	</c:if>
@@ -27,30 +29,7 @@
     <table>
         <tr>
             <td>
-                <h:form>
-                    <table>
-                        <tr>
-                            <td>
-                                <sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <!--<sf:commandLink id="addCategoryLink" value="Добавить категорию" action="addCategory"/>-->
-                            </td>
-                        </tr>
-                    </table>
-                </h:form>
+				<ui:include src="menu.xhtml"/>
             </td>
             <td>
                 <ui:insert name="content"/>

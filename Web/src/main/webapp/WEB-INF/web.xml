@@ -25,6 +25,10 @@
    		<param-value>true</param-value>
   	</context-param>
 
+	<context-param>
+		<param-name>facelets.BUFFER_SIZE</param-name>
+		<param-value>100</param-value>
+	</context-param>
 	<!-- Causes Facelets to refresh templates during development -->
 	<context-param>
   		<param-name>facelets.REFRESH_PERIOD</param-name>
@@ -33,7 +37,12 @@
 
     <context-param>
         <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/WEB-INF/j4j.taglib.xml</param-value>
+        <param-value>/META-INF/j4j.taglib.xml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
     </context-param>
 	<!-- Enforce UTF-8 Character Encoding -->
 	<filter>

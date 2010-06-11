@@ -7,15 +7,15 @@
 
 	<persistence-context/>
 
-	<input name="categoryId" required="true"/>
+	<input name="categoryId" required="true" type="long"/>
 
 	<decision-state id="allCategoriesQueried">
 		<if test="categoryId != -1" then="goodsListForCategory" else="allGoodsList"/>
 	</decision-state>
 
 	<view-state id="baseGoodList" view="goodsListForCategory.xhtml">
-		<transition on="selectGood" to="goodSubflow">
-			<set name="flashScope.product" value="products.selectedRow"/>
+		<transition on="selectGood" to="goodFlow">
+			<set name="requestScope.productId" value="products.selectedRow.id"/>
 		</transition>
 
 		<transition on="edit" to="edit">
@@ -31,6 +31,9 @@
 			<evaluate expression="productDao.deleteById(products.selectedRow.id)"/>
 		</transition>
 
+		<transition on="buy" to="allCategoriesQueried">
+			<evaluate expression="cart.addItem(products.selectedRow)"/>
+		</transition>
 		<transition on="back" to="back"/>
 	</view-state>
 
@@ -46,12 +49,8 @@
 		</on-entry>
 	</view-state>
 
-	<subflow-state id="goodSubflow" subflow="good">
-		<input name="goodId" value="product.id"/>
-		<!--todo hack again... see above comment-->
-		<transition to="allCategoriesQueried"/>
-	</subflow-state>
-
+	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}"/>
+	
 	<subflow-state id="edit" subflow="editGood">
 		<input name="productId" value="product.id"/>
 		<!--todo hack again... see above comment-->

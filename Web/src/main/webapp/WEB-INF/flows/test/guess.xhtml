@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:c="http://java.sun.com/jstl/core"
+	  xmlns:j4j="http://javascript4jsf.dev.java.net/"
+		>
+<body>
+
+This text above will not be displayed.
+
+<ui:composition template="../../template.xhtml">
+
+	This text will not be displayed.
+
+	<ui:define name="title">
+		I'm thinking of a number from #{numberBean.min} to #{numberBean.max}. Can you guess it?
+	</ui:define>
+
+	This text will also not be displayed.
+
+	<ui:define name="body">
+		<!--#{numberBean.xyz}-->
+		<h:form id="helloForm">
+			<h:inputText type="text" id="userNo" value="#{numberBean.guess}" validator="#{numberBean.validate}">
+				<j4j:idProxy id="myId"/>
+			</h:inputText>
+			<br/>
+			<h:commandButton type="submit" id="submit" action="success" value="Submit"/>
+			<br/>
+			<h:message showSummary="true" showDetail="false" style="color: red; font-weight: bold;" id="errors1"
+					   for="userNo"/>
+		</h:form>
+
+		<c:if test="#{numberBean.trueValue}">
+			inside true
+		</c:if>
+		<c:if test="#{numberBean.falseValue}">
+			inside false
+		</c:if>
+
+<!--
+		<h:dataTable value="#{numberBean.arrayList}" var="item">
+			<c:if test="#{item.valid}">
+				Item #{item.value}
+			</c:if>
+		</h:dataTable>
+-->
+		<br/>
+		<ui:debug hotkey="M"/>
+		<c:forEach items="#{numberBean.arrayList}" var="item">
+			<c:if test="#{item.valid}">
+				Item #{item.value}
+			</c:if>
+		</c:forEach>
+	</ui:define>
+
+	This text will not be displayed.
+
+</ui:composition>
+
+This text below will also not be displayed.
+
+</body>
+</html>

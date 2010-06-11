@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoriesToSelectItemsConverter implements Converter {
 	@Override
 	public Class getSourceClass() {
-		return ArrayList.class;
+		return Object.class;
 	}
 
 	@Override

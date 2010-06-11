@@ -10,14 +10,18 @@
             <evaluate expression="productDao.getNew()" result="flowScope.newProducts" result-type="dataModel"/>
         </on-render>
 
-		<transition on="selectGood" to="goodSubflow">
-			<set name="requestScope.product" value="newProducts.selectedRow"/>
+		<transition on="selectGood" to="goodFlow" history="discard">
+			<set name="requestScope.productId" value="newProducts.selectedRow.id"/>
 		</transition>
 	</view-state>
 
 	<subflow-state id="goodSubflow" subflow="good">
-		<input name="goodId" value="requestScope.product.id"/>
+		<input name="goodId" value="productId"/>
 		<transition on="back" to="aboutUs"/>
 	</subflow-state>
+
+	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}">
+
+	</end-state>
 
 </flow>
