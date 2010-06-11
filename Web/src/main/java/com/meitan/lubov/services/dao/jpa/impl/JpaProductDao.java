@@ -89,7 +89,7 @@ private final Log log = LogFactory.getLog(getClass());
 				p.getCategories().remove(category);
 			}
 		}
-		em.merge(p);
+		//em.merge(p);
 	}
 
     @Override

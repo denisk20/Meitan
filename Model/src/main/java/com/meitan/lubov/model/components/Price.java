@@ -13,7 +13,7 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Price implements Serializable {
-	private BigDecimal amount;
+	private BigDecimal amount = new BigDecimal(0);
 
 	public Price() {
 	}

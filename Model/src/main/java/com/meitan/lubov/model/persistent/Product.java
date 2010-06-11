@@ -2,6 +2,7 @@ package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.NameAware;
+import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
@@ -21,13 +22,16 @@ import javax.persistence.*;
 		@NamedQuery(name = "getProductsNew", query = "from Product p where p.new=true"),
 		@NamedQuery(name = "getProductsForCategory", query = "select c.products from Category c where c.id=:categoryId")
 })
-public class Product extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable {
+public class Product extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable, PriceAware {
 	private long id;
 	private String name;
 	private String description;
 	private boolean isNew;
 	private Set<Category> categories = new HashSet<Category>();
     private Object[] categoriesIdArray;
+	private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
+	private Set<Image> images = new HashSet<Image>();
+	private Price price = new Price();
 
     @Transient
     public Object[] getCategoriesIdArray() {
@@ -37,10 +41,6 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
     public void setCategoriesIdArray(Object[] categoriesArray) {
         this.categoriesIdArray = categoriesArray;
     }
-
-    private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
-	private Set<Image> images = new HashSet<Image>();
-	private Price price;
 
 	public Product() {
 	}

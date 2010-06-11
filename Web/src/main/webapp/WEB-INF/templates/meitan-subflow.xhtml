@@ -17,7 +17,7 @@
         <ui:insert name="header"/>
     </head>
     <body>
-    <div align="right">Тележка будет тут</div>
+    <div align="right">Всего в тележке товаров ${cart.count} на сумму ${cart.totalPrice}</div>
     <c:if test="${not empty currentUser.name}">
         Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
     </c:if>

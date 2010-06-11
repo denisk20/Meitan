@@ -1,0 +1,34 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<ui:composition
+		    xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:sf="http://www.springframework.org/tags/faces"
+			>
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>
+                                <sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
+								
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!--<sf:commandLink id="addCategoryLink" value="Добавить категорию" action="addCategory"/>-->
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+	</ui:composition>
