@@ -20,4 +20,11 @@ public interface ProductDao extends Dao <Product, Long>{
 
 	void assignCategoriesToProduct(Product p, Collection<Selectable<Category>> selectableCategories);
 
+    ImageDao getImageDao();
+
+    void setImageDao(ImageDao imageDao);
+
+    CategoryDao getCategoryDao();
+
+    void setCategoryDao(CategoryDao categoryDao);
 }

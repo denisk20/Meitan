@@ -135,7 +135,7 @@
 	</bean>
 
 	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="/testUpload/img_Product_2_3_1275307361854.jpeg"/>
+		<property name="url" value="/testUpload/img_Product_2_3_1275307361854"/>
         <property name="order" value="2"/>
 	</bean>
 

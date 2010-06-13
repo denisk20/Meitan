@@ -66,6 +66,7 @@ private final Log log = LogFactory.getLog(getClass());
                 Category c = categoryDao.findById(id);
                 entity.getCategories().add(c);
                 c.getProducts().add(entity);
+                //todo do we need this?
                 categoryDao.makePersistent(c);
             }
         } else {
@@ -132,5 +133,25 @@ private final Log log = LogFactory.getLog(getClass());
      */
     private List<Product> getDistinct(List<Product> source) {
         return new ArrayList<Product>(new HashSet<Product>(source));
+    }
+
+    @Override
+    public ImageDao getImageDao() {
+        return imageDao;
+    }
+
+    @Override
+    public void setImageDao(ImageDao imageDao) {
+        this.imageDao = imageDao;
+    }
+
+    @Override
+    public CategoryDao getCategoryDao() {
+        return categoryDao;
+    }
+
+    @Override
+    public void setCategoryDao(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
     }
 }

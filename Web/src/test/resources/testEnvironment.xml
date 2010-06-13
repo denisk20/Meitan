@@ -88,7 +88,11 @@
     </bean>
 
     <bean id="testCategoryDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaCategoryDao">
-
         <property name="imageDao" ref="testImageDao"/>
+    </bean>
+
+    <bean id="testProductDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaProductDao">
+        <property name="imageDao" ref="testImageDao"/>
+        <property name="categoryDao" ref="testCategoryDao"/>
     </bean>
 </beans>
