@@ -39,6 +39,7 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, Servle
     }
 
     @Override
+    //todo any chance to unit test this with Web application?
     public String getPathPrefix() {
         //look in customPathPrefix first
         if (customPathPrefix != null) {
@@ -51,6 +52,7 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, Servle
             throw new IllegalStateException("No customPathPrefix nor ServletContext was set for ImageDao");
         }
     }
+
     @Override
 	public void deleteFromDisk(Image i) {
         String path = getPathPrefix() + i.getUrl();
