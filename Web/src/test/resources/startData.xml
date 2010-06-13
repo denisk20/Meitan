@@ -135,22 +135,22 @@
 	</bean>
 
 	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="path/to/creams/megacreamimagefront.jpeg"/>
+		<property name="url" value="/testUpload/img_Product_2_3_1275307361854.jpeg"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_megaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="path/to/creams/megacreamimageprofile.jpeg"/>
+		<property name="url" value="/testUpload/img_Product_2_4_1275307368448"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_gigaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="path/to/creams/gigacreamimagefront.jpeg"/>
+		<property name="url" value="/testUpload/img_Product_2_5_1275307381303"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_gigaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="path/to/creams/gigacreamimageprofile.jpeg"/>
+		<property name="url" value="img_Product_2_6_1275307382345"/>
         <property name="order" value="2"/>
 	</bean>
 

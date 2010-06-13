@@ -15,12 +15,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.impl.SessionFactoryImpl;
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,8 +28,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 //todo unit test
-public class DbunitXmlGenerator {
-	private static final Logger LOGGER = Logger.getLogger(DbunitXmlGenerator.class);
+public class TestDataPopulator {
+	private static final Logger LOGGER = Logger.getLogger(TestDataPopulator.class);
 	public final static String TEST_XML_FILE_NAME = "dataset1.xml";
 	public final static String ENTITY_PREFIX = "ent_";
 
@@ -46,7 +41,7 @@ public class DbunitXmlGenerator {
 
 	private EntityManager em;
 
-	public DbunitXmlGenerator(String sourceRoot) throws IOException {
+	public TestDataPopulator(String sourceRoot) throws IOException {
 		Map<String, String> env = System.getenv();
 		String hibernateSettingsDir = env.get("MEITAN_PROPS");
 		String hibernateProps = hibernateSettingsDir + "/hibernate.properties";
@@ -64,7 +59,7 @@ public class DbunitXmlGenerator {
 	}
 
 	public static void main(String[] args) throws SQLException, IOException, DatabaseUnitException {
-		DbunitXmlGenerator xmlGenerator = new DbunitXmlGenerator(args[0]);
+		TestDataPopulator xmlGenerator = new TestDataPopulator(args[0]);
 		xmlGenerator.persistBeans();
 		//xmlGenerator.generateXml(outputFile);
 	}

@@ -297,7 +297,7 @@
 								<property name="test_classpath" refid="maven.test.classpath"/>
 								<property name="test_classes_dir" value="${project.build.testOutputDirectory}"/>
 								<echo message="project.build.outputDirectory: ${project.build.testOutputDirectory}"/>
-								<java classname="com.meitan.lubov.services.util.DbunitXmlGenerator"
+								<java classname="com.meitan.lubov.services.util.TestDataPopulator"
 									  classpath="${test_classpath}">
 
 									<arg value="${test_classes_dir}"/>
