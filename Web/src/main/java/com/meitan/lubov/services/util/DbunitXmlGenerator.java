@@ -41,7 +41,7 @@ public class DbunitXmlGenerator {
 	private String[] beanNames;
 	private List<PersistentOrderable> beans = new ArrayList<PersistentOrderable>();
 
-	private static final String SPRING_XML_FILE_NAME = "startData.xml";
+	private static final String SPRING_XML_FILE_NAME = "testsSetup.xml";
 	private ListableBeanFactory context = null;
 
 	private EntityManager em;

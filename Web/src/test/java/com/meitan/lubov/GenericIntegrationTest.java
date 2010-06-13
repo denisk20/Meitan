@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
  * @author denisk
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:testEnvironment.xml", "classpath:startData.xml"})
+@ContextConfiguration(locations = {"classpath:testsSetup.xml"})
 public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUnit4SpringContextTests {
 	protected static final String TEST_UPLOAD_DIRECTORY = "testUpload"; 
 	protected static final String PATH_DELIM = "/"; 

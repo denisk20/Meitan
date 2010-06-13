@@ -46,4 +46,13 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 		}
 	}
 
+    @Override
+    public ImageDao getImageDao() {
+        return imageDao;
+    }
+
+    @Override
+    public void setImageDao(ImageDao imageDao) {
+        this.imageDao = imageDao;
+    }
 }

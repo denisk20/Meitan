@@ -19,8 +19,18 @@ public class NumberBean implements Serializable {
 	protected int guess;
 	protected int actual;
 
+    protected String testString;
 	// Default Constructor
-	public NumberBean() {
+
+    public String getTestString() {
+        return testString;
+    }
+
+    public void setTestString(String testString) {
+        this.testString = testString;
+    }
+
+    public NumberBean() {
 		this.min = 1;
 		this.max = 10;
 	}

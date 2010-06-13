@@ -8,6 +8,7 @@
            http://www.springframework.org/schema/tx
            http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
+    <!--todo change schema to match spring 3.0-->
 	<!-- Instructs Spring to perform declarative transaction management on annotated classes -->
 	<tx:annotation-driven/>
 

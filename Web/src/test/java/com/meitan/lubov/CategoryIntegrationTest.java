@@ -5,6 +5,7 @@ import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.Dao;
 import com.meitan.lubov.services.dao.ImageDao;
+import com.meitan.lubov.services.util.FileBackupRestoreManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,13 @@ import static org.junit.Assert.*;
 public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 	private final static Logger log = Logger.getLogger(CategoryIntegrationTest.class);
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryDao testCategoryDao;
 	@Autowired
-	private ImageDao imageDao;
+	private ImageDao testImageDao;
 
 	private static final Integer EXPECTED_CATEGORY_COUNT = 1;
 
-	@Autowired
-	private com.meitan.lubov.services.util.FileBackupRestoreManager creamsImageRestoreManager;
+	private FileBackupRestoreManager creamsImageRestoreManager;
 
 	@Override
 	protected void setUpBeanNames() {
@@ -41,7 +41,7 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 
 	@Override
 	protected Dao<Category, Long> getDAO() {
-		return categoryDao;
+		return testCategoryDao;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 
 	@Test
 	public void testFindAll() {
-		List<Category> all = categoryDao.findAll();
+		List<Category> all = testCategoryDao.findAll();
 		assertThat(EXPECTED_CATEGORY_COUNT, is(all.size()));
 	}
 
@@ -61,8 +61,8 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 		Category c = beansFromDb.get(0);
 		c.setName(null);
 
-		categoryDao.makePersistent(c);
-		categoryDao.flush();
+		testCategoryDao.makePersistent(c);
+		testCategoryDao.flush();
 	}
 
 	@Test(expected = PersistenceException.class)
@@ -72,28 +72,32 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 
 		Category created = new Category(name);
 
-		categoryDao.makePersistent(created);
+		testCategoryDao.makePersistent(created);
 
-		categoryDao.flush();
+		testCategoryDao.flush();
 	}
 
 	@Test
+    //todo test product deletions as well
 	public void testMakeTransient() throws IOException {
 		Category c = beansFromDb.get(0);
-		Image image = c.getImage();
-		String absolutePath = image.getAbsolutePath();
+        Image image = c.getImage();
+
+        creamsImageRestoreManager = new FileBackupRestoreManager(testImageDao.getPathPrefix() + image.getUrl());
+
+        String absolutePath = testImageDao.getPathPrefix() + image.getUrl();
 		File imageFile = new File(absolutePath);
 		assertTrue("File doesn't exist for path " + absolutePath, imageFile.exists());
 
 		creamsImageRestoreManager.backup();
 
 		try {
-			categoryDao.makeTransient(c);
+			testCategoryDao.makeTransient(c);
 
-			Category deletedCategory = categoryDao.findById(c.getId());
+			Category deletedCategory = testCategoryDao.findById(c.getId());
 			assertNull("Category should have been deleted", deletedCategory);
 
-			Image deletedImage = imageDao.findById(image.getId());
+			Image deletedImage = testImageDao.findById(image.getId());
 			assertNull("Image should have been deleted", deletedImage);
 
 			assertFalse("file should have been deleted, but still exists", imageFile.exists());
