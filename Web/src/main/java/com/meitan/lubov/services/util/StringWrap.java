@@ -5,6 +5,7 @@ package com.meitan.lubov.services.util;
  *         Date: 24.05.2010
  *         Time: 17:45:49
  */
+//todo any chance of getting rid of this?
 public class StringWrap {
 	private String wrapped;
 

@@ -13,4 +13,8 @@ import java.util.List;
  */
 public interface CategoryDao extends Dao<Category, Long>{
 	void merge(Category c);
+
+    ImageDao getImageDao();
+
+    void setImageDao(ImageDao imageDao);
 }

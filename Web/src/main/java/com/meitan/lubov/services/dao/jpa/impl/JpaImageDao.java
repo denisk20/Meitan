@@ -4,14 +4,16 @@ import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
+import com.meitan.lubov.services.util.FileUploadHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ServletContextAware;
 
+import javax.servlet.ServletContext;
 import java.io.File;
-import java.util.Set;
 
 /**
  * @author denis_k
@@ -20,28 +22,54 @@ import java.util.Set;
  */
 @Service("imageDao")
 @Repository
-public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
+public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, ServletContextAware {
 	private final Log log = LogFactory.getLog(getClass());
+    private ServletContext context;
 
-	@Override
+    private String customPathPrefix;
+
+    @Override
+    public String getCustomPathPrefix() {
+        return customPathPrefix;
+    }
+
+    @Override
+    public void setCustomPathPrefix(String customPathPrefix) {
+        this.customPathPrefix = customPathPrefix;
+    }
+
+    @Override
+    public String getPathPrefix() {
+        //look in customPathPrefix first
+        if (customPathPrefix != null) {
+            return customPathPrefix;
+        } else if (context != null) {
+            String path = context.getRealPath(FileUploadHandler.UPLOAD_DIR_NAME);
+            path = path.substring(0, path.indexOf(FileUploadHandler.UPLOAD_DIR_NAME) - 1);
+            return path;
+        } else {
+            throw new IllegalStateException("No customPathPrefix nor ServletContext was set for ImageDao");
+        }
+    }
+    @Override
 	public void deleteFromDisk(Image i) {
-		String path = i.getAbsolutePath();
+        String path = getPathPrefix() + i.getUrl();
 
-		if (path == null) {
-			log.error("Path was null for image " + i);
-		} else {
-			File file = new File(path);
-			if (!file.exists()) {
-				//can't throw exception here because of spring's AOP...
-				log.error("No corresponding image file for image " + i);
-			} else {
-				boolean deleted = file.delete();
-				if (!deleted) {
-					throw new IllegalArgumentException("Can't delete image. The file must be busy: " + file);
-				}
-			}
-		}
-	}
+        if (path.equals("")) {
+            log.error("Path was null for image " + i);
+        } else {
+            File file = new File(path);
+            if (!file.exists()) {
+                //can't throw exception here because of spring's AOP...
+                log.error("No corresponding image file for image " + i);
+            } else {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    throw new IllegalArgumentException("Can't delete image. The file must be busy: " + file);
+                }
+            }
+        }
+    }
 
 	/**
 	 * This method does 1 assumption - ImageAware is persistent entity
@@ -69,4 +97,14 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao {
 		}
 		//em.merge(entity);
 	}
+
+    @Override
+    public void setServletContext(ServletContext servletContext) {
+        this.context = servletContext;
+    }
+
+    @Override
+    public ServletContext getContext() {
+        return context;
+    }
 }

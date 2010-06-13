@@ -82,5 +82,13 @@
 			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
 		</property>
 	</bean>
-	
+
+    <bean id="testImageDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaImageDao">
+        <property name="customPathPrefix" value="${MEITAN_HOME}"/>
+    </bean>
+
+    <bean id="testCategoryDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaCategoryDao">
+
+        <property name="imageDao" ref="testImageDao"/>
+    </bean>
 </beans>

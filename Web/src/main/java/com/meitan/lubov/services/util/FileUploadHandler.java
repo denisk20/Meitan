@@ -20,8 +20,7 @@ import java.io.Serializable;
  */
 public class FileUploadHandler implements Serializable, ServletContextAware {
 	private final static String FILE_PARAM_NAME = "file";
-	public static final String TEMP_DIR_NAME = "tmp";
-	private static final String UPLOAD_DIR_NAME = "uploaded";
+	public static final String UPLOAD_DIR_NAME = "uploaded";
 
 	private ServletContext servletContext;
 
@@ -39,6 +38,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		return processFile(entity, requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
 	}
 
+    //todo damn me if this is not to be covered with unit test
 	private Image processFile(ImageAware entity, RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
@@ -101,7 +101,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 
 	private Image createImage(String imageRelativePath, String imageAbsolutePath) {
 		Image image = new Image(imageRelativePath);
-		image.setAbsolutePath(imageAbsolutePath);
+		//image.setAbsolutePath(imageAbsolutePath);
 		return image;
 	}
 
