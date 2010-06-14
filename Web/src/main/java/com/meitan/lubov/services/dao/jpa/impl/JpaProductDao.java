@@ -55,6 +55,7 @@ private final Log log = LogFactory.getLog(getClass());
 	}
 
     @Override
+	@Transactional
     public void makePersistent(Product entity) {
         Object[] categoryIds = entity.getCategoriesIdArray();
 
@@ -92,12 +93,14 @@ private final Log log = LogFactory.getLog(getClass());
 	}
 
     @Override
+	@Transactional
     public List<Product> findAll() {
         List<Product> result = super.findAll();
         return getDistinct(result);
     }
 
     @Override
+	@Transactional
     public List<Product> findByExample(Product exampleInstance, String... excludeProperty) {
         List<Product> result = super.findByExample(exampleInstance, excludeProperty);
         return getDistinct(result);
@@ -105,7 +108,6 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@Override
 	@Transactional
-	//todo this definitely _MUST_ be unit tested
 	public void deleteById(Long aLong) {
 		Product p = findById(aLong);
 		Set<Category> categories = p.getCategories();
