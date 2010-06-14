@@ -55,7 +55,6 @@ private final Log log = LogFactory.getLog(getClass());
 	}
 
     @Override
-	//todo unit test this
     public void makePersistent(Product entity) {
         Object[] categoryIds = entity.getCategoriesIdArray();
 
@@ -67,7 +66,7 @@ private final Log log = LogFactory.getLog(getClass());
                 entity.getCategories().add(c);
                 c.getProducts().add(entity);
                 //todo do we need this?
-                categoryDao.makePersistent(c);
+                //categoryDao.makePersistent(c);
             }
         } else {
             log.info("CategoriesIdArray was empty for product " + entity);
@@ -76,7 +75,6 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@Override
 	@Transactional
-	//todo unit test this
 	public void assignCategoriesToProduct(Product p, Collection<Selectable<Category>> selectableCategories) {
 		p = findById(p.getId());
 
@@ -120,10 +118,6 @@ private final Log log = LogFactory.getLog(getClass());
 			Image image = p.getImages().iterator().next();
 			imageDao.removeImageFromEntity(p, image);
 		}
-//		for (Image i : p.getImages()) {
-//			imageDao.removeImageFromEntity(p, i);
-//		}
-
 		super.deleteById(aLong);
 	}
 
