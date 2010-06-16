@@ -5,8 +5,6 @@
 		parent="global"
 		start-state="allCategoriesQueried">
 
-	<!--<persistence-context/>-->
-
 	<input name="categoryId" required="true" type="long"/>
 
 	<decision-state id="allCategoriesQueried">

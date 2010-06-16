@@ -24,8 +24,7 @@ import static org.junit.Assert.fail;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testsSetup.xml"})
 public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUnit4SpringContextTests {
-	protected static final String TEST_UPLOAD_DIRECTORY = "testUpload"; 
-	protected static final String PATH_DELIM = "/"; 
+	protected static final String PATH_DELIM = "/";
 	protected List<String> beanNames = new ArrayList<String>();
 	protected List<T> beansFromXml = new ArrayList<T>();
 	protected List<T> beansFromDb = new ArrayList<T>();

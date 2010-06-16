@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @author denisk
  */
 public class FileUploadHandler implements Serializable, ServletContextAware {
-	private final static String FILE_PARAM_NAME = "file";
+	public final static String FILE_PARAM_NAME = "file";
 	public static final String UPLOAD_DIR_NAME = "uploaded";
 
 	private ServletContext servletContext;
@@ -34,12 +34,16 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		this.servletContext = servletContext;
 	}
 
-	public Image precessTempFile(ImageAware entity, RequestContext requestContext, StringWrap imageName) throws IOException {
-		return processFile(entity, requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+
+	public Image precessTempFile(RequestContext requestContext, StringWrap imageName) throws IOException {
+		return processFile(requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
 	}
 
     //todo damn me if this is not to be covered with unit test
-	private Image processFile(ImageAware entity, RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
+	protected Image processFile(RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
 		if (file == null) {
@@ -49,7 +53,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			if (! isFileValid(requestContext, file)) {
 				throw new IllegalArgumentException("Not valid image type: " + file.getContentType());
 			}
-			File imageFile = getDestFile(file, entity, uploadDirName, imageName);
+			File imageFile = getDestFile(uploadDirName, imageName);
 			file.transferTo(imageFile);
 
 //			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
@@ -71,8 +75,8 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		}
 	}
 
-	private File getDestFile(MultipartFile file, ImageAware entity, String uploadDirName, String imageName) {
-		String uploadedFolderPath = servletContext.getRealPath(uploadDirName);
+	private File getDestFile(String uploadDirName, String imageName) {
+		String uploadedFolderPath = getServletContext().getRealPath(uploadDirName);
 		File uploadDir = new File(uploadedFolderPath);
 		if (!uploadDir.exists()) {
 			throw new IllegalStateException("Upload directory doesn't exist: " + uploadDirName);
@@ -88,6 +92,9 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 
 	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
 		String contentType = file.getContentType();
+		if (contentType == null) {
+			throw new IllegalArgumentException("No extension in file " + file);
+		}
 		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)|| contentType.equals(PNG_TYPE)) {
 			return true;
 		}
@@ -101,7 +108,6 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 
 	private Image createImage(String imageRelativePath, String imageAbsolutePath) {
 		Image image = new Image(imageRelativePath);
-		//image.setAbsolutePath(imageAbsolutePath);
 		return image;
 	}
 
