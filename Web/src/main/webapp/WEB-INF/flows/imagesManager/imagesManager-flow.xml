@@ -17,7 +17,7 @@
 
 		<transition on="upload" to="imagesManager">
 			<evaluate expression="imageIdGenerationService.generateIdForNextImage(imageAware)" result="requestScope.imageName"/>
-			<evaluate expression="fileUploadHandler.precessTempFile(imageAware, flowRequestContext, imageName)" result="requestScope.image"/>
+			<evaluate expression="fileUploadHandler.precessTempFile(flowRequestContext, imageName)" result="requestScope.image"/>
 			<evaluate expression="imageDao.addImageToEntity(imageAware, image)"/>
 		</transition>
 
