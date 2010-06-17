@@ -6,9 +6,9 @@
     <!--<persistence-context />-->
 
 	<view-state id="aboutUs" parent="good#good">
-        <on-render>
+        <on-entry>
             <evaluate expression="productDao.getNew()" result="flowScope.newProducts" result-type="dataModel"/>
-        </on-render>
+        </on-entry>
 
 		<transition on="selectGood" to="goodFlow" history="discard">
 			<set name="requestScope.productId" value="newProducts.selectedRow.id"/>
