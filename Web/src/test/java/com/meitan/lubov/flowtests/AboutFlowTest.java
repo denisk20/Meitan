@@ -45,7 +45,7 @@ public class AboutFlowTest extends AbstractXmlFlowExecutionTests {
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
-		return resourceFactory.createFileResource("Web/src/main/webapp/WEB-INF/flows/about/about-flow.xml");
+		return resourceFactory.createFileResource(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/about/about-flow.xml");
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class AboutFlowTest extends AbstractXmlFlowExecutionTests {
 
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
-		Resource globalFlowResource = new FileSystemResource(new File("Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
+		Resource globalFlowResource = new FileSystemResource(new File(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
 		return new FlowDefinitionResource[] {
 				new FlowDefinitionResource("global", globalFlowResource, null),
 		};
