@@ -33,11 +33,7 @@ import java.util.ArrayList;
  *         Date: 16.06.2010
  *         Time: 17:59:34
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:testsSetup.xml"})
-@TestExecutionListeners({TransactionalTestExecutionListener.class, DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
-@Transactional
-public class AboutFlowTest extends AbstractXmlFlowExecutionTests {
+public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private ProductDao testProductDao;
 
@@ -53,14 +49,6 @@ public class AboutFlowTest extends AbstractXmlFlowExecutionTests {
 		builderContext.registerBean("productDao", testProductDao);
 		builderContext.registerBean("fileUploadHandler", fileUploadHandler);
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
-	}
-
-	@Override
-	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
-		Resource globalFlowResource = new FileSystemResource(new File(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
-		return new FlowDefinitionResource[] {
-				new FlowDefinitionResource("global", globalFlowResource, null),
-		};
 	}
 
 	@Test
