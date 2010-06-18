@@ -12,7 +12,6 @@ import org.springframework.webflow.config.FlowDefinitionResourceFactory;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
-import javax.faces.model.DataModel;
 import java.util.ArrayList;
 import java.util.List;
 

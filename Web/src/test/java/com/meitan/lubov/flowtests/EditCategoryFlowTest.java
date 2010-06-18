@@ -2,7 +2,6 @@ package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.services.dao.CategoryDao;
-import com.meitan.lubov.services.util.DenisConversionService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.webflow.config.FlowDefinitionResource;

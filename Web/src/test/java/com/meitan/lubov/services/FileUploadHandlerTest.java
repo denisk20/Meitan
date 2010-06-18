@@ -29,22 +29,16 @@ import static org.junit.Assert.*;
  */
 public class FileUploadHandlerTest {
 
-	private static final String FILE_NAME = "Toolbelt.jpg";
+	public static final String FILE_NAME = "Toolbelt.jpg";
 	private static final String BASE_PATH = System.getenv("MEITAN_HOME");
 	private static final String FULL_TESTUPLOAD_DIRECTORY_PATH = BASE_PATH + "/" + MockFileUploadHandler.TEST_UPLOAD_DIRECTORY;
-	private final static String PATH_TO_FILE = BASE_PATH + "/" + "Web/src/test/resources/" +FILE_NAME;
+	public final static String PATH_TO_FILE = BASE_PATH + "/" + "Web/src/test/resources/" +FILE_NAME;
 	
 	private FileUploadHandler testable = new MockFileUploadHandler();
 
 	@Test
 	public void testProcessFile() throws IOException {
-		File file = new File(PATH_TO_FILE);
-		assertTrue("File does not exist: " + PATH_TO_FILE, file.exists());
-
-		InputStream is = new FileInputStream(file);
-		MultipartFile multipartFile = new MockMultipartFile("myFile",FILE_NAME, "image/jpeg", is);
-		MockParameterMap parameterMap = new MockParameterMap();
-		parameterMap.put(FileUploadHandler.FILE_PARAM_NAME, multipartFile);
+		MockParameterMap parameterMap = getParameterMapForFileUpload();
 		RequestContext requestContext = new MockRequestContext(parameterMap);
 
 		File imageFile;
@@ -67,5 +61,16 @@ public class FileUploadHandlerTest {
 		
 	}
 
-	
+	public static MockParameterMap getParameterMapForFileUpload() throws IOException {
+		File file = new File(PATH_TO_FILE);
+		assertTrue("File does not exist: " + PATH_TO_FILE, file.exists());
+
+		InputStream is = new FileInputStream(file);
+		MultipartFile multipartFile = new MockMultipartFile("myFile",FILE_NAME, "image/jpeg", is);
+		MockParameterMap parameterMap = new MockParameterMap();
+		parameterMap.put(FileUploadHandler.FILE_PARAM_NAME, multipartFile);
+		return parameterMap;
+	}
+
+
 }
