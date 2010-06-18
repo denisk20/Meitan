@@ -1,9 +1,6 @@
 package com.meitan.lubov.flowtests;
 
-import com.meitan.lubov.model.persistent.Category;
-import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
-import com.meitan.lubov.services.util.DenisConversionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +15,23 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
-import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 import org.springframework.webflow.test.execution.AbstractXmlFlowExecutionTests;
 
-import javax.faces.model.DataModel;
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * @author denis_k
  *         Date: 18.06.2010
- *         Time: 10:54:25
+ *         Time: 12:09:01
  */
-public class AddCategoryFlowTest extends AbstractFlowIntegrationTest {
-
+public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private CategoryDao testCategoryDao;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
-		return resourceFactory.createFileResource(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/addCategory/addCategory-flow.xml");
+		return resourceFactory.createFileResource(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/categories/categories-flow.xml");
 	}
 
 	@Override
@@ -48,33 +41,6 @@ public class AddCategoryFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testFlowStart() {
-		MockExternalContext context = new MockExternalContext();
-		startFlow(context);
 
-		assertCurrentStateEquals("addCategory");
-		Category newCategory = (Category) getRequiredFlowAttribute("newCategory", Category.class);
-
-		final String name = "myName";
-
-		newCategory.setName(name);
-
-		assertEquals("Wrong transient category ID :", new Long(0), newCategory.getId());
-
-		context.setEventId("create");
-
-		resumeFlow(context);
-
-		assertFlowExecutionEnded();
-		assertFlowExecutionOutcomeEquals("categoryCreated");
-		String outputAttributeName = "createdCategoryName";
-		String flowOutput = (String) getFlowExecutionOutcome().getOutput().get(outputAttributeName, String.class);
-		assertNotNull("Flow output was null", flowOutput);
-		assertEquals("Wrong flow output", "myName", flowOutput);
-		
-		assertNotNull(newCategory.getId());
-
-		Category created = testCategoryDao.findById(newCategory.getId());
-		assertNotNull("Category wasn't created", created);
-		assertEquals("Category has wrong name", name, created.getName());
 	}
 }
