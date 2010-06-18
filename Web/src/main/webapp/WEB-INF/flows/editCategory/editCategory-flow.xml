@@ -4,10 +4,9 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
-
     <secured attributes="ROLE_ADMIN"/>
 
-<!--todo remove this after finishing unit tests-->    
+	<!--this can't be removed-->    
 	<persistence-context/>
 
 	<input name="categoryId" required="true"/>
@@ -17,27 +16,8 @@
 	</on-start>
 
 	<view-state id="edit" model="category">
-		<transition on="save" to="save">
-			<!--write on disk first-->
-		</transition>
-
-		<!--
-		  <transition on="upload">
-			  <evaluate expression="fileUploadHandler.processFile(category, flowRequestContext)"/>
-			  &lt;!&ndash;<evaluate expression="categoryDao.makePersistent(category)"/>&ndash;&gt;
-		  </transition>
-  -->
-
-		<!--
-		  <transition on="delete" >
-			  <evaluate expression="categoryDao.dropImage(category)"/>
-		  </transition>
-  -->
-
-		<transition on="back" to="cancel">
-			<!--<evaluate expression="tempImagesService.discardImages()"/>-->
-		</transition>
-
+		<transition on="save" to="save"/>
+		<transition on="back" to="cancel"/>
 	</view-state>
 
 
