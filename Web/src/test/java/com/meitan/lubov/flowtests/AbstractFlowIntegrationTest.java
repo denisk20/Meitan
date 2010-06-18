@@ -27,9 +27,10 @@ import java.io.File;
 @Transactional
 public abstract class AbstractFlowIntegrationTest extends AbstractXmlFlowExecutionTests {
 
+	protected String rootPath = System.getenv("MEITAN_HOME");
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
-		Resource globalFlowResource = new FileSystemResource(new File(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
+		Resource globalFlowResource = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
 		return new FlowDefinitionResource[] {
 				new FlowDefinitionResource("global", globalFlowResource, null),
 		};

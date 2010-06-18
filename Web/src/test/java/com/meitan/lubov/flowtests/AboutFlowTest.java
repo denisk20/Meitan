@@ -41,7 +41,7 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
-		return resourceFactory.createFileResource(System.getenv("MEITAN_HOME") + "/Web/src/main/webapp/WEB-INF/flows/about/about-flow.xml");
+		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/about/about-flow.xml");
 	}
 
 	@Override
