@@ -5,7 +5,7 @@
 	  parent="global">
 
 	<!--todo remove this after finishing unit tests-->
-	<persistence-context/>
+	<!--<persistence-context/>-->
 
 	<var name="categoriesSelector" class="com.meitan.lubov.services.util.selectors.CategoriesSelector"/>
 
@@ -23,25 +23,9 @@
 			<evaluate expression="productDao.assignCategoriesToProduct(product, categoriesSelector.items)"/>
 		</transition>
 
-		<!--
-		  <transition on="upload">
-			  <evaluate expression="fileUploadHandler.processFile(category, flowRequestContext)"/>
-			  &lt;!&ndash;<evaluate expression="categoryDao.makePersistent(category)"/>&ndash;&gt;
-		  </transition>
-  -->
-
-		<!--
-		  <transition on="delete" >
-			  <evaluate expression="categoryDao.dropImage(category)"/>
-		  </transition>
-  -->
-
-		<transition on="back" to="cancel">
-			<!--<evaluate expression="tempImagesService.discardImages()"/>-->
-		</transition>
+		<transition on="back" to="cancel"/>
 
 	</view-state>
-
 
 	<end-state id="save" commit="true"/>
 	<end-state id="cancel"/>
