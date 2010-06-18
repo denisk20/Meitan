@@ -4,8 +4,8 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
-	<!--todo remove this after finishing unit tests-->
-	<!--<persistence-context/>-->
+	<!--this can't be removed-->
+	<persistence-context/>
 
 	<var name="categoriesSelector" class="com.meitan.lubov.services.util.selectors.CategoriesSelector"/>
 
