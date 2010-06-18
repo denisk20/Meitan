@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -57,17 +58,14 @@ public class AboutFlowTest extends AbstractXmlFlowExecutionTests {
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		Resource globalFlowResource = new FileSystemResource(new File("Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
-		Resource goodFlowResource = new FileSystemResource(new File("Web/src/main/webapp/WEB-INF/flows/good/good-flow.xml"));
 		return new FlowDefinitionResource[] {
 				new FlowDefinitionResource("global", globalFlowResource, null),
-				new FlowDefinitionResource("good", goodFlowResource, null),
 		};
 	}
 
 	@Test
 	public void testStartAboutFlow() {
 		MockExternalContext context = new MockExternalContext();
-
 		startFlow(context);
 
 		assertCurrentStateEquals("aboutUs");
@@ -75,4 +73,18 @@ public class AboutFlowTest extends AbstractXmlFlowExecutionTests {
 		ArrayList<Product> newProducts = (ArrayList<Product>) newProductsDataModel.getWrappedData();
 		assertEquals("Wrong number of products", 1, newProducts.size());
 	}
+
+	@Test
+	public void testNavigateToGood() {
+		setCurrentState("aboutUs");
+		MockExternalContext context = new MockExternalContext();
+		context.setEventId("selectGood");
+		getFlowScope().put("newProducts", new OneSelectionTrackingListDataModel());
+
+		resumeFlow(context);
+
+		assertFlowExecutionEnded();
+		assertFlowExecutionOutcomeEquals("goodFlow");
+	}
+
 }
