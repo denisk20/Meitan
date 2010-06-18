@@ -4,6 +4,7 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
+	<!--todo remove this after finishing unit tests-->
     <persistence-context/>
     
 	<var name="newGood" class="com.meitan.lubov.model.persistent.Product"/>

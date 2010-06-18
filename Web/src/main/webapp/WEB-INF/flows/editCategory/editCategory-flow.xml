@@ -7,7 +7,8 @@
 
     <secured attributes="ROLE_ADMIN"/>
 
-    <persistence-context/>
+<!--todo remove this after finishing unit tests-->    
+	<persistence-context/>
 
 	<input name="categoryId" required="true"/>
 

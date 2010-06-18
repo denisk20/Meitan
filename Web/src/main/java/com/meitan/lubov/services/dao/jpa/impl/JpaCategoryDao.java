@@ -40,7 +40,7 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 		super.makeTransient(entity);
 		Image image = entity.getImage();
 		//todo what about deleting image from DB? Unit test this
-		//todo what about the products?????????????
+		//todo what about the products and _their_ relationships (images and so on)?????????????
 		if (image != null) {
 			imageDao.deleteFromDisk(image);
 		}
