@@ -42,7 +42,6 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		return processFile(requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
 	}
 
-    //todo damn me if this is not to be covered with unit test
 	protected Image processFile(RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 

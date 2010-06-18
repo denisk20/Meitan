@@ -4,9 +4,7 @@ import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ProductDao;
-import com.meitan.lubov.services.util.DenisConversionService;
 import com.meitan.lubov.services.util.Selectable;
-import com.meitan.lubov.services.util.SelectableImpl;
 import com.meitan.lubov.services.util.selectors.CategoriesSelector;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author denis_k
@@ -42,8 +38,6 @@ public class EditGoodFlowTest extends AbstractFlowIntegrationTest{
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		builderContext.registerBean("productDao", testProductDao);
 		builderContext.registerBean("categoryDao", testCategoryDao);
-//		todo
-//		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
 	@Test
@@ -95,8 +89,9 @@ public class EditGoodFlowTest extends AbstractFlowIntegrationTest{
 		assertEquals("Wrong product name", newProductName, reloadedProduct.getName());
 		assertEquals("Wrong NEW status of a product", ! initialNew, reloadedProduct.isNew());
 		assertTrue("Category wasn't attached to a product", reloadedProduct.getCategories().contains(newCategory));
-		
-		assertCurrentStateEquals("save");
+
+        assertFlowExecutionEnded();
+		assertFlowExecutionOutcomeEquals("save");
 	}
 
 	@Test
