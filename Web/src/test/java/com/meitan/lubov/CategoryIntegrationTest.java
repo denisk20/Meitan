@@ -2,6 +2,7 @@ package com.meitan.lubov;
 
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
+import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.Dao;
 import com.meitan.lubov.services.dao.ImageDao;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.PersistenceException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -78,9 +80,9 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 	}
 
 	@Test
-    //todo test product deletions as well
 	public void testMakeTransient() throws IOException {
 		Category c = beansFromDb.get(0);
+		ArrayList<Product> products = new ArrayList<Product>(c.getProducts());
         Image image = c.getImage();
 
         creamsImageRestoreManager = new FileBackupRestoreManager(testImageDao.getPathPrefix() + image.getUrl());
@@ -101,6 +103,10 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 			assertNull("Image should have been deleted", deletedImage);
 
 			assertFalse("file should have been deleted, but still exists", imageFile.exists());
+
+			for (Product p : products) {
+				assertFalse("Category wasn't deleted from product: " + p, p.getCategories().contains(c));
+			}
 		} finally {
 			creamsImageRestoreManager.restore();
 			assertTrue("Failed to restore image " + creamsImageRestoreManager.getBasePath(), imageFile.exists());

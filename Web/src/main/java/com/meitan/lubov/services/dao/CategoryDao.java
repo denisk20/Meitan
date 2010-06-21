@@ -17,4 +17,5 @@ public interface CategoryDao extends Dao<Category, Long>{
     ImageDao getImageDao();
 
     void setImageDao(ImageDao imageDao);
+
 }
