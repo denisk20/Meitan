@@ -12,9 +12,6 @@
 		<evaluate expression="productDao.findById(goodId)" result="flowScope.product"/>
 	</on-start>
 	<view-state id="good">
-		<on-render>
-			<evaluate expression="fileUploadHandler.sayHello()"/>
-		</on-render>
 	</view-state>
 
 	<end-state id="end"/>
