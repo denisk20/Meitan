@@ -103,7 +103,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	public void testDelete() throws IOException {
 		Product product = testProductDao.findAll().get(0);
-		Set<Image> startImages = (Set<Image>) new HashSet(product.getImages()).clone();
+		Set<Image> startImages = (Set<Image>) new HashSet(product.getImages());
 
 		int startImagesCount = startImages.size();
 		MutableAttributeMap input = new LocalAttributeMap();

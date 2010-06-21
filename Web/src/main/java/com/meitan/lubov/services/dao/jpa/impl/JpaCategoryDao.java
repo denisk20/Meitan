@@ -2,18 +2,17 @@ package com.meitan.lubov.services.dao.jpa.impl;
 
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
+import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ImageDao;
+import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
-import com.meitan.lubov.services.util.Selectable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
 
 /**
  * Date: Mar 5, 2010
@@ -28,6 +27,7 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 
 	@Autowired
 	private ImageDao imageDao;
+
 	@Override
 	public void merge(Category c) {
 		
@@ -35,14 +35,18 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 	}
 
 	@Override
-	//todo unit test this
-	public void makeTransient(Category entity) {
-		super.makeTransient(entity);
-		Image image = entity.getImage();
-		//todo what about deleting image from DB? Unit test this
-		//todo what about the products and _their_ relationships (images and so on)?????????????
+	@Transactional
+	public void makeTransient(Category c) {
+		super.makeTransient(c);
+
+		for (Product p : c.getProducts()) {
+			p.getCategories().remove(c);
+		}
+
+		Image image = c.getImage();
+
 		if (image != null) {
-			imageDao.deleteFromDisk(image);
+			imageDao.removeImageFromEntity(c, image);
 		}
 	}
 
@@ -55,4 +59,5 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
     public void setImageDao(ImageDao imageDao) {
         this.imageDao = imageDao;
     }
+
 }
