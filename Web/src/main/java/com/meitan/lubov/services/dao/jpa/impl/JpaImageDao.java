@@ -79,7 +79,7 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, Servle
 	@Override
 	@Transactional
 	public void addImageToEntity(ImageAware entity, Image i) {
-		entity = em.find(entity.getClass(), entity.getId());
+//		entity = em.find(entity.getClass(), entity.getId());
 		entity.addImage(i);
 	}
 

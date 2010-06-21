@@ -21,6 +21,7 @@ import java.io.File;
  *         Date: 18.06.2010
  *         Time: 12:14:01
  */
+@SuppressWarnings("unchecked")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testsSetup.xml"})
 @TestExecutionListeners({TransactionalTestExecutionListener.class, DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
@@ -28,6 +29,7 @@ import java.io.File;
 public abstract class AbstractFlowIntegrationTest extends AbstractXmlFlowExecutionTests {
 
 	protected String rootPath = System.getenv("MEITAN_HOME");
+
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		Resource globalFlowResource = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));

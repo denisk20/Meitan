@@ -87,7 +87,8 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		setCurrentState("categories");
 
 		Category c = new Category("myCategory");
-		c.setId(1L);
+		long categoryId = 1L;
+		c.setId(categoryId);
 
 		ArrayList<Category> categories = new ArrayList<Category>();
 		categories.add(c);
@@ -96,7 +97,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		
 		getViewScope().put("categories", categoriesDataModel);
 
-		getFlowDefinitionRegistry().registerFlowDefinition(createMockEditCategoryFlow());
+		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockEditCategoryFlow(categoryId));
 
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("edit");
@@ -113,7 +114,8 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		setCurrentState("categories");
 
 		Category c = new Category("myCategory");
-		c.setId(1L);
+		long categoryId = 1L;
+		c.setId(categoryId);
 
 		ArrayList<Category> imageAwares = new ArrayList<Category>();
 		imageAwares.add(c);
@@ -123,7 +125,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 		getViewScope().put("categories", categoriesDataModel);
 
-		getFlowDefinitionRegistry().registerFlowDefinition(createMockImagesManagerFlow());
+		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockImagesManagerFlow(categoryId));
 
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("editimages");
@@ -135,6 +137,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	}
 
 	@Test
+	//todo update to test product deletion as well
 	public void testDeleteCategory() throws IOException {
 		Category persistentCategory = testCategoryDao.findAll().get(0);
 
@@ -201,30 +204,4 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		assertCurrentStateEquals("categories");
 	}
 
-	private Flow createMockEditCategoryFlow() {
-		Flow editCategory = new Flow("editCategory");
-		editCategory.setInputMapper(new Mapper(){
-			@Override
-			public MappingResults map(Object source, Object target) {
-				assertEquals("Wrong Id of category was selected", 1L, ((AttributeMap) source).get("categoryId", Long.class));
-				return null;
-			}
-		});
-		new EndState(editCategory, "save");
-		return editCategory;
-	}
-	private Flow createMockImagesManagerFlow() {
-		Flow editCategory = new Flow("imagesManager");
-		editCategory.setInputMapper(new Mapper(){
-			@Override
-			public MappingResults map(Object source, Object target) {
-				AttributeMap sourceMap = (AttributeMap) source;
-				ImageAware imageAware = (ImageAware) sourceMap.get("imageAware", ImageAware.class);
-				assertEquals("Wrong Id of category was selected", new Long(1L), Long.valueOf(imageAware.getId()));
-				return null;
-			}
-		});
-		new EndState(editCategory, "save");
-		return editCategory;
-	}
 }
