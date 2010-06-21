@@ -114,9 +114,6 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		startFlow(input, context);
 
-//todo wtf?
-//		resumeFlow(context);
-
 		OneSelectionTrackingListDataModel dm = (OneSelectionTrackingListDataModel)
 				getViewScope().getRequired("products", OneSelectionTrackingListDataModel.class);
 
