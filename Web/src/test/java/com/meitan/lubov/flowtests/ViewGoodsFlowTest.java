@@ -2,12 +2,14 @@ package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Category;
+import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import com.meitan.lubov.services.util.DenisConversionService;
+import com.meitan.lubov.services.util.FileBackupRestoreManager;
 import com.meitan.lubov.services.util.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,10 @@ import org.springframework.webflow.test.MockParameterMap;
 
 import javax.faces.model.DataModel;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -182,7 +186,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	}
 
 	@Test
-	public void testDeleteGood() {
+	public void testDeleteGood() throws IOException {
 		LocalAttributeMap input = new LocalAttributeMap("categoryId", -1);
 		MockExternalContext context = new MockExternalContext();
 
@@ -195,16 +199,31 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		ArrayList<Product> products = (ArrayList<Product>) dm.getWrappedData();
 		Product p = products.get(0);
 
+		Set<Image> images = p.getImages();
+		ArrayList<Image> imagesList = new ArrayList<Image>(images);
+		FileBackupRestoreManager[] restoreManagers =
+				new FileBackupRestoreManager[imagesList.size()];
+		for (int i = 0; i<imagesList.size(); i++) {
+			restoreManagers[i] = new FileBackupRestoreManager(rootPath + imagesList.get(i).getUrl());
+			restoreManagers[i].backup();
+		}
+
 		dm.select(p);
 
 		context.setEventId("delete");
-		resumeFlow(context);
+		try {
+			resumeFlow(context);
 
-		Product loaded = testProductDao.findById(p.getId());
-		assertNull("Product wasn't properly deleted: " + p, loaded);
+			Product loaded = testProductDao.findById(p.getId());
+			assertNull("Product wasn't properly deleted: " + p, loaded);
 
-		assertFlowExecutionActive();
-		assertCurrentStateEquals("allGoodsList");
+			assertFlowExecutionActive();
+			assertCurrentStateEquals("allGoodsList");
+		} finally {
+			for (FileBackupRestoreManager m : restoreManagers) {
+				m.restore();
+			}
+		}
 	}
 
 	@Test
