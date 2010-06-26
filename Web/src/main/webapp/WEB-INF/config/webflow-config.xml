@@ -17,6 +17,9 @@
 			<webflow:listener ref="jpaFlowExecutionListener"/>
 			<webflow:listener ref="securityFlowExecutionListener"/>
 		</webflow:flow-execution-listeners>
+		<webflow:flow-execution-attributes>
+			<webflow:always-redirect-on-pause value="true"/>
+		</webflow:flow-execution-attributes>
 	</webflow:flow-executor>
 
 	<!-- The registry of executable flow definitions -->

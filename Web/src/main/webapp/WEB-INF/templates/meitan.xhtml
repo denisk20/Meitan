@@ -17,6 +17,7 @@
 
     </head>
     <body>
+<!--    todo remove this from here-->
     <div align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}</div>
 	<c:if test="${not empty currentUser.name}">
 		Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>

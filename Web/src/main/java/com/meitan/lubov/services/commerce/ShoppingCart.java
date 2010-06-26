@@ -4,6 +4,7 @@ import com.meitan.lubov.model.PriceAware;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -11,11 +12,13 @@ import java.util.ArrayList;
  *         Time: 14:43:09
  */
 public interface ShoppingCart {
-	ArrayList<PriceAware> getItems();
+	Set<PriceAware> getItems();
 
 	BigDecimal getTotalPrice();
 
 	void addItem(PriceAware item);
 
-	int getCount();
+	int getTypesCount();
+
+	int getQuantity(PriceAware item);
 }
