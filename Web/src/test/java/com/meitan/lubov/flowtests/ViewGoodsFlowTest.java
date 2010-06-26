@@ -245,7 +245,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		resumeFlow(context);
 
-		PriceAware fromCart = cart.getItems().get(0);
+		PriceAware fromCart = cart.getItems().iterator().next();
 		assertEquals("Wrong item was added to the cart", p, fromCart);
 
 		assertFlowExecutionActive();

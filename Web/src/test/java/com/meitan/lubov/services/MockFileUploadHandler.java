@@ -1,10 +1,8 @@
 package com.meitan.lubov.services;
 
-import com.meitan.lubov.model.ImageAware;
+import com.meitan.lubov.SimpleFileSystemResourceLoader;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.util.FileUploadHandler;
-import org.springframework.core.io.FileSystemResourceLoader;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.webflow.execution.RequestContext;
 
@@ -21,8 +19,9 @@ public class MockFileUploadHandler extends FileUploadHandler {
 	private ServletContext servletContext;
 
 	public MockFileUploadHandler() {
-		ResourceLoader resourceLoader = new FileSystemResourceLoader();
-		servletContext = new MockServletContext(System.getenv("MEITAN_HOME"), resourceLoader);
+		//todo this is not the case
+		servletContext = new MockServletContext(System.getenv("MEITAN_HOME"), new SimpleFileSystemResourceLoader()
+												);
 	}
 
 	@Override

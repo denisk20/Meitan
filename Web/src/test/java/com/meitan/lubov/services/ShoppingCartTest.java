@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -26,7 +27,7 @@ public class ShoppingCartTest {
 		testable.addItem(prod1);
 		testable.addItem(prod2);
 
-		ArrayList<PriceAware> products = testable.getItems();
+		Set<PriceAware> products = testable.getItems();
 
 		assertTrue(products.contains(prod1));
 		assertTrue(products.contains(prod2));

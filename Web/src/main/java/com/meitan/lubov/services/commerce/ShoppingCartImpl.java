@@ -5,7 +5,9 @@ import com.meitan.lubov.model.components.Price;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -14,23 +16,31 @@ import java.util.ArrayList;
  */
 @Service("cart")
 public class ShoppingCartImpl implements ShoppingCart{
-	private ArrayList<PriceAware> items = new ArrayList<PriceAware>();
+	private HashMap<PriceAware, Integer> items = new HashMap<PriceAware, Integer>();
 
 	@Override
-	public ArrayList<PriceAware> getItems() {
-		return items;
+	public Set<PriceAware> getItems() {
+		return items.keySet();
+	}
+
+	@Override
+	public int getQuantity(PriceAware item) {
+		return items.get(item);
 	}
 
 	@Override
 	public BigDecimal getTotalPrice() {
 		BigDecimal result = new BigDecimal(0);
 
-		for (PriceAware item : items) {
-			Price price = item.getPrice();
+		for (Map.Entry <PriceAware, Integer> entry : items.entrySet()) {
+			Price price = entry.getKey().getPrice();
 			if (price != null) {
-				result = result.add(price.getAmount());
+				Integer val = entry.getValue();
+				BigDecimal amount = price.getAmount();
+				BigDecimal priceForItems = amount.multiply(new BigDecimal(val));
+				result = result.add(priceForItems);
 			} else {
-				throw new IllegalArgumentException("No price for product " + item);
+				throw new IllegalArgumentException("No price for product " + entry);
 			}
 		}
 
@@ -39,11 +49,15 @@ public class ShoppingCartImpl implements ShoppingCart{
 
 	@Override
 	public void addItem(PriceAware item) {
-		items.add(item);
+		int quantity = 0;
+		if (items.containsKey(item)) {
+			quantity = items.get(item);
+		}
+		items.put(item, quantity + 1);
 	}
 
 	@Override
-	public int getCount() {
+	public int getTypesCount() {
 		return items.size();
 	}
 }
