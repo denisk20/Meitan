@@ -4,6 +4,7 @@ import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
+import com.meitan.lubov.services.commerce.ShoppingCartItem;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -27,7 +28,7 @@ public class ShoppingCartTest {
 		testable.addItem(prod1);
 		testable.addItem(prod2);
 
-		Set<PriceAware> products = testable.getItems();
+		ArrayList<PriceAware> products = testable.getPriceAwares();
 
 		assertTrue(products.contains(prod1));
 		assertTrue(products.contains(prod2));
@@ -50,5 +51,26 @@ public class ShoppingCartTest {
 		BigDecimal total = testable.getTotalPrice();
 
 		assertEquals(p1Price.add(p2Price), total);
+	}
+
+	@Test
+	public void testDuplicateShoppingCartItems() {
+		String name = "p1";
+		String description = "desc";
+		Product p1 = new Product(name);
+		p1.setDescription(description);
+
+		Product p2 = new Product(name);
+		p2.setDescription(description);
+
+		testable.addItem(p1);
+		testable.addItem(p2);
+
+		ArrayList<ShoppingCartItem> items = testable.getItems();
+		assertEquals("Wrong number of items", 1, items.size());
+
+		ShoppingCartItem item = items.get(0);
+		assertEquals(p1, item.getItem());
+		assertEquals(new Integer(2), item.getQuantity());
 	}
 }
