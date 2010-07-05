@@ -96,4 +96,9 @@ public class ShoppingCartImpl implements ShoppingCart{
 		boolean result = items.remove(item);
 		return result;
 	}
+
+	@Override
+	 public void sayHello() {
+		System.out.println("Hello!");
+	}
 }
