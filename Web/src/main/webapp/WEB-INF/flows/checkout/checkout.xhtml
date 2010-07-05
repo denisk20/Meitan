@@ -1,41 +1,52 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:sf="http://www.springframework.org/tags/faces"
-				xmlns:form="http://www.springframework.org/tags/form"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:form="http://www.springframework.org/tags/form"
                 xmlns:sec="http://www.springframework.org/security/tags"
-				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-				template="/WEB-INF/templates/meitan.xhtml">
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/WEB-INF/templates/meitan.xhtml">
 
-	<ui:define name="content">
-		<h:messages/>
-		<h1>Checkout stand</h1>
-		<h:form>
-			<h:dataTable value="#{shoppingCartItems}" var="shoppingCartItem"
-						 rendered="#{fn:length(cart.items) > 0}">
-				<h:column>
-					<f:facet name="header">Item name</f:facet>
-					<h:outputText value="#{shoppingCartItem.item.name}"/>
-				</h:column>
+    <ui:define name="content">
+        <h:messages/>
 
-				<h:column>
-					<f:facet name="header">Quantity</f:facet>
-					<!-- todo why doesn't the validator work?-->
-					<sf:clientTextValidator promptMessage="Change the name">
-						<h:inputText id="categoryName" value="#{shoppingCartItem.quantity}"/>
-					</sf:clientTextValidator>
+        <h1>Checkout stand</h1>
+        <h:form>
+            <ui:fragment id="cartItemsFragment">
+                <h:dataTable value="#{shoppingCartItems}" var="shoppingCartItem"
+                             rendered="#{fn:length(cart.items) > 0}">
+                    <h:column>
+                        <f:facet name="header">Item name</f:facet>
+                        <h:outputText value="#{shoppingCartItem.item.name}"/>
+                    </h:column>
 
-				</h:column>
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                        <!-- todo why doesn't the validator work?-->
+                        <sf:clientTextValidator promptMessage="Change the name">
+                            <sf:ajaxEvent event="onkeypress" action="quantityChanged" processIds="*">
+                                <h:inputText value="#{shoppingCartItem.quantity}"/>
+                            </sf:ajaxEvent>
+                        </sf:clientTextValidator>
 
-				<h:column>
-					<f:facet name="header">Delete items</f:facet>
-					<sf:commandButton value="Delete" action="delete" processIds="*"></sf:commandButton>
-				</h:column>
-			</h:dataTable>
-		</h:form>
+                    </h:column>
 
-	</ui:define>
+                    <h:column>
+                        <f:facet name="header">Delete items</f:facet>
+                        <sf:commandButton value="Delete" action="delete"></sf:commandButton>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Price for this product</f:facet>
+                        <h:outputText value="#{shoppingCartItem.price}"/>
+                    </h:column>
+
+                </h:dataTable>
+            </ui:fragment>
+        </h:form>
+
+    </ui:define>
 </ui:composition>

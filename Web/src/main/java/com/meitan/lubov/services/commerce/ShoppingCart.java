@@ -25,4 +25,6 @@ public interface ShoppingCart {
 	int getQuantity(PriceAware item);
 
 	boolean deleteItem(ShoppingCartItem item);
+
+	void sayHello();
 }

@@ -12,7 +12,11 @@
         <transition on="delete" to="checkout" >
             <evaluate expression="cart.deleteItem(shoppingCartItems.selectedRow)"/>
         </transition>
-        <transition on="back" to="cancel"/>
+        
+        <transition on="quantityChanged">
+            <evaluate expression="cart.sayHello()"/>
+            <!--<render fragments="cartItemsFragment"/>-->
+        </transition>
     </view-state>
 
 

@@ -30,6 +30,16 @@ public class ShoppingCartItem implements Serializable {
 		this.quantity = quantity;
 	}
 
+	public BigDecimal getPrice() {
+		BigDecimal amount = item.getPrice().getAmount();
+		if (amount == null) {
+			throw new IllegalStateException("No price for item " + item);
+		}
+		BigDecimal result = amount.multiply(new BigDecimal(quantity));
+
+		return result;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
