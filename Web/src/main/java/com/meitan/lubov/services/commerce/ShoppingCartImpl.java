@@ -5,9 +5,8 @@ import com.meitan.lubov.model.components.Price;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author denis_k
@@ -16,31 +15,44 @@ import java.util.Set;
  */
 @Service("cart")
 public class ShoppingCartImpl implements ShoppingCart{
-	private HashMap<PriceAware, Integer> items = new HashMap<PriceAware, Integer>();
+	private ArrayList<ShoppingCartItem> items = new ArrayList<ShoppingCartItem>();
 
 	@Override
-	public Set<PriceAware> getItems() {
-		return items.keySet();
+	public ArrayList<ShoppingCartItem> getItems() {
+		return items;
+	}
+
+	@Override
+	public ArrayList<PriceAware> getPriceAwares() {
+		ArrayList<PriceAware> result = new ArrayList<PriceAware>();
+		for (ShoppingCartItem i : items) {
+			result.add(i.getItem());
+		}
+		return result;
 	}
 
 	@Override
 	public int getQuantity(PriceAware item) {
-		return items.get(item);
+		ShoppingCartItem found = fetchItem(item);
+		if (found == null) {
+			return 0;
+		}
+		return found.getQuantity();
 	}
 
 	@Override
 	public BigDecimal getTotalPrice() {
 		BigDecimal result = new BigDecimal(0);
 
-		for (Map.Entry <PriceAware, Integer> entry : items.entrySet()) {
-			Price price = entry.getKey().getPrice();
+		for (ShoppingCartItem i : items) {
+			Price price = i.getItem().getPrice();
 			if (price != null) {
-				Integer val = entry.getValue();
+				Integer val = i.getQuantity();
 				BigDecimal amount = price.getAmount();
 				BigDecimal priceForItems = amount.multiply(new BigDecimal(val));
 				result = result.add(priceForItems);
 			} else {
-				throw new IllegalArgumentException("No price for product " + entry);
+				throw new IllegalArgumentException("No price for product " + i);
 			}
 		}
 
@@ -49,15 +61,34 @@ public class ShoppingCartImpl implements ShoppingCart{
 
 	@Override
 	public void addItem(PriceAware item) {
-		int quantity = 0;
-		if (items.containsKey(item)) {
-			quantity = items.get(item);
+		ShoppingCartItem found = fetchItem(item);
+
+		if (found != null) {
+			int quantity = found.getQuantity();
+			found.setQuantity(quantity + 1);
+		} else {
+			found = new ShoppingCartItem(item, 1);
+			items.add(found);
 		}
-		items.put(item, quantity + 1);
 	}
 
 	@Override
 	public int getTypesCount() {
 		return items.size();
 	}
+
+	private ShoppingCartItem fetchItem(PriceAware item) {
+		ShoppingCartItem found = null;
+		for (ShoppingCartItem i : items) {
+			if (i.getItem().equals(item)) {
+				if (found != null) {
+					//todo unit test this
+					throw new IllegalStateException("Duplicate entities with item " + item);
+				}
+				found = i;
+			}
+		}
+		return found;
+	}
+
 }

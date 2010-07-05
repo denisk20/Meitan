@@ -12,8 +12,10 @@ import java.util.Set;
  *         Time: 14:43:09
  */
 public interface ShoppingCart {
-	Set<PriceAware> getItems();
+	ArrayList<ShoppingCartItem> getItems();
 
+	ArrayList<PriceAware> getPriceAwares();
+	
 	BigDecimal getTotalPrice();
 
 	void addItem(PriceAware item);
