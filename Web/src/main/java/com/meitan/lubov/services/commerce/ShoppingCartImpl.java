@@ -91,4 +91,9 @@ public class ShoppingCartImpl implements ShoppingCart{
 		return found;
 	}
 
+	@Override
+	public boolean deleteItem(ShoppingCartItem item) {
+		boolean result = items.remove(item);
+		return result;
+	}
 }

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
-	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-	  parent="global">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="global">
 
-	<view-state id="checkout" model="cart">
-        
-		<transition on="save" to="save"/>
-		<transition on="back" to="cancel"/>
-	</view-state>
+    <view-state id="checkout" model="cart">
+        <on-entry>
+            <evaluate expression="cart.getItems()" result="viewScope.shoppingCartItems" result-type="dataModel"/>
+        </on-entry>
+
+        <transition on="delete" to="checkout" >
+            <evaluate expression="cart.deleteItem(shoppingCartItems.selectedRow)"/>
+        </transition>
+        <transition on="back" to="cancel"/>
+    </view-state>
 
 
-	<end-state id="save" commit="true"/>
-	<end-state id="cancel"/>
+    <end-state id="save" commit="true"/>
+    <end-state id="cancel"/>
 </flow>
