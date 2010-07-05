@@ -2,9 +2,10 @@ package com.meitan.lubov.services.commerce;
 
 import com.meitan.lubov.model.PriceAware;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ShoppingCartItem {
+public class ShoppingCartItem implements Serializable {
 	private PriceAware item;
 	private Integer quantity;
 

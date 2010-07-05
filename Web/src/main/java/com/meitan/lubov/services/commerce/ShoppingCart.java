@@ -23,4 +23,6 @@ public interface ShoppingCart {
 	int getTypesCount();
 
 	int getQuantity(PriceAware item);
+
+	boolean deleteItem(ShoppingCartItem item);
 }
