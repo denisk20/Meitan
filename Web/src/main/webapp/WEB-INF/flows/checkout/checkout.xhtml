@@ -14,9 +14,9 @@
         <h:messages/>
 
         <h1>Checkout stand</h1>
-        <h:form>
+        <h:form id="checkout" >
             <ui:fragment id="cartItemsFragment">
-                <h:dataTable value="#{shoppingCartItems}" var="shoppingCartItem"
+                <h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
                              rendered="#{fn:length(cart.items) > 0}">
                     <h:column>
                         <f:facet name="header">Item name</f:facet>
@@ -27,16 +27,16 @@
                         <f:facet name="header">Quantity</f:facet>
                         <!-- todo why doesn't the validator work?-->
                         <sf:clientTextValidator promptMessage="Change the name">
-                            <sf:ajaxEvent event="onkeypress" action="quantityChanged" processIds="*">
-                                <h:inputText value="#{shoppingCartItem.quantity}"/>
-                            </sf:ajaxEvent>
+                            <!--<sf:ajaxEvent event="onkeypress" action="quantityChanged" processIds="*">-->
+							<h:inputText value="#{shoppingCartItem.quantity}"/>
+                            <!--</sf:ajaxEvent>-->
                         </sf:clientTextValidator>
 
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">Delete items</f:facet>
-                        <sf:commandButton value="Delete" action="delete"></sf:commandButton>
+                        <sf:commandButton value="Delete" action="delete" processIds="*"/>
                     </h:column>
 
                     <h:column>
@@ -46,6 +46,9 @@
 
                 </h:dataTable>
             </ui:fragment>
+
+			<sf:commandButton value="Recalculate prices" action="recalculate" processIds="*"/>
+
         </h:form>
 
     </ui:define>
