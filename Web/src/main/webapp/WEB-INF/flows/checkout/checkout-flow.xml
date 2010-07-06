@@ -16,8 +16,7 @@
         </transition>
         
         <transition on="quantityChanged">
-            <evaluate expression="cart.sayHello()"/>
-            <!--<render fragments="cartItemsFragment"/>-->
+            <render fragments="checkout:cartItemsFragment"/>
         </transition>
 
         <transition on="recalculate">
