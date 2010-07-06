@@ -1,7 +1,9 @@
 package com.meitan.lubov.services.commerce;
 
 import com.meitan.lubov.model.PriceAware;
+import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 
+import javax.faces.model.DataModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
@@ -27,4 +29,6 @@ public interface ShoppingCart {
 	boolean deleteItem(ShoppingCartItem item);
 
 	void sayHello();
+
+	OneSelectionTrackingListDataModel getItemsDataModel();
 }

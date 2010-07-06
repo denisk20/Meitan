@@ -9,6 +9,6 @@ import java.math.BigDecimal;
  *         Date: 10.06.2010
  *         Time: 14:40:42
  */
-public interface PriceAware extends NameAware{
+public interface PriceAware extends NameAware, IdAware{
 	Price getPrice();
 }

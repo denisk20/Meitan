@@ -2,8 +2,10 @@ package com.meitan.lubov.services.commerce;
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Price;
+import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.stereotype.Service;
 
+import javax.faces.model.DataModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Map;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class ShoppingCartImpl implements ShoppingCart{
 	private ArrayList<ShoppingCartItem> items = new ArrayList<ShoppingCartItem>();
 
+	private OneSelectionTrackingListDataModel itemsDataModel = new OneSelectionTrackingListDataModel(items);
 	@Override
 	public ArrayList<ShoppingCartItem> getItems() {
 		return items;
@@ -95,6 +98,11 @@ public class ShoppingCartImpl implements ShoppingCart{
 	public boolean deleteItem(ShoppingCartItem item) {
 		boolean result = items.remove(item);
 		return result;
+	}
+
+	@Override
+	public OneSelectionTrackingListDataModel getItemsDataModel() {
+		return itemsDataModel;
 	}
 
 	@Override

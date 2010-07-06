@@ -5,21 +5,28 @@
       parent="global">
 
     <view-state id="checkout" model="cart">
+<!--
         <on-entry>
             <evaluate expression="cart.getItems()" result="viewScope.shoppingCartItems" result-type="dataModel"/>
         </on-entry>
+-->
 
         <transition on="delete" to="checkout" >
-            <evaluate expression="cart.deleteItem(shoppingCartItems.selectedRow)"/>
+            <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
         </transition>
         
         <transition on="quantityChanged">
             <evaluate expression="cart.sayHello()"/>
             <!--<render fragments="cartItemsFragment"/>-->
         </transition>
+
+        <transition on="recalculate">
+            <render fragments="checkout:cartItemsFragment"/>
+        </transition>
     </view-state>
 
 
     <end-state id="save" commit="true"/>
-    <end-state id="cancel"/>
+
+    <end-state id="cancel" view="flowRedirect:categories"/>
 </flow>
