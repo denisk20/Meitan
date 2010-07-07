@@ -11,8 +11,9 @@
         </on-entry>
 -->
 
-        <transition on="delete" to="checkout" >
+        <transition on="delete" >
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
+            <render fragments="checkout:quantityTable,checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
         </transition>
         
         <transition on="quantityChanged">
