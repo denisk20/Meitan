@@ -19,9 +19,6 @@
             <render fragments="checkout:cartItemsFragment"/>
         </transition>
 
-        <transition on="recalculate">
-            <render fragments="checkout:cartItemsFragment"/>
-        </transition>
     </view-state>
 
 
