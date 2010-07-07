@@ -17,7 +17,7 @@
 		<h:form id="checkout">
 
 				<sf:ajaxEvent event="onkeyup" action="quantityChanged">
-
+				<ui:fragment id="quantityTable">
 					<h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
 								 rendered="#{fn:length(cart.items) > 0}">
 						<h:column>
@@ -41,6 +41,7 @@
 						</h:column>
 
 					</h:dataTable>
+					</ui:fragment>
 				</sf:ajaxEvent>
 
 
