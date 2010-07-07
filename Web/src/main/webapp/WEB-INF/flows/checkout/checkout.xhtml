@@ -16,7 +16,7 @@
 		<h1>Checkout stand</h1>
 		<h:form id="checkout">
 
-				<sf:ajaxEvent event="onkeyup" action="quantityChanged" processIds="*">
+				<sf:ajaxEvent event="onkeyup" action="quantityChanged">
 
 					<h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
 								 rendered="#{fn:length(cart.items) > 0}">
@@ -55,8 +55,6 @@
 
 				<div id="total"> Total: #{cart.totalPrice}</div>
 			</ui:fragment>
-
-			<!--<sf:commandButton value="Recalculate prices" action="recalculate" processIds="*"/>-->
 
 		</h:form>
 

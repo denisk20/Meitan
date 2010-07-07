@@ -18,17 +18,21 @@
     </head>
     <body>
 <!--    todo remove this from here-->
-    <div align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}
-	<a href="checkout">Go to checkout</a>
+<h:form id="topPanelForm">
+<ui:fragment id="shoppingCartFragment">
+	<div id="cartDiv" align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}
+		<a href="checkout">Go to checkout</a>
 	</div>
-	<c:if test="${not empty currentUser.name}">
-		Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
-	</c:if>
-	<c:if test="${empty currentUser.name}">
-		<a href="${request.contextPath}/spring/login">Login</a>
-	</c:if>
+</ui:fragment>
+</h:form>
+<c:if test="${not empty currentUser.name}">
+	Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
+</c:if>
+<c:if test="${empty currentUser.name}">
+	<a href="${request.contextPath}/spring/login">Login</a>
+</c:if>
 	
-    <table>
+<table>
         <tr>
             <td>
 				<ui:include src="menu.xhtml"/>

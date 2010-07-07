@@ -16,7 +16,7 @@
         </transition>
         
         <transition on="quantityChanged">
-            <render fragments="checkout:cartItemsFragment"/>
+            <render fragments="checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
         </transition>
 
     </view-state>
