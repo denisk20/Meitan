@@ -5,12 +5,6 @@
       parent="global">
 
     <view-state id="checkout" model="cart">
-<!--
-        <on-entry>
-            <evaluate expression="cart.getItems()" result="viewScope.shoppingCartItems" result-type="dataModel"/>
-        </on-entry>
--->
-
         <transition on="delete" >
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
             <render fragments="checkout:quantityTable,checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
@@ -20,10 +14,15 @@
             <render fragments="checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
         </transition>
 
+        <transition on="order" to="order">
+            <secured attributes="ROLE_CLIENT, ROLE_CONSULTANT, ROLE_ADMIN" match="any"/>
+        </transition>
+
+        <transition on-exception="org.springframework.security.AccessDeniedException" to="error"/>
     </view-state>
 
+    <view-state id="order">
+    </view-state>
 
-    <end-state id="save" commit="true"/>
-
-    <end-state id="cancel" view="flowRedirect:categories"/>
+    <view-state id="error"/>
 </flow>

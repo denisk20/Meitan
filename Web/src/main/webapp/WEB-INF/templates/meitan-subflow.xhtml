@@ -19,7 +19,7 @@
     <body>
 <!--    todo remove this from here-->
 <ui:fragment id="shoppingCartFragment">
-    <div align="right">Всего в тележке товаров ${cart.typesCount} на сумму ${cart.totalPrice}</div>
+    <div id="cartDiv" align="right">Всего в тележке товаров ${cart.typesCount} на сумму ${cart.totalPrice}</div>
 </ui:fragment>
     <c:if test="${not empty currentUser.name}">
         Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
