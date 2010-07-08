@@ -28,7 +28,7 @@ import javax.persistence.OneToMany;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Client extends PersistentOrderableImpl implements Serializable {
 	private long id;
-	private Name name;
+	private Name name = new Name();
 	private String email;
 	private String notes;
 	private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
