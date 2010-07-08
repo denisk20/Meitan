@@ -25,6 +25,10 @@
             <security:user-service>
                 <security:user name="mama" password="202cb962ac59075b964b07152d234b70" authorities="ROLE_ADMIN"/>
             </security:user-service>
+
+            <security:jdbc-user-service data-source-ref="dataSource" authorities-by-username-query="">
+                <se
+            </security:jdbc-user-service>
         </security:authentication-provider>
 
 </beans>
