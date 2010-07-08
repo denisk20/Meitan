@@ -16,10 +16,9 @@
 		<h1>Checkout stand</h1>
 		<h:form id="checkout">
 
-				<sf:ajaxEvent event="onkeyup" action="quantityChanged">
 				<ui:fragment id="quantityTable">
 					<h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
-								 rendered="#{fn:length(cart.items) > 0}">
+							>
 						<h:column>
 							<f:facet name="header">Item name</f:facet>
 							<h:outputText value="#{shoppingCartItem.item.name}"/>
@@ -27,12 +26,11 @@
 
 						<h:column>
 							<f:facet name="header">Quantity</f:facet>
-							<!-- todo why doesn't the validator work?-->
 							<sf:clientTextValidator promptMessage="Change the name">
-								<h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
-
+								<sf:ajaxEvent event="onkeyup" action="quantityChanged">
+									<h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
+								</sf:ajaxEvent>
 							</sf:clientTextValidator>
-
 						</h:column>
 
 						<h:column>
@@ -41,13 +39,11 @@
 						</h:column>
 
 					</h:dataTable>
-					</ui:fragment>
-				</sf:ajaxEvent>
-
+				</ui:fragment>
 
 			<ui:fragment id="cartItemsFragment">
 				<h:dataTable id="shoppingCartItems1" value="#{cart.itemsDataModel}" var="shoppingCartItem"
-							 rendered="#{fn:length(cart.items) > 0}">
+						>
 					<h:column>
 						<f:facet name="header">Prices for items</f:facet>
 						<h:outputText value="#{shoppingCartItem.price}"/>
