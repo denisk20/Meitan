@@ -7,7 +7,7 @@
     <var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>
 
     <view-state id="register">
-        <transition on="register">
+        <transition on="register" to="end">
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
             <evaluate expression="clientDao.makePersistent(newClient)"/>
         </transition>
@@ -16,4 +16,6 @@
     </view-state>
 
     <view-state id="error"/>
+
+    <end-state id="end"/>
 </flow>

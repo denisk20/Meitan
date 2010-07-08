@@ -32,8 +32,9 @@
 		<br/>
 
 		<h:outputLabel for="emailAddress" value="Email"/>
-		<sf:clientTextValidator regExp="[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}" promptMessage="Enter email">
-			<h:inputText id="emailAddress" value="#{newClient.email}"/>
+		<!--todo the validator doesn't work.... must figure out why-->
+		<sf:clientTextValidator regExp="[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}" promptMessage="Enter email" required="true" invalidMessage="Your email isn't valid">
+			<h:inputText id="emailAddress" value="#{newClient.email}" required="true"/>
 		</sf:clientTextValidator>
 		<br/>
 
@@ -42,6 +43,7 @@
 			<h:inputText id="notes" value="#{newClient.notes}"/>
 		</sf:clientTextValidator>
 
+		<!--todo replace this with the call of net.tanesha.recaptcha.ReCaptchaImpl.createRecaptchaHtml-->
 		<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6LcTPLsSAAAAAGxZPlc-ho30s-GlcYREXPM3sAzx">
 		</script>
 		<noscript>
@@ -52,7 +54,7 @@
 			<input type="hidden" name="recaptcha_response_field"
 				   value="manual_challenge"/>
 		</noscript>
-		<sf:commandButton value="Register!" action="register"/>
+		<sf:commandButton value="Register!" action="register" processIds="*"/>
 	</h:form>
 </div>
 
