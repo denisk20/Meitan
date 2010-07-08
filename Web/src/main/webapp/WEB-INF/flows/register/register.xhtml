@@ -1,0 +1,61 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:c="http://java.sun.com/jstl/core"
+				template="/WEB-INF/templates/meitan.xhtml">
+
+<ui:define name="content">
+
+<h1>Registration page</h1>
+<div class="section">
+	<h:messages/>
+	<h:form id="registeringForm">
+		<h:outputLabel for="firstName" value="First name"/>
+		<sf:clientTextValidator promptMessage="Enter the first name">
+				<h:inputText id="firstName" value="#{newClient.name.firstName}"/>
+		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="patronymic" value="Patronymic"/>
+		<sf:clientTextValidator promptMessage="Enter the patronymic">
+				<h:inputText id="patronymic" value="#{newClient.name.patronymic}"/>
+		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="secondName" value="Second name"/>
+		<sf:clientTextValidator promptMessage="Enter the second name">
+				<h:inputText id="secondName" value="#{newClient.name.secondName}"/>
+		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="emailAddress" value="Email"/>
+		<sf:clientTextValidator regExp="[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}" promptMessage="Enter email">
+			<h:inputText id="emailAddress" value="#{newClient.email}"/>
+		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="notes" value="Notes"/>
+		<sf:clientTextValidator promptMessage="Additional notes">
+			<h:inputText id="notes" value="#{newClient.notes}"/>
+		</sf:clientTextValidator>
+
+		<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6LcTPLsSAAAAAGxZPlc-ho30s-GlcYREXPM3sAzx">
+		</script>
+		<noscript>
+			<iframe src="http://api.recaptcha.net/noscript?k=6LcTPLsSAAAAAGxZPlc-ho30s-GlcYREXPM3sAzx"
+					height="300" width="500" frameborder="0"></iframe><br/>
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40">
+			</textarea>
+			<input type="hidden" name="recaptcha_response_field"
+				   value="manual_challenge"/>
+		</noscript>
+		<sf:commandButton value="Register!" action="register"/>
+	</h:form>
+</div>
+
+
+</ui:define>
+</ui:composition>

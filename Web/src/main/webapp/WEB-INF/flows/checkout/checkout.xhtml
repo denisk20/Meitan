@@ -26,11 +26,11 @@
 
 						<h:column>
 							<f:facet name="header">Quantity</f:facet>
-							<sf:clientTextValidator promptMessage="Change the name">
+							<sf:clientNumberValidator promptMessage="Change the name">
 								<sf:ajaxEvent event="onkeyup" action="quantityChanged">
 									<h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
 								</sf:ajaxEvent>
-							</sf:clientTextValidator>
+							</sf:clientNumberValidator>
 						</h:column>
 
 						<h:column>
