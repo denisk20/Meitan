@@ -354,4 +354,25 @@
         <property name="order" value="1"/>
 	</bean>
 
+    <bean id="ent_creamLoverAuthority" class="com.meitan.lubov.model.persistent.Authority">
+        <property name="client" ref="ent_creamLover"/>
+        <property name="role" value="ROLE_CLIENT"/>
+
+        <property name="order" value="2"/>
+    </bean>
+
+    <bean id="ent_creamAdmierAuthority1" class="com.meitan.lubov.model.persistent.Authority">
+        <property name="client" ref="ent_creamAdmier"/>
+        <property name="role" value="ROLE_CLIENT"/>
+
+        <property name="order" value="2"/>
+    </bean>
+
+    <bean id="ent_creamAdmierAuthority2" class="com.meitan.lubov.model.persistent.Authority">
+        <property name="client" ref="ent_creamAdmier"/>
+        <property name="role" value="ROLE_CONSULTANT"/>
+
+        <property name="order" value="2"/>
+    </bean>
+
 </beans>

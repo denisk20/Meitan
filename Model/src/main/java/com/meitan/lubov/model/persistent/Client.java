@@ -26,6 +26,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//todo rename to User
 public class Client extends PersistentOrderableImpl implements Serializable {
 	private long id;
 	private Name name = new Name();
