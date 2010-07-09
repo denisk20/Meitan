@@ -12,7 +12,8 @@
 		<class>com.meitan.lubov.model.persistent.Product</class>
 		<class>com.meitan.lubov.model.persistent.Category</class>
 		<class>com.meitan.lubov.model.persistent.Image</class>
-		
+        <class>com.meitan.lubov.model.persistent.Authority</class>
+
 		<properties>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.current_session_context_class" value="thread"/>
