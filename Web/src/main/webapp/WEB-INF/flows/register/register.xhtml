@@ -5,6 +5,7 @@
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:sf="http://www.springframework.org/tags/faces"
 				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:j4j="http://javascript4jsf.dev.java.net/"
 				template="/WEB-INF/templates/meitan.xhtml">
 
 <ui:define name="content">
@@ -42,6 +43,30 @@
 		<sf:clientTextValidator promptMessage="Additional notes">
 			<h:inputText id="notes" value="#{newClient.notes}"/>
 		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="login" value="Login"/>
+		<sf:clientTextValidator promptMessage="Choose your login">
+			<h:inputText id="login" value="#{newClient.login}"/>
+		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="pass" value="Password"/>
+		<sf:clientTextValidator promptMessage="Choose your password">
+			<h:inputText id="pass" value="#{newClient.password}">
+				<j4j:idProxy id="origPass"/>
+			</h:inputText>
+		</sf:clientTextValidator>
+		<br/>
+
+		<h:outputLabel for="conformPass" value="re-type Password"/>
+		<sf:clientTextValidator promptMessage="Re-type your password">
+			<h:inputText id="conformPass">
+				<j4j:idProxy id="conformedPass"/>
+			</h:inputText>
+		</sf:clientTextValidator>
+		<br/>
+
 
 		<!--todo replace this with the call of net.tanesha.recaptcha.ReCaptchaImpl.createRecaptchaHtml-->
 		<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6LcTPLsSAAAAAGxZPlc-ho30s-GlcYREXPM3sAzx">
@@ -54,7 +79,26 @@
 			<input type="hidden" name="recaptcha_response_field"
 				   value="manual_challenge"/>
 		</noscript>
-		<sf:commandButton value="Register!" action="register" processIds="*"/>
+
+		<script type="text/javascript">
+			function validatePasswords() {
+				return false;
+				var passRealId=document.getElementById("origPass").title;
+				var confPassRealId=document.getElementById("conformedPass").title;
+
+				var passComponent = document.getElementById(passRealId);
+				var conformedPassComponent = document.getElementById(confPassRealId);
+
+				if(! (passComponent.value == conformedPassComponent.value)) {
+					alert("Passwords doesn't match");
+					return false;
+				}
+				return true;
+			}
+
+		</script>
+		<!--todo this doesn't work-->
+		<sf:commandButton value="Register!" action="register" processIds="*" onclick="validatePasswords()"/>
 	</h:form>
 </div>
 

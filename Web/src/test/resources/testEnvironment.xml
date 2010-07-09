@@ -95,4 +95,8 @@
         <property name="imageDao" ref="testImageDao"/>
         <property name="categoryDao" ref="testCategoryDao"/>
     </bean>
+
+    <bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">
+        
+    </bean>
 </beans>
