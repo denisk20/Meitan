@@ -61,7 +61,7 @@
 
 		<h:outputLabel for="conformPass" value="re-type Password"/>
 		<sf:clientTextValidator promptMessage="Re-type your password">
-			<h:inputText id="conformPass">
+			<h:inputText id="conformPass" value="#{newClient.conformedPassword}">
 				<j4j:idProxy id="conformedPass"/>
 			</h:inputText>
 		</sf:clientTextValidator>
@@ -98,7 +98,7 @@
 
 		</script>
 		<!--todo this doesn't work-->
-		<sf:commandButton value="Register!" action="register" processIds="*" onclick="validatePasswords()"/>
+		<sf:commandButton value="Register!" action="register" processIds="*" />
 	</h:form>
 </div>
 

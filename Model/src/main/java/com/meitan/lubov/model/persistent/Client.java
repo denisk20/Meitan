@@ -7,16 +7,7 @@ import com.meitan.lubov.model.util.PersistentOrderableImpl;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Date: Jan 27, 2010
@@ -38,6 +29,7 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	private String password;
 	private boolean enabled;
 
+	private String conformedPassword;
 	public Client() {
 
 	}
@@ -116,6 +108,15 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@Transient
+	public String getConformedPassword() {
+		return conformedPassword;
+	}
+
+	public void setConformedPassword(String conformedPassword) {
+		this.conformedPassword = conformedPassword;
 	}
 
 	@Override
