@@ -38,6 +38,9 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	@Override
 	protected void compareAdditionalProperties(Client beanFromSpring, Client beanFromDB) {
 		assertThat(beanFromSpring.getPurchases(), is(beanFromDB.getPurchases()));
+		assertThat(beanFromSpring.getLogin(), is(beanFromDB.getLogin()));
+		assertThat(beanFromSpring.getPassword(), is(beanFromDB.getPassword()));
+		assertThat(beanFromSpring.isEnabled(), is(beanFromDB.isEnabled()));
 	}
 
     @Test

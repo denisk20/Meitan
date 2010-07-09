@@ -5,6 +5,7 @@ import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.commerce.ShoppingCart;
+import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
@@ -45,8 +46,8 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	private ProductDao testProductDao;
 	@Autowired
 	private CategoryDao testCategoryDao;
-	@Autowired
-	private ShoppingCart cart;
+
+	private ShoppingCart cart = new ShoppingCartImpl();
 
 	private Utils utils = new Utils();
 
@@ -241,6 +242,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		context.setEventId("buy");
 
+		System.out.println("Before crash cart items: " + cart.getItems());
 		assertTrue("Cart should be empty", cart.getItems().isEmpty());
 
 		resumeFlow(context);

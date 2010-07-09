@@ -67,4 +67,28 @@ public class ClientTest {
 		testable.getPurchases().addAll(boughts);
 		assertEquals(boughts, testable.getPurchases());
 	}
+
+	@Test
+	public void testGetLogin() {
+		String login = "login";
+		testable.setLogin(login);
+
+		assertEquals(login, testable.getLogin());
+	}
+
+	@Test
+	public void testGetPass() {
+		String pass = "pass";
+		testable.setPassword(pass);
+
+		assertEquals(pass, testable.getPassword());
+	}
+
+	@Test
+	public void testEnabled() {
+		boolean enabled = true;
+		testable.setEnabled(enabled);
+
+		assertEquals(enabled, testable.isEnabled());
+	}
 }

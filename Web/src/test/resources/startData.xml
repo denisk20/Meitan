@@ -276,6 +276,10 @@
 			</set>
 		</property>
         <property name="order" value="1"/>
+
+        <property name="login" value="consultant"/>
+        <property name="password" value="202cb962ac59075b964b07152d234b70"/> <!--123-->
+        <property name="enabled" value="true"/>
 	</bean>
 
 	<bean id="ent_creamLover" class="com.meitan.lubov.model.persistent.Client">
@@ -351,8 +355,13 @@
 				<ref bean="ent_purchase3"/>
 			</set>
 		</property>
+
         <property name="order" value="1"/>
-	</bean>
+
+        <property name="login" value="client"/>
+        <property name="password" value="5f4dcc3b5aa765d61d8327deb882cf99"/> <!--password-->
+        <property name="enabled" value="true"/>
+    </bean>
 
     <bean id="ent_creamLoverAuthority" class="com.meitan.lubov.model.persistent.Authority">
         <property name="client" ref="ent_creamLover"/>

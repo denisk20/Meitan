@@ -3,6 +3,7 @@ package com.meitan.lubov.flowtests;
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.commerce.ShoppingCart;
+import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.commerce.ShoppingCartItem;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.util.DenisConversionService;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
  */
 //todo how to test the fact that the flow is secured?
 public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
-	@Autowired
-	private ShoppingCart cart;
+
+	private ShoppingCart cart = new ShoppingCartImpl();
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
