@@ -7,15 +7,20 @@
     <var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>
 
     <view-state id="register">
+        <on-entry>
+            <set name="newClient.enabled" value="true"/>
+        </on-entry>
         <transition on="register" to="end">
+            <evaluate expression="passwordsValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
             <evaluate expression="clientDao.makePersistent(newClient)"/>
         </transition>
 
         <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="register"/>
+        <transition on-exception="java.lang.IllegalArgumentException" to="register"/>
     </view-state>
 
     <view-state id="error"/>
 
-    <end-state id="end"/>
+    <end-state id="end" view="flowRedirect:about"/>
 </flow>
