@@ -10,7 +10,7 @@
         <on-entry>
             <set name="newClient.enabled" value="true"/>
         </on-entry>
-        <transition on="register" to="end">
+        <transition on="register" to="done">
             <evaluate expression="passwordsValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
 
@@ -18,8 +18,10 @@
             <set name="newClient.password" value="utils.getMD5(newClient.password)"/>
 
             <evaluate expression="clientDao.makePersistent(newClient)"/>
+            <evaluate expression="securityService.authenticateUser(newClient)"/>
         </transition>
 
+        <transition on="cancel" to="cancel"/>
         <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="register"/>
         <!--passwords don't match-->
         <transition on-exception="java.lang.IllegalArgumentException" to="register"/>
@@ -27,5 +29,6 @@
 
     <view-state id="error"/>
 
-    <end-state id="end" view="flowRedirect:about"/>
+    <end-state id="done"/>
+    <end-state id="cancel"/>
 </flow>
