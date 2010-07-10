@@ -1,5 +1,8 @@
 package com.meitan.lubov.services.util;
 
+import org.springframework.security.providers.encoding.Md5PasswordEncoder;
+import org.springframework.security.providers.encoding.PasswordEncoder;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,4 +22,9 @@ public class Utils {
 		}
 	}
 
+	public String getMD5(String source) {
+		PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
+		String pass = passwordEncoder.encodePassword(source, null);
+		return pass;
+	}
 }
