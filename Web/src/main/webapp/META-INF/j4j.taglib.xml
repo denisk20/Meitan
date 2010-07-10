@@ -12,4 +12,11 @@
             <component-type>org.j4j.idProxy</component-type>
         </component>
     </tag>
+    
+    <tag>
+        <tag-name>param</tag-name>
+        <component>
+            <component-type>org.j4j.param</component-type>
+        </component>
+    </tag>
 </facelet-taglib>

@@ -4,18 +4,14 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
       parent="global">
 
-    <view-state id="login">
-        <transition on="login">
-            <evaluate expression="securityService.doLogin(flowRequestContext)"/>
-        </transition>
-        <transition on="register" to="registerSubflow"/>
+    <var name="usernamePassword" class="com.meitan.lubov.services.util.UsernamePassword"/>
 
-		<transition on="test">
-            <evaluate expression="securityService.doLogin(flowRequestContext)"/>
-		</transition>
+    <view-state id="login" model="usernamePassword">
+        <transition on="login" to="processLogin"/>
+        <transition on="register" to="registerSubflow"/>
     </view-state>
 
-    <view-state id="processLogin" view="externalRedirect:contextRelative:/spring/loginProcess"/>
+    <end-state id="processLogin" view="externalRedirect:contextRelative:/spring/loginProcess?j_username=#{usernamePassword.username}&amp;j_password=#{usernamePassword.password}"/>
 
     <subflow-state id="registerSubflow" subflow="register">
         <transition on="done" to="done"/>

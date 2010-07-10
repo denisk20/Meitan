@@ -1,58 +1,61 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	    		xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:c="http://java.sun.com/jstl/core"
-				xmlns:form="http://www.springframework.org/tags/form"
-				template="/WEB-INF/templates/meitan-subflow.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:j4j="http://javascript4jsf.dev.java.net/"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:form="http://www.springframework.org/tags/form" xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/meitan-subflow.xhtml">
 
-<ui:define name="content">
+    <ui:define name="content">
 
-<h1>Login Required</h1>
-<p>Please login or <a href="/spring/register">register</a> </p>
-<div class="section">
-	<c:if test="${not empty param.login_error}">
-		<div class="errors">
-			Your login attempt was not successful, try again.<br />
-			Reason: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
-		</div>
-	</c:if>
-	<br/>
-	<p>Valid username/passwords are:</p>
-	<ul>
-	    <li>mama/123</li>
-	</ul>
-</div>
+        <h1>Login Required</h1>
 
-<div class="section">
-	<form name="f" action="${request.contextPath}/spring/loginProcess" method="post">
-		<fieldset>
-			<div class="field">
-				<div class="label">User:</div>
-				<div class="output">
-					<c:if test="${not empty param.login_error}">
-						<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
-					</c:if>
-					<input type="text" name="j_username" value="#{username}"/>
-				</div>
-			</div>
-			<div class="field">
-				<div class="label">Password:</div>
-				<div class="output">
-					<input type="password" name="j_password" />
-				</div>
-			</div>
-		</fieldset>
-		<div class="buttonGroup">
-            
-			<input name="submit" type="submit" value="Login" />
-		</div>
-	</form>
+        <p>Please login or <a href="/spring/register">register</a></p>
 
-    <form:form>
-			<input type="submit" name="_eventId_test" value="Search"/>
-        <!--<input type="submit" value="Find Hotels" />-->
-    </form:form>
-</div>
+        <div class="section">
+            <c:if test="${not empty requestParameters.login_error}">
+                <div class="errors">
+                    Your login attempt was not successful, try again.<br/>
+                    Reason: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+                </div>
+            </c:if>
+            <br/>
 
-</ui:define>
+            <p>Valid username/passwords are:</p>
+            <ul>
+                <li>mama/123</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h:form id="loginForm">
+                <p>Please login or <h:commandLink value="register" action="register"/></p>
+                <fieldset>
+                    <div class="field">
+                        <div class="label">User:</div>
+                        <div class="output">
+                            <c:if test="${not empty param.login_error}">
+                                <c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
+                            </c:if>
+                            <h:inputText id="j_username" value="#{usernamePassword.username}"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label">Password:</div>
+                        <div class="output">
+                            <h:inputText id="j_password" value="#{usernamePassword.password}"/>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="buttonGroup">
+
+                    <h:commandButton value="Login" action="login"/>
+                </div>
+            </h:form>
+
+        </div>
+
+    </ui:define>
 </ui:composition>
