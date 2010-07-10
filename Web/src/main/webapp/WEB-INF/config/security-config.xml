@@ -10,8 +10,9 @@
 
 	<!-- Configure Spring Security -->
 	<security:http auto-config="true">
-		<security:form-login login-page="/spring/login" login-processing-url="/spring/loginProcess" default-target-url="/spring/about" authentication-failure-url="/spring/login?login_error=1"/>
+		<security:form-login login-page="/spring/login" login-processing-url="/j_spring_security_check" default-target-url="/spring/about" authentication-failure-url="/spring/login?login_error=1"/>
 		<security:logout logout-url="/spring/logout" logout-success-url="/spring/logoutSuccess"/>
+        
 	</security:http>
 
 	<!--

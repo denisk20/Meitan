@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      parent="global">
+
+    <view-state id="login">
+        <transition on="login">
+            <evaluate expression="securityService.doLogin()"/>
+        </transition>
+        <transition on="register" to="registerSubflow"/>
+    </view-state>
+
+    <view-state id="processLogin" view="externalRedirect:contextRelative:/spring/loginProcess"/>
+
+    <subflow-state id="registerSubflow" subflow="register">
+        <transition on="done" to="done"/>
+        <transition on="cancel" to="login"/>
+    </subflow-state>
+
+    <end-state id="done"/>
+</flow>

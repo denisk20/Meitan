@@ -87,6 +87,8 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		this.notes = notes;
 	}
 
+	//todo unit test
+	@Column(nullable = false, unique = true)
 	public String getLogin() {
 		return login;
 	}
