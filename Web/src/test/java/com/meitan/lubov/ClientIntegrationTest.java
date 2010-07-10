@@ -52,7 +52,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
         name.setSecondName("cd");
 
 		newClient.setEmail("a@b.com");
-
+		newClient.setLogin("Login");
         clientDao.makePersistent(newClient);
 
         List<Client> clients = clientDao.findAll();

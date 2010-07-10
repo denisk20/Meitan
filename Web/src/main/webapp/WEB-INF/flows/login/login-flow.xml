@@ -6,9 +6,13 @@
 
     <view-state id="login">
         <transition on="login">
-            <evaluate expression="securityService.doLogin()"/>
+            <evaluate expression="securityService.doLogin(flowRequestContext)"/>
         </transition>
         <transition on="register" to="registerSubflow"/>
+
+		<transition on="test">
+            <evaluate expression="securityService.doLogin(flowRequestContext)"/>
+		</transition>
     </view-state>
 
     <view-state id="processLogin" view="externalRedirect:contextRelative:/spring/loginProcess"/>

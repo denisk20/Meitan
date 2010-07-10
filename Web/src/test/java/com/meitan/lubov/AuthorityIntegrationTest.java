@@ -3,6 +3,8 @@ package com.meitan.lubov;
 import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.Dao;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -29,5 +31,12 @@ public class AuthorityIntegrationTest extends GenericIntegrationTest <Authority>
 	@Override
 	protected Dao<Authority, Long> getDAO() {
 		return authorityDao;
+	}
+
+	@Test
+	@Ignore("todo")
+	//todo
+	public void testCreateAuthority() {
+
 	}
 }
