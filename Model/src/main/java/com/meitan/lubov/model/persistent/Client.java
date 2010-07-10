@@ -27,6 +27,7 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 
 	private String login;
 	private String password;
+	private String role;
 	private boolean enabled;
 
 	private String conformedPassword;
@@ -108,6 +109,14 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Transient

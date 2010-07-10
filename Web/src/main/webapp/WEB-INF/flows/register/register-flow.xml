@@ -13,10 +13,15 @@
         <transition on="register" to="end">
             <evaluate expression="passwordsValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
+
+            <set name="newClient.role" value="'ROLE_CLIENT'"/>
+            <set name="newClient.password" value="utils.getMD5(newClient.password)"/>
+
             <evaluate expression="clientDao.makePersistent(newClient)"/>
         </transition>
 
         <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="register"/>
+        <!--passwords don't match-->
         <transition on-exception="java.lang.IllegalArgumentException" to="register"/>
     </view-state>
 

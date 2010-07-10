@@ -91,4 +91,12 @@ public class ClientTest {
 
 		assertEquals(enabled, testable.isEnabled());
 	}
+
+	@Test
+	public void testRole() {
+		String role = "ROLE_CLIENT";
+		testable.setRole(role);
+
+		assertEquals(role, testable.getRole());
+	}
 }
