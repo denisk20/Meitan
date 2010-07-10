@@ -22,11 +22,11 @@ public class SecurityService {
 		SecurityContextHolder.getContext().setAuthentication(token);
 	}
 
-	public String doLogin(RequestContext requestContext) {
+	public void doLogin(RequestContext requestContext) {
 		ExternalContext context = requestContext.getExternalContext();
 
-		// It's OK to return null here because Faces is just going to exit.
-		return null;
+		
+		return ;
 	}
 
 }
