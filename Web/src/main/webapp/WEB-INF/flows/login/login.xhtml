@@ -1,9 +1,9 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	    		xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:c="http://java.sun.com/jstl/core"
-				template="../../templates/meitan-subflow.xhtml">
+				xmlns:form="http://www.springframework.org/tags/form"
+				template="/WEB-INF/templates/meitan-subflow.xhtml">
 
 <ui:define name="content">
 
@@ -24,7 +24,7 @@
 </div>
 
 <div class="section">
-	<h:form >
+	<form name="f" action="${request.contextPath}/spring/loginProcess" method="post">
 		<fieldset>
 			<div class="field">
 				<div class="label">User:</div>
@@ -32,20 +32,26 @@
 					<c:if test="${not empty param.login_error}">
 						<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
 					</c:if>
-					<h:inputText id="j_username" value="#{username}"/>
+					<input type="text" name="j_username" value="#{username}"/>
 				</div>
 			</div>
 			<div class="field">
 				<div class="label">Password:</div>
 				<div class="output">
-					<h:inputText id="j_password" />
+					<input type="password" name="j_password" />
 				</div>
 			</div>
 		</fieldset>
 		<div class="buttonGroup">
-			<h:commandLink value="Login" action="login" />
+            
+			<input name="submit" type="submit" value="Login" />
 		</div>
-	</h:form>
+	</form>
+
+    <form:form>
+			<input type="submit" name="_eventId_test" value="Search"/>
+        <!--<input type="submit" value="Find Hotels" />-->
+    </form:form>
 </div>
 
 </ui:define>
