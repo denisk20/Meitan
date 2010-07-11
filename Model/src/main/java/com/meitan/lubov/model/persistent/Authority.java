@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Date: Jul 9, 2010
  * Time: 10:42:03 AM
  *
+ * This class is not used currently
  * @author denisk
  */
 @Entity

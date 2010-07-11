@@ -20,6 +20,7 @@ import java.io.IOException;
  *         Date: 10.07.2010
  *         Time: 15:37:25
  */
+//todo unit test
 @Service("securityService")
 public class SecurityService implements ApplicationContextAware{
 	private ApplicationContext applicationContext;

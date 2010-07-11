@@ -22,6 +22,7 @@ public class Utils {
 		}
 	}
 
+	//todo move this into SecurityService 
 	public String getMD5(String source) {
 		PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
 		String pass = passwordEncoder.encodePassword(source, null);

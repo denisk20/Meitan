@@ -9,4 +9,5 @@ import com.meitan.lubov.model.persistent.Client;
  * @author denisk
  */
 public interface ClientDao extends Dao<Client, Long>{
+	Client getByLogin(String login);
 }
