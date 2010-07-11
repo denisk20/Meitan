@@ -12,8 +12,6 @@
 
         <h1>Login Required</h1>
 
-        <p>Please login or <a href="/spring/register">register</a></p>
-
         <div class="section">
             <c:if test="${not empty requestParameters.login_error}">
                 <div class="errors">
@@ -31,7 +29,7 @@
 
         <div class="section">
             <h:form id="loginForm">
-                <p>Please login or <h:commandLink value="register" action="register"/></p>
+                <p>Please login or <sf:commandLink value="register" action="register"/></p>
                 <fieldset>
                     <div class="field">
                         <div class="label">User:</div>
@@ -51,7 +49,7 @@
                 </fieldset>
                 <div class="buttonGroup">
 
-                    <h:commandButton value="Login" action="login"/>
+                    <sf:commandButton value="Login" action="login" processIds="*"/>
                 </div>
             </h:form>
 
