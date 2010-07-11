@@ -17,6 +17,9 @@ import javax.persistence.*;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQueries({
+		@NamedQuery(name = "getClientByLogin", query = "from Client c where c.login = :login")
+})
 //todo rename to User
 public class Client extends PersistentOrderableImpl implements Serializable {
 	private long id;
@@ -87,7 +90,6 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		this.notes = notes;
 	}
 
-	//todo unit test
 	@Column(nullable = false, unique = true)
 	public String getLogin() {
 		return login;

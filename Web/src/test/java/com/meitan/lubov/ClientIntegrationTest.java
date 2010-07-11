@@ -20,10 +20,13 @@ import static org.hamcrest.CoreMatchers.is;
  * @author denisk
  */
 public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
+	//todo make testClientDao
 	@Autowired
 	ClientDao clientDao;
 
     private int expectedClientCount = 2;
+	private static final String CLIENT_LOGIN = "client";
+
 	@Override
 	protected void setUpBeanNames() {
 		beanNames.add("ent_creamLover");
@@ -97,5 +100,33 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		Client created = new Client(new Name("first", "second", "third"), nonUniqueEmail);
 		clientDao.makePersistent(created);
 		clientDao.flush();
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void insertNonUniqueLogin() {
+		Client c = beansFromDb.get(0);
+		String nonUniqueLogin = c.getLogin();
+		String email = c.getEmail();
+
+		Client created = new Client(new Name("first", "second", "third"), "prefix." + email + "suffix");
+		created.setLogin(nonUniqueLogin);
+
+		clientDao.makePersistent(created);
+		clientDao.flush();
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void insertNullableLogin() {
+		Client c = beansFromDb.get(0);
+		c.setLogin(null);
+		clientDao.makePersistent(c);
+		clientDao.flush();
+	}
+
+	@Test
+	public void testGetByLogin() {
+		Client result = clientDao.getByLogin(CLIENT_LOGIN);
+		assertNotNull("Client was null", result);
+		assertThat(result.getLogin(), is(CLIENT_LOGIN));
 	}
 }

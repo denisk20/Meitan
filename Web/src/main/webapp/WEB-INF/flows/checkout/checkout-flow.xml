@@ -22,6 +22,9 @@
     </view-state>
 
     <view-state id="order">
+        <transition on="order">
+            <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
+        </transition>
     </view-state>
 
     <view-state id="error" view="externalRedirect:contextRelative:/spring/login"/>
