@@ -158,10 +158,10 @@
 		<constructor-arg index="0" value="10/26/2008"/>
 		<constructor-arg index="1" ref="ent_creamAdmier"/>
 		<property name="products">
-			<set>
+			<list>
 				<ref bean="ent_megaCream"/>
 				<ref bean="ent_gigaCream"/>
-			</set>
+			</list>
 		</property>
 		<property name="totalPrice">
 			<bean class="com.meitan.lubov.model.components.Price">
@@ -175,9 +175,9 @@
 		<constructor-arg index="0" value="01/12/2010"/>
 		<constructor-arg index="1" ref="ent_creamLover"/>
 		<property name="products">
-			<set>
+			<list>
 				<ref bean="ent_megaCream"/>
-			</set>
+			</list>
 		</property>
 		<property name="totalPrice">
 			<bean class="com.meitan.lubov.model.components.Price">

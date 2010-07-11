@@ -96,13 +96,14 @@
         <property name="categoryDao" ref="testCategoryDao"/>
     </bean>
 
+    <bean id="testBuyingActDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaBuyingActDao"/>
+
     <bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">
-        
+        <property name="buyingActDao" ref="testBuyingActDao"/>
     </bean>
     
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com"/>
-        <property name="port" value="587"/>
         <property name="username" value="denis.k1985@gmail.com"/>
         <property name="password" value="this too will pass"/>
         <property name="javaMailProperties">

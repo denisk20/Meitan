@@ -1,6 +1,7 @@
 package com.meitan.lubov.services.dao;
 
 import com.meitan.lubov.model.persistent.Client;
+import com.meitan.lubov.services.commerce.ShoppingCart;
 
 /**
  * Date: Mar 5, 2010
@@ -10,4 +11,10 @@ import com.meitan.lubov.model.persistent.Client;
  */
 public interface ClientDao extends Dao<Client, Long>{
 	Client getByLogin(String login);
+
+	void buyGoods(String login, ShoppingCart cart);
+
+	void setBuyingActDao(BuyingActDao buyingActDao);
+
+	BuyingActDao getBuyingActDao();
 }

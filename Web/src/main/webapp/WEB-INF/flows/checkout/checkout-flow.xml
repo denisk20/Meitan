@@ -23,6 +23,7 @@
 
     <view-state id="order">
         <transition on="order">
+            <!--<evaluate expression="clientDao.buyGoods(currentUser, cart)"/>-->
             <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
         </transition>
     </view-state>

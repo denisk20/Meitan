@@ -59,9 +59,17 @@
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com"/>
-        <property name="port" value="587"/>
         <property name="username" value="denis.k1985@gmail.com"/>
         <property name="password" value="this too will pass"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.socketFactory.port">465</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.socketFactory.fallback">false</prop>
+            </props>
+        </property>
     </bean>
 
     <!-- this is a template message that we can pre-load with default state -->
