@@ -4,7 +4,7 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
 
-    <secured attributes="ROLE_ADMIN"/>
+    <secured attributes="ROLE_CLIENT"/>
 
 	<input name="goodId" required="true" type="long" />
 

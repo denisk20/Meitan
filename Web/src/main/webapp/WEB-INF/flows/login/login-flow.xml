@@ -18,5 +18,5 @@
         <transition on="cancel" to="login"/>
     </subflow-state>
 
-    <end-state id="done"/>
+    <end-state id="done" view="flowRedirect:about"/>
 </flow>
