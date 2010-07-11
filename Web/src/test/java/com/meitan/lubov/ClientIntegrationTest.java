@@ -22,10 +22,9 @@ import static org.hamcrest.CoreMatchers.is;
 public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	//todo make testClientDao
 	@Autowired
-	ClientDao clientDao;
+	private ClientDao testClientDao;
 
     private int expectedClientCount = 2;
-	private static final String CLIENT_LOGIN = "client";
 
 	@Override
 	protected void setUpBeanNames() {
@@ -35,7 +34,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
 	@Override
 	protected Dao<Client, Long> getDAO() {
-		return clientDao;
+		return testClientDao;
 	}
 
 	@Override
@@ -56,9 +55,9 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
 		newClient.setEmail("a@b.com");
 		newClient.setLogin("Login");
-        clientDao.makePersistent(newClient);
+        testClientDao.makePersistent(newClient);
 
-        List<Client> clients = clientDao.findAll();
+        List<Client> clients = testClientDao.findAll();
         assertThat(clients.size(), is(expectedClientCount + 1));
     }
 
@@ -70,7 +69,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
         client.setEmail(newEmail);
 
-        Client reloaded = clientDao.findById(client.getId());
+        Client reloaded = testClientDao.findById(client.getId());
 
         assertThat(newEmail, is(reloaded.getEmail()));
     }
@@ -78,9 +77,9 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
     @Test
     public void testDeleteClient() {
         Client client = beansFromDb.get(0);
-        clientDao.makeTransient(client);
+        testClientDao.makeTransient(client);
 
-        Client reloaded = clientDao.findById(client.getId());
+        Client reloaded = testClientDao.findById(client.getId());
         assertNull(reloaded);
     }
 
@@ -88,8 +87,8 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	public void insertNullableEmail() {
 		Client c = beansFromDb.get(0);
 		c.setEmail(null);
-		clientDao.makePersistent(c);
-		clientDao.flush();
+		testClientDao.makePersistent(c);
+		testClientDao.flush();
 	}
 
 	@Test(expected = PersistenceException.class)
@@ -98,8 +97,8 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		String nonUniqueEmail = c.getEmail();
 
 		Client created = new Client(new Name("first", "second", "third"), nonUniqueEmail);
-		clientDao.makePersistent(created);
-		clientDao.flush();
+		testClientDao.makePersistent(created);
+		testClientDao.flush();
 	}
 
 	@Test(expected = PersistenceException.class)
@@ -111,21 +110,21 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		Client created = new Client(new Name("first", "second", "third"), "prefix." + email + "suffix");
 		created.setLogin(nonUniqueLogin);
 
-		clientDao.makePersistent(created);
-		clientDao.flush();
+		testClientDao.makePersistent(created);
+		testClientDao.flush();
 	}
 
 	@Test(expected = PersistenceException.class)
 	public void insertNullableLogin() {
 		Client c = beansFromDb.get(0);
 		c.setLogin(null);
-		clientDao.makePersistent(c);
-		clientDao.flush();
+		testClientDao.makePersistent(c);
+		testClientDao.flush();
 	}
 
 	@Test
 	public void testGetByLogin() {
-		Client result = clientDao.getByLogin(CLIENT_LOGIN);
+		Client result = testClientDao.getByLogin(CLIENT_LOGIN);
 		assertNotNull("Client was null", result);
 		assertThat(result.getLogin(), is(CLIENT_LOGIN));
 	}

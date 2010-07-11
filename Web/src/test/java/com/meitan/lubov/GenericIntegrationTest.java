@@ -28,6 +28,7 @@ public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUn
 	protected List<String> beanNames = new ArrayList<String>();
 	protected List<T> beansFromXml = new ArrayList<T>();
 	protected List<T> beansFromDb = new ArrayList<T>();
+	protected static final String CLIENT_LOGIN = "denis_k";
 
 	@Before
 	public void beforeTest() {

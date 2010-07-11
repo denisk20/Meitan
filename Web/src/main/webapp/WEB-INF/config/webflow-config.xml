@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:webflow="http://www.springframework.org/schema/webflow-config"
-	   xmlns:faces="http://www.springframework.org/schema/faces"
-	   xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+       xmlns:faces="http://www.springframework.org/schema/faces"
+       xsi:schemaLocation="
            http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/webflow-config
@@ -11,52 +11,69 @@
            http://www.springframework.org/schema/faces
            http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
 
-	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
-	<webflow:flow-executor id="flowExecutor">
-		<webflow:flow-execution-listeners>
-			<webflow:listener ref="jpaFlowExecutionListener"/>
-			<webflow:listener ref="securityFlowExecutionListener"/>
-		</webflow:flow-execution-listeners>
-		<webflow:flow-execution-attributes>
-			<webflow:always-redirect-on-pause value="true"/>
-		</webflow:flow-execution-attributes>
-	</webflow:flow-executor>
+    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
+    <webflow:flow-executor id="flowExecutor">
+        <webflow:flow-execution-listeners>
+            <webflow:listener ref="jpaFlowExecutionListener"/>
+            <webflow:listener ref="securityFlowExecutionListener"/>
+        </webflow:flow-execution-listeners>
+        <webflow:flow-execution-attributes>
+            <webflow:always-redirect-on-pause value="true"/>
+        </webflow:flow-execution-attributes>
+    </webflow:flow-executor>
 
-	<!-- The registry of executable flow definitions -->
-	<webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices" base-path="/WEB-INF/flows">
-		<webflow:flow-location-pattern value="/**/*-flow.xml"/>
-	</webflow:flow-registry>
+    <!-- The registry of executable flow definitions -->
+    <webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices"
+                           base-path="/WEB-INF/flows">
+        <webflow:flow-location-pattern value="/**/*-flow.xml"/>
+    </webflow:flow-registry>
 
-	<!-- Configures the Spring Web Flow JSF integration -->
-	<!--<faces:flow-builder-services id="facesFlowBuilderServices" development="true"/>-->
-	<faces:flow-builder-services id="facesFlowBuilderServices" development="true" conversion-service="myConversionService"/>
+    <!-- Configures the Spring Web Flow JSF integration -->
+    <!--<faces:flow-builder-services id="facesFlowBuilderServices" development="true"/>-->
+    <faces:flow-builder-services id="facesFlowBuilderServices" development="true"
+                                 conversion-service="myConversionService"/>
 
-	<!-- Installs a listener that manages JPA persistence contexts for flows that require them -->
-	<bean id="jpaFlowExecutionListener" class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
-		<constructor-arg ref="entityManagerFactory"/>
-		<constructor-arg ref="transactionManager"/>
-	</bean>
+    <!-- Installs a listener that manages JPA persistence contexts for flows that require them -->
+    <bean id="jpaFlowExecutionListener" class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
+        <constructor-arg ref="entityManagerFactory"/>
+        <constructor-arg ref="transactionManager"/>
+    </bean>
 
-	<!-- Installs a listener to apply Spring Security authorities -->
-	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
+    <!-- Installs a listener to apply Spring Security authorities -->
+    <bean id="securityFlowExecutionListener"
+          class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
 
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="1000000"/>
-		<property name="uploadTempDir" ref="uploadDirResource"/>
-	</bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1000000"/>
+        <property name="uploadTempDir" ref="uploadDirResource"/>
+    </bean>
 
-	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
-		<constructor-arg>
-			<value>temp</value>
-		</constructor-arg>
-	</bean>
+    <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+        <constructor-arg>
+            <value>temp</value>
+        </constructor-arg>
+    </bean>
 
-	<bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>
-	<bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
+    <bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>
+    <bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
 
-	<!--Test section -->
-	<bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">
-		<property name="min" value="1"/>
-		<property name="max" value="10"/>
-	</bean>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="denis.k1985@gmail.com"/>
+        <property name="password" value="this too will pass"/>
+    </bean>
+
+    <!-- this is a template message that we can pre-load with default state -->
+    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="denis.k1985@gmail.com"/>
+        <property name="subject" value="Your order"/>
+    </bean>
+
+
+    <!--Test section -->
+    <bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">
+        <property name="min" value="1"/>
+        <property name="max" value="10"/>
+    </bean>
 </beans>

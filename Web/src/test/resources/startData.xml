@@ -285,13 +285,12 @@
 	<bean id="ent_creamLover" class="com.meitan.lubov.model.persistent.Client">
 		<constructor-arg index="0">
 			<bean class="com.meitan.lubov.model.components.Name">
-				<property name="firstName" value="Mike"/>
-				<property name="patronymic" value="Lesley"/>
-				<property name="secondName" value="Curve"/>
+				<property name="firstName" value="Denis"/>
+				<property name="patronymic" value="Alexandrovich"/>
+				<property name="secondName" value="Knjazhev"/>
 			</bean>
 		</constructor-arg>
-		<constructor-arg index="1" value="mike@intel.com"/>
-		<property name="email" value="mike@intel.com"/>
+		<constructor-arg index="1" value="denis.k1985@gmail.com"/>
 		<property name="notes" value="This client is very cool.
 		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
 		He started to work from the first day he is here.He started to work from the first day he is here.He started to work from the first day he is here.
@@ -358,8 +357,9 @@
 
         <property name="order" value="1"/>
 
-        <property name="login" value="client"/>
+        <property name="login" value="denis_k"/>
         <property name="password" value="5f4dcc3b5aa765d61d8327deb882cf99"/> <!--password-->
+        <property name="role" value="ROLE_CLIENT"/>
         <property name="enabled" value="true"/>
     </bean>
 
