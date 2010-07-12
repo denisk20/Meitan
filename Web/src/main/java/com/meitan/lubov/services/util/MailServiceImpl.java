@@ -1,4 +1,4 @@
-package com.meitan.lubov.services.util;
+package com.meitan.lubov.services.util; 
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Client;
