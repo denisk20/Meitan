@@ -2,13 +2,13 @@ package com.meitan.lubov.services.commerce;
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Price;
+import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.stereotype.Service;
 
-import javax.faces.model.DataModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Date;
 
 /**
  * @author denis_k
@@ -71,6 +71,7 @@ public class ShoppingCartImpl implements ShoppingCart{
 			found.setQuantity(quantity + 1);
 		} else {
 			found = new ShoppingCartItem(item, 1);
+			found.setDate(new Date());
 			items.add(found);
 		}
 	}

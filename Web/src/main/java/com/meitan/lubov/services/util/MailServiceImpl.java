@@ -3,7 +3,7 @@ package com.meitan.lubov.services.util;
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.commerce.ShoppingCart;
-import com.meitan.lubov.services.commerce.ShoppingCartItem;
+import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.dao.ClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

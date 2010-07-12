@@ -52,18 +52,21 @@ public class BuyingActTest {
 	public void testGetProducts() throws Exception {
 		Product p1 = new Product();
 		p1.setName("p1");
+		ShoppingCartItem it1 = new ShoppingCartItem(p1, 3);
 		p1.setPrice(new Price(new BigDecimal(1)));
 		Product p2 = new Product();
 		p2.setName("p1");
 		p2.setPrice(new Price(new BigDecimal(1)));
+		ShoppingCartItem it2 = new ShoppingCartItem(p2, 3);
 		Product p3 = new Product();
 		p3.setName("p1");
 		p3.setPrice(new Price(new BigDecimal(1)));
+		ShoppingCartItem it3 = new ShoppingCartItem(p3, 3);
 
-		Set<Product> products = new HashSet<Product>();
-		products.add(p1);
-		products.add(p2);
-		products.add(p3);
+		Set<ShoppingCartItem> products = new HashSet<ShoppingCartItem>();
+		products.add(it1);
+		products.add(it2);
+		products.add(it3);
 
 		testable.getProducts().addAll(products);
 

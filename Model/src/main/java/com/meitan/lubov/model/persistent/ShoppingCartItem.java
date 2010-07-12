@@ -1,19 +1,39 @@
-package com.meitan.lubov.services.commerce;
+package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.PriceAware;
+import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
-public class ShoppingCartItem implements Serializable {
+@Entity
+public class ShoppingCartItem extends PersistentOrderableImpl implements Serializable {
+	private Long id;
 	private PriceAware item;
 	private Integer quantity;
+	private Date date;
+
+	public ShoppingCartItem() {
+	}
 
 	public ShoppingCartItem(PriceAware item, Integer quantity) {
 		this.item = item;
 		this.quantity = quantity;
 	}
 
+	@Id
+	@GeneratedValue
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@ManyToOne(targetEntity = Product.class)
 	public PriceAware getItem() {
 		return item;
 	}
@@ -30,6 +50,17 @@ public class ShoppingCartItem implements Serializable {
 		this.quantity = quantity;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@Transient
 	public BigDecimal getPrice() {
 		BigDecimal amount = item.getPrice().getAmount();
 		if (amount == null) {
@@ -39,7 +70,7 @@ public class ShoppingCartItem implements Serializable {
 
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -47,6 +78,7 @@ public class ShoppingCartItem implements Serializable {
 
 		ShoppingCartItem that = (ShoppingCartItem) o;
 
+		if (date != null ? !date.equals(that.date) : that.date != null) return false;
 		if (item != null ? !item.equals(that.item) : that.item != null) return false;
 		if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
 
@@ -57,14 +89,17 @@ public class ShoppingCartItem implements Serializable {
 	public int hashCode() {
 		int result = item != null ? item.hashCode() : 0;
 		result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+		result = 31 * result + (date != null ? date.hashCode() : 0);
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return "ShoppingCartItem{" +
-				"item=" + item +
-				", price=" + quantity +
+				"id=" + id +
+				", item=" + item +
+				", quantity=" + quantity +
+				", date=" + date +
 				'}';
 	}
 }

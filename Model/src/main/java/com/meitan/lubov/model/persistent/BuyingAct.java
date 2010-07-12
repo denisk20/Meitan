@@ -4,9 +4,7 @@ import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.*;
 
 /**
@@ -21,7 +19,7 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 	private long id;
 	private Date date;
 	private Client client;
-	private Set<Product> products = new HashSet<Product>();
+	private Set<ShoppingCartItem> products = new HashSet<ShoppingCartItem>();
 	private Price totalPrice;
 
 	public BuyingAct() {
@@ -32,7 +30,13 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 		this.client = client;
 	}
 
-    @Override
+	public BuyingAct(Date date, Client client, Set<ShoppingCartItem> products) {
+		this.date = date;
+		this.client = client;
+		this.products = products;
+	}
+
+	@Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
@@ -67,12 +71,12 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 		this.client = client;
 	}
 
-	@ManyToMany(mappedBy = "purchases")
-	public Set<Product> getProducts() {
+	@OneToMany
+	public Set<ShoppingCartItem> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(Set<ShoppingCartItem> products) {
 		this.products = products;
 	}
 
