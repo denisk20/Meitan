@@ -40,25 +40,25 @@ public class MailServiceImpl implements MailService {
 	}
 
 	private String getMailText(ShoppingCart cart, Client client) {
-		StringBuilder sb = new StringBuilder("Дорогая Мамуся !\n\n");
-		sb.append("Тебе пришёл новый заказ. Прислал его ");
+		StringBuilder sb = new StringBuilder("Р”РѕСЂРѕРіР°СЏ РњР°РјСѓСЃСЏ !\n\n");
+		sb.append("РўРµР±Рµ РїСЂРёС€С‘Р» РЅРѕРІС‹Р№ Р·Р°РєР°Р·. РџСЂРёСЃР»Р°Р» РµРіРѕ ");
 		sb.append(client.getName().getFirstName() + " "
 				+ client.getName().getPatronymic() + " "
 				+ client.getName().getSecondName() + "\n");
 
-		sb.append("Вот что было заказано:\n");
+		sb.append("Р’РѕС‚ С‡С‚Рѕ Р±С‹Р»Рѕ Р·Р°РєР°Р·Р°РЅРѕ:\n");
 
 		for (ShoppingCartItem i : cart.getItems()) {
 			PriceAware item = i.getItem();
 			sb.append(item.getName() +
-					" по цене " + item.getPrice().getAmount() +
-					" за штуку в колчестве " + i.getQuantity() +
-					" штук на сумму " + i.getPrice() + "\n");
+					" РїРѕ С†РµРЅРµ " + item.getPrice().getAmount() +
+					" Р·Р° С€С‚СѓРєСѓ РІ РєРѕР»С‡РµСЃС‚РІРµ " + i.getQuantity() +
+					" С€С‚СѓРє РЅР° СЃСѓРјРјСѓ " + i.getPrice() + "\n");
 		}
-		sb.append("Итого товара на сумму " + cart.getTotalPrice()+ "\n");
+		sb.append("РС‚РѕРіРѕ С‚РѕРІР°СЂР° РЅР° СЃСѓРјРјСѓ " + cart.getTotalPrice()+ "\n");
 
-		sb.append("Вот координаты покупателя:\n");
-		sb.append("Почта: " + client.getEmail() + "\n");
+		sb.append("Р’РѕС‚ РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРѕРєСѓРїР°С‚РµР»СЏ:\n");
+		sb.append("РџРѕС‡С‚Р°: " + client.getEmail() + "\n");
 		return sb.toString();
 	}
 }

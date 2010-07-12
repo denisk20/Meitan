@@ -36,7 +36,7 @@ public class MailServiceIntegrationTest extends GenericIntegrationTest<Client>{
 		return testClientDao;
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void testSendEmail() {
 		Client client = beansFromDb.get(0);
