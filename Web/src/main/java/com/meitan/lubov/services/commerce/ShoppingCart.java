@@ -1,12 +1,11 @@
 package com.meitan.lubov.services.commerce;
 
 import com.meitan.lubov.model.PriceAware;
+import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 
-import javax.faces.model.DataModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * @author denis_k

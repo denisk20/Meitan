@@ -154,15 +154,29 @@
         <property name="order" value="2"/>
 	</bean>
 
+    <bean id="ent_it1" class="com.meitan.lubov.model.persistent.ShoppingCartItem">
+        <property name="item" ref="ent_megaCream"/>
+        <property name="quantity" value="2"/>
+        <property name="order" value="1"/>
+        <property name="date" value="10/31/2009"/>
+    </bean>
+    <bean id="ent_it2" class="com.meitan.lubov.model.persistent.ShoppingCartItem">
+        <property name="item" ref="ent_gigaCream"/>
+        <property name="quantity" value="1"/>
+        <property name="order" value="1"/>
+        <property name="date" value="11/31/2009"/>
+    </bean>
+
 	<bean id="ent_purchase1" class="com.meitan.lubov.model.persistent.BuyingAct" depends-on="ent_creamAdmier">
 		<constructor-arg index="0" value="10/26/2008"/>
 		<constructor-arg index="1" ref="ent_creamAdmier"/>
-		<property name="products">
-			<list>
-				<ref bean="ent_megaCream"/>
-				<ref bean="ent_gigaCream"/>
-			</list>
-		</property>
+        <constructor-arg index="2">
+            <set>
+                <ref bean="ent_it1"/>
+                <ref bean="ent_it2"/>
+            </set>
+
+        </constructor-arg>
 		<property name="totalPrice">
 			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="100.03"/>
@@ -171,14 +185,21 @@
         <property name="order" value="2"/>
 	</bean>
 
+    <bean id = "ent_it3" class="com.meitan.lubov.model.persistent.ShoppingCartItem">
+        <property name="item" ref="ent_megaCream"/>
+        <property name="quantity" value="2"/>
+        <property name="order" value="1"/>
+        <property name="date" value="12/30/2009"/>
+    </bean>
+
 	<bean id="ent_purchase2" class="com.meitan.lubov.model.persistent.BuyingAct">
 		<constructor-arg index="0" value="01/12/2010"/>
 		<constructor-arg index="1" ref="ent_creamLover"/>
-		<property name="products">
-			<list>
-				<ref bean="ent_megaCream"/>
-			</list>
-		</property>
+        <constructor-arg index="2">
+            <set>
+                <ref bean="ent_it3"/>
+            </set>
+        </constructor-arg>
 		<property name="totalPrice">
 			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="85.05"/>
@@ -187,14 +208,22 @@
         <property name="order" value="2"/>
     </bean>
 
+    <bean id="ent_it4" class="com.meitan.lubov.model.persistent.ShoppingCartItem">
+        <property name="item" ref="ent_gigaCream"/>
+        <property name="quantity" value="1"/>
+        <property name="order" value="1"/>
+        <property name="date" value="12/31/2009"/>
+
+    </bean>
+
 	<bean id="ent_purchase3" class="com.meitan.lubov.model.persistent.BuyingAct" depends-on="ent_creamLover">
 		<constructor-arg index="0" value="12/31/2009"/>
 		<constructor-arg index="1" ref="ent_creamLover"/>
-		<property name="products">
-			<set>
-				<ref bean="ent_gigaCream"/>
-			</set>
-		</property>
+        <constructor-arg index="2">
+            <set>
+                <ref bean="ent_it4"/>
+            </set>
+        </constructor-arg>
 		<property name="totalPrice">
 			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="122.14"/>

@@ -4,14 +4,9 @@ import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
-import com.meitan.lubov.services.commerce.ShoppingCartItem;
-import com.meitan.lubov.services.dao.ProductDao;
-import com.meitan.lubov.services.util.DenisConversionService;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
-import org.springframework.webflow.core.collection.LocalAttributeMap;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
