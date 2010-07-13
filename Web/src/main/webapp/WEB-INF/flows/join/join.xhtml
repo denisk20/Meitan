@@ -4,11 +4,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sec="http://www.springframework.org/security/facelets/tags"
                 xmlns:sf="http://www.springframework.org/tags/faces"
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
             <h1>Страница с формой для консультанта</h1>
-        <p>Много категорий...</p>
+        <sec:ifNotGranted roles="ROLE_CONSULTANT">
+			<p>Нужно вначале зарегистрироваться как клиенту</p>
+        </sec:ifNotGranted>
+
+		<sec:ifAllGranted roles="ROLE_CLIENT">
+			
+		</sec:ifAllGranted>
+
     </ui:define>
 </ui:composition>
