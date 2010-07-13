@@ -79,6 +79,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
         Client client = beansFromDb.get(0);
         testClientDao.makeTransient(client);
 
+		testClientDao.flush();
         Client reloaded = testClientDao.findById(client.getId());
         assertNull(reloaded);
     }

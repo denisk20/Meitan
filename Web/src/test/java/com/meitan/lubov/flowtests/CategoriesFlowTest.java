@@ -165,6 +165,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 			Category deleted = testCategoryDao.findById(persistentCategory.getId());
 			assertNull("Category wasn't deleted properly", deleted);
+			testCategoryDao.flush();
 		} finally {
 			restoreManager.restore();
 		}

@@ -2,6 +2,8 @@ package com.meitan.lubov.services.dao;
 
 import com.meitan.lubov.model.persistent.ShoppingCartItem;
 
+import java.util.List;
+
 /**
  * Date: Jul 12, 2010
  * Time: 5:29:05 PM
@@ -9,4 +11,5 @@ import com.meitan.lubov.model.persistent.ShoppingCartItem;
  * @author denisk
  */
 public interface ShoppingCartItemDao extends Dao<ShoppingCartItem, Long>{
+	List<ShoppingCartItem> getForProduct(Long productId);
 }

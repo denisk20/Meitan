@@ -20,7 +20,6 @@ import java.security.Principal;
  *         Time: 20:52:05
  */
 public class MailServiceIntegrationTest extends GenericIntegrationTest<Client>{
-	//todo make testClientDao
 	@Autowired
 	private ClientDao testClientDao;
 
@@ -36,7 +35,7 @@ public class MailServiceIntegrationTest extends GenericIntegrationTest<Client>{
 		return testClientDao;
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void testSendEmail() {
 		Client client = beansFromDb.get(0);

@@ -131,6 +131,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 			assertFalse("Image wasn't deleted properly", loaded.getImages().contains(toDelete));
 			File imagePathFile = new File(imagePath);
 			assertFalse("Image wasn't removed from disk properly", imagePathFile.exists());
+			testProductDao.flush();
 		} finally {
 			restoreManager.restore();
 		}
