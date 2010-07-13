@@ -27,6 +27,7 @@ public class MailServiceImpl implements MailService {
 	private SimpleMailMessage templateMessage;
 	
 	@Override
+	//todo make this accept only login
 	public void sendBuyingActNotification(ShoppingCart cart, Principal currentUser) {
 		Client client = clientDao.getByLogin(currentUser.getName());
 

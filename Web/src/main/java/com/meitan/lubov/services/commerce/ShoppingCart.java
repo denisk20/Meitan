@@ -30,4 +30,6 @@ public interface ShoppingCart {
 	void sayHello();
 
 	OneSelectionTrackingListDataModel getItemsDataModel();
+
+	void emptyCart();
 }

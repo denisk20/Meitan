@@ -175,13 +175,7 @@
                 <ref bean="ent_it1"/>
                 <ref bean="ent_it2"/>
             </set>
-
         </constructor-arg>
-		<property name="totalPrice">
-			<bean class="com.meitan.lubov.model.components.Price">
-				<property name="amount" value="100.03"/>
-			</bean>
-		</property>
         <property name="order" value="2"/>
 	</bean>
 
@@ -200,11 +194,6 @@
                 <ref bean="ent_it3"/>
             </set>
         </constructor-arg>
-		<property name="totalPrice">
-			<bean class="com.meitan.lubov.model.components.Price">
-				<property name="amount" value="85.05"/>
-			</bean>
-		</property>
         <property name="order" value="2"/>
     </bean>
 
@@ -224,11 +213,6 @@
                 <ref bean="ent_it4"/>
             </set>
         </constructor-arg>
-		<property name="totalPrice">
-			<bean class="com.meitan.lubov.model.components.Price">
-				<property name="amount" value="122.14"/>
-			</bean>
-		</property>
         <property name="order" value="2"/>
 	</bean>
 	

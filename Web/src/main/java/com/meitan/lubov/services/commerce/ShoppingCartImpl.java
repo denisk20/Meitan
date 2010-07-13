@@ -107,6 +107,11 @@ public class ShoppingCartImpl implements ShoppingCart{
 	}
 
 	@Override
+	public void emptyCart() {
+		items.clear();
+	}
+
+	@Override
 	 public void sayHello() {
 		System.out.println("Hello!");
 	}

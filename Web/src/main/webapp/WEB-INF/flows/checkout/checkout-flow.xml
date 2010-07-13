@@ -22,11 +22,17 @@
     </view-state>
 
     <view-state id="order">
-        <transition on="order">
-            <!--<evaluate expression="clientDao.buyGoods(currentUser, cart)"/>-->
+        <transition on="order" to="success" >
+            <evaluate expression="clientDao.buyGoods(cart, currentUser.name)"/>
             <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
+            <evaluate expression="cart.emptyCart()"/>
         </transition>
     </view-state>
 
+    <view-state id="success">
+        <transition on="done" to="done"/>
+    </view-state>
+
     <view-state id="error" view="externalRedirect:contextRelative:/spring/login"/>
+    <view-state id="done" view="flowRedirect:about"/>
 </flow>

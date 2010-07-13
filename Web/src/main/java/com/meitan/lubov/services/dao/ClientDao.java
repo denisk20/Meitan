@@ -12,9 +12,13 @@ import com.meitan.lubov.services.commerce.ShoppingCart;
 public interface ClientDao extends Dao<Client, Long>{
 	Client getByLogin(String login);
 
-	void buyGoods(String login, ShoppingCart cart);
+	void buyGoods(ShoppingCart cart, String login);
 
 	void setBuyingActDao(BuyingActDao buyingActDao);
 
 	BuyingActDao getBuyingActDao();
+
+	ShoppingCartItemDao getShoppingCartItemDao();
+
+	void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao);
 }
