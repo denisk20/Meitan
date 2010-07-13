@@ -12,4 +12,8 @@ import java.util.List;
  */
 public interface ShoppingCartItemDao extends Dao<ShoppingCartItem, Long>{
 	List<ShoppingCartItem> getForProduct(Long productId);
+
+	BuyingActDao getBuyingActDao();
+
+	void setBuyingActDao(BuyingActDao buyingActDao);
 }

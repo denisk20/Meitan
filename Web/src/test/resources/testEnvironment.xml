@@ -83,6 +83,7 @@
 		</property>
 	</bean>
 
+    <!-- DAOs======================================================================================-->
     <bean id="testImageDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaImageDao">
         <property name="customPathPrefix" value="${MEITAN_HOME}"/>
     </bean>
@@ -101,7 +102,11 @@
     <bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">
         <property name="buyingActDao" ref="testBuyingActDao"/>
     </bean>
-    
+
+    <bean id="testShoppingCartItemDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaShoppingCartItemDao"/>
+    <!-- /DAOs======================================================================================-->
+
+    <!-- Mail settings===========================================================================-->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com"/>
         <property name="username" value="denis.k1985@gmail.com"/>
@@ -123,5 +128,6 @@
         <property name="from" value="denis.k1985@gmail.com"/>
         <property name="subject" value="Your order"/>
     </bean>
+    <!-- /Mail settings===========================================================================-->
 
 </beans>

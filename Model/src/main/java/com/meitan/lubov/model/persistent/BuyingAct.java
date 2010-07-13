@@ -15,10 +15,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "buying_act")
+@NamedQueries({
+		@NamedQuery(name = "findForCartItem", query = "select b from BuyingAct b inner join b.products i where i.id = :itemId")
+})
 public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Serializable {
 	private long id;
 	private Date date;
 	private Client client;
+	//todo rename this
 	private Set<ShoppingCartItem> products = new HashSet<ShoppingCartItem>();
 	private Price totalPrice;
 
