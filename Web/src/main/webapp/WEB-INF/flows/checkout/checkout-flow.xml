@@ -4,6 +4,8 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
       parent="global">
 
+    <!--todo unit test this-->
+
     <view-state id="checkout" model="cart">
         <transition on="delete" >
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
