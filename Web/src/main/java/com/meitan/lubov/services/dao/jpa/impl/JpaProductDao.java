@@ -3,9 +3,11 @@ package com.meitan.lubov.services.dao.jpa.impl;
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.persistent.Product;
+import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.ProductDao;
+import com.meitan.lubov.services.dao.ShoppingCartItemDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import com.meitan.lubov.services.util.Selectable;
 import org.apache.commons.logging.Log;
@@ -33,6 +35,9 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@Autowired
 	private ImageDao imageDao;
+
+	@Autowired
+	private ShoppingCartItemDao shoppingCartItemDao;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -108,8 +113,8 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@Override
 	@Transactional
-	public void deleteById(Long aLong) {
-		Product p = findById(aLong);
+	public void deleteById(Long productId) {
+		Product p = findById(productId);
 		Set<Category> categories = p.getCategories();
 
 		for (Category c : categories) {
@@ -120,18 +125,15 @@ private final Log log = LogFactory.getLog(getClass());
 			Image image = p.getImages().iterator().next();
 			imageDao.removeImageFromEntity(p, image);
 		}
-		super.deleteById(aLong);
+		//delete all ShoppingCartItems
+		List<ShoppingCartItem> items = shoppingCartItemDao.getForProduct(productId);
+		for (ShoppingCartItem it : items) {
+			shoppingCartItemDao.deleteById(it.getId());
+		}
+		super.deleteById(productId);
 	}
 
-	/**
-     * This is total hack to get rid of the fact that hibernate doesn't
-     * handle eager fetching properly
-     */
-    private List<Product> getDistinct(List<Product> source) {
-        return new ArrayList<Product>(new HashSet<Product>(source));
-    }
-
-    @Override
+	@Override
     public ImageDao getImageDao() {
         return imageDao;
     }

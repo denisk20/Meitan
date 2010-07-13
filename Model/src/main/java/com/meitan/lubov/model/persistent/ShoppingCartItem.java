@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@NamedQueries({
+		@NamedQuery(name = "findByProduct", query = "from ShoppingCartItem where item.id = :productId")
+})
 @Entity
 public class ShoppingCartItem extends PersistentOrderableImpl implements Serializable {
 	private Long id;

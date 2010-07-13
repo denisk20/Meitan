@@ -104,6 +104,7 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 
 			assertFalse("file should have been deleted, but still exists", imageFile.exists());
 
+			testCategoryDao.flush();
 			for (Product p : products) {
 				assertFalse("Category wasn't deleted from product: " + p, p.getCategories().contains(c));
 			}

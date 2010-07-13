@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -101,4 +103,12 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 	public Object getPersistentObject(IdAware entity) {
 		return em.find(entity.getClass(), entity.getId());
 	}
+
+	/**
+     * This is total hack to get rid of the fact that hibernate doesn't
+     * handle eager fetching properly
+     */
+	protected List getDistinct(List source) {
+        return new ArrayList(new HashSet(source));
+    }
 }

@@ -218,6 +218,7 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 
 		try {
 			testProductDao.deleteById(p.getId());
+			testProductDao.flush();
 
 			Product deletedProduct = testProductDao.findById(p.getId());
 			assertNull("Product wasn't deleted properly " + p, deletedProduct);

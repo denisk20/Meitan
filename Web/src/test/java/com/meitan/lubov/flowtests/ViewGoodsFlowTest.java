@@ -213,6 +213,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 			resumeFlow(context);
 
 			Product loaded = testProductDao.findById(p.getId());
+			testProductDao.flush();
 			assertNull("Product wasn't properly deleted: " + p, loaded);
 
 			assertFlowExecutionActive();
