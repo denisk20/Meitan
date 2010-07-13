@@ -4,6 +4,7 @@ import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.*;
 import javax.persistence.*;
 
@@ -24,7 +25,6 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 	private Client client;
 	//todo rename this
 	private Set<ShoppingCartItem> products = new HashSet<ShoppingCartItem>();
-	private Price totalPrice;
 
 	public BuyingAct() {
 	}
@@ -84,13 +84,13 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 		this.products = products;
 	}
 
-	@Embedded
+	@Transient
 	public Price getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(Price totalPrice) {
-		this.totalPrice = totalPrice;
+		BigDecimal result = new BigDecimal(0);
+		for (ShoppingCartItem item : products) {
+			result = result.add(item.getPrice());
+		}
+		return new Price(result);
 	}
 
     @Override
@@ -115,6 +115,6 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 
     @Override
 	public String toString() {
-		return "BuyingAct{" + "id=" + id + ", date=" + date + ", products=" + products + ", totalPrice=" + totalPrice + '}';
+		return "BuyingAct{" + "id=" + id + ", date=" + date + ", products=" + products + '}';
 	}
 }

@@ -1,14 +1,18 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
+import com.meitan.lubov.model.persistent.Product;
+import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.Dao;
+import com.meitan.lubov.services.dao.ProductDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.PersistenceException;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
@@ -23,6 +27,8 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	//todo make testClientDao
 	@Autowired
 	private ClientDao testClientDao;
+	@Autowired
+	private ProductDao testProductDao;
 
     private int expectedClientCount = 2;
 
@@ -128,5 +134,39 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		Client result = testClientDao.getByLogin(CLIENT_LOGIN);
 		assertNotNull("Client was null", result);
 		assertThat(result.getLogin(), is(CLIENT_LOGIN));
+	}
+
+	@Test
+	public void testBuyGoods() {
+		Client c = testClientDao.getByLogin(CLIENT_LOGIN);
+		Set<BuyingAct> initialPurchases = new HashSet(c.getPurchases());
+		int initialBoughtCount = initialPurchases.size();
+
+		List<Product> products = testProductDao.findAll();
+		assertTrue(products.size() >= 2);
+
+		Product p1 = products.get(0);
+		Product p2 = products.get(1);
+
+		ShoppingCartImpl cart = new ShoppingCartImpl();
+		cart.addItem(p1);
+		cart.addItem(p2);
+
+		testClientDao.buyGoods(cart, CLIENT_LOGIN);
+
+		testClientDao.flush();
+		c = testClientDao.findById(c.getId());
+		Set<BuyingAct> finalPurchases = c.getPurchases();
+		assertEquals(initialBoughtCount + 1, finalPurchases.size());
+
+		finalPurchases.removeAll(initialPurchases);
+		assertEquals(1, finalPurchases.size());
+
+		BuyingAct act = finalPurchases.iterator().next();
+
+		assertEquals(2, act.getProducts().size());
+
+		//todo find out why this don't work
+		//assertEquals(cart.getItems(), new ArrayList(act.getProducts()));
 	}
 }

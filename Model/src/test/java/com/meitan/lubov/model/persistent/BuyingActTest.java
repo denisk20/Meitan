@@ -76,9 +76,40 @@ public class BuyingActTest {
 
 	@Test
 	public void testGetTotalPrice() throws Exception {
-		Price price = new Price(new BigDecimal(1));
-		testable.setTotalPrice(price);
+		final BigDecimal price1 = new BigDecimal(12.4);
+		final BigDecimal price2 = new BigDecimal(8.7);
+		final BigDecimal price3 = new BigDecimal(13.9);
 
-		assertEquals(price, testable.getTotalPrice());
+		final int quantity1 = 4;
+		final int quantity2 = 3;
+		final int quantity3 = 7;
+
+		Product p1 = new Product();
+		p1.setName("p1");
+		p1.setPrice(new Price(price1));
+		ShoppingCartItem it1 = new ShoppingCartItem(p1, quantity1);
+
+		Product p2 = new Product();
+		p2.setName("p1");
+		p2.setPrice(new Price(price2));
+		ShoppingCartItem it2 = new ShoppingCartItem(p2, quantity2);
+
+		Product p3 = new Product();
+		p3.setName("p1");
+		p3.setPrice(new Price(price3));
+		ShoppingCartItem it3 = new ShoppingCartItem(p3, quantity3);
+
+		Set<ShoppingCartItem> products = new HashSet<ShoppingCartItem>();
+		products.add(it1);
+		products.add(it2);
+		products.add(it3);
+
+		testable.getProducts().addAll(products);
+
+		BigDecimal expectedPrice = price1.multiply(new BigDecimal(quantity1))
+				.add(price2.multiply(new BigDecimal(quantity2)))
+				.add(price3.multiply(new BigDecimal(quantity3)));
+
+		assertEquals(new Price(expectedPrice), testable.getTotalPrice());
 	}
 }

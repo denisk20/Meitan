@@ -2,9 +2,11 @@ package com.meitan.lubov.services.dao.jpa.impl;
 
 import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
+import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.dao.BuyingActDao;
 import com.meitan.lubov.services.dao.ClientDao;
+import com.meitan.lubov.services.dao.ShoppingCartItemDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,9 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Autowired
 	private BuyingActDao buyingActDao;
 
+	@Autowired
+	private ShoppingCartItemDao shoppingCartItemDao;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -34,6 +39,9 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 		List<Client> result = em.createNamedQuery("getClientByLogin")
 				.setParameter("login", login)
 				.getResultList();
+		if (result.size() == 0) {
+			throw new IllegalArgumentException("Can't find user with login " + login);
+		}
 		if (result.size() != 1) {
 			throw new IllegalStateException("Multiple users with login " + login);
 		}
@@ -42,11 +50,17 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 
 	@Override
 	@Transactional
-	public void buyGoods(String login, ShoppingCart cart) {
+	public void buyGoods(ShoppingCart cart, String login) {
 		Client client = getByLogin(login);
 		BuyingAct act = new BuyingAct(new Date(), client);
 
-		//for()
+		for (ShoppingCartItem it : cart.getItems()) {
+			shoppingCartItemDao.makePersistent(it);
+			act.getProducts().add(it);
+		}
+
+		client.getPurchases().add(act);
+		buyingActDao.makePersistent(act);
 	}
 
 	@Override
@@ -57,5 +71,15 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Override
 	public BuyingActDao getBuyingActDao() {
 		return buyingActDao;
+	}
+
+	@Override
+	public ShoppingCartItemDao getShoppingCartItemDao() {
+		return shoppingCartItemDao;
+	}
+
+	@Override
+	public void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao) {
+		this.shoppingCartItemDao = shoppingCartItemDao;
 	}
 }
