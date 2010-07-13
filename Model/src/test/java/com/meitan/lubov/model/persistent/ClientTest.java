@@ -21,6 +21,8 @@ public class ClientTest {
 	@Before
 	public void setUp() throws Exception {
 		testable = new Client();
+		testable.setName(new Name("name", "name", "name"));
+		testable.setEmail("email@email.com");
 	}
 
 	@Test
@@ -95,8 +97,14 @@ public class ClientTest {
 	@Test
 	public void testRole() {
 		String role = "ROLE_CLIENT";
-		testable.setRole(role);
+		String role1 = "ROLE_CONSULTANT";
+		Authority a1 = new Authority(testable, role);
+		Authority a2 = new Authority(testable, role1);
 
-		assertEquals(role, testable.getRole());
+		testable.getRoles().add(a1);
+		testable.getRoles().add(a2);
+
+		assertTrue(testable.getRoles().contains(a1));
+		assertTrue(testable.getRoles().contains(a2));
 	}
 }

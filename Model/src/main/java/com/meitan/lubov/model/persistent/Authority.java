@@ -60,16 +60,16 @@ public class Authority extends PersistentOrderableImpl implements Serializable {
 
 		Authority authority = (Authority) o;
 
-		if (!client.equals(authority.client)) return false;
-		if (!role.equals(authority.role)) return false;
+		if (client != null ? !client.equals(authority.client) : authority.client != null) return false;
+		if (role != null ? !role.equals(authority.role) : authority.role != null) return false;
 
 		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		int result = client.hashCode();
-		result = 31 * result + role.hashCode();
+		int result = client != null ? client.hashCode() : 0;
+		result = 31 * result + (role != null ? role.hashCode() : 0);
 		return result;
 	}
 

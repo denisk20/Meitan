@@ -16,7 +16,7 @@ import javax.persistence.*;
  * @author denisk
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
 		@NamedQuery(name = "getClientByLogin", query = "from Client c where c.login = :login")
 })
@@ -30,7 +30,7 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 
 	private String login;
 	private String password;
-	private String role;
+	private Set<Authority> roles = new HashSet<Authority>();
 	private boolean enabled;
 
 	private String conformedPassword;
@@ -115,12 +115,13 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public String getRole() {
-		return role;
+	@OneToMany(mappedBy = "client")
+	public Set<Authority> getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(Set<Authority> roles) {
+		this.roles = roles;
 	}
 
 	@Transient

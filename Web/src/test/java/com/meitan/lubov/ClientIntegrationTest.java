@@ -1,13 +1,9 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.components.Name;
-import com.meitan.lubov.model.persistent.BuyingAct;
-import com.meitan.lubov.model.persistent.Client;
-import com.meitan.lubov.model.persistent.Product;
+import com.meitan.lubov.model.persistent.*;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
-import com.meitan.lubov.services.dao.ClientDao;
-import com.meitan.lubov.services.dao.Dao;
-import com.meitan.lubov.services.dao.ProductDao;
+import com.meitan.lubov.services.dao.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,11 +20,14 @@ import static org.hamcrest.CoreMatchers.is;
  * @author denisk
  */
 public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
-	//todo make testClientDao
 	@Autowired
 	private ClientDao testClientDao;
 	@Autowired
 	private ProductDao testProductDao;
+	@Autowired
+	private AuthorityDao testAuthorityDao;
+	@Autowired
+	private BuyingActDao testBuyingActDao;
 
     private int expectedClientCount = 2;
 
@@ -81,8 +80,22 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
     }
 
     @Test
+	//todo this should be extended
     public void testDeleteClient() {
         Client client = beansFromDb.get(0);
+		Set<Authority> roles =client.getRoles();
+		for (Authority a : roles) {
+			testAuthorityDao.makeTransient(a);
+		}
+		client.getRoles().clear();
+		client.getPurchases().clear();
+		for (BuyingAct act : client.getPurchases()) {
+			for (ShoppingCartItem i : act.getProducts()) {
+				((Product) i.getItem()).getPurchases().remove(act);
+			}
+			testBuyingActDao.makeTransient(act);
+
+		}
         testClientDao.makeTransient(client);
 
 		testClientDao.flush();
@@ -168,5 +181,43 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
 		//todo find out why this don't work
 		//assertEquals(cart.getItems(), new ArrayList(act.getProducts()));
+	}
+
+	@Test
+	public void testAddAuthority() {
+		Set<Authority> roles = beansFromDb.get(0).getRoles();
+		assertNotNull(roles);
+		assertTrue(roles.size() > 0);
+
+		Authority a = roles.iterator().next();
+
+		Client c = a.getClient();
+
+		final String role = "ROLE_PICACHU";
+		Authority newAuth = new Authority(c, role);
+		testAuthorityDao.makePersistent(newAuth);
+		c.getRoles().add(newAuth);
+
+		c = testClientDao.findById(c.getId());
+		assertTrue(c.getRoles().contains(a));
+
+		a = testAuthorityDao.findById(a.getId());
+		assertTrue(a.getClient().equals(c));
+	}
+
+	@Test
+	public void testDeleteAuthority() {
+		Client c = beansFromDb.get(0);
+		Authority a = c.getRoles().iterator().next();
+
+		c.getRoles().remove(a);
+		a.setClient(null);
+		testAuthorityDao.flush();
+
+		c = testClientDao.findById(c.getId());
+		assertFalse(c.getRoles().contains(a));
+
+		a = testAuthorityDao.findById(a.getId());
+		assertNull(a.getClient());
 	}
 }

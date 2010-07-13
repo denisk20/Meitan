@@ -1,15 +1,14 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.persistent.Authority;
+import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.dao.AuthorityDao;
+import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.Dao;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Date: Jul 9, 2010
@@ -19,7 +18,10 @@ import static org.junit.Assert.fail;
  */
 public class AuthorityIntegrationTest extends GenericIntegrationTest <Authority>{
 	@Autowired
-	private AuthorityDao authorityDao;
+	private AuthorityDao testAuthorityDao;
+
+	@Autowired
+	private ClientDao testClientDao;
 
 	@Override
 		protected void setUpBeanNames() {
@@ -30,13 +32,30 @@ public class AuthorityIntegrationTest extends GenericIntegrationTest <Authority>
 
 	@Override
 	protected Dao<Authority, Long> getDAO() {
-		return authorityDao;
+		return testAuthorityDao;
 	}
 
 	@Test
-	@Ignore("todo")
-	//todo
 	public void testCreateAuthority() {
+		String role = "ROLE_MEGAMAN";
+		Client c = testClientDao.findAll().get(0);
 
+		Authority a = new Authority(c, role);
+
+		testAuthorityDao.makePersistent(a);
+
+		assertNotNull(a.getId());
+		Authority loaded = testAuthorityDao.findById(a.getId());
+		assertNotNull(loaded);
+	}
+
+	@Test
+	public void testDeleteAuthority() {
+		Authority a = testAuthorityDao.findAll().get(0);
+		testAuthorityDao.makeTransient(a);
+		testAuthorityDao.flush();
+
+		a = testAuthorityDao.findById(a.getId());
+		assertNull(a);
 	}
 }
