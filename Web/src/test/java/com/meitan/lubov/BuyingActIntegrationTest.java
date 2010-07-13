@@ -1,13 +1,16 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.persistent.BuyingAct;
+import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.dao.BuyingActDao;
 import com.meitan.lubov.services.dao.Dao;
-import org.junit.Ignore;
+import com.meitan.lubov.services.dao.ShoppingCartItemDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.PersistenceException;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
@@ -19,7 +22,10 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class BuyingActIntegrationTest extends GenericIntegrationTest<BuyingAct> {
     @Autowired
-    private BuyingActDao buyingActDao;
+    private BuyingActDao testBuyingActDao;
+	
+	@Autowired
+	private ShoppingCartItemDao testShoppingCartItemDao;
 
     @Override
     protected void setUpBeanNames() {
@@ -30,7 +36,7 @@ public class BuyingActIntegrationTest extends GenericIntegrationTest<BuyingAct> 
 
     @Override
     protected Dao<BuyingAct, Long> getDAO() {
-        return buyingActDao;
+        return testBuyingActDao;
     }
 
     @Override
@@ -44,13 +50,22 @@ public class BuyingActIntegrationTest extends GenericIntegrationTest<BuyingAct> 
     public void testInsertNullDate() throws CloneNotSupportedException {
         BuyingAct act = (BuyingAct) beansFromXml.get(0).clone();
         act.setDate(null);
-        buyingActDao.makePersistent(act);
+        testBuyingActDao.makePersistent(act);
     }
 
     @Test(expected = PersistenceException.class)
     public void testInsertNullClient() throws CloneNotSupportedException {
         BuyingAct act = (BuyingAct) beansFromXml.get(0).clone();
         act.setClient(null);
-        buyingActDao.makePersistent(act);
+        testBuyingActDao.makePersistent(act);
     }
+
+	@Test
+	public void testFindForCartItem() {
+		ShoppingCartItem item = testShoppingCartItemDao.findAll().get(0);
+
+		List<BuyingAct> acts = testBuyingActDao.findForCartItem(item.getId());
+
+		assertEquals(1, acts.size());
+	}
 }

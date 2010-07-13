@@ -81,7 +81,7 @@ public class ShoppingCartItem extends PersistentOrderableImpl implements Seriali
 
 		ShoppingCartItem that = (ShoppingCartItem) o;
 
-		if (date != null ? !date.equals(that.date) : that.date != null) return false;
+		if (date != null ? !Long.valueOf(date.getTime()).equals(Long.valueOf(that.date.getTime())) : that.date != null) return false;
 		if (item != null ? !item.equals(that.item) : that.item != null) return false;
 		if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
 
