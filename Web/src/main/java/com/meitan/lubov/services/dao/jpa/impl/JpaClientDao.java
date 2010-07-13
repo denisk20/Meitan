@@ -64,6 +64,12 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	}
 
 	@Override
+	@Transactional
+	//todo implement and test it properly
+	public void deleteById(Long id) {
+		super.deleteById(id);
+	}
+	@Override
 	public void setBuyingActDao(BuyingActDao buyingActDao) {
 		this.buyingActDao = buyingActDao;
 	}

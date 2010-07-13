@@ -1,5 +1,6 @@
 package com.meitan.lubov;
 
+import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
@@ -13,6 +14,7 @@ import org.springframework.security.GrantedAuthorityImpl;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 
 import java.security.Principal;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -39,8 +41,15 @@ public class MailServiceIntegrationTest extends GenericIntegrationTest<Client>{
 	@Test
 	public void testSendEmail() {
 		Client client = beansFromDb.get(0);
-		Principal user = new UsernamePasswordAuthenticationToken(client.getLogin(), client.getPassword(),
-				new GrantedAuthorityImpl[] {new GrantedAuthorityImpl(client.getRole())});
+		Set<Authority> roles = client.getRoles();
+		GrantedAuthorityImpl[] auths = new GrantedAuthorityImpl[roles.size()];
+		int i = 0;
+		for (Authority a : roles) {
+			auths[i] = new GrantedAuthorityImpl(a.getRole());
+			i++;
+		}
+		Principal user = new UsernamePasswordAuthenticationToken(client.getLogin(),
+				client.getPassword(), auths);
 
 		ShoppingCart cart = new ShoppingCartImpl();
 

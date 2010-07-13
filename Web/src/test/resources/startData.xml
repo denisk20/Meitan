@@ -289,6 +289,12 @@
 			</set>
 		</property>
         <property name="order" value="1"/>
+        <property name="roles">
+            <set>
+                <ref bean="ent_creamAdmierAuthority1"/>
+                <ref bean="ent_creamAdmierAuthority2"/>
+            </set>
+        </property>
 
         <property name="login" value="consultant"/>
         <property name="password" value="202cb962ac59075b964b07152d234b70"/> <!--123-->
@@ -372,7 +378,11 @@
 
         <property name="login" value="denis_k"/>
         <property name="password" value="5f4dcc3b5aa765d61d8327deb882cf99"/> <!--password-->
-        <property name="role" value="ROLE_CLIENT"/>
+        <property name="roles">
+            <set>
+                <ref bean="ent_creamLoverAuthority"/>
+            </set>
+        </property>
         <property name="enabled" value="true"/>
     </bean>
 
