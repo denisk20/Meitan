@@ -1,6 +1,7 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
 import com.meitan.lubov.model.persistent.Authority;
+import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import org.hibernate.Criteria;
@@ -8,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,5 +31,13 @@ public class JpaAuthorityDao extends JpaDao<Authority, Long> implements Authorit
 				.add(Restrictions.eq("email", exampleInstance.getClient().getEmail()));
 
 		return criteria.list();
+	}
+
+	@Override
+	@Transactional
+	public void assignAuthority(Client client, String role) {
+		Authority auth = new Authority(client, role);
+		client.getRoles().add(auth);
+		makePersistent(auth);
 	}
 }

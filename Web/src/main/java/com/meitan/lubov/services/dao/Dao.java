@@ -1,6 +1,7 @@
 package com.meitan.lubov.services.dao;
 
 import com.meitan.lubov.model.IdAware;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,4 +30,9 @@ public interface Dao<T, ID extends Serializable> {
 	//generic method that can be used from every DAO
 	Object getPersistentObject(IdAware entity);
 
+	@Transactional
+	void merge(T entity);
+
+	@Transactional
+	void refresh(T entity);
 }

@@ -2,9 +2,11 @@ package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.NameAware;
 import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.components.Passport;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -20,6 +22,7 @@ import javax.persistence.*;
 @NamedQueries({
 		@NamedQuery(name = "getClientByLogin", query = "from Client c where c.login = :login")
 })
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"passport_series", "passport_number"})})
 //todo rename to User
 public class Client extends PersistentOrderableImpl implements Serializable {
 	private long id;
@@ -33,6 +36,8 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	private Set<Authority> roles = new HashSet<Authority>();
 	private boolean enabled;
 
+	private Passport passport = new Passport();
+	private Date joinDate;
 	private String conformedPassword;
 	public Client() {
 
@@ -42,6 +47,12 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		this.name = name;
 		this.email = email;
 	}
+	public Client(Name name, String email, Passport passport, Date joinDate) {
+		this(name, email);
+		this.passport = passport;
+		this.joinDate = joinDate;
+	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -122,6 +133,25 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 
 	public void setRoles(Set<Authority> roles) {
 		this.roles = roles;
+	}
+
+	@Embedded
+	public Passport getPassport() {
+		return passport;
+	}
+
+	public void setPassport(Passport passport) {
+		this.passport = passport;
+	}
+
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 
 	@Transient

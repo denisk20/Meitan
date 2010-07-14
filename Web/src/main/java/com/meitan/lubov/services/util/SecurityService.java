@@ -1,5 +1,6 @@
 package com.meitan.lubov.services.util;
 
+import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +15,8 @@ import org.springframework.webflow.context.ExternalContext;
 import org.springframework.webflow.execution.RequestContext;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -28,6 +31,10 @@ public class SecurityService implements ApplicationContextAware{
 		GrantedAuthority[] authorities = 
 				new GrantedAuthority[] {new GrantedAuthorityImpl("ROLE_CLIENT")};
 
+		authenticateUser(user, authorities);
+	}
+
+	private void authenticateUser(Client user, GrantedAuthority[] authorities) {
 		UsernamePasswordAuthenticationToken token =
 				new UsernamePasswordAuthenticationToken(
 						user.getLogin(), user.getPassword(), authorities);
@@ -38,6 +45,20 @@ public class SecurityService implements ApplicationContextAware{
         }
 	}
 
+	public void addCurrentSessionAuthority(Client user, String newRole) {
+		Set<Authority> roles = user.getRoles();
+		int newRolesCount = roles.size() + 1;
+		GrantedAuthority[] authorities = new GrantedAuthority[newRolesCount];
+		int i=0;
+		Iterator<Authority> it = roles.iterator();
+		while (it.hasNext()) {
+			authorities[i] = new GrantedAuthorityImpl(it.next().getRole());
+			i++;
+		}
+		authorities[i] = new GrantedAuthorityImpl(newRole);
+
+		authenticateUser(user, authorities);
+	}
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;

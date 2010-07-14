@@ -9,13 +9,24 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-            <h1>Страница с формой для консультанта</h1>
-        <sec:ifNotGranted roles="ROLE_CONSULTANT">
-			<p>Нужно вначале зарегистрироваться как клиенту</p>
-        </sec:ifNotGranted>
+            <h1>Стань консультантом</h1>
+
+		<sec:ifNotGranted roles="ROLE_CLIENT">
+			<sec:ifNotGranted roles="ROLE_CONSULTANT">
+				<p>Нужно вначале зарегистрироваться как клиенту</p>
+				<h:form>
+					<h:commandLink value="Register as client" action="register"/>
+				</h:form>
+			</sec:ifNotGranted>
+		</sec:ifNotGranted>
 
 		<sec:ifAllGranted roles="ROLE_CLIENT">
-			
+			<sec:ifNotGranted roles="ROLE_CONSULTANT">
+				<p>It is very cool to be consultant. You can register here:</p>
+				<h:form>
+					<h:commandLink value="Register as consultant!" action="signConsultant"/>
+				</h:form>
+			</sec:ifNotGranted>
 		</sec:ifAllGranted>
 
     </ui:define>

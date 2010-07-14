@@ -1,6 +1,7 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.components.Passport;
 import com.meitan.lubov.model.persistent.*;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.*;
@@ -60,6 +61,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
 		newClient.setEmail("a@b.com");
 		newClient.setLogin("Login");
+		newClient.setJoinDate(new Date());
         testClientDao.makePersistent(newClient);
 
         List<Client> clients = testClientDao.findAll();
@@ -219,5 +221,49 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
 		a = testAuthorityDao.findById(a.getId());
 		assertNull(a.getClient());
+	}
+
+/*
+	@Test(expected = PersistenceException.class)
+	public void testNonUniquePassport() {
+		Client c = beansFromDb.get(0);
+		Passport p = c.getPassport();
+
+		Client created = new Client(new Name("first", "second", "third"), "a@b.com", p, new Date());
+		testClientDao.makePersistent(created);
+
+		testClientDao.flush();
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void insertNullablePassport() {
+		Client c = beansFromDb.get(0);
+		Passport p = new Passport();
+
+		Client created = new Client(new Name("first", "second", "third"), "a@b.com", p, new Date());
+		testClientDao.makePersistent(created);
+
+		testClientDao.flush();
+	}
+
+	@Test(expected = PersistenceException.class)
+	public void insertNullablePassportSeries() {
+		Client c = beansFromDb.get(0);
+		Passport p = null;
+
+		Client created = new Client(new Name("first", "second", "third"), "a@b.com", p, new Date());
+		testClientDao.makePersistent(created);
+
+		testClientDao.flush();
+	}
+*/
+
+	@Test(expected = PersistenceException.class)
+	public void insertNullableDate() {
+		Client c = beansFromDb.get(0);
+		c.setJoinDate(null);
+
+		testClientDao.makePersistent(c);
+		testClientDao.flush();
 	}
 }

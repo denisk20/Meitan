@@ -12,8 +12,8 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Passport implements Serializable {
-	private String series;
-	private String number;
+	private String series = "";
+	private String number = "";
 
 	public Passport() {
 	}

@@ -1,5 +1,6 @@
 package com.meitan.lubov.services.dao;
 
+import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.model.persistent.Consultant;
 
 /**
@@ -9,4 +10,5 @@ import com.meitan.lubov.model.persistent.Consultant;
  * @author denisk
  */
 public interface ConsultantDao extends Dao<Consultant, Long>{
+	Consultant newConsultant(Client prototype);
 }
