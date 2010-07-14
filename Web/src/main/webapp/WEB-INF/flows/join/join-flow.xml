@@ -5,11 +5,28 @@
 		parent="global">
 
 <!--
-    <on-start>
-        <evaluate expression=""
-    </on-start>
+    todo unit test this
 -->
+    <persistence-context/>
+    
 	<view-state id="join">
+        <transition on="register" to="register"/>
+        <transition on="signConsultant" to="sign"/>
 	</view-state>
 
+    <view-state id="sign" model="client">
+        <secured attributes="ROLE_CLIENT"/>
+        <on-entry>
+            <evaluate expression="clientDao.getByLogin(currentUser.name)" result="viewScope.client"/>
+        </on-entry>
+
+        <transition on="createNewConsultant" to="success">
+            <!--<evaluate expression="clientDao.makePersistent(client)"/>-->
+            <evaluate expression="securityService.addCurrentSessionAuthority(client, 'ROLE_CONSULTANT')"/>
+            <evaluate expression="authorityDao.assignAuthority(client, 'ROLE_CONSULTANT')"/>
+        </transition>
+    </view-state>
+
+    <end-state id="register" view="flowRedirect:login"/>
+    <end-state id="success" view="flowRedirect:about" commit="true"/>
 </flow>

@@ -1,6 +1,8 @@
 package com.meitan.lubov.services.dao;
 
 import com.meitan.lubov.model.persistent.Authority;
+import com.meitan.lubov.model.persistent.Client;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Date: Jul 9, 2010
@@ -9,4 +11,6 @@ import com.meitan.lubov.model.persistent.Authority;
  * @author denisk
  */
 public interface AuthorityDao extends Dao<Authority, Long>{
+	@Transactional
+	void assignAuthority(Client client, String role);
 }

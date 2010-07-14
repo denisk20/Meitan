@@ -104,6 +104,18 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 		return em.find(entity.getClass(), entity.getId());
 	}
 
+	@Override
+	@Transactional
+	public void merge(T entity) {
+		em.merge(entity);
+	}
+
+	@Override
+	@Transactional
+	public void refresh(T entity) {
+		em.refresh(entity);
+	}
+
 	/**
      * This is total hack to get rid of the fact that hibernate doesn't
      * handle eager fetching properly

@@ -216,7 +216,7 @@
         <property name="order" value="2"/>
 	</bean>
 	
-	<bean id="ent_creamAdmier" class="com.meitan.lubov.model.persistent.Consultant">
+	<bean id="ent_creamAdmier" class="com.meitan.lubov.model.persistent.Client">
 		<constructor-arg index="0">
 			<bean class="com.meitan.lubov.model.components.Name">
 				<property name="firstName" value="Jim"/>
@@ -383,6 +383,7 @@
                 <ref bean="ent_creamLoverAuthority"/>
             </set>
         </property>
+        <property name="joinDate" value="01/27/2008"/>
         <property name="enabled" value="true"/>
     </bean>
 

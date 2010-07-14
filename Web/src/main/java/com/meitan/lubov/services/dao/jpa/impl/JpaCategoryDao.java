@@ -29,12 +29,6 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 	private ImageDao imageDao;
 
 	@Override
-	public void merge(Category c) {
-		
-		em.merge(c);
-	}
-
-	@Override
 	@Transactional
 	public void makeTransient(Category c) {
 		super.makeTransient(c);

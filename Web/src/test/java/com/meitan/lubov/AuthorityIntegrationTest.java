@@ -8,6 +8,8 @@ import com.meitan.lubov.services.dao.Dao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -57,5 +59,23 @@ public class AuthorityIntegrationTest extends GenericIntegrationTest <Authority>
 
 		a = testAuthorityDao.findById(a.getId());
 		assertNull(a);
+	}
+
+	@Test
+	public void testAddAuthority() {
+		final String role = "ROLE_BATMAN";
+		Client c = testClientDao.findAll().get(0);
+		testAuthorityDao.assignAuthority(c, role);
+
+		testAuthorityDao.flush();
+
+		Authority exampleAuthority = new Authority(c, role);
+		assertTrue(c.getRoles().contains(exampleAuthority));
+		List<Authority> authorityList = testAuthorityDao.findByExample(exampleAuthority);
+		assertEquals(1, authorityList.size());
+
+		Authority loaded = authorityList.get(0);
+		assertEquals(c, loaded.getClient());
+		assertEquals(role, loaded.getRole());
 	}
 }
