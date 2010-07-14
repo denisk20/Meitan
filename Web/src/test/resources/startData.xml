@@ -408,4 +408,26 @@
         <property name="order" value="2"/>
     </bean>
 
+    <bean id="ent_board" class="com.meitan.lubov.model.persistent.NewsBoard">
+        <property name="items">
+            <list>
+                <ref bean="ent_post1"/>
+                <ref bean="ent_post2"/>
+                <ref bean="ent_post3"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="ent_post1" class="com.meitan.lubov.model.persistent.BoardItem">
+        <property name="postDate" value="01/28/2008"/>
+        <property name="content" value="Once upon a time"/>
+    </bean>
+    <bean id="ent_post2" class="com.meitan.lubov.model.persistent.BoardItem">
+        <property name="postDate" value="01/28/2008"/>
+        <property name="content" value="There were three beers"/>
+    </bean>
+    <bean id="ent_post3" class="com.meitan.lubov.model.persistent.BoardItem">
+        <property name="postDate" value="01/30/2008"/>
+        <property name="content" value="were three beers beers..."/>
+    </bean>
 </beans>

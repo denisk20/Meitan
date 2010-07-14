@@ -6,11 +6,13 @@
 	<end-state id="aboutFlow" view="flowRedirect:about"/>
 	<end-state id="joinFlow" view="flowRedirect:join"/>
 	<end-state id="categoriesFlow" view="flowRedirect:categories"/>
+	<end-state id="board" view="flowRedirect:board"/>
 
 	<global-transitions>
 		<transition on="about_action" to="aboutFlow"/>
 		<transition on="browseCategories" to="categoriesFlow"/>
 		<transition on="joinUs" to="joinFlow"/>
+		<transition on="board" to="board"/>
 	</global-transitions>
 
 </flow>
