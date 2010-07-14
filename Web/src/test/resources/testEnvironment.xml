@@ -106,6 +106,8 @@
     <bean id="testShoppingCartItemDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaShoppingCartItemDao"/>
 
     <bean id="testAuthorityDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaAuthorityDao"/>
+
+    <bean id="testNewsBoardDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaNewsBoardDao"/>
     <!-- /DAOs======================================================================================-->
 
     <!-- Mail settings===========================================================================-->
