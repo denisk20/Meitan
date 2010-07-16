@@ -2,10 +2,7 @@ package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +12,9 @@ import java.util.Date;
  *         Time: 22:49:42
  */
 @Entity
+@NamedQueries({
+		@NamedQuery(name = "getAll", query = "from BoardItem order by postDate")
+})
 public class BoardItem extends PersistentOrderableImpl implements Serializable {
 	private Long id;
 	private Date postDate;
