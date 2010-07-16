@@ -234,7 +234,23 @@
             <artifactId>recaptcha4j</artifactId>
             <version>0.0.7</version>
         </dependency>
-        
+        <dependency>
+  <groupId>org.richfaces.ui</groupId>
+  <artifactId>richfaces-ui</artifactId>
+  <version>3.3.3.Final</version>
+</dependency>
+<!--
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+-->
+            <dependency>
+      <groupId>org.richfaces.framework</groupId>
+      <artifactId>richfaces-impl</artifactId>
+      <version>3.3.3.Final</version>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>

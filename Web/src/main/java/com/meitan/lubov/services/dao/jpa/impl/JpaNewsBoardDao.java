@@ -1,10 +1,14 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
+import com.meitan.lubov.model.persistent.BoardItem;
 import com.meitan.lubov.model.persistent.NewsBoard;
 import com.meitan.lubov.services.dao.NewsBoardDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author denis_k
@@ -14,4 +18,11 @@ import org.springframework.stereotype.Service;
 @Repository
 @Service("newsBoardDao")
 public class JpaNewsBoardDao extends JpaDao<NewsBoard, Long> implements NewsBoardDao{
+	@Override
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<BoardItem> getAll() {
+		List<BoardItem> result = em.createNamedQuery("getAll").getResultList();
+		return result;
+	}
 }

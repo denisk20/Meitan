@@ -4,12 +4,13 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
 
+    <persistence-context/>
 	<view-state id="board">
         <on-entry>
             <evaluate expression="newsBoardDao.getAll()" result="flowScope.boardItems" result-type="dataModel"/>
         </on-entry>
 
-		<transition on="edit">
+		<transition on="edit" to="commit">
             <!--todo AJAX!!!-->
 		</transition>
 
@@ -18,7 +19,7 @@
 		</transition>
 	</view-state>
 
-	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}">
+	<end-state id="commit" commit="true" view="flowRedirect:about">
 
 	</end-state>
 
