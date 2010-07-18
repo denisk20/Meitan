@@ -372,6 +372,11 @@
 			<url>http://spring-security-facelets-taglib.googlecode.com/svn/repo/</url>
 		</repository>
 
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/maven2</url>
+		</repository>
+
 	</repositories>
 
 </project>
