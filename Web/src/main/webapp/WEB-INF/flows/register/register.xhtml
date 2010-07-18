@@ -32,13 +32,13 @@
 		</sf:clientTextValidator>
 		<br/>
 
-		<h:outputLabel for="emailAddress" value="Email"/>
+<div class="field">		<div class="label"><h:outputLabel for="emailAddress" value="Email"/></div>
 		<!--todo the validator doesn't work.... must figure out why-->
-		<sf:clientTextValidator regExp="[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}" promptMessage="Enter email" required="true" invalidMessage="Your email isn't valid">
+		<div class="input"><sf:clientTextValidator regExp="a.*b" required="true" invalidMessage="Your email isn not valid">
 			<h:inputText id="emailAddress" value="#{newClient.email}" required="true"/>
 		</sf:clientTextValidator>
-		<br/>
-
+		</div><br/>
+</div>
 		<h:outputLabel for="notes" value="Notes"/>
 		<sf:clientTextValidator promptMessage="Additional notes">
 			<h:inputText id="notes" value="#{newClient.notes}"/>
