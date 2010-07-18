@@ -15,8 +15,18 @@
         <title>Meitan - inside #{flowExecutionContext.caption} subflow</title>
         
         <ui:insert name="header"/>
+        	<sf:includeStyles/>
+	<sf:resourceGroup>
+		<sf:resource path="/css-framework/css/tools.css"/>
+		<sf:resource path="/css-framework/css/typo.css"/>
+		<sf:resource path="/css-framework/css/forms.css"/>
+		<sf:resource path="/css-framework/css/layout-navtop-localleft.css"/>
+		<sf:resource path="/css-framework/css/layout.css"/>
+	</sf:resourceGroup>
+	<ui:insert name="headIncludes"/>
+
     </head>
-    <body>
+    <body class="tundra spring">
 <!--    todo remove this from here-->
 <ui:fragment id="shoppingCartFragment">
     <div id="cartDiv" align="right">Всего в тележке товаров ${cart.typesCount} на сумму ${cart.totalPrice}</div>
