@@ -85,7 +85,7 @@ public class ConsultantIntegrationTest extends GenericIntegrationTest<Consultant
 		consultantDao.flush();
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void testPrototype() {
 		int consultantsCount = consultantDao.findAll().size();
@@ -95,10 +95,11 @@ public class ConsultantIntegrationTest extends GenericIntegrationTest<Consultant
 		c.setLogin("login");
 		c.setPassword("pass");
 
+		c.setJoinDate(new Date());
 		testAuthorityDao.assignAuthority(c, "ROLE_CLIENT");
 		testClientDao.makePersistent(c);
 
-		Consultant consultant = consultantDao.newConsultant(c);
+		Consultant consultant = (Consultant) c;
 		consultantDao.makePersistent(consultant);
 		consultantDao.flush();
 

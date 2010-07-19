@@ -9,7 +9,7 @@
 		<!--properties are useless here, they are red from hibernate.properties-->
 		<class>com.meitan.lubov.model.persistent.BuyingAct</class>
 		<class>com.meitan.lubov.model.persistent.Client</class>
-		<!--<class>com.meitan.lubov.model.persistent.Consultant</class>-->
+		<class>com.meitan.lubov.model.persistent.Consultant</class>
 		<class>com.meitan.lubov.model.persistent.Product</class>
 		<class>com.meitan.lubov.model.persistent.Category</class>
 		<class>com.meitan.lubov.model.persistent.Image</class>
