@@ -21,7 +21,7 @@ public class JpaConsultantDao extends JpaDao<Consultant, Long> implements Consul
 	@Transactional
 	public Consultant newConsultant(Client prototype) {
 		Consultant consultant = new Consultant(prototype);
-		consultant.setRoles(prototype.getRoles());
+		//consultant.setRoles(prototype.getRoles());
 		return consultant;
 	}
 }

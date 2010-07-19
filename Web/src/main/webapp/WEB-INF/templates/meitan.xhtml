@@ -1,47 +1,55 @@
 <!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:c="http://java.sun.com/jstl/core"
-        xmlns:sf="http://www.springframework.org/tags/faces"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://java.sun.com/jstl/core"
+		xmlns:sf="http://www.springframework.org/tags/faces"
 		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        contentType="text/html" encoding="UTF-8">
+		contentType="text/html" encoding="UTF-8">
 
-    <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Meitan - #{flowExecutionContext.caption} flow</title>
+	<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>Meitan - #{flowExecutionContext.caption} flow</title>
+		<sf:includeStyles/>
+		<sf:resourceGroup>
+			<sf:resource path="/css-framework/css/tools.css"/>
+			<sf:resource path="/css-framework/css/typo.css"/>
+			<sf:resource path="/css-framework/css/forms.css"/>
+			<sf:resource path="/css-framework/css/layout-navtop-localleft.css"/>
+			<sf:resource path="/css-framework/css/layout.css"/>
+		</sf:resourceGroup>
+	</head>
 
-    </head>
-    <body>
-<!--    todo remove this from here-->
-<h:form id="topPanelForm">
-<ui:fragment id="shoppingCartFragment">
-	<div id="cartDiv" align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}
-		<a href="checkout">Go to checkout</a>
-	</div>
-</ui:fragment>
-</h:form>
-<c:if test="${not empty currentUser.name}">
-	Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
-</c:if>
-<c:if test="${empty currentUser.name}">
-	<a href="${request.contextPath}/spring/login">Login</a>
-</c:if>
-	
-<table>
-        <tr>
-            <td>
+	<body class="tundra spring">
+	<h:form id="topPanelForm">
+		<ui:fragment id="shoppingCartFragment">
+			<div id="cartDiv" align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}
+				<a href="checkout">Go to checkout</a>
+			</div>
+		</ui:fragment>
+	</h:form>
+
+	<c:if test="${not empty currentUser.name}">
+		Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
+	</c:if>
+	<c:if test="${empty currentUser.name}">
+		<a href="${request.contextPath}/spring/login">Login</a>
+	</c:if>
+
+	<table>
+		<tr>
+			<td>
 				<ui:include src="menu.xhtml"/>
-            </td>
-            <td>
-                <ui:insert name="content"/>
-            </td>
-        </tr>
-    </table>
-    </body>
-    </html>
+			</td>
+			<td>
+				<ui:insert name="content"/>
+			</td>
+		</tr>
+	</table>
+	</body>
+	</html>
 </f:view>

@@ -18,8 +18,8 @@ import javax.persistence.UniqueConstraint;
  *
  * @author denisk
  */
-//@Entity
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"passport_series", "passport_number"})})
+@Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"passport_series", "passport_number"})})
 public class Consultant extends Client {
 	private Passport passport=new Passport();
 	private Date joinDate;
@@ -38,7 +38,7 @@ public class Consultant extends Client {
 		setLogin(c.getLogin());
 		setPassword(c.getPassword());
 		setNotes(c.getNotes());
-		getRoles().addAll(c.getRoles());
+		//getRoles().addAll(c.getRoles());
 		this.joinDate = new Date();
 	}
 	@Embedded
