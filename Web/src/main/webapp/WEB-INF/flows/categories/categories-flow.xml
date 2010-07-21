@@ -10,7 +10,7 @@
 		</on-entry>
 
 		<transition on="all" to="goodsListForCategory">
-			<set name="requestScope.categoryId" value="-1"/>
+			<!--<set name="requestScope.categoryId" value="-1"/>-->
 		</transition>
 
 		<transition on="selectCategory" to="goodsListForCategory">

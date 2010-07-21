@@ -81,7 +81,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	public void testViewAllFlowStart() {
 		MockExternalContext context = new MockExternalContext();
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", -1);
+		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
 
 		startFlow(input, context);
 
@@ -110,7 +110,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testSelectGood() {
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", -1);
+		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
 		MockExternalContext context = new MockExternalContext();
 
 		startFlow(input, context);
@@ -148,7 +148,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		
 		getFlowDefinitionRegistry().registerFlowDefinition(editProductSubflow);
 
-		getFlowScope().put("categoryId", -1L);
+		getFlowScope().put("categoryId", null);
 		
 		resumeFlow(context);
 
@@ -174,7 +174,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		getFlowDefinitionRegistry().registerFlowDefinition(imagesManagerSubflow);
 
-		getFlowScope().put("categoryId", -1L);
+		getFlowScope().put("categoryId", null);
 
 		resumeFlow(context);
 
@@ -185,7 +185,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testDeleteGood() throws IOException {
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", -1);
+		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
 		MockExternalContext context = new MockExternalContext();
 
 		startFlow(input, context);
@@ -227,7 +227,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testBuyGood() {
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", -1);
+		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
 		MockExternalContext context = new MockExternalContext();
 
 		startFlow(input, context);

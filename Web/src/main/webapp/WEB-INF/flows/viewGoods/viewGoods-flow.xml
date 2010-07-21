@@ -5,10 +5,10 @@
 		parent="global"
 		start-state="allCategoriesQueried">
 
-	<input name="categoryId" required="true" type="long"/>
+	<input name="categoryId" type="long" required="false" />
 
 	<decision-state id="allCategoriesQueried">
-		<if test="categoryId != -1" then="goodsListForCategory" else="allGoodsList"/>
+		<if test="categoryId != null" then="goodsListForCategory" else="allGoodsList"/>
 	</decision-state>
 
 	<view-state id="baseGoodList" view="goodsListForCategory.xhtml">
