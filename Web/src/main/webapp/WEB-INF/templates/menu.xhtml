@@ -7,33 +7,70 @@
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:sf="http://www.springframework.org/tags/faces"
 		>
-	<h:form>
-		<table>
-			<tr>
-				<td>
-					<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
+	<div id="vmenu">
+		<div id="menu_roof">
+			<img src="/images/roof-ready.png" alt="roof"/>
+		</div>
+		<div id="menu_content">
+			<div id="left_kolona" class="kolona">
+				<!--todo-->
+				<!--<div id="left_kolona_top" class="kolona_top">
+					<img src="/images/kolona_top.png" alt="kolona top"/>
+				</div>
+				<div id="left_kolona_middle" class="kolona_middle">
+					<img src="/images/kolona_middle.png" alt="kolona middle"/>
+				</div>
+				<div id="left_kolona_botton" class="kolona_bottom">
+					<img src="/images/kolona_bottom.png" alt="kolona bottom"/>
+				</div>-->
+				<img src="/images/Kolonna_Darina_shamot.png" alt="kolona"/>
 
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<sec:ifNotGranted roles="ROLE_CONSULTANT">
-						<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
-					</sec:ifNotGranted>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<sec:ifAllGranted roles="ROLE_CONSULTANT">
-						<sf:commandLink value="Объявления для консультантов" action="board"/>
-					</sec:ifAllGranted>
-				</td>
-			</tr>
-		</table>
-	</h:form>
+			</div>
+			<div id="menu_links">
+				<h:form>
+					<table class="vmenu">
+						<tr>
+							<td>
+								<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<sec:ifNotGranted roles="ROLE_CONSULTANT">
+									<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
+								</sec:ifNotGranted>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<sec:ifAllGranted roles="ROLE_CONSULTANT">
+									<sf:commandLink value="Объявления для консультантов" action="board"/>
+								</sec:ifAllGranted>
+							</td>
+						</tr>
+					</table>
+				</h:form>
+			</div>
+			<div id="right_kolona" class="kolona">
+				<!--todo-->
+<!--
+				<div id="right_kolona_top" class="kolona_top">
+					<img src="/images/kolona_top.png" alt="kolona top"/>
+				</div>
+				<div id="right_kolona_middle" class="kolona_middle">
+					<img src="/images/kolona_middle.png" alt="kolona middle"/>
+				</div>
+				<div id="right_kolona_botton" class="kolona_botton">
+					<img src="/images/kolona_bottom.png" alt="kolona bottom"/>
+				</div>
+-->
+				<img src="/images/Kolonna_Darina_shamot.png" alt="kolona"/>
+			</div>
+		</div>
+	</div>
 </ui:composition>

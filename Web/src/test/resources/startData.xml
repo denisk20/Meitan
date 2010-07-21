@@ -407,7 +407,7 @@
 
         <property name="order" value="2"/>
     </bean>
-
+<!--todo add admin user as well-->
     <bean id="ent_board" class="com.meitan.lubov.model.persistent.NewsBoard">
         <property name="items">
             <list>

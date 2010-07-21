@@ -1,0 +1,50 @@
+body
+{
+	background-color: #ccffff;
+}
+.container
+{
+	width:900px;
+	margin:auto;
+	background-color:white;
+	margin-top:10px;
+
+	font-family:sans-serif;
+	font-style:normal;
+	font-size:1.2em;
+}
+
+#vmenu
+{
+	width:460px;
+}
+
+.kolona
+{
+	/*display:inline;*/
+}
+
+#menu_content > div
+{
+	float:left;
+}
+
+#menu_links
+{
+	/*todo*/
+	/*background-image:url("/images/kolona_middle.png");*/
+}
+/*
+.kolona_top
+{
+
+}
+.kolona_middle
+{
+	background-image:url("/images/kolona_middle.png");
+	background-repeat:repeat-y;
+}
+.kolona_bottom
+{
+
+}*/
