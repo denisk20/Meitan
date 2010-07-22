@@ -8,31 +8,30 @@
                 xmlns:form="http://www.springframework.org/tags/form" xmlns:h="http://java.sun.com/jsf/html"
                 template="/WEB-INF/templates/meitan.xhtml">
 
+    <ui:define name="header">
+        <sf:resource path="/styles/login.css"/>
+    </ui:define>
+
     <ui:define name="content">
 
-        <h1>Login Required</h1>
+        <h1>Требется авторизация</h1>
 
         <div class="section">
             <c:if test="${not empty requestParameters.login_error}">
                 <div class="errors">
-                    Your login attempt was not successful, try again.<br/>
-                    Reason: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+                    Логин или пароль неверен, попробуйте снова.<br/>
+                    Причина: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
                 </div>
             </c:if>
             <br/>
-
-            <p>Valid username/passwords are:</p>
-            <ul>
-                <li>consultant/123</li>
-            </ul>
         </div>
 
         <div class="section">
             <h:form id="loginForm">
-                <p>Please login or <sf:commandLink value="register" action="register"/></p>
+                <p>Пожалуйста, войдите или <sf:commandLink value="зарегистрируйтесь" action="register"/></p>
                 <fieldset>
                     <div class="field">
-                        <div class="label">User:</div>
+                        <div class="label">Логин:</div>
                         <div class="output">
                             <c:if test="${not empty param.login_error}">
                                 <c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
@@ -41,7 +40,7 @@
                         </div>
                     </div>
                     <div class="field">
-                        <div class="label">Password:</div>
+                        <div class="label">Пароль:</div>
                         <div class="output">
                             <h:inputText id="j_password" value="#{usernamePassword.password}"/>
                         </div>
@@ -49,7 +48,7 @@
                 </fieldset>
                 <div class="buttonGroup">
 
-                    <sf:commandButton value="Login" action="login" processIds="*"/>
+                    <sf:commandButton value="Войти" action="login" processIds="*"/>
                 </div>
             </h:form>
 

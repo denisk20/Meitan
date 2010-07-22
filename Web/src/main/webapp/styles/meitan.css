@@ -21,7 +21,10 @@ body
 	float:right;
 	margin-top:40px;
 }
-
+#cartInfo
+{
+    margin-right:15px;
+}
 #topPanel
 {
 	background-color:#adff2f;
@@ -75,7 +78,7 @@ body
 	/*todo*/
 	background-image:url("/images/money-ready.png");
 	background-repeat:no-repeat;
-	background-position:bottom right;
+	background-position:-9px 5%;
 	height:240px;
 }
 
@@ -84,12 +87,12 @@ body
 	background-color:transparent;
 }
 
-#menu_links a:link, a:visited
+a:link, a:visited
 {
 	color:red;
 }
 
-#menu_links a:hover, a:active
+a:hover, a:active
 {
 	color:blue;
 }

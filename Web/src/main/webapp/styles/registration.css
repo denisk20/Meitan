@@ -1,0 +1,23 @@
+.label
+{
+    font:15px arial,sans-serif;
+}
+
+.field {
+    float:left;
+}
+
+.field .label {
+    float: left;
+    padding-top: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    width: 150px;
+    text-align: right;
+}
+
+.field .input {
+    float: left;
+    width: 250px;
+    text-align: left;
+}
