@@ -25,7 +25,7 @@
 			<sf:resource path="/styles/meitan.css"/>
 		</sf:resourceGroup>
 
-		<ui:insert name="herder"/>
+		<ui:insert name="header"/>
 	</head>
 
 	<body class="tundra spring">
@@ -43,7 +43,7 @@
 				<h:form id="topPanelForm">
 					<ui:fragment id="shoppingCartFragment">
 						<div id="cartDiv"
-							 align="right">Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}
+							 align="right"><span id="cartInfo"> Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}</span>
 							<a href="checkout">Go to checkout</a>
 						</div>
 					</ui:fragment>
