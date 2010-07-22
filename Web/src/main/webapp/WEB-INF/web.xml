@@ -37,7 +37,7 @@
 
     <context-param>
         <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/META-INF/j4j.taglib.xml</param-value>
+        <param-value>/META-INF/j4j.taglib.xml;/META-INF/denis.taglib.xml</param-value>
     </context-param>
 
     <context-param>

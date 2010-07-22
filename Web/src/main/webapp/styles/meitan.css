@@ -1,101 +1,96 @@
-body
-{
-	background-color: #ccffff;
+body {
+    background-color: #ccffff;
 }
 
-#content
-{
-	background-image:url("/images/flower5.png");
-	background-position:right bottom;
-	background-repeat:no-repeat;
-	width:100%;
-}
-#loginPanel
-{
-	float:left;
-	margin-top:40px;
-	margin-left:30px;
-}
-#cartDiv
-{
-	float:right;
-	margin-top:40px;
-}
-#cartInfo
-{
-    margin-right:15px;
-}
-#topPanel
-{
-	background-color:#adff2f;
-	height:100px;
+#content {
+    background-image: url("/images/flower5.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    width: 100%;
 }
 
-#middle
-{
-	background-color:#f0fff0;
-	margin-top:15px;
-}
-.container
-{
-	width:900px;
-	margin:auto;
-	background-color:white;
-	margin-top:10px;
-
-	font-family:sans-serif;
-	font-style:normal;
-	font-size:1.2em;
+#loginPanel {
+    float: left;
+    margin-top: 40px;
+    margin-left: 30px;
 }
 
-.vmenu
-{
-	width:165px;
-	list-style-type:none;
-	margin-top:30px;
+#cartDiv {
+    float: right;
+    margin-top: 40px;
 }
 
-.vmenu li
-{
-	margin-left:0;
-	margin-bottom:1.25em;
-	font-weight:bold;
-	font-size:110%;
-}
-.kolona
-{
-	/*display:inline;*/
+#cartInfo {
+    margin-right: 15px;
 }
 
-#menu_content > div
-{
-	float:left;
-	font-size:125%;
+#checkoutLink {
+    margin-right: 10px;
 }
 
-#menu_links
-{
-	/*todo*/
-	background-image:url("/images/money-ready.png");
-	background-repeat:no-repeat;
-	background-position:-9px 5%;
-	height:240px;
+#topPanel {
+    background-color: #adff2f;
+    height: 100px;
 }
 
-#menu_links a:link, a:visited, a:hover, a:active
-{
-	background-color:transparent;
+#middle {
+    background-color: #f0fff0;
+    margin-top: 15px;
 }
 
-a:link, a:visited
-{
-	color:red;
+.container {
+    width: 900px;
+    margin: auto;
+    background-color: white;
+    margin-top: 10px;
+
+    font-family: sans-serif;
+    font-style: normal;
+    font-size: 1.2em;
 }
 
-a:hover, a:active
-{
-	color:blue;
+.vmenu {
+    width: 165px;
+    list-style-type: none;
+    margin-top: 30px;
 }
+
+.vmenu li {
+    margin-left: 0;
+    margin-bottom: 1.25em;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.kolona {
+/*display:inline;*/
+}
+
+#menu_content > div {
+    float: left;
+    font-size: 125%;
+}
+
+#menu_links {
+/*todo*/
+    background-image: url("/images/money-ready.png");
+    background-repeat: no-repeat;
+    background-position: -9px 5%;
+    height: 240px;
+}
+
+#menu_links a:link, a:visited, a:hover, a:active {
+    background-color: transparent;
+}
+
+a:link, a:visited {
+    color: red;
+}
+
+a:hover, a:active {
+    color: blue;
+}
+
 /*
 .kolona_top
 {
@@ -103,10 +98,45 @@ a:hover, a:active
 }
 .kolona_middle
 {
-	background-image:url("/images/kolona_middle.png");
-	background-repeat:repeat-y;
+    background-image:url("/images/kolona_middle.png");
+    background-repeat:repeat-y;
 }
 .kolona_bottom
 {
 
 }*/
+
+.actionMenu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.actionMenu li {
+    float: left;
+}
+
+a.menuItem:link, a.menuItem:visited {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #98bf21;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a.menuItem:hover, a.menuItem:active {
+    background-color: #7A991A;
+}
+a.adminItem:link, a.adminItem:visited
+{
+    background-color:#ff9999;
+}
+a.adminItem:hover, a.adminItem:active
+{
+    background-color: #ffcccc;
+}

@@ -33,10 +33,10 @@
 		<div id="topPanel">
 			<div id="loginPanel">
 				<c:if test="${not empty currentUser.name}">
-					Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Logout</a>
+					Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Выйти</a>
 				</c:if>
 				<c:if test="${empty currentUser.name}">
-					<a href="${request.contextPath}/spring/login">Login</a>
+					<a href="${request.contextPath}/spring/login">Войти</a>
 				</c:if>
 			</div>
 			<div id="cartDivTop">
@@ -44,7 +44,7 @@
 					<ui:fragment id="shoppingCartFragment">
 						<div id="cartDiv"
 							 align="right"><span id="cartInfo"> Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}</span>
-							<a href="checkout">Go to checkout</a>
+							<a id="checkoutLink" href="checkout">Оформить заказ</a>
 						</div>
 					</ui:fragment>
 				</h:form>
