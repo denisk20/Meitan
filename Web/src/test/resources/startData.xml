@@ -381,6 +381,7 @@
         <property name="roles">
             <set>
                 <ref bean="ent_creamLoverAuthority"/>
+                <ref bean="ent_creamLoverAuthority3"/>
             </set>
         </property>
         <property name="joinDate" value="01/27/2008"/>
@@ -407,7 +408,14 @@
 
         <property name="order" value="2"/>
     </bean>
-<!--todo add admin user as well-->
+
+    <bean id="ent_creamLoverAuthority3" class="com.meitan.lubov.model.persistent.Authority">
+        <property name="client" ref="ent_creamLover"/>
+        <property name="role" value="ROLE_ADMIN"/>
+
+        <property name="order" value="2"/>
+    </bean>
+    
     <bean id="ent_board" class="com.meitan.lubov.model.persistent.NewsBoard">
         <property name="items">
             <list>

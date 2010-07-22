@@ -6,17 +6,31 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:sf="http://www.springframework.org/tags/faces"
                 xmlns:sec="http://www.springframework.org/security/facelets/tags"
+                xmlns:denis="http://meitan-kh.com/"
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
         <h:form>
-            <h1>Тут будут категории товаров</h1>
-<h1>Just created category name: #{createdCategoryName}</h1>
-            <p>Много категорий...</p>
-			<sf:commandLink value="Добавить продукт" action="addGood"/>
-			<br/>
-			<sf:commandLink value="View all" action="all"/>
-			<br/>
+            <h1>Категории товаров</h1>
+            <!--<h1>Just created category name: #{createdCategoryName}</h1>-->
+            <div class="actionMenu">
+                <ul>
+                    <li>
+                        <sf:commandLink styleClass="menuItem" value="Показать продукты для всех категорий"
+                                        action="all"/>
+                    </li>
+                    <sec:ifAllGranted roles="ROLE_ADMIN">
+                        <li>
+                            <sf:commandLink styleClass="menuItem adminItem" value="Добавить продукт" action="addGood"/>
+                        </li>
+                        <li>
+                            <sf:commandLink styleClass="menuItem adminItem" value="Добавить категорию" action="add"/>
+                        </li>
+                    </sec:ifAllGranted>
+                </ul>
+            </div>
+            <br/>
+
             <h:dataTable id="categories" value="#{categories}" var="category"
                          rendered="#{categories.rowCount > 0}">
                 <h:column>
@@ -27,11 +41,13 @@
                     </sec:ifAnyGranted>
                     <sf:commandLink value="[edit images]" action="editimages"/>
                     <sf:commandLink value="[delete]" action="delete" processIds="*"/>
+                    <br/>
+
+                    <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}"/>
                 </h:column>
 
             </h:dataTable>
 
-			<sf:commandButton value="Add new category" action="add"/>
         </h:form>
     </ui:define>
 </ui:composition>
