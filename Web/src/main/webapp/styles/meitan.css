@@ -2,6 +2,37 @@ body
 {
 	background-color: #ccffff;
 }
+
+#content
+{
+	background-image:url("/images/flower5.png");
+	background-position:right bottom;
+	background-repeat:no-repeat;
+	width:100%;
+}
+#loginPanel
+{
+	float:left;
+	margin-top:40px;
+	margin-left:30px;
+}
+#cartDiv
+{
+	float:right;
+	margin-top:40px;
+}
+
+#topPanel
+{
+	background-color:#adff2f;
+	height:100px;
+}
+
+#middle
+{
+	background-color:#f0fff0;
+	margin-top:15px;
+}
 .container
 {
 	width:900px;
@@ -14,11 +45,20 @@ body
 	font-size:1.2em;
 }
 
-#vmenu
+.vmenu
 {
-	width:460px;
+	width:165px;
+	list-style-type:none;
+	margin-top:30px;
 }
 
+.vmenu li
+{
+	margin-left:0;
+	margin-bottom:1.25em;
+	font-weight:bold;
+	font-size:110%;
+}
 .kolona
 {
 	/*display:inline;*/
@@ -27,12 +67,31 @@ body
 #menu_content > div
 {
 	float:left;
+	font-size:125%;
 }
 
 #menu_links
 {
 	/*todo*/
-	/*background-image:url("/images/kolona_middle.png");*/
+	background-image:url("/images/money-ready.png");
+	background-repeat:no-repeat;
+	background-position:bottom right;
+	height:240px;
+}
+
+#menu_links a:link, a:visited, a:hover, a:active
+{
+	background-color:transparent;
+}
+
+#menu_links a:link, a:visited
+{
+	color:red;
+}
+
+#menu_links a:hover, a:active
+{
+	color:blue;
 }
 /*
 .kolona_top

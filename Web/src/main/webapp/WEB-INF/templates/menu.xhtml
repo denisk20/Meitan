@@ -28,37 +28,37 @@
 			</div>
 			<div id="menu_links">
 				<h:form>
-					<table class="vmenu">
-						<tr>
-							<td>
-								<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<sec:ifNotGranted roles="ROLE_CONSULTANT">
-									<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
-								</sec:ifNotGranted>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<sec:ifAllGranted roles="ROLE_CONSULTANT">
-									<sf:commandLink value="Объявления для консультантов" action="board"/>
-								</sec:ifAllGranted>
-							</td>
-						</tr>
-					</table>
+					<ul class="vmenu">
+
+						<li>
+							<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
+						</li>
+
+
+						<li>
+							<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
+						</li>
+
+
+						<sec:ifNotGranted roles="ROLE_CONSULTANT">
+							<li>
+								<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
+							</li>
+						</sec:ifNotGranted>
+
+
+						<sec:ifAllGranted roles="ROLE_CONSULTANT">
+							<li>
+								<sf:commandLink value="Объявления для консультантов" action="board"/>
+							</li>
+						</sec:ifAllGranted>
+
+					</ul>
 				</h:form>
 			</div>
 			<div id="right_kolona" class="kolona">
 				<!--todo-->
-<!--
+				<!--
 				<div id="right_kolona_top" class="kolona_top">
 					<img src="/images/kolona_top.png" alt="kolona top"/>
 				</div>
