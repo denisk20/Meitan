@@ -112,6 +112,17 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 	}
 
 	@Override
+	@Transient
+	public Image getAvatar() {
+		return image;
+	}
+
+	@Override
+	public void setAvatar(Image image) {
+		//do nothing
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
 			return true;

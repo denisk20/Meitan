@@ -13,7 +13,7 @@
 	<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>Meitan - #{flowExecutionContext.caption} flow</title>
+		<title>Мейтан в Харькове, лечебная китайская косметика</title>
 		<sf:includeStyles/>
 		<sf:resourceGroup>
 			<sf:resource path="/css-framework/css/tools.css"/>
@@ -43,7 +43,7 @@
 				<h:form id="topPanelForm">
 					<ui:fragment id="shoppingCartFragment">
 						<div id="cartDiv"
-							 align="right"><span id="cartInfo"> Всего в тележке товаров #{fn:length(cart.items)} на сумму ${cart.totalPrice}</span>
+							 align="right"><span id="cartInfo"> Всего в тележке товаров #{cart.count} на сумму ${cart.totalPrice}</span>
 							<span id="checkoutLink"><a href="checkout">Оформить заказ</a></span>
 						</div>
 					</ui:fragment>

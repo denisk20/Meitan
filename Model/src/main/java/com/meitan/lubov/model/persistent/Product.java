@@ -32,6 +32,7 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 	private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
 	private Set<Image> images = new HashSet<Image>();
 	private Price price = new Price();
+	private Image avatar;
 
     @Transient
     public Object[] getCategoriesIdArray() {
@@ -129,6 +130,15 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 
 	public void setPrice(Price price) {
 		this.price = price;
+	}
+
+	@ManyToOne
+	public Image getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Image avatar) {
+		this.avatar = avatar;
 	}
 
 	@Override

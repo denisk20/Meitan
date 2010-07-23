@@ -111,6 +111,16 @@ public class ShoppingCartImpl implements ShoppingCart{
 		items.clear();
 	}
 
+	//todo unit test
+	@Override
+	public int getCount() {
+		int result = 0;
+		for (ShoppingCartItem it : items) {
+			result += it.getQuantity();
+		}
+		return result;
+	}
+
 	@Override
 	 public void sayHello() {
 		System.out.println("Hello!");
