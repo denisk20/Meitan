@@ -28,6 +28,9 @@
 			<evaluate expression="imageDao.removeImageFromEntity(imageAware, images.selectedRow)"/>
 		</transition>
 
+        <transition on="makeAvatar" to="imagesManager">
+            <evaluate expression="imageAware.setAvatar(images.selectedRow)"/>
+        </transition>
 		<transition on="save" to="save"/>
 	</view-state>
 

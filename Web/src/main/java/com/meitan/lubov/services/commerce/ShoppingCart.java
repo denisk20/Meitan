@@ -32,4 +32,6 @@ public interface ShoppingCart {
 	OneSelectionTrackingListDataModel getItemsDataModel();
 
 	void emptyCart();
+
+	int getCount();
 }

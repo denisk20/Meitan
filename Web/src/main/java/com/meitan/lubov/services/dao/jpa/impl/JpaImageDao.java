@@ -91,6 +91,12 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, Servle
 		}
 
 		entity.removeImage(i);
+		if (entity.getAvatar() != null) {
+			if (entity.getAvatar().equals(i)) {
+				//todo stub image
+				entity.setAvatar(null);
+			}
+		}
 		//remove from disk
 		deleteFromDisk(i);
 		i = findById(i.getId());

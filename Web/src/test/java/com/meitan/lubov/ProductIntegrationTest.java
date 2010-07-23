@@ -61,6 +61,7 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 		assertThat(beanFromSpring.getImages(), is(beanFromDB.getImages()));
 		assertThat(beanFromSpring.getPrice(), is(beanFromDB.getPrice()));
 		assertThat(beanFromSpring.getPurchases(), is(beanFromDB.getPurchases()));
+		assertThat(beanFromSpring.getAvatar(), is(beanFromDB.getAvatar()));
 	}
 
 	@Test
@@ -208,6 +209,7 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 			FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(pathPrefix + i.getUrl());
 			restoreManagers.add(restoreManager);
 		}
+		FileBackupRestoreManager avatarRestoreManager = new FileBackupRestoreManager(pathPrefix + p.getAvatar().getUrl());
 
 		assertEquals("Wrong number of images in product " + p, 2, images.size());
 		assertEquals("Wrong number of categories in product " + p, 1, categories.size());
@@ -215,6 +217,7 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 		for (FileBackupRestoreManager manager : restoreManagers) {
 			manager.backup();
 		}
+		avatarRestoreManager.backup();
 
 		try {
 			testProductDao.deleteById(p.getId());
@@ -237,6 +240,7 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 			for (FileBackupRestoreManager manager : restoreManagers) {
 				manager.restore();
 			}
+			avatarRestoreManager.restore();
 		}
 
 	}

@@ -9,7 +9,44 @@
 
     <ui:define name="content">
         <h1>#{product.name}</h1>
+<h:form>		<fieldset>
+			 <div class="field">
+				 <div class="label">Название продукта</div>
+				 <div class="output">
+					 <h:outputText value="#{product.name}"/>
+				 </div>
+			 </div>
+			 <div class="field">
+				 <div class="label">Описание</div>
+				 <div class="output">
+					 <h:outputText value="#{product.description}"/>
+				 </div>
+			 </div>
+			 <div class="field">
+				 <div class="label">Цена</div>
+				 <div class="output">
+					 <h:outputText value="#{product.price.amount}"/>
+				 </div>
+			 </div>
+		</fieldset>
 
-        <p>#{product.description}</p>
-    </ui:define>
+		<h:dataTable value="#{imagesList}" var="image">
+			<h:column>
+				<div class="img">
+					<sf:commandLink action="hitImage">
+						<h:graphicImage value="#{image.url}" width="100" height="100"/>
+					</sf:commandLink>
+
+				</div>
+			</h:column>
+		</h:dataTable>
+</h:form>
+		<ui:fragment id="bigPicture">
+			<div id="bigPictureDiv">
+				<div class="image">
+					<img src="#{selectedImage.url}" alt="image"/>
+				</div>
+			</div>
+		</ui:fragment>
+	</ui:define>
 </ui:composition>

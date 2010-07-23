@@ -56,7 +56,9 @@
 				<ref bean="ent_purchase2"/>
 			</set>
 		</property>
+
         <property name="order" value="1"/>
+        <property name="avatar" ref="ent_megaCreamImageFront"/>
 
     </bean>
 
@@ -114,6 +116,8 @@
 				<ref bean="ent_purchase3"/>
 			</set>
 		</property>
+
+        <property name="avatar" ref="ent_gigaCreamImageFront"/>
         <property name="order" value="1"/>
     </bean>
 

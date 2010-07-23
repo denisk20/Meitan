@@ -68,9 +68,9 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			requestContext.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
-							.defaultText("File was empty: " + file.getOriginalFilename())
+							.defaultText("Пожалуйста, выберите файл")
 							.build());
-			return null;
+			throw new IllegalArgumentException("File was null: " + file);
 		}
 	}
 
