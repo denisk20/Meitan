@@ -35,15 +35,22 @@
                          rendered="#{categories.rowCount > 0}">
                 <h:column>
                     <f:facet name="header">Category</f:facet>
-                    <sf:commandLink value="#{category.name}" action="selectCategory"/>
-                    <sec:ifAnyGranted roles="ROLE_ADMIN">
-                        <sf:commandLink value="[edit]" action="edit"/>
-                    </sec:ifAnyGranted>
-                    <sf:commandLink value="[edit images]" action="editimages"/>
-                    <sf:commandLink value="[delete]" action="delete" processIds="*"/>
-                    <br/>
-
                     <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}"/>
+					<sec:ifAllGranted roles="ROLE_ADMIN">
+						<div class="actionMenu">
+							<ul>
+								<li>
+									<sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit"/>
+								</li>
+								<li>
+									<sf:commandLink styleClass="menuItem adminItem" value="Править изображения" action="editimages"/>
+								</li>
+								<li>
+									<sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete" processIds="*"/>
+								</li>
+							</ul>
+						</div>
+					</sec:ifAllGranted>
                 </h:column>
 
             </h:dataTable>
