@@ -126,9 +126,9 @@ private final Log log = LogFactory.getLog(getClass());
 			imageDao.removeImageFromEntity(p, image);
 		}
 		//delete avatar
-		Image avatar = p.getAvatar();
-		imageDao.makeTransient(avatar);
-		p.setAvatar(null);
+//		Image avatar = p.getAvatar();
+//		imageDao.makeTransient(avatar);
+//		p.setAvatar(null);
 
 		//delete all ShoppingCartItems
 		List<ShoppingCartItem> items = shoppingCartItemDao.getForProduct(productId);

@@ -3,6 +3,7 @@ package com.meitan.lubov.flowtests;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.util.DenisConversionService;
+import com.meitan.lubov.services.util.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.webflow.config.FlowDefinitionResource;
@@ -30,6 +31,7 @@ public class GoodFlowTest extends AbstractFlowIntegrationTest{
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		builderContext.registerBean("productDao", testProductDao);
+		builderContext.registerBean("utils", new Utils());
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 

@@ -15,7 +15,7 @@ import java.io.IOException;
  *         Time: 15:44:22
  */
 public class MockFileUploadHandler extends FileUploadHandler {
-	public static final String TEST_UPLOAD_DIRECTORY = "testUpload";
+	public static final String TEST_UPLOAD_DIRECTORY = "uploaded";
 	private ServletContext servletContext;
 
 	public MockFileUploadHandler() {

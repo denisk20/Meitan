@@ -17,6 +17,7 @@
 		<h:form id="checkout">
 
 				<ui:fragment id="quantityTable">
+                    <sf:ajaxEvent event="onkeyup" action="quantityChanged">
 					<h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
 							>
 						<h:column>
@@ -27,9 +28,7 @@
 						<h:column>
 							<f:facet name="header">Quantity</f:facet>
 							<sf:clientNumberValidator promptMessage="Change the name">
-								<sf:ajaxEvent event="onkeyup" action="quantityChanged">
 									<h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
-								</sf:ajaxEvent>
 							</sf:clientNumberValidator>
 						</h:column>
 
@@ -38,7 +37,8 @@
 							<sf:commandButton value="Delete" action="delete" processIds="*"/>
 						</h:column>
 
-					</h:dataTable>
+                    </h:dataTable>
+                    </sf:ajaxEvent>
 				</ui:fragment>
 
 			<ui:fragment id="cartItemsFragment">
