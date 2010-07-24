@@ -1,0 +1,16 @@
+<!DOCTYPE html
+		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:sec="http://www.springframework.org/security/facelets/tags"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:sf="http://www.springframework.org/tags/faces"
+		>
+	<div class="img">
+        <sf:commandLink action="selectCategory" >
+        <h:graphicImage value="#{imageUrl}" alt="Image" width="100" height="100" />
+        </sf:commandLink>
+        <div class="desc">#{imageName}</div>
+	</div>
+</ui:component>

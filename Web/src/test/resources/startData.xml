@@ -132,29 +132,29 @@
 		</property>
         <property name="order" value="2"/>
 	</bean>
-
+<!--todo this is really dirty hack but is saves much effort...-->
 	<bean id="ent_creamsImage" class="com.meitan.lubov.model.persistent.Image" >
-		<property name="url" value="/testUpload/img_Category_1_1_1275307423579"/>
+		<property name="url" value="/uploaded/img_Category_1_1_1275307423579"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_megaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="/testUpload/img_Product_2_3_1275307361854"/>
+		<property name="url" value="/uploaded/img_Product_2_3_1275307361854"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_megaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="/testUpload/img_Product_2_4_1275307368448"/>
+		<property name="url" value="/uploaded/img_Product_2_4_1275307368448"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_gigaCreamImageFront" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="/testUpload/img_Product_2_5_1275307381303"/>
+		<property name="url" value="/uploaded/img_Product_2_5_1275307381303"/>
         <property name="order" value="2"/>
 	</bean>
 
 	<bean id="ent_gigaCreamImageProfile" class="com.meitan.lubov.model.persistent.Image">
-		<property name="url" value="img_Product_2_6_1275307382345"/>
+		<property name="url" value="/uploaded/img_Product_2_6_1275307382345"/>
         <property name="order" value="2"/>
 	</bean>
 

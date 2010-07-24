@@ -1,9 +1,7 @@
 body {
     background-color: #ccffff;
 }
-.menuTd {
-    vertical-align:top;
-}
+
 #content {
     background-image: url("/images/flower5.png");
     background-position: right bottom;
@@ -136,16 +134,15 @@ a.menuItem:hover, a.menuItem:active {
 }
 a.adminItem:link, a.adminItem:visited
 {
-    background-color:#ffcccc;
+    background-color:#ff9999;
 }
 a.adminItem:hover, a.adminItem:active
 {
-    background-color: #ff9999;
+    background-color: #ffcccc;
 }
-
 div.img
   {
-  margin:5px;
+  margin:2px;
   border:1px solid #0000ff;
   height:auto;
   width:auto;
@@ -169,29 +166,3 @@ div.desc
   width:120px;
   margin:2px;
   }
-
-.label
-{
-    font:15px arial,sans-serif;
-}
-
-/*
-.field {
-    float:left;
-}
-*/
-
-.field .label {
-    float: left;
-    padding-top: 5px;
-    padding-right: 5px;
-    font-weight: bold;
-    width: 150px;
-    text-align: right;
-}
-
-.field .input {
-    float: left;
-    width: 250px;
-    text-align: left;
-}
