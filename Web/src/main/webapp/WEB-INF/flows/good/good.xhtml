@@ -9,42 +9,47 @@
 
     <ui:define name="content">
         <h1>#{product.name}</h1>
-
-        <div>Название продукта</div>
-        <span style="float:left;">
-            <h:outputText value="#{product.name}"/>
-        </span>
-
-        <div>
-            <div>Описание</div>
-            <div>
-                <h:outputText value="#{product.description}"/>
+        <fieldset>
+            <legend>Информация о продукте</legend>
+            <div class="output">
+                <div class="name">Название продукта</div>
+                <div class="value">
+                    <h:outputText value="#{product.name}"/>
+                </div>
             </div>
-        </div>
-        <div>
-            <div>Цена</div>
-            <div>
-                <h:outputText value="#{product.price.amount}"/>
+            <div class="output">
+                <div class="name">Описание</div>
+                <div class="value hugevalue">
+                    <h:outputText value="#{product.description}"/>
+                </div>
             </div>
+            <div class="output">
+                <div class="name">Цена</div>
+                <div class="value">
+                    <h:outputText value="#{product.price.amount}"/>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="images">
+            <h:form>
+                <h:dataTable value="#{imagesList}" var="image">
+                    <h:column>
+                        <div class="img">
+                            <sf:commandLink action="hitImage">
+                                <h:graphicImage value="#{image.url}" width="100" height="100"/>
+                            </sf:commandLink>
+
+                        </div>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
         </div>
-
-        <h:form>
-            <h:dataTable value="#{imagesList}" var="image">
-                <h:column>
-                    <div class="img" style="float:left;">
-                        <sf:commandLink action="hitImage">
-                            <h:graphicImage value="#{image.url}" width="100" height="100"/>
-                        </sf:commandLink>
-
-                    </div>
-                </h:column>
-            </h:dataTable>
-
-        </h:form>
         <ui:fragment id="bigPicture">
-            <div id="bigPictureDiv">
+            <div id="bigPictureDiv" style="">
                 <div class="image">
-                    <img src="#{selectedImage.url}" alt="image"/>
+                    <img src="#{selectedImage.url}" alt="image" style="max-width:275px; max-height:205px"/>
                 </div>
             </div>
         </ui:fragment>
