@@ -1,9 +1,11 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.BoardType;
 import com.meitan.lubov.model.util.PersistentOrderable;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,6 +21,7 @@ import java.util.List;
 @Entity
 public class NewsBoard extends PersistentOrderableImpl implements Serializable {
 	private Long id;
+	private BoardType boardType;
 	private List<BoardItem> items = new ArrayList<BoardItem>();
 
 	public NewsBoard() {
@@ -36,6 +39,15 @@ public class NewsBoard extends PersistentOrderableImpl implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	//@Enumerated
+	public BoardType getBoardType() {
+		return boardType;
+	}
+
+	public void setBoardType(BoardType boardType) {
+		this.boardType = boardType;
 	}
 
 	@OneToMany

@@ -1,5 +1,6 @@
 package com.meitan.lubov.services.dao;
 
+import com.meitan.lubov.model.BoardType;
 import com.meitan.lubov.model.persistent.BoardItem;
 import com.meitan.lubov.model.persistent.NewsBoard;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
@@ -16,4 +17,6 @@ public interface NewsBoardDao extends Dao<NewsBoard, Long> {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	List<BoardItem> getAll();
+
+	List<BoardItem> getForBoard(BoardType boardType);
 }

@@ -23,7 +23,7 @@
 						 rendered="#{newProducts.rowCount > 0}" >
 				<h:column>
 					<f:facet name="header">Product</f:facet>
-					<h:commandButton value="#{product.name}" action="selectGood"/>
+					<h:commandButton value="#{product.name}" action="#{action}"/>
 				</h:column>
 
 			</h:dataTable>

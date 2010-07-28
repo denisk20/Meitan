@@ -6,6 +6,7 @@
 
 	<view-state id="aboutUs">
         <on-entry>
+			<set name="flowScope.action" value="utils.getMethodExpression('selectGood')"/>
             <evaluate expression="productDao.getNew()" result="flowScope.newProducts" result-type="dataModel"/>
         </on-entry>
 

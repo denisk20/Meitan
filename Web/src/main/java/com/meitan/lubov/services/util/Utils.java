@@ -1,5 +1,9 @@
 package com.meitan.lubov.services.util;
 
+import com.sun.facelets.el.TagMethodExpression;
+import com.sun.facelets.tag.Location;
+import com.sun.facelets.tag.TagAttribute;
+import org.jboss.el.MethodExpressionLiteral;
 import org.springframework.security.providers.encoding.Md5PasswordEncoder;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 
@@ -27,5 +31,13 @@ public class Utils {
 		PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
 		String pass = passwordEncoder.encodePassword(source, null);
 		return pass;
+	}
+
+	public TagMethodExpression getMethodExpression(String expression) {
+		Location location = new Location("myPath", 1,1);
+		TagAttribute attribute = new TagAttribute(location, "meitan", "custom", "custom", "no value");
+		TagMethodExpression result = new TagMethodExpression(attribute, new MethodExpressionLiteral(expression, String.class, new Class[0]));
+
+		return result;
 	}
 }

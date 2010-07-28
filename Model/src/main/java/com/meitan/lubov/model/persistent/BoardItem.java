@@ -13,7 +13,8 @@ import java.util.Date;
  */
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "getAll", query = "from BoardItem order by postDate")
+		@NamedQuery(name = "getAll", query = "from BoardItem order by postDate"),
+		@NamedQuery(name = "getForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate")
 })
 public class BoardItem extends PersistentOrderableImpl implements Serializable {
 	private Long id;

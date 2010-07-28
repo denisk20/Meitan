@@ -18,16 +18,7 @@
 				<h:column>
 					<f:facet name="header">Продукты </f:facet>
 
-					<!--<denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}" action="#{'selectGood'}"/>-->
-
-					<!--todo make a tag-->
-					<div class="img">
-						<sf:commandLink action="selectGood">
-							<h:graphicImage value="#{product.avatar.url}" width="100" height="100"/>
-						</sf:commandLink>
-
-						<div class="desc">#{product.name} Цена - #{product.price.amount}</div>
-					</div>
+					<denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}" action="#{utils.getMethodExpression('selectGood')}"/>
 
 					<!--todo make a tag-->
 					<div class="actionMenu">

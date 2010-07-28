@@ -1,5 +1,6 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
+import com.meitan.lubov.model.BoardType;
 import com.meitan.lubov.model.persistent.BoardItem;
 import com.meitan.lubov.model.persistent.NewsBoard;
 import com.meitan.lubov.services.dao.NewsBoardDao;
@@ -25,4 +26,14 @@ public class JpaNewsBoardDao extends JpaDao<NewsBoard, Long> implements NewsBoar
 		List<BoardItem> result = em.createNamedQuery("getAll").getResultList();
 		return result;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	 public List<BoardItem> getForBoard(BoardType boardType) {
+		List<BoardItem> result = em.createNamedQuery("getForBoard")
+				.setParameter("boardType", boardType).getResultList();
+		return result;
+
+	 }
 }

@@ -420,25 +420,46 @@
         <property name="order" value="2"/>
     </bean>
     
-    <bean id="ent_board" class="com.meitan.lubov.model.persistent.NewsBoard">
+    <bean id="ent_AboutBoard" class="com.meitan.lubov.model.persistent.NewsBoard">
+		
         <property name="items">
             <list>
-                <ref bean="ent_post1"/>
-                <ref bean="ent_post2"/>
-                <ref bean="ent_post3"/>
+                <ref bean="ent_aboutPost1"/>
+                <ref bean="ent_aboutPost2"/>
             </list>
         </property>
+		<property name="boardType" value="ABOUT"/>
     </bean>
 
-    <bean id="ent_post1" class="com.meitan.lubov.model.persistent.BoardItem">
+    <bean id="ent_ConsultantsBoard" class="com.meitan.lubov.model.persistent.NewsBoard">
+
+        <property name="items">
+            <list>
+                <ref bean="ent_consPost1"/>
+                <ref bean="ent_consPost2"/>
+                <ref bean="ent_consPost3"/>
+            </list>
+        </property>
+		<property name="boardType" value="FOR_CONSULTANTS"/>
+    </bean>
+
+    <bean id="ent_aboutPost1" class="com.meitan.lubov.model.persistent.BoardItem">
+        <property name="postDate" value="07/30/2008"/>
+        <property name="content" value="Welcome!"/>
+    </bean>
+    <bean id="ent_aboutPost2" class="com.meitan.lubov.model.persistent.BoardItem">
+        <property name="postDate" value="08/30/2008"/>
+        <property name="content" value="to Meitan!!!"/>
+    </bean>
+    <bean id="ent_consPost1" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="01/28/2008"/>
         <property name="content" value="Once upon a time"/>
     </bean>
-    <bean id="ent_post2" class="com.meitan.lubov.model.persistent.BoardItem">
+    <bean id="ent_consPost2" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="01/28/2008"/>
         <property name="content" value="There were three beers"/>
     </bean>
-    <bean id="ent_post3" class="com.meitan.lubov.model.persistent.BoardItem">
+    <bean id="ent_consPost3" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="01/30/2008"/>
         <property name="content" value="were three beers beers..."/>
     </bean>

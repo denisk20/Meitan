@@ -8,6 +8,7 @@ body {
 
 #content {
     background-image:    url("/images/flower5.png");
+    background-attachment:fixed;
     background-position: right bottom;
     background-repeat:   no-repeat;
     width:               100%;
