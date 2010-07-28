@@ -8,6 +8,8 @@
 
     <var name="usernamePassword" class="com.meitan.lubov.services.util.UsernamePassword"/>
 
+	<input name="login_state" required="false"/>
+
     <view-state id="login" model="usernamePassword">
         <transition on="login" to="processLogin"/>
         <transition on="register" to="registerSubflow"/>
