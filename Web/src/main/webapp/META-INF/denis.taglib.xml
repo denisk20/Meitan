@@ -11,4 +11,9 @@
         <source>tags/image.xhtml</source>
      </tag>
     
+    <tag>
+        <tag-name>board</tag-name>
+        <source>tags/board.xhtml</source>
+     </tag>
+
 </facelet-taglib>

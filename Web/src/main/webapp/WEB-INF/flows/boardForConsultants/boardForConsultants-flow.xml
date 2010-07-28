@@ -5,7 +5,7 @@
 		parent="global">
 <!--todo unit test-->
     <persistence-context/>
-	<view-state id="board">
+	<view-state id="boardForConsultants">
         <on-entry>
             <evaluate expression="newsBoardDao.getForBoard('FOR_CONSULTANTS')" result="flowScope.boardItems" result-type="dataModel"/>
         </on-entry>

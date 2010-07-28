@@ -1,33 +1,34 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:sf="http://www.springframework.org/tags/faces"
-				template="/WEB-INF/templates/meitan.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces" xmlns:denis="http://meitan-kh.com/"
+                template="/WEB-INF/templates/meitan.xhtml">
 
-	<ui:define name="header">
-		<sf:resource path="/styles/about.css"/>
-	</ui:define>
-	
-	<ui:define name="content">
-		<h1>На этой страничке будет информация о компании</h1>
+    <ui:define name="header">
+        <sf:resource path="/styles/about.css"/>
+    </ui:define>
 
-		<p>Компания очень интересная и классная!!!</p>
+    <ui:define name="content">
+        <h1>На этой страничке будет информация о компании</h1>
 
-		<h:form>
-			<p>Новинки!!</p>
-			<!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
-			<h:dataTable id="newProducts" value="#{newProducts}" var="product"
-						 rendered="#{newProducts.rowCount > 0}" >
-				<h:column>
-					<f:facet name="header">Product</f:facet>
-					<h:commandButton value="#{product.name}" action="#{action}"/>
-				</h:column>
+        <p>Компания очень интересная и классная!!!</p>
 
-			</h:dataTable>
-		</h:form>
+        <h:form>
+            <p>Новинки!!</p>
+            <denis:board boardItems="#{boardItems}"/>
+            <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
+            <h:dataTable id="newProducts" value="#{newProducts}" var="product"
+                         rendered="#{newProducts.rowCount > 0}">
+                <h:column>
+                    <f:facet name="header">Product</f:facet>
+                    <h:commandButton value="#{product.name}" action="#{action}"/>
+                </h:column>
 
-	</ui:define>
+            </h:dataTable>
+        </h:form>
+
+    </ui:define>
 </ui:composition>
