@@ -1,0 +1,33 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:sec="http://www.springframework.org/security/facelets/tags"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:rich="http://richfaces.org/rich"
+        >
+
+        <h:dataTable value="#{boardItems}" var="item">
+            <h:column>
+                <f:facet name="header">Объявление</f:facet>
+                <!--<p><h:outputText value="#{item.content}"/> </p>-->
+                <rich:editor value="#{item.content}" theme="advanced"/>
+
+            </h:column>
+            <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
+            <h:column>
+                <f:facet name="header">Редактировать</f:facet>
+                <h:commandButton value="Редактировать" action="edit"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Удалить</f:facet>
+                <h:commandButton value="Удалить" action="delete"/>
+            </h:column>
+            <!--</sec:ifAllGranted>-->
+
+        </h:dataTable>
+    
+</ui:component>

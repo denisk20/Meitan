@@ -6,13 +6,13 @@
 	<view-state id="aboutFlow" view="flowRedirect:about"/>
 	<view-state id="joinFlow" view="flowRedirect:join"/>
 	<view-state id="categoriesFlow" view="flowRedirect:categories"/>
-	<view-state id="boardFlow" view="flowRedirect:board"/>
+	<view-state id="boardForConsultantsFlow" view="flowRedirect:boardForConsultants"/>
 
 	<global-transitions>
 		<transition on="about_action" to="aboutFlow"/>
 		<transition on="browseCategories" to="categoriesFlow"/>
 		<transition on="joinUs" to="joinFlow"/>
-		<transition on="board" to="boardFlow"/>
+		<transition on="boardForConsultants" to="boardForConsultantsFlow"/>
 	</global-transitions>
 
 </flow>
