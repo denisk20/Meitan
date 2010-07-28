@@ -44,7 +44,9 @@
 					<ui:fragment id="shoppingCartFragment">
 						<div id="cartDiv"
 							 align="right"><span id="cartInfo"> Всего в тележке товаров #{cart.count} на сумму ${cart.totalPrice}</span>
-							<span id="checkoutLink"><a href="checkout">Оформить заказ</a></span>
+                            <c:if test="#{cart.count > 0}">
+                                <span id="checkoutLink"><a href="checkout">Оформить заказ</a></span>
+                            </c:if>
 						</div>
 					</ui:fragment>
 				</h:form>
