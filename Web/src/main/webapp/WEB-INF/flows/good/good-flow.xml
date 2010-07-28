@@ -9,6 +9,8 @@
 	<on-start>
 		<evaluate expression="productDao.findById(goodId)" result="flowScope.product"/>
         <evaluate expression="utils.asList(product.images)" result="flowScope.imagesList" result-type="dataModel"/>
+		
+		<set name="flashScope.selectedImage" value="utils.asList(product.images).get(0)"/>
 	</on-start>
 	<view-state id="good">
         <transition on="hitImage">

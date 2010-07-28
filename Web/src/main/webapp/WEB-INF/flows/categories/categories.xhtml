@@ -35,15 +35,8 @@
                          rendered="#{categories.rowCount > 0}">
                 <h:column>
                     <f:facet name="header">Category</f:facet>
-                    <!--<denis:image imageName="#{category.name}" imageUrl="#{category.image.url}" action="selectCategory"/>-->
+                    <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}" action="#{utils.getMethodExpression('selectCategory')}"/>
 
-					<div class="img">
-						<sf:commandLink action="selectCategory">
-							<h:graphicImage value="#{category.image.url}" width="100" height="100"/>
-						</sf:commandLink>
-						<div class="desc">#{category.name}</div>
-					</div>
-					
 					<sec:ifAllGranted roles="ROLE_ADMIN">
 						<div class="actionMenu">
 							<ul>

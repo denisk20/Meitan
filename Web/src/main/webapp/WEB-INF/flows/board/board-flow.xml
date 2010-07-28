@@ -7,7 +7,7 @@
     <persistence-context/>
 	<view-state id="board">
         <on-entry>
-            <evaluate expression="newsBoardDao.getAll()" result="flowScope.boardItems" result-type="dataModel"/>
+            <evaluate expression="newsBoardDao.getForBoard('FOR_CONSULTANTS')" result="flowScope.boardItems" result-type="dataModel"/>
         </on-entry>
 
 		<transition on="edit" to="commit">

@@ -4,6 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:denis="http://meitan-kh.com/"
                 xmlns:sf="http://www.springframework.org/tags/faces"
                 template="/WEB-INF/templates/meitan.xhtml">
 
@@ -36,12 +37,7 @@
             <h:form>
                 <h:dataTable value="#{imagesList}" var="image">
                     <h:column>
-                        <div class="img">
-                            <sf:commandLink action="hitImage">
-                                <h:graphicImage value="#{image.url}" width="100" height="100"/>
-                            </sf:commandLink>
-
-                        </div>
+                        <denis:image imageUrl="#{image.url}" imageName="Ура, работает!" action="#{utils.getMethodExpression('hitImage')}"/>
                     </h:column>
                 </h:dataTable>
             </h:form>

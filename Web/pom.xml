@@ -251,6 +251,7 @@
       <artifactId>richfaces-impl</artifactId>
       <version>3.3.3.Final</version>
     </dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
