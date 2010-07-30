@@ -37,7 +37,8 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	private boolean enabled;
 
 	private Passport passport = new Passport();
-	private Date joinDate;
+	//todo
+	private Date joinDate = new Date();
 	private String conformedPassword;
 	public Client() {
 
