@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class NewsBoard extends PersistentOrderableImpl implements Serializable {
 		this.boardType = boardType;
 	}
 
-	@OneToMany
+	@ManyToMany(mappedBy = "boards")
 	public List<BoardItem> getItems() {
 		return items;
 	}

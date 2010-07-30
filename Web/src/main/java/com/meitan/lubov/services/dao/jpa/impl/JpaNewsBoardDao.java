@@ -36,4 +36,13 @@ public class JpaNewsBoardDao extends JpaDao<NewsBoard, Long> implements NewsBoar
 		return result;
 
 	 }
+
+	@Override
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public NewsBoard getForType(BoardType type) {
+		NewsBoard board = (NewsBoard) em.createNamedQuery("getForType")
+				.setParameter("type", type).getResultList().get(0);
+		return board;
+	}
 }

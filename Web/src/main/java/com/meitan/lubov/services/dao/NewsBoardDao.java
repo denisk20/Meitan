@@ -19,4 +19,6 @@ public interface NewsBoardDao extends Dao<NewsBoard, Long> {
 	List<BoardItem> getAll();
 
 	List<BoardItem> getForBoard(BoardType boardType);
+
+	NewsBoard getForType(BoardType type);
 }

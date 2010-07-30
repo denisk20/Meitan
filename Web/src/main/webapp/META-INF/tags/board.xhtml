@@ -13,20 +13,19 @@
         <h:dataTable value="#{boardItems}" var="item">
             <h:column>
                 <f:facet name="header">Объявление</f:facet>
-                <!--<p><h:outputText value="#{item.content}"/> </p>-->
-                <rich:editor value="#{item.content}" theme="advanced"/>
+                <sec:ifNotGranted roles="ROLE_ADMIN">
+                    <p style="max-width:100px"><h:outputText escape="false" value="#{item.content}"/> </p>
+                </sec:ifNotGranted>
+
+                <sec:ifAllGranted roles="ROLE_ADMIN">
+                    <rich:editor value="#{item.content}" theme="advanced"/>
+                    <br/>
+
+                    <h:commandButton value="Сохранить" action="saveItem"/>
+                    <h:commandButton value="Удалить" action="delete"/>
+                </sec:ifAllGranted>
 
             </h:column>
-            <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
-            <h:column>
-                <f:facet name="header">Редактировать</f:facet>
-                <h:commandButton value="Редактировать" action="edit"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Удалить</f:facet>
-                <h:commandButton value="Удалить" action="delete"/>
-            </h:column>
-            <!--</sec:ifAllGranted>-->
 
         </h:dataTable>
     

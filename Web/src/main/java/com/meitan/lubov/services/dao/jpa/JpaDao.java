@@ -116,6 +116,11 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 		em.refresh(entity);
 	}
 
+	@Override
+	public T newInstance() throws IllegalAccessException, InstantiationException {
+		T item = persistentClass.newInstance();
+		return item;
+	}
 	/**
      * This is total hack to get rid of the fact that hibernate doesn't
      * handle eager fetching properly

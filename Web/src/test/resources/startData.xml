@@ -446,21 +446,48 @@
     <bean id="ent_aboutPost1" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="07/30/2008"/>
         <property name="content" value="Welcome!"/>
+
+		<property name="boards">
+			<set>
+				<ref bean="ent_AboutBoard"/>
+			</set>
+		</property>
+
     </bean>
     <bean id="ent_aboutPost2" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="08/30/2008"/>
         <property name="content" value="to Meitan!!!"/>
+		<property name="boards">
+			<set>
+				<ref bean="ent_AboutBoard"/>
+			</set>
+		</property>
     </bean>
     <bean id="ent_consPost1" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="01/28/2008"/>
         <property name="content" value="Once upon a time"/>
+		<property name="boards">
+			<set>
+				<ref bean="ent_ConsultantsBoard"/>
+			</set>
+		</property>
     </bean>
     <bean id="ent_consPost2" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="01/28/2008"/>
         <property name="content" value="There were three beers"/>
+		<property name="boards">
+			<set>
+				<ref bean="ent_ConsultantsBoard"/>
+			</set>
+		</property>
     </bean>
     <bean id="ent_consPost3" class="com.meitan.lubov.model.persistent.BoardItem">
         <property name="postDate" value="01/30/2008"/>
         <property name="content" value="were three beers beers..."/>
+		<property name="boards">
+			<set>
+				<ref bean="ent_ConsultantsBoard"/>
+			</set>
+		</property>
     </bean>
 </beans>

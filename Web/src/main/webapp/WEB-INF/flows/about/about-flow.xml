@@ -3,21 +3,41 @@
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
+	<persistence-context/>
+	<!--TODO dirty dirty hack-->
+	<input name="lastSavedItem" required="false"/>
 
 	<view-state id="aboutUs">
         <on-entry>
 			<set name="flowScope.action" value="utils.getMethodExpression('selectGood')"/>
-            <evaluate expression="newsBoardDao.getForBoard('ABOUT')" result="flowScope.boardItems" result-type="dataModel"/>
+            <evaluate expression="newsBoardDao.getForType('ABOUT')" result="flowScope.board"/>
             <evaluate expression="productDao.getNew()" result="flowScope.newProducts" result-type="dataModel"/>
         </on-entry>
 
+		<on-render>
+            <evaluate expression="boardItemDao.newInstance()" result="viewScope.newNews"/>
+            <evaluate expression="newsBoardDao.getForBoard('ABOUT')" result="viewScope.boardItems" result-type="dataModel"/>
+		</on-render>
+
+		<transition on="saveItem" to="saveItem">
+			<evaluate expression="newsBoardDao.makePersistent(boardItems.selectedRow)"/>
+			<set name="requestScope.savedItem" value="utils.getShortName(boardItems.selectedRow.content)"/>
+		</transition>
+
+		<transition on="delete" to="aboutUs">
+			<evaluate expression="newsBoardDao.makeTransient(boardItems.selectedRow)"/>
+		</transition>
+
+		<transition on="create" to="aboutUs">
+			<evaluate expression="newNews.boards.add(board)"/>
+			<evaluate expression="boardItemDao.makePersistent(newNews)"/>
+		</transition>
 		<transition on="selectGood" to="goodFlow" history="discard">
 			<set name="requestScope.productId" value="newProducts.selectedRow.id"/>
 		</transition>
 	</view-state>
 
-	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}">
+	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}"/>
 
-	</end-state>
-
+	<end-state id="saveItem" view="flowRedirect:about?lastSavedItem=#{savedItem}" commit="true"/>
 </flow>

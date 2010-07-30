@@ -35,4 +35,6 @@ public interface Dao<T, ID extends Serializable> {
 
 	@Transactional
 	void refresh(T entity);
+
+	T newInstance() throws IllegalAccessException, InstantiationException;
 }

@@ -5,6 +5,8 @@ import com.meitan.lubov.model.util.PersistentOrderableImpl;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -14,12 +16,14 @@ import java.util.Date;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "getAll", query = "from BoardItem order by postDate"),
-		@NamedQuery(name = "getForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate")
+		@NamedQuery(name = "getForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate"),
+		@NamedQuery(name = "getForType", query = "from NewsBoard b where b.boardType=:type")
 })
 public class BoardItem extends PersistentOrderableImpl implements Serializable {
 	private Long id;
 	private Date postDate;
-	private String content;
+	private String content = "test content";
+	private Set<NewsBoard> boards = new HashSet<NewsBoard>();
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -45,6 +49,15 @@ public class BoardItem extends PersistentOrderableImpl implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@ManyToMany
+	public Set<NewsBoard> getBoards() {
+		return boards;
+	}
+
+	public void setBoards(Set<NewsBoard> boards) {
+		this.boards = boards;
 	}
 
 	@Override
