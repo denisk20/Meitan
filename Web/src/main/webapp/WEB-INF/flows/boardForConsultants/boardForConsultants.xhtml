@@ -6,6 +6,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:sec="http://www.springframework.org/security/facelets/tags"
                 xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:denis="http://meitan-kh.com/"
                 xmlns:rich="http://richfaces.org/rich"
                 template="/WEB-INF/templates/meitan.xhtml">
@@ -15,13 +16,11 @@
 
         <p>Тут вы найдёте очень много полезной информации</p>
 
+        <c:if test="#{lastSavedItem != null}">
+            <p style="color:red">Изменения сохранены в элементе #{lastSavedItem}</p>
+        </c:if>
+
         <h:form>
-            <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
-            <!--<rich:editor value="#{news.content}" theme="advanced"/>-->
-            <h:commandLink action="add" value="Добавить новость"/>
-            <!--</sec:ifAllGranted>-->
-            <!--todo JQUERY slide!!!!!!!-->
-            <!--Rich edit compoennt-->
             <denis:board boardItems="#{boardItems}"/>
         </h:form>
 

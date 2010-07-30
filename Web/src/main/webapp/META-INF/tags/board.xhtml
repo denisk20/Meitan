@@ -10,6 +10,29 @@
         xmlns:rich="http://richfaces.org/rich"
         >
 
+        <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".flip").click(function() {
+                    $(".editPanel").slideToggle("slow");
+                });
+            });
+        </script>
+
+            <sec:ifAllGranted roles="ROLE_ADMIN">
+            <div class="flip">Добавить новую новость...</div>
+
+            <div class="editPanel" style="display:none;">
+                <h:form>
+
+                    <rich:editor value="#{newNews.content}" theme="advanced"/>
+                    <!--<h:inputText value="#{newNews.content}"/>-->
+                    <br/>
+                    <h:commandButton value="Создать" action="create"/>
+                </h:form>
+            </div>
+        </sec:ifAllGranted>
+
         <h:dataTable value="#{boardItems}" var="item">
             <h:column>
                 <f:facet name="header">Объявление</f:facet>
