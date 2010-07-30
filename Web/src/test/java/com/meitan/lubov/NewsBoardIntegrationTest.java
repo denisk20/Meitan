@@ -46,6 +46,7 @@ public class NewsBoardIntegrationTest extends GenericIntegrationTest <NewsBoard>
 	@Override
 	protected void compareAdditionalProperties(NewsBoard beanFromSpring, NewsBoard beanFromDB) {
 		assertEquals(beanFromSpring.getBoardType(), beanFromDB.getBoardType());
+		assertEquals(beanFromSpring.getItems(), beanFromDB.getItems());
 	}
 
 	@Test
@@ -58,5 +59,17 @@ public class NewsBoardIntegrationTest extends GenericIntegrationTest <NewsBoard>
 
 		List<BoardItem> consultantItems = testNewsBoardDao.getForBoard(consultantsType);
 		assertEquals(EXPECTED_CONSULTANT_ITEMS_COUNT, consultantItems.size());
+	}
+
+	@Test
+	public void testGetForType() {
+		BoardType aboutType = BoardType.ABOUT;
+		BoardType consultantsType = BoardType.FOR_CONSULTANTS;
+
+		NewsBoard aboutBoard = testNewsBoardDao.getForType(aboutType);
+		assertNotNull(aboutBoard);
+
+		NewsBoard consultantBoard = testNewsBoardDao.getForType(consultantsType);
+		assertNotNull(consultantBoard);
 	}
 }

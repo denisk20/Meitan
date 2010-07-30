@@ -1,14 +1,25 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:sec="http://www.springframework.org/security/facelets/tags"
                 xmlns:sf="http://www.springframework.org/tags/faces" xmlns:denis="http://meitan-kh.com/"
+                xmlns:rich="http://richfaces.org/rich"
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="header">
         <sf:resource path="/styles/about.css"/>
+        <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".flip").click(function() {
+                    $(".editPanel").slideToggle("slow");
+                });
+            });
+        </script>
     </ui:define>
 
     <ui:define name="content">
@@ -16,10 +27,31 @@
 
         <p>Компания очень интересная и классная!!!</p>
 
+        <c:if test="#{lastSavedItem != null}">
+            <p style="color:red">Изменения сохранены в элементе #{lastSavedItem}</p>
+        </c:if>
+
+        <sec:ifAllGranted roles="ROLE_ADMIN">
+            <div class="flip">Добавить новую новость...</div>
+
+            <div class="editPanel" style="display:none;">
+                <h:form>
+
+                    <rich:editor value="#{newNews.content}" theme="advanced"/>
+                    <!--<h:inputText value="#{newNews.content}"/>-->
+                    <br/>
+                    <h:commandButton value="Создать" action="create"/>
+                </h:form>
+            </div>
+        </sec:ifAllGranted>
+        
         <h:form>
-            <p>Новинки!!</p>
             <denis:board boardItems="#{boardItems}"/>
-            <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
+        </h:form>
+
+        <p>Новинки!!</p>
+        <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
+        <h:form>
             <h:dataTable id="newProducts" value="#{newProducts}" var="product"
                          rendered="#{newProducts.rowCount > 0}">
                 <h:column>
@@ -29,6 +61,5 @@
 
             </h:dataTable>
         </h:form>
-
     </ui:define>
 </ui:composition>
