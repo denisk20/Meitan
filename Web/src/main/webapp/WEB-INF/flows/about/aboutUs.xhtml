@@ -12,14 +12,6 @@
 
     <ui:define name="header">
         <sf:resource path="/styles/about.css"/>
-        <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(".flip").click(function() {
-                    $(".editPanel").slideToggle("slow");
-                });
-            });
-        </script>
     </ui:define>
 
     <ui:define name="content">
@@ -31,20 +23,6 @@
             <p style="color:red">Изменения сохранены в элементе #{lastSavedItem}</p>
         </c:if>
 
-        <sec:ifAllGranted roles="ROLE_ADMIN">
-            <div class="flip">Добавить новую новость...</div>
-
-            <div class="editPanel" style="display:none;">
-                <h:form>
-
-                    <rich:editor value="#{newNews.content}" theme="advanced"/>
-                    <!--<h:inputText value="#{newNews.content}"/>-->
-                    <br/>
-                    <h:commandButton value="Создать" action="create"/>
-                </h:form>
-            </div>
-        </sec:ifAllGranted>
-        
         <h:form>
             <denis:board boardItems="#{boardItems}"/>
         </h:form>

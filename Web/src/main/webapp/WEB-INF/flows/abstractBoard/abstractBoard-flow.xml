@@ -4,9 +4,33 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
 <!--todo unit test-->
-<view-state id="abstractBoardViewState">
-	<transition on="saveItem">
-		<evaluate expression="newsBoardDao.makePersistent(boardItems.selectedRow)"/>
-	</transition>
-</view-state>
+	<input name="lastSavedItem" required="false"/>
+
+	<view-state id="abstractBoardViewState">
+		<on-entry>
+            <evaluate expression="newsBoardDao.getForType(boardType)" result="flowScope.board"/>
+		</on-entry>
+		<on-render>
+			<evaluate expression="boardItemDao.newInstance()" result="viewScope.newNews"/>
+			<evaluate expression="newsBoardDao.getForBoard(boardType)" result="viewScope.boardItems" result-type="dataModel"/>
+		</on-render>
+
+		<transition on="saveItem" to="saveItem">
+			<evaluate expression="newsBoardDao.makePersistent(boardItems.selectedRow)"/>
+			<set name="requestScope.savedItem" value="utils.getShortName(boardItems.selectedRow.content)"/>
+		</transition>
+
+		<transition on="delete" to="#{viewName}">
+			<evaluate expression="newsBoardDao.makeTransient(boardItems.selectedRow)"/>
+		</transition>
+
+		<transition on="create" to="#{viewName}">
+			<evaluate expression="newNews.boards.add(board)"/>
+			<evaluate expression="boardItemDao.makePersistent(newNews)"/>
+		</transition>
+
+	</view-state>
+
+	<end-state id="saveItem" view="flowRedirect:#{flowName}?lastSavedItem=#{savedItem}" commit="true"/>
+
 </flow>

@@ -16,13 +16,13 @@ import java.util.Set;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "getAll", query = "from BoardItem order by postDate"),
-		@NamedQuery(name = "getForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate"),
+		@NamedQuery(name = "getForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate desc"),
 		@NamedQuery(name = "getForType", query = "from NewsBoard b where b.boardType=:type")
 })
 public class BoardItem extends PersistentOrderableImpl implements Serializable {
 	private Long id;
 	private Date postDate;
-	private String content = "test content";
+	private String content = "";
 	private Set<NewsBoard> boards = new HashSet<NewsBoard>();
 	@Id
 	@GeneratedValue

@@ -2,25 +2,16 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
+		parent="abstractBoard">
 <!--todo unit test-->
     <persistence-context/>
-	<view-state id="boardForConsultants">
-        <on-entry>
-            <evaluate expression="newsBoardDao.getForBoard('FOR_CONSULTANTS')" result="flowScope.boardItems" result-type="dataModel"/>
-        </on-entry>
+	<on-start>
+		<set name="flowScope.boardType" value="'FOR_CONSULTANTS'"/>
+		<set name="flowScope.viewName" value="'boardForConsultants'"/>
+		<set name="flowScope.flowName" value="'boardForConsultants'"/>
+	</on-start>
 
-		<transition on="edit" to="commit">
-            <!--todo AJAX!!!-->
-		</transition>
-
-		<transition on="delete">
-            <!--todo AJAX!!!-->
-		</transition>
+	<view-state id="boardForConsultants" parent="abstractBoard#abstractBoardViewState">
 	</view-state>
-
-	<end-state id="commit" commit="true" view="flowRedirect:about">
-
-	</end-state>
 
 </flow>
