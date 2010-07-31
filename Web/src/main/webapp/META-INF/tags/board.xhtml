@@ -19,13 +19,18 @@
             });
         </script>
 
+        <c:if test="#{lastSavedItem != null}">
+            <p style="color:red">Изменения сохранены в элементе #{lastSavedItem}</p>
+        </c:if>
+
+
             <sec:ifAllGranted roles="ROLE_ADMIN">
             <div class="flip">Добавить новую новость...</div>
 
             <div class="editPanel" style="display:none;">
                 <h:form>
 
-                    <rich:editor value="#{newNews.content}" theme="advanced"/>
+                    <rich:editor width="615" height="235" value="#{newNews.content}" theme="advanced"/>
                     <!--<h:inputText value="#{newNews.content}"/>-->
                     <br/>
                     <h:commandButton value="Создать" action="create"/>
@@ -40,13 +45,13 @@
                     <p style="max-width:100px"><h:outputText escape="false" value="#{item.content}"/> </p>
                 </sec:ifNotGranted>
 
-                <sec:ifAllGranted roles="ROLE_ADMIN">
-                    <rich:editor value="#{item.content}" theme="advanced"/>
+                <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
+                    <rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
                     <br/>
 
                     <h:commandButton value="Сохранить" action="saveItem"/>
                     <h:commandButton value="Удалить" action="delete"/>
-                </sec:ifAllGranted>
+                <!--</sec:ifAllGranted>-->
 
             </h:column>
 
