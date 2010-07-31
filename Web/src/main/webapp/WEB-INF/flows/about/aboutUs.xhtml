@@ -11,17 +11,13 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="header">
-        <sf:resource path="/styles/about.css"/>
+        <!--<sf:resource path="/styles/about.css"/>-->
     </ui:define>
 
     <ui:define name="content">
         <h1>На этой страничке будет информация о компании</h1>
 
         <p>Компания очень интересная и классная!!!</p>
-
-        <c:if test="#{lastSavedItem != null}">
-            <p style="color:red">Изменения сохранены в элементе #{lastSavedItem}</p>
-        </c:if>
 
         <h:form>
             <denis:board boardItems="#{boardItems}"/>

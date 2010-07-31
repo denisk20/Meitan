@@ -16,10 +16,6 @@
 
         <p>Тут вы найдёте очень много полезной информации</p>
 
-        <c:if test="#{lastSavedItem != null}">
-            <p style="color:red">Изменения сохранены в элементе #{lastSavedItem}</p>
-        </c:if>
-
         <h:form>
             <denis:board boardItems="#{boardItems}"/>
         </h:form>

@@ -47,10 +47,10 @@ public class Utils {
 	public String getShortName(String longName) {
 		String result="";
 		if (longName.length() > STRING_LIMIT) {
-			result = longName.substring(0, STRING_LIMIT);
+			result = longName.substring(0, STRING_LIMIT) + DOTS;
+		} else {
+			result = longName + DOTS;
 		}
-		result = longName + DOTS;
-
 		return result;
 	}
 }
