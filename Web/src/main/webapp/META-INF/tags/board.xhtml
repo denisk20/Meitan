@@ -30,7 +30,7 @@
             <div class="editPanel" style="display:none;">
                 <h:form>
 
-                    <rich:editor width="615" height="235" value="#{newNews.content}" theme="advanced"/>
+                    <rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
                     <!--<h:inputText value="#{newNews.content}"/>-->
                     <br/>
                     <h:commandButton value="Создать" action="create"/>
@@ -42,16 +42,18 @@
             <h:column>
                 <f:facet name="header">Объявление</f:facet>
                 <sec:ifNotGranted roles="ROLE_ADMIN">
-                    <p style="max-width:100px"><h:outputText escape="false" value="#{item.content}"/> </p>
+                    <div id = "news#{item.id}" style="width:99%;overflow-x:scroll;border:solid 1px;">
+                        <h:outputText escape="false" value="#{item.content}"/>
+                    </div>
                 </sec:ifNotGranted>
 
-                <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
+                <sec:ifAllGranted roles="ROLE_ADMIN">
                     <rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
                     <br/>
 
                     <h:commandButton value="Сохранить" action="saveItem"/>
                     <h:commandButton value="Удалить" action="delete"/>
-                <!--</sec:ifAllGranted>-->
+                </sec:ifAllGranted>
 
             </h:column>
 
