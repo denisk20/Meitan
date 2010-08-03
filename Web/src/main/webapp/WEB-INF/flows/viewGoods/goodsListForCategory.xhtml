@@ -23,7 +23,7 @@
 					<!--todo make a tag-->
 					<div class="actionMenu">
 						<ul>
-							<sec:ifAllGranted roles="ROLE_ADMIN">
+							<!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
 								<li>
 									<sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit"/>
 								</li>
@@ -35,7 +35,7 @@
 									<sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
 													processIds="*"/>
 								</li>
-							</sec:ifAllGranted>
+							<!--</sec:ifAllGranted>-->
 							<li>
 								<sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
 												processIds="*"/>

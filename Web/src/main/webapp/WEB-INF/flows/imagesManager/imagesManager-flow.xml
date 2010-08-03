@@ -22,6 +22,7 @@
 			<evaluate expression="imageDao.addImageToEntity(imageAware, image)"/>
 		</transition>
 
+		<!--todo make custom exception here-->
 		<transition on-exception="java.lang.IllegalArgumentException" to="imagesManager"/>
 		
 		<transition on="delete" to="imagesManager">

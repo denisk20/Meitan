@@ -2,12 +2,16 @@ package com.meitan.lubov.services.util;
 
 import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.persistent.Image;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.webflow.execution.RequestContext;
+import sun.awt.image.ToolkitImage;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -28,6 +32,12 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 	private static final String BMP_TYPE = "image/bmp";
 	private static final String GIF_TYPE = "image/gif";
 	private static final String PNG_TYPE = "image/png";
+
+	private static final int MAX_WIDTH = 475;
+	private static final int MAX_HEIGHT = 475;
+
+	@Autowired
+	private Utils utils;
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -53,9 +63,9 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 				throw new IllegalArgumentException("Not valid image type: " + file.getContentType());
 			}
 			File imageFile = getDestFile(uploadDirName, imageName);
-			file.transferTo(imageFile);
 
-//			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
+			utils.uploadImage(file, imageFile, MAX_WIDTH, MAX_HEIGHT);
+			//			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
 			String fullPath = imageFile.getPath();
 			int directoryIndex = fullPath.indexOf(uploadDirName);
 			String imageRelativePath = fullPath.substring(directoryIndex);
