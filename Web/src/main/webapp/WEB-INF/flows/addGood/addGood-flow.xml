@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+	  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
 	<var name="newGood" class="com.meitan.lubov.model.persistent.Product"/>
 
 	<view-state id="addGood">
 		<on-entry>
-			<evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="selectItems"/>
+			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>
+			<evaluate expression="utils.getSelectItems(viewScope.categories)" result="viewScope.categoriesItems"/>
 		</on-entry>
 
 		<transition on="create" to="create">

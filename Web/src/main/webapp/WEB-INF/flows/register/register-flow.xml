@@ -30,6 +30,6 @@
 
     <view-state id="error"/>
 
-    <end-state id="done"/>
-    <end-state id="cancel"/>
+    <end-state id="done" view="flowRedirect:/about"/>
+    <end-state id="cancel" view="flowRedirect:/about"/>
 </flow>

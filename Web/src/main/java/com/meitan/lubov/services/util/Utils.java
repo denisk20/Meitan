@@ -1,32 +1,39 @@
 package com.meitan.lubov.services.util;
 
+import com.meitan.lubov.model.NameAware;
 import com.sun.facelets.el.TagMethodExpression;
 import com.sun.facelets.tag.Location;
 import com.sun.facelets.tag.TagAttribute;
 import org.jboss.el.MethodExpressionLiteral;
-import org.springframework.security.providers.encoding.Md5PasswordEncoder;
-import org.springframework.security.providers.encoding.PasswordEncoder;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.web.context.ServletContextAware;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.PixelGrabber;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
 
 /**
  * @author denis_k
  *         Date: 19.05.2010
  *         Time: 15:39:14
  */
-public class Utils {
+public class Utils implements ServletContextAware {
 	private static final int STRING_LIMIT = 30;
 	private static final String DOTS = "...";
+
+	private ServletContext servletContext;
+
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 
 	public ArrayList asList(Set s) {
 		if (s != null) {
@@ -62,84 +69,35 @@ public class Utils {
 		return result;
 	}
 
-	// This method returns a buffered image with the contents of an image
-	public BufferedImage toBufferedImage(Image image) {
-		if (image instanceof BufferedImage) {
-			return (BufferedImage) image;
+	public File getDestFile(String uploadDirName, String imageName) {
+		String uploadedFolderPath = getServletContext().getRealPath(uploadDirName);
+		File uploadDir = new File(uploadedFolderPath);
+		if (!uploadDir.exists()) {
+			throw new IllegalStateException("Upload directory doesn't exist: " + uploadDirName);
 		}
-
-		// This code ensures that all the pixels in the image are loaded
-		image = new ImageIcon(image).getImage();
-
-		// Determine if the image has transparent pixels; for this method's
-		// implementation, see Determining If an Image Has Transparent Pixels
-		boolean hasAlpha = false;
-		//boolean hasAlpha = hasAlpha(image);
-
-		// Create a buffered image with a format that's compatible with the screen
-		BufferedImage bimage = null;
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		try {
-			// Determine the type of transparency of the new buffered image
-			int transparency = Transparency.OPAQUE;
-			if (hasAlpha) {
-				transparency = Transparency.BITMASK;
-			}
-
-			// Create the buffered image
-			GraphicsDevice gs = ge.getDefaultScreenDevice();
-			GraphicsConfiguration gc = gs.getDefaultConfiguration();
-			bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
-		} catch (HeadlessException e) {
-			// The system does not have a screen
+		if (!uploadDir.isDirectory()) {
+			throw new IllegalStateException("Upload directory is not a directory: " + uploadDirName);
 		}
+		//rename it
+		File imageFile = new File(uploadDir, imageName);
 
-		if (bimage == null) {
-			// Create a buffered image using the default color model
-			int type = BufferedImage.TYPE_INT_RGB;
-			if (hasAlpha) {
-				type = BufferedImage.TYPE_INT_ARGB;
-			}
-			bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
-		}
-
-		// Copy image to buffered image
-		Graphics g = bimage.createGraphics();
-
-		// Paint the image onto the buffered image
-		g.drawImage(image, 0, 0, null);
-		g.dispose();
-
-		return bimage;
-	}
-	// This method returns true if the specified image has transparent pixels
-
-	public void uploadImage(MultipartFile file, File imageFile, int maxWidth, int maxHeight) throws IOException {
-					BufferedImage sourceImage = ImageIO.read(file.getInputStream());
-			int width = sourceImage.getWidth(null);
-			int height = sourceImage.getHeight(null);
-			//todo invent better algorithm
-			if (width > maxWidth || height > maxHeight) {
-				java.awt.Image scaledImage = sourceImage.getScaledInstance(maxWidth, maxHeight, java.awt.Image.SCALE_SMOOTH);
-				sourceImage = toBufferedImage(scaledImage);
-			}
-			String contentType = file.getContentType();
-			int slash = contentType.indexOf("/");
-			String trimmedContentType = contentType.substring(slash + 1);
-			ImageIO.write(sourceImage, trimmedContentType, imageFile);
+		return imageFile;
 	}
 
-	public boolean hasAlpha(Image image) { // If buffered image, the color model is readily available
-		if (image instanceof BufferedImage) {
-			BufferedImage bimage = (BufferedImage) image;
-			return bimage.getColorModel().hasAlpha();
-		} // Use a pixel grabber to retrieve the image's color model; // grabbing a single pixel is usually sufficient
-		PixelGrabber pg = new PixelGrabber(image, 0, 0, 1, 1, false);
-		try {
-			pg.grabPixels();
-		} catch (InterruptedException e) {
-		} // Get the image's color model
-		ColorModel cm = pg.getColorModel();
-		return cm.hasAlpha();
+	public ArrayList<SelectItem> getSelectItems(List<NameAware> source) {
+		if (source == null) {
+			throw new IllegalArgumentException("Source for SelectItems was null");
+		}
+		ArrayList<SelectItem> result = new ArrayList<SelectItem>();
+		for (NameAware nameAware : source) {
+			SelectItem item = new SelectItem();
+			item.setLabel(nameAware.getName());
+			item.setValue(nameAware.getId());
+			result.add(item);
+		}
+		return result;
+	}
+	public StringWrap createStringWrap() {
+		return new StringWrap("Hello world");
 	}
 }

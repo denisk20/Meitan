@@ -2,7 +2,9 @@ package com.meitan.lubov.services;
 
 import com.meitan.lubov.SimpleFileSystemResourceLoader;
 import com.meitan.lubov.model.persistent.Image;
+import com.meitan.lubov.services.media.ImageManager;
 import com.meitan.lubov.services.util.FileUploadHandler;
+import com.meitan.lubov.services.util.Utils;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.webflow.execution.RequestContext;
 
@@ -16,12 +18,14 @@ import java.io.IOException;
  */
 public class MockFileUploadHandler extends FileUploadHandler {
 	public static final String TEST_UPLOAD_DIRECTORY = "uploaded";
-	private ServletContext servletContext;
 
 	public MockFileUploadHandler() {
 		//todo this is not the case
-		servletContext = new MockServletContext(System.getenv("MEITAN_HOME"), new SimpleFileSystemResourceLoader()
-												);
+		ServletContext servletContext = new MockServletContext(
+				System.getenv("MEITAN_HOME"), new SimpleFileSystemResourceLoader());
+		utils = new Utils();
+		imageManager = new ImageManager();
+		utils.setServletContext(servletContext);
 	}
 
 	@Override
@@ -29,8 +33,5 @@ public class MockFileUploadHandler extends FileUploadHandler {
 		return super.processFile(requestContext, TEST_UPLOAD_DIRECTORY, imageName);
 	}
 
-	@Override
-	public ServletContext getServletContext() {
-		return servletContext;
-	}
+
 }

@@ -5,15 +5,19 @@
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:sec="http://www.springframework.org/security/facelets/tags"
 		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:c="http://java.sun.com/jstl/core"
-		xmlns:sf="http://www.springframework.org/tags/faces"
-		>
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:sf="http://www.springframework.org/tags/faces"
+        >
 	<div id="imageDiv">
 		<div class="img">
 			<sf:commandLink action="#{action}">
-				<h:graphicImage value="#{imageUrl}" width="100" height="100"/>
-			</sf:commandLink>
-			<div class="desc">#{imageName}</div>
-		</div>
+				<h:graphicImage value="/icon#{imageUrl}" width="100" height="100"/>
+                <!--<a4j:mediaOutput element="img" cacheable="false" session="true"
+                                 createContent="#{imageManager.paint}" value="#{imageUrl}" mimeType="image/jpeg"/>-->
+
+            </sf:commandLink>
+            <div class="desc">#{imageName}</div>
+        </div>
 	</div>
 </ui:component>

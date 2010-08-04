@@ -180,11 +180,9 @@ div.desc {
     font:                15px arial, sans-serif;
 }
 
-/*
 .field {
-    float:left;
+    overflow:auto;
 }
-*/
 
 .field .label {
     float:               left;

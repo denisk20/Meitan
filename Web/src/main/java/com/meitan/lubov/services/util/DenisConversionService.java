@@ -18,6 +18,6 @@ public class DenisConversionService extends FacesConversionService {
 	public DenisConversionService() {
 		super();
 		addConverter(new CategoriesToSelectItemsConverter());
-		addAlias("selectItems", SelectItem.class);
+		addAlias("selectItems", ArrayList.class);
 	}
 }

@@ -2,6 +2,7 @@ package com.meitan.lubov.services.util;
 
 import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.persistent.Image;
+import com.meitan.lubov.services.media.ImageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.web.context.ServletContextAware;
@@ -22,11 +23,9 @@ import java.io.Serializable;
  *
  * @author denisk
  */
-public class FileUploadHandler implements Serializable, ServletContextAware {
+public class FileUploadHandler implements Serializable {
 	public final static String FILE_PARAM_NAME = "file";
 	public static final String UPLOAD_DIR_NAME = "uploaded";
-
-	private ServletContext servletContext;
 
 	private static final String JPEG_TYPE = "image/jpeg";
 	private static final String BMP_TYPE = "image/bmp";
@@ -37,16 +36,10 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 	private static final int MAX_HEIGHT = 475;
 
 	@Autowired
-	private Utils utils;
+	protected ImageManager imageManager;
 
-	@Override
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
-
-	public ServletContext getServletContext() {
-		return servletContext;
-	}
+	@Autowired
+	protected Utils utils;
 
 	public Image precessTempFile(RequestContext requestContext, StringWrap imageName) throws IOException {
 		return processFile(requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
@@ -62,9 +55,9 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 			if (! isFileValid(requestContext, file)) {
 				throw new IllegalArgumentException("Not valid image type: " + file.getContentType());
 			}
-			File imageFile = getDestFile(uploadDirName, imageName);
+			File imageFile = utils.getDestFile(uploadDirName, imageName);
 
-			utils.uploadImage(file, imageFile, MAX_WIDTH, MAX_HEIGHT);
+			imageManager.uploadImage(file, imageFile, MAX_WIDTH, MAX_HEIGHT);
 			//			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
 			String fullPath = imageFile.getPath();
 			int directoryIndex = fullPath.indexOf(uploadDirName);
@@ -82,21 +75,6 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 							.build());
 			throw new IllegalArgumentException("File was null: " + file);
 		}
-	}
-
-	private File getDestFile(String uploadDirName, String imageName) {
-		String uploadedFolderPath = getServletContext().getRealPath(uploadDirName);
-		File uploadDir = new File(uploadedFolderPath);
-		if (!uploadDir.exists()) {
-			throw new IllegalStateException("Upload directory doesn't exist: " + uploadDirName);
-		}
-		if (!uploadDir.isDirectory()) {
-			throw new IllegalStateException("Upload directory is not a directory: " + uploadDirName);
-		}
-		//rename it
-		File imageFile = new File(uploadDir, imageName);
-
-		return imageFile;
 	}
 
 	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
@@ -119,6 +97,7 @@ public class FileUploadHandler implements Serializable, ServletContextAware {
 		Image image = new Image(imageRelativePath);
 		return image;
 	}
+
 
 	public void sayHello() {
 		System.out.printf("Hello!");

@@ -15,23 +15,23 @@
     <ui:define name="content">
 
         <h1>Требется авторизация</h1>
-
         <div class="section" style="font-weight:bold;color:red;">
-            <c:if test="#{login_state==1}">
+            <c:if test="${param.login_state==1}">
                 <div class="errors">
                     Логин или пароль неверен, попробуйте снова.<br/>
                     Причина: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
                 </div>
             </c:if>
-            <c:if test="#{login_state==2}">
+            <c:if test="${param.login_state==2}">
                 <div style="font-weight:bold">Вы успешно покинули систему. Возвращайтесь поскорей!</div>
             </c:if>
             <br/>
         </div>
 
         <div class="section">
-            <h:form id="loginForm">
-                <p>Пожалуйста, войдите или <sf:commandLink value="зарегистрируйтесь" action="register"/></p>
+	<form name="f" action="${request.contextPath}/spring/loginProcess" method="post">
+
+                <p>Пожалуйста, войдите или <a href="register">зарегистрируйтесь</a></p>
                 <fieldset>
                     <div class="field">
                         <div class="label">Логин:</div>
@@ -39,21 +39,20 @@
                             <c:if test="${not empty param.login_error}">
                                 <c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
                             </c:if>
-                            <h:inputText id="j_username" value="#{usernamePassword.username}"/>
+					<input type="text" name="j_username"/>
                         </div>
                     </div>
                     <div class="field">
                         <div class="label">Пароль:</div>
                         <div class="output">
-                            <h:inputText id="j_password" value="#{usernamePassword.password}"/>
+					<input type="password" name="j_password" />
                         </div>
                     </div>
                 </fieldset>
                 <div class="buttonGroup">
-
-                    <sf:commandButton value="Войти" action="login" processIds="*"/>
+			<input name="submit" type="submit" value="Login" />
                 </div>
-            </h:form>
+            </form>
 
         </div>
 

@@ -31,25 +31,29 @@
 					<ul class="vmenu">
 
 						<li>
-							<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>
+							<!--<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>-->
+                            <a href="about">О компании</a>
 						</li>
 
 
 						<li>
-							<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>
-						</li>
+							<!--<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>-->
+                            <a href="categories">Продукция</a>
+                        </li>
 
 
-						<sec:ifNotGranted roles="ROLE_CONSULTANT">
-							<li>
-								<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>
+                        <sec:ifNotGranted roles="ROLE_CONSULTANT">
+                            <li>
+                                <!--<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>-->
+                                <a href="join">Стань консультантом!</a>
 							</li>
 						</sec:ifNotGranted>
 
 
 						<sec:ifAllGranted roles="ROLE_CONSULTANT">
 							<li>
-								<sf:commandLink value="Объявления для консультантов" action="boardForConsultants"/>
+								<!--<sf:commandLink value="Объявления для консультантов" action="boardForConsultants"/>-->
+                                <a href="boardForConsultants">Объявления для консультантов</a>
 							</li>
 						</sec:ifAllGranted>
 

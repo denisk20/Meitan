@@ -8,7 +8,7 @@ import net.tanesha.recaptcha.http.SimpleHttpLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.binding.message.MessageBuilder;
-import org.springframework.security.wrapper.SavedRequestAwareWrapper;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.webflow.core.collection.ParameterMap;
 import org.springframework.webflow.execution.RequestContext;
@@ -40,7 +40,7 @@ public class ReCaptchaService implements CaptchaService{
 		//todo!!!
 		reCaptcha.setPrivateKey("6LcTPLsSAAAAAHuWXn5FMN4Cx96AXOdVVr0w2O0-");
 
-		String remoteAddress = ((SavedRequestAwareWrapper) requestContext.getExternalContext()
+		String remoteAddress = ((SecurityContextHolderAwareRequestWrapper) requestContext.getExternalContext()
 				.getNativeRequest()).getRemoteAddr();
 
 		HttpLoader httpLoader = getHttpLoader();
