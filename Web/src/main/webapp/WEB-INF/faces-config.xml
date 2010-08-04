@@ -15,5 +15,4 @@
         <!-- Enables Facelets -->
         <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
     </application>
-
 </faces-config>

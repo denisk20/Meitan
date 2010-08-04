@@ -87,18 +87,28 @@
 			<artifactId>org.springframework.security.core</artifactId>
 			<version>${security.version}</version>
 		</dependency>
-<!--
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${security.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>org.springframework.security.web</artifactId>
 			<version>${security.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>org.springframework.security.config</artifactId>
-			<version>${security.version}</version>
-		</dependency>
--->
+		<!--
+		  <dependency>
+			  <groupId>org.springframework.security</groupId>
+			  <artifactId>org.springframework.security.web</artifactId>
+			  <version>${security.version}</version>
+		  </dependency>
+		  <dependency>
+			  <groupId>org.springframework.security</groupId>
+			  <artifactId>org.springframework.security.config</artifactId>
+			  <version>${security.version}</version>
+		  </dependency>
+  -->
 		<!--
 						<dependency>
 							<groupId>org.springframework.security</groupId>
@@ -108,8 +118,8 @@
 				-->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>facelets-taglib</artifactId>
-			<version>0.3_jsf-1.2-spring-2</version>
+			<artifactId>facelets-taglib-jsf12-spring-3</artifactId>
+			<version>0.4</version>
 		</dependency>
 
 		<dependency>
@@ -156,14 +166,14 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>com.springsource.javax.servlet.jsp.jstl</artifactId>
-			<version>1.1.2</version>
+			<version>1.2.0</version>
 		</dependency>
 
 		<!-- build time only dependencies -->
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>com.springsource.javax.el</artifactId>
-			<version>1.0.0</version>
+			<version>2.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -239,14 +249,14 @@
   <artifactId>richfaces-ui</artifactId>
   <version>3.3.3.Final</version>
 </dependency>
-<!--
-        <dependency>
-            <groupId>org.richfaces</groupId>
-            <artifactId>richfaces</artifactId>
-            <version>3.0.1</version>
-        </dependency>
--->
-            <dependency>
+		<!--
+		  <dependency>
+			  <groupId>org.richfaces</groupId>
+			  <artifactId>richfaces</artifactId>
+			  <version>3.0.1</version>
+		  </dependency>
+  -->
+		<dependency>
       <groupId>org.richfaces.framework</groupId>
       <artifactId>richfaces-impl</artifactId>
       <version>3.3.3.Final</version>
@@ -338,10 +348,10 @@
 	</build>
 
 	<properties>
-		<spring.version>3.0.2.RELEASE</spring.version>
+		<spring.version>3.0.3.RELEASE</spring.version>
 		<jsf.version>1.2.0.09</jsf.version>
-		<webflow.version>2.0.9.RELEASE</webflow.version>
-		<security.version>2.0.5.RELEASE</security.version>
+		<webflow.version>2.1.1.RELEASE</webflow.version>
+		<security.version>3.0.3.RELEASE</security.version>
 
 		<test.db>${env.MEITAN_HOME}/testdb</test.db>
 	</properties>

@@ -16,26 +16,24 @@ import java.util.List;
 public class CategoriesToSelectItemsConverter implements Converter {
 	@Override
 	public Class getSourceClass() {
-		return Object.class;
+		return ArrayList.class;
 	}
 
 	@Override
 	public Class getTargetClass() {
-		return SelectItem.class;
+		return ArrayList.class;
 	}
 
 	@Override
 	public Object convertSourceToTargetClass(Object source, Class targetClass) throws Exception {
-		List<SelectItem> result = null;
-		if (source instanceof List) {
-			List<Category> categories = (List<Category>) source;
+		ArrayList<SelectItem> result = null;
+		if (source instanceof Category) {
+			Category category = (Category) source;
 			result = new ArrayList<SelectItem>();
-			for (Category c : categories) {
 				SelectItem it = new SelectItem();
-				it.setLabel(c.getName());
-				it.setValue(c.getId());
+				it.setLabel(category.getName());
+				it.setValue(category.getId());
 				result.add(it);
-			}
 		}
 		return result;
 /*

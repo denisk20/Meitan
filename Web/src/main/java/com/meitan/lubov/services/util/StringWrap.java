@@ -1,12 +1,14 @@
 package com.meitan.lubov.services.util;
 
+import java.io.Serializable;
+
 /**
  * @author denis_k
  *         Date: 24.05.2010
  *         Time: 17:45:49
  */
 //todo any chance of getting rid of this?
-public class StringWrap {
+public class StringWrap implements Serializable {
 	private String wrapped;
 
 	public StringWrap(String wrapped) {
