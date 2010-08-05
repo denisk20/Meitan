@@ -13,11 +13,11 @@
 	<view-state id="aboutUs" parent="abstractBoard#abstractBoardViewState">
 		<on-entry>
 			<set name="flowScope.action" value="utils.getMethodExpression('selectGood')"/>
-            <evaluate expression="productDao.getNew()" result="flowScope.newProducts" result-type="dataModel"/>
+            <evaluate expression="productDao.getNew()" result="flowScope.newProducts"/>
         </on-entry>
 
-		<transition on="selectGood" to="goodFlow" history="discard">
-			<set name="requestScope.productId" value="newProducts.selectedRow.id"/>
+		<transition on="selectGood" to="goodFlow">
+			<set name="requestScope.productId" value="requestParameters.id"/>
 		</transition>
 	</view-state>
 

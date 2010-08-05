@@ -120,6 +120,7 @@ a:hover, a:active {
 }
 
 .actionMenu li {
+    margin: 5px 0;
 }
 
 a, a:link {
@@ -148,6 +149,15 @@ a.adminItem:link, a.adminItem:visited {
 
 a.adminItem:hover, a.adminItem:active {
     background-color:    #ff9999;
+}
+
+#imageDiv {
+    overflow:auto;
+    margin:0;
+}
+.imageItem {
+    float:left;
+    margin:0 3px
 }
 
 div.img {
@@ -234,4 +244,23 @@ div.desc {
 .mceIframeContainer iframe {
     width:610px;
     height:250px;
+}
+
+.imageEditSet {
+    margin: 5px 0;
+    border: 1px solid;
+    padding: 7px;
+}
+.editImageMenuBar {
+    overflow:auto;
+}
+.makeMainImageButton, .isMainLabel {
+    float:right;
+    margin: 5px;
+}
+.deleteButton {
+    float:left
+}
+.saveEditedImages {
+    
 }

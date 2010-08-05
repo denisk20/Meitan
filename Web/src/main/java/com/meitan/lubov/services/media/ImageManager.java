@@ -92,18 +92,36 @@ public class ImageManager {
 		BufferedImage sourceImage = ImageIO.read(file.getInputStream());
 		int width = sourceImage.getWidth(null);
 		int height = sourceImage.getHeight(null);
-		//todo invent better algorithm
-		if (width > maxWidth || height > maxHeight) {
+		//todo unit test
+		if (resizeNeeded(width, height, maxWidth, maxHeight)) {
+			boolean xPriority = isXPriority(width, height, maxWidth, maxHeight);
+			double coef;
+			if (xPriority) {
+				coef = maxWidth / (width + 0.0);
+			} else {
+				coef = maxHeight / (height + 0.0);
+			}
+			int newWidth = (int) (width * coef);
+			int newHeight = (int) (height * coef);
+
 			java.awt.Image scaledImage = sourceImage
-					.getScaledInstance(maxWidth, maxHeight, java.awt.Image.SCALE_SMOOTH);
+					.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH);
 			sourceImage = toBufferedImage(scaledImage);
 		}
+
 		String contentType = file.getContentType();
 		int slash = contentType.indexOf("/");
 		String trimmedContentType = contentType.substring(slash + 1);
 		ImageIO.write(sourceImage, trimmedContentType, imageFile);
 	}
 
+	private boolean isXPriority(int width, int height, int maxWidth, int maxHeight) {
+		return width - maxWidth > height - maxHeight;
+	}
+
+	private boolean resizeNeeded(int width, int height, int maxWidth, int maxHeight) {
+		return width > maxWidth || height > maxHeight;
+	}
 	public boolean hasAlpha(Image image) { // If buffered image, the color model is readily available
 		if (image instanceof BufferedImage) {
 			BufferedImage bimage = (BufferedImage) image;

@@ -11,7 +11,7 @@
 		</on-entry>
 
 		<transition on="all" to="goodsListForCategory">
-			<set name="requestScope.categoryId" value="-1" type="long"/>
+			<set name="requestScope.categoryId" value="null"/>
 		</transition>
 
 		<transition on="selectCategory" to="goodsListForCategory">

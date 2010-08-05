@@ -26,6 +26,48 @@
         <p>Новинки!!</p>
         <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
         <h:form>
+            <!--todo we use this in 3 places - this needs to be extracted-->
+            <c:forEach items="#{newProducts}" var="product">
+                <div class="imageItem">
+
+                    <denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}"
+                                 action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
+
+                    <!--todo make a tag-->
+                    <!--<div class="actionMenu">
+                        <ul>
+                            &lt;!&ndash;<sec:ifAllGranted roles="ROLE_ADMIN">&ndash;&gt;
+                            <li>
+                                <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
+                                    <f:param name="productId" value="#{product.id}"/>
+                                </sf:commandLink>
+                            </li>
+                            <li>
+                                <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
+                                                action="editImages">
+                                    <f:param name="productId" value="#{product.id}"/>
+                                </sf:commandLink>
+                            </li>
+                            <li>
+                                <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
+                                                processIds="*">
+                                    <f:param name="productId" value="#{product.id}"/>
+                                </sf:commandLink>
+                            </li>
+                            &lt;!&ndash;</sec:ifAllGranted>&ndash;&gt;
+                            <li>
+                                <sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
+                                                processIds="*">
+                                    <f:param name="productId" value="#{product.id}"/>
+                                </sf:commandLink>
+                            </li>
+                        </ul>
+                    </div>-->
+
+
+                </div>
+            </c:forEach>
+            <!--
             <h:dataTable id="newProducts" value="#{newProducts}" var="product"
                          rendered="#{newProducts.rowCount > 0}">
                 <h:column>
@@ -34,6 +76,7 @@
                 </h:column>
 
             </h:dataTable>
+-->
         </h:form>
     </ui:define>
 </ui:composition>
