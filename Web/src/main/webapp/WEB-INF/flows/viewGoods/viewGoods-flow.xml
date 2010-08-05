@@ -13,7 +13,8 @@
 
 	<view-state id="baseGoodList" view="goodsListForCategory.xhtml">
 		<transition on="selectGood" to="goodFlow">
-			<set name="requestScope.productId" value="products.selectedRow.id"/>
+			<!--<set name="requestScope.productId" value="products.selectedRow.id"/>-->
+			<set name="requestScope.productId" value="requestParameters.id"/>
 		</transition>
 
 		<transition on="edit" to="edit">
@@ -37,13 +38,14 @@
 
 	<view-state id="goodsListForCategory" parent="viewGoods#baseGoodList">
 		<on-entry>
-			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>
+			<!--<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>-->
+			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products"/>
 		</on-entry>
 	</view-state>
 
 	<view-state id="allGoodsList" parent="viewGoods#baseGoodList" >
 		<on-entry>
-			<evaluate expression="productDao.findAll()" result="viewScope.products" result-type="dataModel"/>
+			<evaluate expression="productDao.findAll()" result="viewScope.products"/>
 		</on-entry>
 	</view-state>
 

@@ -42,7 +42,7 @@
             <h:column>
                 <f:facet name="header">Объявление</f:facet>
                 <sec:ifNotGranted roles="ROLE_ADMIN">
-                    <div id = "news#{item.id}" style="width:99%;overflow-x:scroll;border:solid 1px;">
+                    <div id = "news#{item.id}" style="width:99%;overflow-x:auto;border:solid 1px;padding:5px">
                         <h:outputText escape="false" value="#{item.content}"/>
                     </div>
                 </sec:ifNotGranted>
