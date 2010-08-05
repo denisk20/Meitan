@@ -37,4 +37,6 @@ public interface Dao<T, ID extends Serializable> {
 	void refresh(T entity);
 
 	T newInstance() throws IllegalAccessException, InstantiationException;
+
+	Object getByClass(ID id, String clazz) throws ClassNotFoundException;
 }

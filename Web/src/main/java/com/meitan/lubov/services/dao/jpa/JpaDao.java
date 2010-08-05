@@ -121,6 +121,12 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 		T item = persistentClass.newInstance();
 		return item;
 	}
+
+	@Override
+	public Object getByClass(ID id, String clazz) throws ClassNotFoundException {
+		Object result = em.find(Class.forName(clazz), id);
+		return result;
+	}
 	/**
      * This is total hack to get rid of the fact that hibernate doesn't
      * handle eager fetching properly

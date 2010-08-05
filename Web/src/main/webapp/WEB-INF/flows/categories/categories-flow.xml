@@ -6,27 +6,29 @@
 
 	<view-state id="categories">
 		<on-entry>
-			<evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="dataModel"/>
+			<!--<evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="dataModel"/>-->
+			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>
 		</on-entry>
 
 		<transition on="all" to="goodsListForCategory">
-			<set name="requestScope.categoryId" value="null"/>
+			<set name="requestScope.categoryId" value="-1" type="long"/>
 		</transition>
 
 		<transition on="selectCategory" to="goodsListForCategory">
-			<set name="flashScope.categoryId" value="categories.selectedRow.id"/>
+			<set name="flashScope.categoryId" value="requestParameters.id" type="long"/>
 		</transition>
 
 		<transition on="edit" to="editCategory">
-			<set name="flashScope.categoryId" value="categories.selectedRow.id"/>
+			<set name="flashScope.categoryId" value="requestParameters.categoryId" type="long"/>
 		</transition>
 
 		<transition on="editimages" to="editImages">
-			<set name="flashScope.imageAware" value="categories.selectedRow"/>
+			<set name="flashScope.imageAwareId" value="requestParameters.categoryId" type="long"/>
 		</transition>
 
 		<transition on="delete" to="categories">
-			<evaluate expression="categoryDao.deleteById(categories.selectedRow.id)"/>
+			<set name="requestScope.deleteId" value="requestParameters.categoryId" type="long"/>
+			<evaluate expression="categoryDao.deleteById(deleteId)"/>
 		</transition>
 
 		<transition on="add" to="addCategory"/>
@@ -51,7 +53,8 @@
 	</subflow-state>
 
 	<subflow-state id="editImages" subflow="imagesManager">
-		<input name="imageAware" value="imageAware"/>
+		<input name="imageAwareId" value="imageAwareId"/>
+		<input name="className" value="'com.meitan.lubov.model.persistent.Category'"/>
 		<transition on="save" to="categories"/>
 	</subflow-state>
 

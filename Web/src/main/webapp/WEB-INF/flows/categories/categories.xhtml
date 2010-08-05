@@ -6,12 +6,13 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:sf="http://www.springframework.org/tags/faces"
                 xmlns:sec="http://www.springframework.org/security/facelets/tags"
-                xmlns:denis="http://meitan-kh.com/"
+                xmlns:denis="http://meitan-kh.com/" xmlns:c="http://java.sun.com/jstl/core"
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
         <h:form>
             <h1>Категории товаров</h1>
+
             <h1>#{lastSavedItem}</h1>
             <!--<h1>Just created category name: #{createdCategoryName}</h1>-->
             <div class="actionMenu">
@@ -32,6 +33,38 @@
             </div>
             <br/>
 
+            <c:forEach items="#{categories}" var="category">
+
+                    <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}"
+                                 action="#{utils.getMethodExpression('selectCategory')}" id="#{category.id}"/>
+<p style="color:red">#{category.id}</p>
+                    <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
+                        <div class="actionMenu">
+                            <ul>
+                                <li>
+                                    <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
+                                        <f:param name="categoryId" value="#{category.id}"/>
+                                    </sf:commandLink>
+                                </li>
+                                <li>
+                                    <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
+                                                    action="editimages">
+                                        <f:param name="categoryId" value="#{category.id}"/>
+                                                    </sf:commandLink>
+                                </li>
+                                <li>
+                                    <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
+                                                    processIds="*">
+                                        <f:param name="categoryId" value="#{category.id}"/>
+                                                    </sf:commandLink>
+                                </li>
+                            </ul>
+                        </div>
+                    <!--</sec:ifAllGranted>-->
+
+
+            </c:forEach>
+            <!--
             <h:dataTable id="categories" value="#{categories}" var="category"
                          rendered="#{categories.rowCount > 0}">
                 <h:column>
@@ -56,6 +89,7 @@
                 </h:column>
 
             </h:dataTable>
+-->
 
         </h:form>
     </ui:define>
