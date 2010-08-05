@@ -1,29 +1,62 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:denis="http://meitan-kh.com/"
-				xmlns:sf="http://www.springframework.org/tags/faces"
-				xmlns:sec="http://www.springframework.org/security/facelets/tags"
-				template="/WEB-INF/templates/meitan.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:denis="http://meitan-kh.com/"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:sec="http://www.springframework.org/security/facelets/tags"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="/WEB-INF/templates/meitan.xhtml">
 
-	<ui:define name="content">
-		<h1>Товары! Самые лучшие!!!</h1>
+    <ui:define name="content">
+        <h1>Товары! Самые лучшие!!!</h1>
 
-		<h:form>
+        <h:form>
+            <c:forEach items="#{products}" var="product"
+            >
+
+            <denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}"
+                         action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
+
+            <!--todo make a tag-->
+            <div class="actionMenu">
+                <ul>
+                    <sec:ifAllGranted roles="ROLE_ADMIN">
+                        <li>
+                            <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit"/>
+                        </li>
+                        <li>
+                            <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
+                                            action="editImages"/>
+                        </li>
+                        <li>
+                            <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
+                                            processIds="*"/>
+                        </li>
+                    </sec:ifAllGranted>
+                    <li>
+                        <sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
+                                        processIds="*"/>
+                    </li>
+                </ul>
+            </div>
+
+
+        </c:forEach>
+        <!--
 			<h:dataTable id="products" value="#{products}" var="product"
-						 rendered="#{products.rowCount > 0}">
+						 rendered="#{products.rowCount > 0}" >
 				<h:column>
 					<f:facet name="header">Продукты </f:facet>
 
-					<denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}" action="#{utils.getMethodExpression('selectGood')}"/>
+					<denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}" action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
 
-					<!--todo make a tag-->
+					&lt;!&ndash;todo make a tag&ndash;&gt;
 					<div class="actionMenu">
 						<ul>
-							<!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
+							<sec:ifAllGranted roles="ROLE_ADMIN">
 								<li>
 									<sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit"/>
 								</li>
@@ -35,7 +68,7 @@
 									<sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
 													processIds="*"/>
 								</li>
-							<!--</sec:ifAllGranted>-->
+							</sec:ifAllGranted>
 							<li>
 								<sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
 												processIds="*"/>
@@ -46,6 +79,7 @@
 				</h:column>
 
 			</h:dataTable>
-		</h:form>
-	</ui:define>
+-->
+    </h:form>
+</ui:define>
 </ui:composition>
