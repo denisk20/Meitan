@@ -71,7 +71,15 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	public void testViewGoodsForCategory() {
 
 		setCurrentState("categories");
-		getViewScope().put("categories", new OneSelectionTrackingListDataModel());
+		Category c = new Category("some category");
+		c.setId(1L);
+		ArrayList<Category> list = new ArrayList<Category>();
+		list.add(c);
+
+		OneSelectionTrackingListDataModel model = new OneSelectionTrackingListDataModel(list);
+		model.select(c);
+		
+		getViewScope().put("categories", model);
 
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("selectCategory");

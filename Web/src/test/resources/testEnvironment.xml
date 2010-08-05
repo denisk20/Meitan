@@ -97,6 +97,8 @@
         <property name="categoryDao" ref="testCategoryDao"/>
     </bean>
 
+    <bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
+
     <bean id="testBuyingActDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaBuyingActDao"/>
 
     <bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">

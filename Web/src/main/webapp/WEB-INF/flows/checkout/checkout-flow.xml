@@ -20,7 +20,7 @@
             <secured attributes="ROLE_CLIENT, ROLE_CONSULTANT, ROLE_ADMIN" match="any"/>
         </transition>
 
-        <transition on-exception="org.springframework.security.AccessDeniedException" to="error"/>
+        <transition on-exception="org.springframework.security.access.AccessDeniedException" to="error"/>
     </view-state>
 
     <view-state id="order">

@@ -10,8 +10,8 @@ import com.meitan.lubov.services.util.MailService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
 import java.security.Principal;
 import java.util.Set;
