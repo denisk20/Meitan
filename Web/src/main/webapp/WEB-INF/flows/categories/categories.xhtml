@@ -31,66 +31,38 @@
                     </sec:ifAllGranted>
                 </ul>
             </div>
-            <br/>
 
             <c:forEach items="#{categories}" var="category">
+                <div class="imageItem">
 
                     <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}"
                                  action="#{utils.getMethodExpression('selectCategory')}" id="#{category.id}"/>
-<p style="color:red">#{category.id}</p>
                     <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
-                        <div class="actionMenu">
-                            <ul>
-                                <li>
-                                    <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
-                                        <f:param name="categoryId" value="#{category.id}"/>
-                                    </sf:commandLink>
-                                </li>
-                                <li>
-                                    <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
-                                                    action="editimages">
-                                        <f:param name="categoryId" value="#{category.id}"/>
-                                                    </sf:commandLink>
-                                </li>
-                                <li>
-                                    <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
-                                                    processIds="*">
-                                        <f:param name="categoryId" value="#{category.id}"/>
-                                                    </sf:commandLink>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="actionMenu">
+                        <ul>
+                            <li>
+                                <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
+                                    <f:param name="categoryId" value="#{category.id}"/>
+                                </sf:commandLink>
+                            </li>
+                            <li>
+                                <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
+                                                action="editimages">
+                                    <f:param name="categoryId" value="#{category.id}"/>
+                                </sf:commandLink>
+                            </li>
+                            <li>
+                                <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
+                                                processIds="*">
+                                    <f:param name="categoryId" value="#{category.id}"/>
+                                </sf:commandLink>
+                            </li>
+                        </ul>
+                    </div>
                     <!--</sec:ifAllGranted>-->
 
-
+                </div>
             </c:forEach>
-            <!--
-            <h:dataTable id="categories" value="#{categories}" var="category"
-                         rendered="#{categories.rowCount > 0}">
-                <h:column>
-                    <f:facet name="header">Category</f:facet>
-                    <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}" action="#{utils.getMethodExpression('selectCategory')}"/>
-
-					<sec:ifAllGranted roles="ROLE_ADMIN">
-						<div class="actionMenu">
-							<ul>
-								<li>
-									<sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit"/>
-								</li>
-								<li>
-									<sf:commandLink styleClass="menuItem adminItem" value="Править изображения" action="editimages"/>
-								</li>
-								<li>
-									<sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete" processIds="*"/>
-								</li>
-							</ul>
-						</div>
-					</sec:ifAllGranted>
-                </h:column>
-
-            </h:dataTable>
--->
-
         </h:form>
     </ui:define>
 </ui:composition>

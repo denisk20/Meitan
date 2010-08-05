@@ -18,20 +18,23 @@
 		</transition>
 
 		<transition on="edit" to="edit">
-			<set name="flashScope.product" value="products.selectedRow"/>
+			<set name="flashScope.productId" value="requestParameters.productId" type="long"/>
 		</transition>
 
 		<transition on="editImages" to="imagesManager">
-			<set name="flashScope.product" value="products.selectedRow"/>
+			<set name="flashScope.productId" value="requestParameters.productId" type="long"/>
 		</transition>
 
 		<!--todo this is not quite right. We don't have to execute anything to determine the actual flow-->
 		<transition on="delete" to="allCategoriesQueried">
-			<evaluate expression="productDao.deleteById(products.selectedRow.id)"/>
+			<set name="requestScope.deleteId" value="requestParameters.productId" type="long"/>
+			<evaluate expression="productDao.deleteById(deleteId)"/>
 		</transition>
 
 		<transition on="buy" to="allCategoriesQueried">
-			<evaluate expression="cart.addItem(products.selectedRow)"/>
+			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
+			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>
+			<evaluate expression="cart.addItem(product)"/>
 		</transition>
 		<transition on="back" to="back"/>
 	</view-state>
@@ -52,13 +55,14 @@
 	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}"/>
 	
 	<subflow-state id="edit" subflow="editGood">
-		<input name="productId" value="product.id"/>
+		<input name="productId" value="productId"/>
 		<!--todo hack again... see above comment-->
 		<transition to="allCategoriesQueried"/>
 	</subflow-state>
 
 	<subflow-state id="imagesManager" subflow="imagesManager">
-		<input name="imageAware" value="product"/>
+		<input name="imageAwareId" value="productId"/>
+		<input name="className" value="'com.meitan.lubov.model.persistent.Product'"/>
 		<!--todo hack again... see above comment-->
 		<transition on="save" to="allCategoriesQueried"/>
 	</subflow-state>

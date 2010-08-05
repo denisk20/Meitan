@@ -1,42 +1,52 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:sf="http://www.springframework.org/tags/faces"
-				xmlns:c="http://java.sun.com/jstl/core"
-				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-				xmlns:form="http://www.springframework.org/tags/form"
-				template="/WEB-INF/templates/meitan.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:form="http://www.springframework.org/tags/form"
+                template="/WEB-INF/templates/meitan.xhtml">
 
-	<ui:define name="content">
-		<h:messages/>
-		<h1>Изменить изображения</h1>
-		<h:form>
-				<br/>
-				<h:dataTable id="images" value="#{images}" var="image" rendered="#{! empty(images)}">
-					<h:column>
-						<f:facet name="header">Продукт #{imageAware.name} имеет следующие изображения:</f:facet>
-						<img src="#{image.url}" alt=""/>
-						<sf:commandButton value="Удалить" action="delete"/>
+    <ui:define name="content">
+        <h:messages/>
 
-						<sf:commandLink value="Сдалать главным изборажением" action="makeAvatar" rendered="#{(imageAware.avatar == null) || (image.id != imageAware.avatar.id)}"/>
-						<h:outputText rendered="#{image.id == imageAware.avatar.id}" value="Главное изображение"/>
+        <h1>Изменить изображения</h1>
+        <h:form>
+            <br/>
+            <h:dataTable id="images" value="#{images}" var="image" rendered="#{! empty(images)}">
+                <h:column>
+                    <div class="imageEditSet">
+                        <f:facet name="header">Объект #{imageAware.name} имеет следующие изображения:</f:facet>
+                        <img src="#{image.url}" alt="" class="editedImage"/>
+                        <br/>
 
-					</h:column>
-				</h:dataTable>
-			
-			<sf:commandButton value="Сохранить" action="save"/>
-			<!--<sf:commandButton value="Back" action="back"/>-->
-		</h:form>
+                        <div class="editImageMenuBar">
+                            <sf:commandButton value="Удалить" action="delete" styleClass="deleteButton"/>
 
-		<h:form enctype="multipart/form-data">
-			<h:panelGroup rendered="#{imageAware.allowedToAdd}">
-				<input type="file" name="file"/>
-				<h:commandButton action="upload" value="Загрузить..."/>
-			</h:panelGroup>
-		</h:form>
+                            <sf:commandLink value="Сдалать главным изборажением" action="makeAvatar"
+                                            styleClass="makeMainImageButton"
+                                            rendered="#{(imageAware.avatar == null) || (image.id != imageAware.avatar.id)}"/>
+                            <h:outputText styleClass="isMainLabel" rendered="#{image.id == imageAware.avatar.id}"
+                                          value="Главное изображение"/>
+                        </div>
+                    </div>
+                </h:column>
+            </h:dataTable>
 
-	</ui:define>
+            <sf:commandButton styleClass="saveEditedImages" value="Сохранить" action="save"/>
+            <!--<sf:commandButton value="Back" action="back"/>-->
+        </h:form>
+<br/>
+<br/>
+        <h:form enctype="multipart/form-data">
+            <h:panelGroup rendered="#{imageAware.allowedToAdd}">
+                <input type="file" name="file"/>
+                <h:commandButton action="upload" value="Загрузить..."/>
+            </h:panelGroup>
+        </h:form>
+
+    </ui:define>
 </ui:composition>
