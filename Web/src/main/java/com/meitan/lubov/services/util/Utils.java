@@ -21,6 +21,7 @@ import javax.servlet.ServletContext;
  *         Date: 19.05.2010
  *         Time: 15:39:14
  */
+//todo remove ServletContextAware
 public class Utils implements ServletContextAware {
 	private static final int STRING_LIMIT = 30;
 	private static final String DOTS = "...";
