@@ -25,18 +25,16 @@
 
         <p>Новинки!!</p>
         <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
-        <h:form>
+        <h:form id="newProductsForm">
             <!--todo we use this in 3 places - this needs to be extracted-->
             <c:forEach items="#{newProducts}" var="product">
                 <div class="imageItem">
 
                     <denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}"
                                  action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
-
-                    <!--todo make a tag-->
-                    <!--<div class="actionMenu">
+                    <div class="actionMenu">
                         <ul>
-                            &lt;!&ndash;<sec:ifAllGranted roles="ROLE_ADMIN">&ndash;&gt;
+                            <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
                             <li>
                                 <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
                                     <f:param name="productId" value="#{product.id}"/>
@@ -54,7 +52,7 @@
                                     <f:param name="productId" value="#{product.id}"/>
                                 </sf:commandLink>
                             </li>
-                            &lt;!&ndash;</sec:ifAllGranted>&ndash;&gt;
+                            <!--</sec:ifAllGranted>-->
                             <li>
                                 <sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
                                                 processIds="*">
@@ -62,21 +60,9 @@
                                 </sf:commandLink>
                             </li>
                         </ul>
-                    </div>-->
-
-
+                    </div>
                 </div>
             </c:forEach>
-            <!--
-            <h:dataTable id="newProducts" value="#{newProducts}" var="product"
-                         rendered="#{newProducts.rowCount > 0}">
-                <h:column>
-                    <f:facet name="header">Product</f:facet>
-                    <h:commandButton value="#{product.name}" action="#{action}"/>
-                </h:column>
-
-            </h:dataTable>
--->
         </h:form>
     </ui:define>
 </ui:composition>

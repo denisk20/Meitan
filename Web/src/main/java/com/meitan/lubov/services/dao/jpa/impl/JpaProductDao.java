@@ -41,7 +41,7 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ArrayList<Product> getNew() {
 		ArrayList<Product> result = (ArrayList<Product>)
 				em.createNamedQuery("getProductsNew").getResultList();

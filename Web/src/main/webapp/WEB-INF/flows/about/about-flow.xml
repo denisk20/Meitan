@@ -2,23 +2,22 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="abstractBoard">
-	<persistence-context/>
+		parent="abstractBoard,baseGood">
 	<on-start>
+		<!--abstractBoard properties-->
 		<set name="flowScope.boardType" value="'ABOUT'"/>
 		<set name="flowScope.viewName" value="'aboutUs'"/>
 		<set name="flowScope.flowName" value="'about'"/>
+		<!--baseGood properties-->
+		<set name="flowScope.outState" value="'aboutUs'"/>
 	</on-start>
 
 	<view-state id="aboutUs" parent="abstractBoard#abstractBoardViewState">
-		<on-entry>
+		<on-render>
 			<set name="flowScope.action" value="utils.getMethodExpression('selectGood')"/>
-            <evaluate expression="productDao.getNew()" result="flowScope.newProducts"/>
-        </on-entry>
+            <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
+        </on-render>
 
-		<transition on="selectGood" to="goodFlow">
-			<set name="requestScope.productId" value="requestParameters.id"/>
-		</transition>
 	</view-state>
 
 	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}"/>

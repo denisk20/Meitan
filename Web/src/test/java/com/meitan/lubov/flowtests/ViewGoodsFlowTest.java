@@ -67,13 +67,15 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
 
-		Resource localFlowResource = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/viewGoods/viewGoods-flow.xml"));
 
 		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
 
 		result.addAll(Arrays.asList(superResources));
 
-		result.add(new FlowDefinitionResource("viewGoods", localFlowResource, null));
+		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/viewGoods/viewGoods-flow.xml"));
+		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
+		result.add(new FlowDefinitionResource("baseGood", localFlowResource2, null));
+		result.add(new FlowDefinitionResource("viewGoods", localFlowResource1, null));
 
 		return result.toArray(new FlowDefinitionResource[0]);
 	}
@@ -87,8 +89,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		assertCurrentStateEquals("allGoodsList");
 
-		DataModel dataModel = (DataModel) getViewScope().getRequired("products", DataModel.class);
-		ArrayList<Product> allProducts = (ArrayList<Product>) dataModel.getWrappedData();
+		ArrayList<Product> allProducts = (ArrayList<Product>) getViewScope().getRequired("products");
 		assertFalse("all products can't be empty (I swear)", allProducts.isEmpty());
 	}
 
@@ -102,8 +103,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		assertCurrentStateEquals("goodsListForCategory");
 
-		DataModel dataModel = (DataModel) getViewScope().getRequired("products", DataModel.class);
-		ArrayList<Product> allProducts = (ArrayList<Product>) dataModel.getWrappedData();
+		ArrayList<Product> allProducts = (ArrayList<Product>) getViewScope().getRequired("products");
 
 		assertEquals("Wrong products fetched", utils.asList(c.getProducts()), allProducts);
 	}
@@ -115,14 +115,6 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		startFlow(input, context);
 
-		OneSelectionTrackingListDataModel dm = (OneSelectionTrackingListDataModel)
-				getViewScope().getRequired("products", OneSelectionTrackingListDataModel.class);
-
-		ArrayList<Product> products = (ArrayList<Product>) dm.getWrappedData();
-		Product p = products.get(0);
-
-		dm.select(p);
-
 		context.setEventId("selectGood");
 		resumeFlow(context);
 
@@ -133,17 +125,31 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	public void testEditSubflow() {
 		final Long prodId = new Long(1L);
-		OneSelectionTrackingListDataModel dataModel = FlowTestUtils.getProductDataModel(prodId);
+//		OneSelectionTrackingListDataModel dataModel = FlowTestUtils.getProductDataModel(prodId);
 
 		setCurrentState("allGoodsList");
 
 		MockExternalContext context = new MockExternalContext();
 
 		resumeFlow(context);
-		getFlowScope().put("products", dataModel);
+
+		Product p1 = new Product("p1");
+		p1.setId(prodId);
+
+		Product p2 = new Product("p2");
+
+		ArrayList<Product> products = new ArrayList<Product>();
+		products.add(p1);
+		products.add(p2);
+
+		getFlowScope().put("products", products);
 
 		context.setEventId("edit");
 
+		MockParameterMap map = new MockParameterMap();
+		map.put("productId", prodId.toString());
+		
+		context.setRequestParameterMap(map);
 		Flow editProductSubflow = FlowTestUtils.getMockEditProductSubflow(prodId);
 		
 		getFlowDefinitionRegistry().registerFlowDefinition(editProductSubflow);
@@ -159,16 +165,28 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	public void testEditImagesSubflow() {
 		final Long prodId = new Long(1L);
-		OneSelectionTrackingListDataModel dataModel = FlowTestUtils.getProductDataModel(prodId);
+		Product p1 = new Product("p1");
+		p1.setId(prodId);
+
+		Product p2 = new Product("p2");
+
+		ArrayList<Product> products = new ArrayList<Product>();
+		products.add(p1);
+		products.add(p2);
 
 		setCurrentState("allGoodsList");
 
 		MockExternalContext context = new MockExternalContext();
 
 		resumeFlow(context);
-		getFlowScope().put("products", dataModel);
+		getFlowScope().put("products", products);
 
 		context.setEventId("editImages");
+
+		MockParameterMap map = new MockParameterMap();
+		map.put("productId", prodId.toString());
+
+		context.setRequestParameterMap(map);
 
 		Flow imagesManagerSubflow = FlowTestUtils.createMockImagesManagerFlow(prodId);
 
@@ -191,10 +209,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		startFlow(input, context);
 
 
-		OneSelectionTrackingListDataModel dm = (OneSelectionTrackingListDataModel)
-				getViewScope().getRequired("products", OneSelectionTrackingListDataModel.class);
-
-		ArrayList<Product> products = (ArrayList<Product>) dm.getWrappedData();
+		ArrayList<Product> products = (ArrayList<Product>) getViewScope().getRequired("products");
 		Product p = products.get(0);
 
 		Set<Image> images = p.getImages();
@@ -206,7 +221,9 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 			restoreManagers[i].backup();
 		}
 
-		dm.select(p);
+		MockParameterMap map = new MockParameterMap();
+		map.put("productId", p.getId().toString());
+		context.setRequestParameterMap(map);
 
 		context.setEventId("delete");
 		try {
@@ -233,13 +250,13 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		startFlow(input, context);
 
 
-		OneSelectionTrackingListDataModel dm = (OneSelectionTrackingListDataModel)
-				getViewScope().getRequired("products", OneSelectionTrackingListDataModel.class);
 
-		ArrayList<Product> products = (ArrayList<Product>) dm.getWrappedData();
+		ArrayList<Product> products = (ArrayList<Product>) getViewScope().getRequired("products");
 		Product p = products.get(0);
 
-		dm.select(p);
+		MockParameterMap map = new MockParameterMap();
+		map.put("productId", p.getId().toString());
+		context.setRequestParameterMap(map);
 
 		context.setEventId("buy");
 

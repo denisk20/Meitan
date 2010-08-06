@@ -17,7 +17,7 @@
             <c:forEach items="#{products}" var="product">
                 <div class="imageItem">
 
-                    <denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}"
+                    <denis:image imageName="#{product.name} - #{product.price}" imageUrl="#{product.avatar.url}"
                                  action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
 
                     <!--todo make a tag-->
@@ -50,45 +50,8 @@
                             </li>
                         </ul>
                     </div>
-
-
                 </div>
             </c:forEach>
-            <!--
-            <h:dataTable id="products" value="#{products}" var="product"
-                         rendered="#{products.rowCount > 0}" >
-                <h:column>
-                    <f:facet name="header">Продукты </f:facet>
-
-                    <denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}" action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
-
-                    &lt;!&ndash;todo make a tag&ndash;&gt;
-                    <div class="actionMenu">
-                        <ul>
-                            <sec:ifAllGranted roles="ROLE_ADMIN">
-                                <li>
-                                    <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit"/>
-                                </li>
-                                <li>
-                                    <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
-                                                    action="editImages"/>
-                                </li>
-                                <li>
-                                    <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
-                                                    processIds="*"/>
-                                </li>
-                            </sec:ifAllGranted>
-                            <li>
-                                <sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
-                                                processIds="*"/>
-                            </li>
-                        </ul>
-                    </div>
-
-                </h:column>
-
-            </h:dataTable>
--->
         </h:form>
     </ui:define>
 </ui:composition>

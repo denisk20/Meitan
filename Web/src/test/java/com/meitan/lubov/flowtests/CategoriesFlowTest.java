@@ -17,6 +17,7 @@ import org.springframework.webflow.engine.EndState;
 import org.springframework.webflow.engine.Flow;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
+import org.springframework.webflow.test.MockParameterMap;
 
 import javax.faces.model.DataModel;
 import java.io.IOException;
@@ -49,8 +50,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		startFlow(context);
 
 		assertCurrentStateEquals("categories");
-		DataModel categoriesDataModel = (DataModel) getRequiredViewAttribute("categories", DataModel.class);
-		List<Category> categories = (List<Category>) categoriesDataModel.getWrappedData();
+		List<Category> categories = (List<Category>) getRequiredViewAttribute("categories");
 		assertEquals("Wrong number of categories fetched from DB", 1, categories.size());
 	}
 
@@ -76,10 +76,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		ArrayList<Category> list = new ArrayList<Category>();
 		list.add(c);
 
-		OneSelectionTrackingListDataModel model = new OneSelectionTrackingListDataModel(list);
-		model.select(c);
-		
-		getViewScope().put("categories", model);
+		getViewScope().put("categories", list);
 
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("selectCategory");
@@ -100,17 +97,20 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 		ArrayList<Category> categories = new ArrayList<Category>();
 		categories.add(c);
-		OneSelectionTrackingListDataModel categoriesDataModel = new OneSelectionTrackingListDataModel(categories);
-		categoriesDataModel.select(c);
-		
-		getViewScope().put("categories", categoriesDataModel);
+
+		getViewScope().put("categories", categories);
 
 		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockEditCategoryFlow(categoryId));
 
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("edit");
-		
+
+		MockParameterMap map = new MockParameterMap();
+		map.put("categoryId", Long.toString(categoryId));
+		context.setRequestParameterMap(map);
+
 		resumeFlow(context);
+
 
 		assertFlowExecutionActive();
 		assertCurrentStateEquals("categories");
@@ -128,15 +128,17 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		ArrayList<Category> imageAwares = new ArrayList<Category>();
 		imageAwares.add(c);
 
-		OneSelectionTrackingListDataModel categoriesDataModel = new OneSelectionTrackingListDataModel(imageAwares);
-		categoriesDataModel.select(c);
 
-		getViewScope().put("categories", categoriesDataModel);
+		getViewScope().put("categories", imageAwares);
 
 		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockImagesManagerFlow(categoryId));
 
 		MockExternalContext context = new MockExternalContext();
 		context.setEventId("editimages");
+
+		MockParameterMap map = new MockParameterMap();
+		map.put("productId", Long.toString(categoryId));
+		context.setRequestParameterMap(map);
 
 		resumeFlow(context);
 
@@ -155,15 +157,18 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		ArrayList<Category> categories = new ArrayList<Category>();
 		categories.add(persistentCategory);
 
-		OneSelectionTrackingListDataModel categoriesDataModel = new OneSelectionTrackingListDataModel(categories);
-		categoriesDataModel.select(persistentCategory);
 
 		try {
 			setCurrentState("categories");
 
-			getViewScope().put("categories", categoriesDataModel);
+			getViewScope().put("categories", categories);
 
 			MockExternalContext context = new MockExternalContext();
+
+			MockParameterMap map = new MockParameterMap();
+			map.put("categoryId", persistentCategory.getId().toString());
+			context.setRequestParameterMap(map);
+
 			context.setEventId("delete");
 
 			resumeFlow(context);
