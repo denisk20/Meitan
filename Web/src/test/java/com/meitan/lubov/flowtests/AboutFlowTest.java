@@ -48,13 +48,15 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
 
-		Resource localFlowResource = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractBoard/abstractBoard-flow.xml"));
 
 		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
 
 		result.addAll(Arrays.asList(superResources));
 
-		result.add(new FlowDefinitionResource("abstractBoard", localFlowResource, null));
+		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractBoard/abstractBoard-flow.xml"));
+		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
+		result.add(new FlowDefinitionResource("abstractBoard", localFlowResource1, null));
+		result.add(new FlowDefinitionResource("baseGood", localFlowResource2, null));
 
 		return result.toArray(new FlowDefinitionResource[0]);
 	}
@@ -75,8 +77,7 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 		startFlow(context);
 
 		assertCurrentStateEquals("aboutUs");
-		DataModel newProductsDataModel = (DataModel) getRequiredFlowAttribute("newProducts");
-		ArrayList<Product> newProducts = (ArrayList<Product>) newProductsDataModel.getWrappedData();
+		ArrayList<Product> newProducts = (ArrayList<Product>) getRequiredViewAttribute("newProducts");
 		assertEquals("Wrong number of products", 1, newProducts.size());
 	}
 

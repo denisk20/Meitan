@@ -25,8 +25,8 @@ public class FlowTestUtils {
 			@Override
 			public MappingResults map(Object source, Object target) {
 				AttributeMap sourceMap = (AttributeMap) source;
-				ImageAware imageAware = (ImageAware) sourceMap.get("imageAware", ImageAware.class);
-				assertEquals("Wrong Id of category was selected", itemId, Long.valueOf(imageAware.getId()));
+				Long imageAwareId = (Long) sourceMap.get("id");
+				assertEquals("Wrong Id of category was selected", itemId, imageAwareId);
 				return null;
 			}
 		});

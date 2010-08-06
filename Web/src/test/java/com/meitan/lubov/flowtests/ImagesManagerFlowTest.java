@@ -56,14 +56,15 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
-	@Test
+	@Test(timeout = 10000L)
 	public void testFlowStart() throws IOException {
 		Product product = testProductDao.findAll().get(0);
 		Set<Image> startImages = (Set<Image>) new HashSet(product.getImages()).clone();
 
 		int startImagesCount = startImages.size();
 		MutableAttributeMap input = new LocalAttributeMap();
-		input.put("imageAware", product);
+		input.put("imageAwareId", product.getId());
+		input.put("className", product.getClass().getName());
 
 
 		MockExternalContext context = new MockExternalContext(
@@ -107,7 +108,8 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 
 		int startImagesCount = startImages.size();
 		MutableAttributeMap input = new LocalAttributeMap();
-		input.put("imageAware", product);
+		input.put("imageAwareId", product.getId());
+		input.put("className", product.getClass().getName());
 
 		MockExternalContext context = new MockExternalContext();
 		startFlow(input, context);

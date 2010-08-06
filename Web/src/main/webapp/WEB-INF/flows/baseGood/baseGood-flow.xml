@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+		parent="global">
+
+	<view-state id="baseGood">
+		<transition on="selectGood" to="goodFlow">
+			<set name="requestScope.productId" value="requestParameters.id"/>
+		</transition>
+
+		<transition on="edit" to="edit">
+			<set name="flashScope.productId" value="requestParameters.productId" type="long"/>
+		</transition>
+
+		<transition on="editImages" to="imagesManager">
+			<set name="flashScope.productId" value="requestParameters.productId" type="long"/>
+		</transition>
+
+		<!--todo this is not quite right. We don't have to execute anything to determine the actual flow-->
+		<transition on="delete" to="#{outState}">
+			<set name="requestScope.deleteId" value="requestParameters.productId" type="long"/>
+			<evaluate expression="productDao.deleteById(deleteId)"/>
+		</transition>
+
+		<transition on="buy" to="#{outState}">
+			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
+			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>
+			<evaluate expression="cart.addItem(product)"/>
+		</transition>
+
+	</view-state>
+	<subflow-state id="edit" subflow="editGood">
+		<input name="productId" value="productId"/>
+		<!--todo hack again... see above comment-->
+		<transition to="#{outState}"/>
+	</subflow-state>
+
+	<subflow-state id="imagesManager" subflow="imagesManager">
+		<input name="imageAwareId" value="productId"/>
+		<input name="className" value="'com.meitan.lubov.model.persistent.Product'"/>
+		<!--todo hack again... see above comment-->
+		<transition on="save" to="#{outState}"/>
+	</subflow-state>
+
+	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}"/>
+
+</flow>

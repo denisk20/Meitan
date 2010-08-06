@@ -2,44 +2,26 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global"
+		parent="baseGood"
 		start-state="allCategoriesQueried">
 
 	<input name="categoryId" type="long" required="false" />
+
+	<on-start>
+		<set name="flowScope.outState" value="'allCategoriesQueried'"/>
+	</on-start>
 
 	<decision-state id="allCategoriesQueried">
 		<if test="categoryId != null" then="goodsListForCategory" else="allGoodsList"/>
 	</decision-state>
 
-	<view-state id="baseGoodList" view="goodsListForCategory.xhtml">
-		<transition on="selectGood" to="goodFlow">
-			<!--<set name="requestScope.productId" value="products.selectedRow.id"/>-->
-			<set name="requestScope.productId" value="requestParameters.id"/>
-		</transition>
+	<view-state id="baseGoodList" parent="baseGood#baseGood" view="goodsListForCategory.xhtml">
 
-		<transition on="edit" to="edit">
-			<set name="flashScope.productId" value="requestParameters.productId" type="long"/>
-		</transition>
-
-		<transition on="editImages" to="imagesManager">
-			<set name="flashScope.productId" value="requestParameters.productId" type="long"/>
-		</transition>
-
-		<!--todo this is not quite right. We don't have to execute anything to determine the actual flow-->
-		<transition on="delete" to="allCategoriesQueried">
-			<set name="requestScope.deleteId" value="requestParameters.productId" type="long"/>
-			<evaluate expression="productDao.deleteById(deleteId)"/>
-		</transition>
-
-		<transition on="buy" to="allCategoriesQueried">
-			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
-			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>
-			<evaluate expression="cart.addItem(product)"/>
-		</transition>
 		<transition on="back" to="back"/>
 	</view-state>
 
 	<view-state id="goodsListForCategory" parent="viewGoods#baseGoodList">
+		<!--this should be on-render - it work because this is re-entered all the time-->
 		<on-entry>
 			<!--<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>-->
 			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products"/>
@@ -52,20 +34,6 @@
 		</on-entry>
 	</view-state>
 
-	<end-state id="goodFlow" view="flowRedirect:good?goodId=#{productId}"/>
-	
-	<subflow-state id="edit" subflow="editGood">
-		<input name="productId" value="productId"/>
-		<!--todo hack again... see above comment-->
-		<transition to="allCategoriesQueried"/>
-	</subflow-state>
-
-	<subflow-state id="imagesManager" subflow="imagesManager">
-		<input name="imageAwareId" value="productId"/>
-		<input name="className" value="'com.meitan.lubov.model.persistent.Product'"/>
-		<!--todo hack again... see above comment-->
-		<transition on="save" to="allCategoriesQueried"/>
-	</subflow-state>
 
 	<end-state id="back"/>
 </flow>

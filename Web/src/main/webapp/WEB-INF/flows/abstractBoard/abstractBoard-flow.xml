@@ -5,8 +5,8 @@
 		parent="global">
 <!--todo unit test-->
 	<input name="lastSavedItem" required="false"/>
-
-	<view-state id="abstractBoardViewState">
+<!--this parent here is total hack to overcome the fact that views don't support multiple parents-->
+	<view-state id="abstractBoardViewState" parent="baseGood#baseGood">
 		<on-entry>
             <evaluate expression="newsBoardDao.getForType(boardType)" result="flowScope.board"/>
 		</on-entry>
@@ -20,7 +20,7 @@
 			<set name="requestScope.savedItem" value="utils.getShortName(boardItems.selectedRow.content)"/>
 		</transition>
 
-		<transition on="delete" to="#{viewName}">
+		<transition on="deleteNews" to="#{viewName}">
 			<evaluate expression="newsBoardDao.makeTransient(boardItems.selectedRow)"/>
 		</transition>
 

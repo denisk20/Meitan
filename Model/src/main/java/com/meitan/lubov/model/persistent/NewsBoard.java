@@ -79,9 +79,6 @@ public class NewsBoard extends PersistentOrderableImpl implements Serializable {
 
 	@Override
 	public String toString() {
-		return "NewsBoard{" +
-				"id=" + id +
-				", items=" + items +
-				'}';
+		return "NewsBoard{" + "id=" + id + ", boardType=" + boardType + '}';
 	}
 }

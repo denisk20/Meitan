@@ -7,7 +7,7 @@
 	<!--todo remove this after finishing unit tests-->
 	<persistence-context/>
 
-	<input name="imageAwareId" required="true"/>
+	<input name="imageAwareId" required="true" type="long"/>
 	<input name="className" required="true"/>
 
 	<view-state id="imagesManager">
