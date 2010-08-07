@@ -10,26 +10,21 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-        <h1>Add your category</h1>
+        <h1>Создание новой категории</h1>
         <h:form>
-            <sf:clientTextValidator promptMessage="Enter category name">
-                <h:inputText id="categoryName" value="#{newCategory.name}"/>
-            </sf:clientTextValidator>
-            <br/>
-            <sf:commandButton id="createCategoryButton" value="Create category!" processIds="*" action="create"/>
-            <sf:commandButton value="Cancel" action="cancel"/>
+            <fieldset>
+                <div class="field">
+                    <div class="label">Введите название категории</div>
+                    <div class="input">
+                        <sf:clientTextValidator promptMessage="Введите название категории товаров">
+                            <h:inputText id="categoryName" value="#{newCategory.name}"/>
+                        </sf:clientTextValidator>
+                    </div>
+                </div>
+                <sf:commandButton id="createCategoryButton" value="Создать категорию!" processIds="*" action="create"/>
+                <sf:commandButton value="Отмена" action="cancel"/>
+            </fieldset>
         </h:form>
 
-<!--
-			<c:if test="${!empty(file)}">
-				<pre style="border: solid 1px;">${file}</pre>
-			</c:if>
-
-        <h:form enctype="multipart/form-data">
-            <input type="file" name="file"/>
-            <h:commandButton action="upload" value="Upload" />
-        </h:form>
-
--->
     </ui:define>
 </ui:composition>
