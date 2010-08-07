@@ -37,6 +37,15 @@
                 </div>
 
                 <div class="field">
+                    <div class="label">Цена</div>
+                    <div class="input">
+                        <sf:clientCurrencyValidator currency="UAH" promptMessage="Введите цену продукта">
+                            <h:inputText id="inputCurrency" value="#{newGood.price.amount}"/>
+                        </sf:clientCurrencyValidator>
+                    </div>
+                </div>
+
+                <div class="field">
                     <div class="label">Отметьте, если продукт-новинка</div>
                     <div class="input">
                         <h:selectBooleanCheckbox id="isNew" value="#{newGood.new}"/>

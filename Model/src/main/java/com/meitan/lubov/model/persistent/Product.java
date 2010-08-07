@@ -125,6 +125,9 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 	}
 
 	public Price getPrice() {
+		if (price == null) {
+			price = new Price();
+		}
 		return price;
 	}
 
