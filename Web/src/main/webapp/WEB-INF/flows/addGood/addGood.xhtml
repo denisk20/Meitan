@@ -11,27 +11,48 @@
                 template="/WEB-INF/templates/meitan.xhtml">
     <ui:define name="header">
         <!--<script type="text/javascript" src="/WEB-INF/js/jquery-1.4.min.js"></script>-->
-        <sf:resource path="/js/jquery-1.4.js"/>
+        <!--<sf:resource path="/js/jquery-1.4.js"/>-->
 
     </ui:define>
     <ui:define name="content">
-        <h1>Add Product</h1>
+        <h1>Добавить новый продукт</h1>
         <h:form>
-            <sf:clientTextValidator promptMessage="Enter good name">
-                <h:inputText value="#{newGood.name}"/>
-            </sf:clientTextValidator>
-            <br/>
-            <sf:clientTextValidator promptMessage="Enter good description">
-                <h:inputText value="#{newGood.description}"/>
-            </sf:clientTextValidator>
+            <fieldset>
+                <div class="field">
+                    <div class="label">Введите название продукта</div>
+                    <div class="input">
+                        <sf:clientTextValidator promptMessage="Введите название продукта">
+                            <h:inputText id="inputGoodName" value="#{newGood.name}"/>
+                        </sf:clientTextValidator>
+                    </div>
+                </div>
 
-            <h:selectBooleanCheckbox value="#{newGood.new}"/>
+                <div class="field">
+                    <div class="label">Введите описание продукта</div>
+                    <div class="input">
+                        <sf:clientTextValidator promptMessage="Введите описание продукта">
+                            <h:inputText id="inputGoodDescription" value="#{newGood.description}"/>
+                        </sf:clientTextValidator>
+                    </div>
+                </div>
 
-            <h:selectManyListbox id="availableCategoriesListbox" value="#{newGood.categoriesIdArray}">
-                <f:selectItems value="#{categoriesItems}"/>
-                <j4j:idProxy id="_avCat"/>
-            </h:selectManyListbox>
+                <div class="field">
+                    <div class="label">Отметьте, если продукт-новинка</div>
+                    <div class="input">
+                        <h:selectBooleanCheckbox id="isNew" value="#{newGood.new}"/>
+                    </div>
+                </div>
 
+                <div class="field">
+                    <div class="label">Выберите категории для данного продукта</div>
+                    <div class="input">
+                        <h:selectManyListbox id="availableCategoriesListbox" value="#{newGood.categoriesIdArray}">
+                            <f:selectItems value="#{categoriesItems}"/>
+                            <j4j:idProxy id="_avCat"/>
+                        </h:selectManyListbox>
+                    </div>
+                </div>
+            </fieldset>
             <sf:commandButton value="Create product!" processIds="*" action="create"/>
             <sf:commandButton value="Back" action="back"/>
 

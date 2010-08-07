@@ -1,35 +1,58 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:sf="http://www.springframework.org/tags/faces"
-				xmlns:form="http://www.springframework.org/tags/form"
-				template="/WEB-INF/templates/meitan.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sf="http://www.springframework.org/tags/faces"
+                xmlns:form="http://www.springframework.org/tags/form"
+                template="/WEB-INF/templates/meitan.xhtml">
 
-	<ui:define name="content">
-		<h:messages/>
-		<h1>Edit product</h1>
-		<h:form>
-			<sf:clientTextValidator promptMessage="Change the name or the product">
-				<h:inputText id="categoryName" value="#{product.name}"/>
-			</sf:clientTextValidator>
-			<br/>
-			<sf:clientTextValidator promptMessage="Enter good description">
-				<h:inputText value="#{product.description}"/>
-			</sf:clientTextValidator>
+    <ui:define name="content">
+        <h:messages/>
 
-			<h:selectBooleanCheckbox value="#{product.new}"/>
-<br/>
-			<ui:repeat value="#{categoriesSelector.items}" var="selectable">
-				<h:selectBooleanCheckbox value="#{selectable.selected}"/><h:outputLabel value="#{selectable.label}"/>
-				<br/>
-			</ui:repeat>
+        <h1>Изменить продукт</h1>
+        <h:form>
+            <fieldset>
+                <div class="field">
+                    <div class="label">Название продукта</div>
+                    <div class="input">
+                        <sf:clientTextValidator promptMessage="Введите название продукта">
+                            <h:inputText id="categoryName" value="#{product.name}"/>
+                        </sf:clientTextValidator>
+                    </div>
+                </div>
 
-			<sf:commandButton id="createCategoryButton" value="Save" processIds="*" action="save"/>
-			<sf:commandButton value="Back" action="back"/>
-		</h:form>
+                <div class="field">
+                    <div class="label">Описание продукта</div>
+                    <div class="input">
+                        <sf:clientTextValidator promptMessage="Введите описание продукта">
+                            <h:inputText value="#{product.description}"/>
+                        </sf:clientTextValidator>
+                    </div>
+                </div>
 
-	</ui:define>
+                <div class="field">
+                    <div class="label">Отметьте, если продукт - новинка</div>
+                    <div class="input">
+                        <h:selectBooleanCheckbox value="#{product.new}"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="label">Выберите категории для данного продукта</div>
+                    <div class="input">
+                        <ui:repeat value="#{categoriesSelector.items}" var="selectable">
+                            <h:selectBooleanCheckbox value="#{selectable.selected}"/>
+                            <h:outputLabel value="#{selectable.label}"/>
+                            <br/>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </fieldset>
+            <sf:commandButton id="createCategoryButton" value="Сохранить" processIds="*" action="save"/>
+            <sf:commandButton value="Назад" action="back"/>
+        </h:form>
+
+    </ui:define>
 </ui:composition>

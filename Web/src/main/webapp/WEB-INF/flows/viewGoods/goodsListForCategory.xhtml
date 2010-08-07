@@ -17,7 +17,7 @@
             <c:forEach items="#{products}" var="product">
                 <div class="imageItem">
 
-                    <denis:image imageName="#{product.name} - #{product.price}" imageUrl="#{product.avatar.url}"
+                    <denis:image imageName="#{product.name} - #{product.price.amount}" imageUrl="#{product.avatar.url}"
                                  action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
 
                     <!--todo make a tag-->
