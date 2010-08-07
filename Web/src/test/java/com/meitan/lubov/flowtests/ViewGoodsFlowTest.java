@@ -67,15 +67,16 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
 
-
 		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
 
 		result.addAll(Arrays.asList(superResources));
 
 		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/viewGoods/viewGoods-flow.xml"));
 		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
+		Resource localFlowResource3 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
 		result.add(new FlowDefinitionResource("baseGood", localFlowResource2, null));
 		result.add(new FlowDefinitionResource("viewGoods", localFlowResource1, null));
+		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource3, null));
 
 		return result.toArray(new FlowDefinitionResource[0]);
 	}
@@ -83,7 +84,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	public void testViewAllFlowStart() {
 		MockExternalContext context = new MockExternalContext();
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
+		LocalAttributeMap input = new LocalAttributeMap("id", null);
 
 		startFlow(input, context);
 
@@ -97,7 +98,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	public void testParticularCategoryFlowStart() {
 		Category c = testCategoryDao.findAll().get(0);
 		MockExternalContext context = new MockExternalContext();
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", c.getId());
+		LocalAttributeMap input = new LocalAttributeMap("id", c.getId());
 
 		startFlow(input, context);
 
@@ -110,100 +111,82 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testSelectGood() {
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
+		LocalAttributeMap input = new LocalAttributeMap("abstractEditable", null);
 		MockExternalContext context = new MockExternalContext();
 
 		startFlow(input, context);
 
-		context.setEventId("selectGood");
+		context.setEventId("select");
 		resumeFlow(context);
 
 		assertFlowExecutionEnded();
-		assertFlowExecutionOutcomeEquals("goodFlow");
+		assertFlowExecutionOutcomeEquals("selectFlow");
 	}
 
 	@Test
 	public void testEditSubflow() {
 		final Long prodId = new Long(1L);
 //		OneSelectionTrackingListDataModel dataModel = FlowTestUtils.getProductDataModel(prodId);
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
 
 		setCurrentState("allGoodsList");
 
-		MockExternalContext context = new MockExternalContext();
 
 		resumeFlow(context);
 
-		Product p1 = new Product("p1");
-		p1.setId(prodId);
+		MockParameterMap map = new MockParameterMap();
+		map.put("id", prodId.toString());
 
-		Product p2 = new Product("p2");
-
-		ArrayList<Product> products = new ArrayList<Product>();
-		products.add(p1);
-		products.add(p2);
-
-		getFlowScope().put("products", products);
+		context.setRequestParameterMap(map);
 
 		context.setEventId("edit");
-
-		MockParameterMap map = new MockParameterMap();
-		map.put("productId", prodId.toString());
 		
-		context.setRequestParameterMap(map);
 		Flow editProductSubflow = FlowTestUtils.getMockEditProductSubflow(prodId);
 		
 		getFlowDefinitionRegistry().registerFlowDefinition(editProductSubflow);
 
-		getFlowScope().put("categoryId", null);
+		getFlowScope().put("id", null);
 		
 		resumeFlow(context);
 
 		assertFlowExecutionActive();
-		assertCurrentStateEquals("allGoodsList");
+		assertCurrentStateEquals("goodsListForCategory");
 	}
 
 	@Test
 	public void testEditImagesSubflow() {
-		final Long prodId = new Long(1L);
-		Product p1 = new Product("p1");
-		p1.setId(prodId);
-
-		Product p2 = new Product("p2");
-
-		ArrayList<Product> products = new ArrayList<Product>();
-		products.add(p1);
-		products.add(p2);
-
-		setCurrentState("allGoodsList");
-
 		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
 
-		resumeFlow(context);
-		getFlowScope().put("products", products);
+		final Long prodId = new Long(1L);
 
-		context.setEventId("editImages");
+		assertCurrentStateEquals("allGoodsList");
 
 		MockParameterMap map = new MockParameterMap();
-		map.put("productId", prodId.toString());
+		//todo this actually sets IDs of both input and request parameters. I can't figure out how to reset input after this because I don't have access to the source of org.springframework.binding.mapping.Mapper
+		map.put("id", prodId.toString());
 
 		context.setRequestParameterMap(map);
 
-		Flow imagesManagerSubflow = FlowTestUtils.createMockImagesManagerFlow(prodId);
+
+		Flow imagesManagerSubflow = FlowTestUtils.createMockImagesManagerFlow(prodId, Product.class.getName());
 
 		getFlowDefinitionRegistry().registerFlowDefinition(imagesManagerSubflow);
 
-		getFlowScope().put("categoryId", null);
+		context.setEventId("editImages");
 
 		resumeFlow(context);
 
 		assertFlowExecutionActive();
-		assertCurrentStateEquals("allGoodsList");
+
+		assertCurrentStateEquals("goodsListForCategory");
 
 	}
 
 	@Test
 	public void testDeleteGood() throws IOException {
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
+		LocalAttributeMap input = new LocalAttributeMap("id", null);
 		MockExternalContext context = new MockExternalContext();
 
 		startFlow(input, context);
@@ -222,7 +205,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		}
 
 		MockParameterMap map = new MockParameterMap();
-		map.put("productId", p.getId().toString());
+		map.put("id", p.getId().toString());
 		context.setRequestParameterMap(map);
 
 		context.setEventId("delete");
@@ -244,7 +227,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testBuyGood() {
-		LocalAttributeMap input = new LocalAttributeMap("categoryId", null);
+		LocalAttributeMap input = new LocalAttributeMap("id", null);
 		MockExternalContext context = new MockExternalContext();
 
 		startFlow(input, context);

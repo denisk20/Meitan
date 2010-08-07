@@ -4,15 +4,16 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
 
-	<input name="goodId" required="true" type="long" />
+	<input name="id" required="true" type="long" />
 
 	<on-start>
-		<evaluate expression="productDao.findById(goodId)" result="flowScope.product"/>
+		<evaluate expression="productDao.findById(id)" result="flowScope.product"/>
         <evaluate expression="utils.asList(product.images)" result="flowScope.imagesList" result-type="dataModel"/>
 		
 		<set name="flashScope.selectedImage" value="utils.asList(product.images).get(0)"/>
 	</on-start>
 	<view-state id="good">
+        <!--todo how to unit test this?-->
         <transition on="hitImage">
             <set name="flashScope.selectedImage" value="imagesList.selectedRow"/>
             <render fragments="bigPicture"/>

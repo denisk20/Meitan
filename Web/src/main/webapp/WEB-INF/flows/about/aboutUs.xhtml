@@ -31,25 +31,25 @@
                 <div class="imageItem">
 
                     <denis:image imageName="#{product.name}" imageUrl="#{product.avatar.url}"
-                                 action="#{utils.getMethodExpression('selectGood')}" id="#{product.id}"/>
+                                 action="#{utils.getMethodExpression('select')}" id="#{product.id}"/>
                     <div class="actionMenu">
                         <ul>
                             <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
                             <li>
                                 <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
-                                    <f:param name="productId" value="#{product.id}"/>
+                                    <f:param name="id" value="#{product.id}"/>
                                 </sf:commandLink>
                             </li>
                             <li>
                                 <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
                                                 action="editImages">
-                                    <f:param name="productId" value="#{product.id}"/>
+                                    <f:param name="id" value="#{product.id}"/>
                                 </sf:commandLink>
                             </li>
                             <li>
                                 <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
                                                 processIds="*">
-                                    <f:param name="productId" value="#{product.id}"/>
+                                    <f:param name="id" value="#{product.id}"/>
                                 </sf:commandLink>
                             </li>
                             <!--</sec:ifAllGranted>-->

@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.mapping.Mapper;
 import org.springframework.binding.mapping.MappingResults;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
@@ -20,8 +22,10 @@ import org.springframework.webflow.test.MockFlowBuilderContext;
 import org.springframework.webflow.test.MockParameterMap;
 
 import javax.faces.model.DataModel;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,6 +36,21 @@ import java.util.List;
 public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private CategoryDao testCategoryDao;
+
+	@Override
+	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
+		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
+
+
+		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
+
+		result.addAll(Arrays.asList(superResources));
+
+		Resource localFlowResource3 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
+		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource3, null));
+
+		return result.toArray(new FlowDefinitionResource[0]);
+	}
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
@@ -57,18 +76,20 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	public void testViewAllGoods() {
 		MockExternalContext context = new MockExternalContext();
-
+		startFlow(context);
 		setCurrentState("categories");
 		context.setEventId("all");
 
 		resumeFlow(context);
 
 		assertFlowExecutionEnded();
-		assertFlowExecutionOutcomeEquals("goodsListForCategory");
+		assertFlowExecutionOutcomeEquals("selectFlow");
 	}
 
 	@Test
 	public void testViewGoodsForCategory() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
 
 		setCurrentState("categories");
 		Category c = new Category("some category");
@@ -78,36 +99,31 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 		getViewScope().put("categories", list);
 
-		MockExternalContext context = new MockExternalContext();
-		context.setEventId("selectCategory");
+		context.setEventId("select");
 
 		resumeFlow(context);
 
 		assertFlowExecutionEnded();
-		assertFlowExecutionOutcomeEquals("goodsListForCategory");
+		assertFlowExecutionOutcomeEquals("selectFlow");
 	}
 
 	@Test
 	public void testEditCategory() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+		
 		setCurrentState("categories");
 
-		Category c = new Category("myCategory");
 		long categoryId = 1L;
-		c.setId(categoryId);
-
-		ArrayList<Category> categories = new ArrayList<Category>();
-		categories.add(c);
-
-		getViewScope().put("categories", categories);
 
 		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockEditCategoryFlow(categoryId));
 
-		MockExternalContext context = new MockExternalContext();
-		context.setEventId("edit");
 
 		MockParameterMap map = new MockParameterMap();
-		map.put("categoryId", Long.toString(categoryId));
+		map.put("id", Long.toString(categoryId));
 		context.setRequestParameterMap(map);
+
+		context.setEventId("edit");
 
 		resumeFlow(context);
 
@@ -119,26 +135,20 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	//todo merge this with testEditCategory
 	@Test
 	public void testEditImages() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
 		setCurrentState("categories");
 
-		Category c = new Category("myCategory");
 		long categoryId = 1L;
-		c.setId(categoryId);
 
-		ArrayList<Category> imageAwares = new ArrayList<Category>();
-		imageAwares.add(c);
-
-
-		getViewScope().put("categories", imageAwares);
-
-		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockImagesManagerFlow(categoryId));
-
-		MockExternalContext context = new MockExternalContext();
-		context.setEventId("editimages");
+		getFlowDefinitionRegistry().registerFlowDefinition(FlowTestUtils.createMockImagesManagerFlow(categoryId, Category.class.getName()));
 
 		MockParameterMap map = new MockParameterMap();
-		map.put("productId", Long.toString(categoryId));
+		map.put("id", Long.toString(categoryId));
 		context.setRequestParameterMap(map);
+
+		context.setEventId("editImages");
 
 		resumeFlow(context);
 
@@ -149,6 +159,8 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	@Test
 	//todo update to test product deletion as well
 	public void testDeleteCategory() throws IOException {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
 		Category persistentCategory = testCategoryDao.findAll().get(0);
 
 		FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(rootPath + persistentCategory.getImage().getUrl());
@@ -157,16 +169,14 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		ArrayList<Category> categories = new ArrayList<Category>();
 		categories.add(persistentCategory);
 
-
 		try {
 			setCurrentState("categories");
 
 			getViewScope().put("categories", categories);
 
-			MockExternalContext context = new MockExternalContext();
 
 			MockParameterMap map = new MockParameterMap();
-			map.put("categoryId", persistentCategory.getId().toString());
+			map.put("id", persistentCategory.getId().toString());
 			context.setRequestParameterMap(map);
 
 			context.setEventId("delete");

@@ -39,7 +39,7 @@ public class GoodFlowTest extends AbstractFlowIntegrationTest{
 	public void testFlowStart() {
 		Product p = testProductDao.findAll().get(0);
 		LocalAttributeMap input = new LocalAttributeMap();
-		input.put("goodId", p.getId());
+		input.put("id", p.getId());
 		MockExternalContext context = new MockExternalContext();
 		startFlow(input, context);
 

@@ -2,17 +2,21 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="baseGood"
+		parent="baseGood,abstractEditable"
 		start-state="allCategoriesQueried">
 
-	<input name="categoryId" type="long" required="false" />
+	<input name="id" type="long" required="false" />
 
 	<on-start>
 		<set name="flowScope.outState" value="'allCategoriesQueried'"/>
+		<set name="flowScope.selectFlow" value="'good'"/>
+		<set name="flowScope.editFlow" value="'editGood'"/>
+		<set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Product'"/>
+		<set name="conversationScope.dao" value="productDao"/>
 	</on-start>
 
 	<decision-state id="allCategoriesQueried">
-		<if test="categoryId != null" then="goodsListForCategory" else="allGoodsList"/>
+		<if test="id != null" then="goodsListForCategory" else="allGoodsList"/>
 	</decision-state>
 
 	<view-state id="baseGoodList" parent="baseGood#baseGood" view="goodsListForCategory.xhtml">
@@ -24,7 +28,7 @@
 		<!--this should be on-render - it work because this is re-entered all the time-->
 		<on-entry>
 			<!--<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>-->
-			<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products"/>
+			<evaluate expression="productDao.getForCategory(id)" result="viewScope.products"/>
 		</on-entry>
 	</view-state>
 

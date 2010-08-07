@@ -9,10 +9,10 @@
 	<!--this can't be removed-->    
 	<persistence-context/>
 
-	<input name="categoryId" required="true"/>
+	<input name="id" required="true"/>
 
 	<on-start>
-		<evaluate expression="categoryDao.findById(categoryId)" result="flowScope.category"/>
+		<evaluate expression="categoryDao.findById(id)" result="flowScope.category"/>
 	</on-start>
 
 	<view-state id="edit" model="category">
