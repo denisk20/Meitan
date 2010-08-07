@@ -57,8 +57,6 @@ public class FileUploadHandlerTest {
 		assertTrue("Image file doesn't exist: " + imageFile, imageFile.exists());
 
 		assertEquals("Wrong image path", (FULL_TESTUPLOAD_DIRECTORY_PATH + "/" + imageName).replaceAll("\\\\", "/"), imageFile.getPath().replaceAll("\\\\", "/"));
-
-		
 	}
 
 	public static MockParameterMap getParameterMapForFileUpload() throws IOException {
@@ -71,6 +69,4 @@ public class FileUploadHandlerTest {
 		parameterMap.put(FileUploadHandler.FILE_PARAM_NAME, multipartFile);
 		return parameterMap;
 	}
-
-
 }

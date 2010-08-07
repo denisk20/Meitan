@@ -51,7 +51,7 @@ public class EditGoodFlowTest extends AbstractFlowIntegrationTest{
 
 		MockExternalContext context = new MockExternalContext();
 		MutableAttributeMap input = new LocalAttributeMap();
-		input.put("productId", p.getId());
+		input.put("id", p.getId());
 
 		startFlow(input, context);
 

@@ -19,19 +19,20 @@ import static org.junit.Assert.*;
  *         Time: 13:01:57
  */
 public class FlowTestUtils {
-	public static Flow createMockImagesManagerFlow(final Long itemId) {
-		Flow editCategory = new Flow("imagesManager");
-		editCategory.setInputMapper(new Mapper(){
+	public static Flow createMockImagesManagerFlow(final Long itemId, final String className) {
+		Flow imagesManager = new Flow("imagesManager");
+		imagesManager.setInputMapper(new Mapper(){
 			@Override
 			public MappingResults map(Object source, Object target) {
 				AttributeMap sourceMap = (AttributeMap) source;
-				Long imageAwareId = (Long) sourceMap.get("id");
+				Long imageAwareId = (Long) sourceMap.get("imageAwareId");
 				assertEquals("Wrong Id of category was selected", itemId, imageAwareId);
+				assertEquals("Wrong className", className, sourceMap.get("className"));
 				return null;
 			}
 		});
-		new EndState(editCategory, "save");
-		return editCategory;
+		new EndState(imagesManager, "save");
+		return imagesManager;
 	}
 
 	public static Flow createMockEditCategoryFlow(final Long categoryId) {
@@ -39,7 +40,7 @@ public class FlowTestUtils {
 		editCategory.setInputMapper(new Mapper(){
 			@Override
 			public MappingResults map(Object source, Object target) {
-				assertEquals("Wrong Id of category was selected", 1L, ((AttributeMap) source).get("categoryId", Long.class));
+				assertEquals("Wrong Id of category was selected", categoryId, ((AttributeMap) source).get("id", Long.class));
 				return null;
 			}
 		});
@@ -52,7 +53,7 @@ public class FlowTestUtils {
 		editCategorySubflow.setInputMapper(new Mapper(){
 			@Override
 			public MappingResults map(Object source, Object target) {
-				assertEquals("Wrong Id of product was selected", prodId, ((AttributeMap) source).get("productId", Long.class));
+				assertEquals("Wrong Id of product was selected", prodId, ((AttributeMap) source).get("id", Long.class));
 				return null;
 			}
 		});

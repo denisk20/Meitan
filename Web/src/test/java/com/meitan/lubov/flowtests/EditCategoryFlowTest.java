@@ -35,7 +35,7 @@ public class EditCategoryFlowTest extends AbstractFlowIntegrationTest{
 	public void testFlowStart() {
 		Category persistentCategory = testCategoryDao.findAll().get(0);
 		MutableAttributeMap input = new LocalAttributeMap();
-		input.put("categoryId", persistentCategory.getId());
+		input.put("id", persistentCategory.getId());
 
 		MockExternalContext context = new MockExternalContext();
 		startFlow(input, context);

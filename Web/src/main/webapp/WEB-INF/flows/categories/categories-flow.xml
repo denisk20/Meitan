@@ -2,46 +2,34 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-	  parent="global">
+	  parent="global,abstractEditable">
 
-	<view-state id="categories">
+    <on-start>
+        <!--for abstractEditable-->
+        <set name="flowScope.outState" value="'categories'"/>
+        <set name="flowScope.selectFlow" value="'viewGoods'"/>
+        <set name="flowScope.editFlow" value="'editCategory'"/>
+        <set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Category'"/>
+        <set name="conversationScope.dao" value="categoryDao"/>
+    </on-start>
+
+	<view-state id="categories" parent="abstractEditable#abstractEditable">
 		<on-entry>
 			<!--<evaluate expression="categoryDao.findAll()" result="viewScope.categories" result-type="dataModel"/>-->
 			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>
 		</on-entry>
 
-		<transition on="all" to="goodsListForCategory">
-			<set name="requestScope.categoryId" value="null"/>
+		<transition on="all" to="selectFlow">
+			<set name="requestScope.id" value="null"/>
 		</transition>
 
-		<transition on="selectCategory" to="goodsListForCategory">
-			<set name="flashScope.categoryId" value="requestParameters.id" type="long"/>
-		</transition>
-
-		<transition on="edit" to="editCategory">
-			<set name="flashScope.categoryId" value="requestParameters.categoryId" type="long"/>
-		</transition>
-
-		<transition on="editimages" to="editImages">
-			<set name="flashScope.imageAwareId" value="requestParameters.categoryId" type="long"/>
-		</transition>
-
-		<transition on="delete" to="categories">
-			<set name="requestScope.deleteId" value="requestParameters.categoryId" type="long"/>
-			<evaluate expression="categoryDao.deleteById(deleteId)"/>
-		</transition>
 
 		<transition on="add" to="addCategory"/>
 
 		<transition on="addGood" to="addGoodSubflow"/>
 	</view-state>
 
-	<subflow-state id="editCategory" subflow="editCategory">
-		<input name="categoryId" value="flashScope.categoryId"/>
-		<transition to="categories"/>
-	</subflow-state>
 
-	<end-state id="goodsListForCategory" view="flowRedirect:viewGoods?categoryId=#{categoryId}"/>
 
 	<subflow-state id="addCategory" subflow="addCategory">
 		<output name="createdCategoryName"/>
@@ -50,12 +38,6 @@
 	
 	<subflow-state id="addGoodSubflow" subflow="addGood">
 		<transition to="categories"/>
-	</subflow-state>
-
-	<subflow-state id="editImages" subflow="imagesManager">
-		<input name="imageAwareId" value="imageAwareId"/>
-		<input name="className" value="'com.meitan.lubov.model.persistent.Category'"/>
-		<transition on="save" to="categories"/>
 	</subflow-state>
 
 </flow>

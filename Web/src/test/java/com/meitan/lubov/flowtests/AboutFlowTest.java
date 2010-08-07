@@ -55,8 +55,10 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 
 		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractBoard/abstractBoard-flow.xml"));
 		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
+		Resource localFlowResource3 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
 		result.add(new FlowDefinitionResource("abstractBoard", localFlowResource1, null));
 		result.add(new FlowDefinitionResource("baseGood", localFlowResource2, null));
+		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource3, null));
 
 		return result.toArray(new FlowDefinitionResource[0]);
 	}
@@ -83,9 +85,10 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testNavigateToGood() {
-		setCurrentState("aboutUs");
 		MockExternalContext context = new MockExternalContext();
-		context.setEventId("selectGood");
+		startFlow(context);
+		setCurrentState("aboutUs");
+		context.setEventId("select");
 		Product p = new Product("some product");
 		p.setId(1L);
 		ArrayList<Product> list = new ArrayList<Product>();
@@ -97,7 +100,7 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 		resumeFlow(context);
 
 		assertFlowExecutionEnded();
-		assertFlowExecutionOutcomeEquals("goodFlow");
+		assertFlowExecutionOutcomeEquals("selectFlow");
 	}
 
 }

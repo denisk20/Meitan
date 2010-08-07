@@ -9,10 +9,10 @@
 
 	<var name="categoriesSelector" class="com.meitan.lubov.services.util.selectors.CategoriesSelector"/>
 
-	<input name="productId" required="true"/>
+	<input name="id" required="true"/>
 
 	<on-start>
-		<evaluate expression="productDao.findById(productId)" result="flowScope.product"/>
+		<evaluate expression="productDao.findById(id)" result="flowScope.product"/>
 		<evaluate expression="categoryDao.findAll()" result="requestScope.allCategories"/>
 		<evaluate expression="categoriesSelector.addItems(allCategories)"/>
 		<evaluate expression="categoriesSelector.selectAppropriateItems(product.categories)"/>

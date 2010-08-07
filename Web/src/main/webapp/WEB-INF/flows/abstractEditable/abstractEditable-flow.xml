@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+		parent="global">
+
+	<view-state id="abstractEditable">
+		<transition on="select" to="selectFlow">
+			<set name="requestScope.id" value="requestParameters.id"/>
+		</transition>
+
+		<transition on="edit" to="edit">
+			<set name="flashScope.id" value="requestParameters.id" type="long"/>
+		</transition>
+
+		<transition on="editImages" to="imagesManager">
+			<set name="flashScope.id" value="requestParameters.id" type="long"/>
+		</transition>
+
+		<!--todo this is not quite right. We don't have to execute anything to determine the actual flow-->
+		<transition on="delete" to="#{outState}">
+			<set name="requestScope.deleteId" value="requestParameters.id" type="long"/>
+			<evaluate expression="dao.deleteById(deleteId)"/>
+		</transition>
+
+	</view-state>
+	<subflow-state id="edit" subflow="#{editFlow}">
+		<input name="id" value="id"/>
+		<transition to="#{outState}"/>
+	</subflow-state>
+
+	<subflow-state id="imagesManager" subflow="imagesManager">
+		<input name="imageAwareId" value="id"/>
+		<input name="className" value="className"/>
+		<transition on="save" to="#{outState}"/>
+	</subflow-state>
+
+	<end-state id="selectFlow" view="flowRedirect:#{selectFlow}?id=#{id}"/>
+
+</flow>
