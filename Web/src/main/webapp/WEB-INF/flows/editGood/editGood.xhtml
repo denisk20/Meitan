@@ -18,7 +18,7 @@
                     <div class="label">Название продукта</div>
                     <div class="input">
                         <sf:clientTextValidator promptMessage="Введите название продукта">
-                            <h:inputText id="categoryName" value="#{product.name}"/>
+                            <h:inputText id="productName" value="#{product.name}"/>
                         </sf:clientTextValidator>
                     </div>
                 </div>
@@ -27,15 +27,24 @@
                     <div class="label">Описание продукта</div>
                     <div class="input">
                         <sf:clientTextValidator promptMessage="Введите описание продукта">
-                            <h:inputText value="#{product.description}"/>
+                            <h:inputText id="productDescription" value="#{product.description}"/>
                         </sf:clientTextValidator>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="label">Цена</div>
+                    <div class="input">
+                        <sf:clientCurrencyValidator currency="UAH" promptMessage="Введите цену продукта" required="true">
+                            <h:inputText id="inputCurrency" value="#{product.price.amount}" required="true"/>
+                        </sf:clientCurrencyValidator>
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="label">Отметьте, если продукт - новинка</div>
                     <div class="input">
-                        <h:selectBooleanCheckbox value="#{product.new}"/>
+                        <h:selectBooleanCheckbox id="isProductNew" value="#{product.new}"/>
                     </div>
                 </div>
 
@@ -43,8 +52,8 @@
                     <div class="label">Выберите категории для данного продукта</div>
                     <div class="input">
                         <ui:repeat value="#{categoriesSelector.items}" var="selectable">
-                            <h:selectBooleanCheckbox value="#{selectable.selected}"/>
-                            <h:outputLabel value="#{selectable.label}"/>
+                            <h:selectBooleanCheckbox id="categoriesCheckboxes" value="#{selectable.selected}"/>
+                            <h:outputLabel id="checkboxLabel" value="#{selectable.label}"/>
                             <br/>
                         </ui:repeat>
                     </div>
