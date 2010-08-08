@@ -17,10 +17,10 @@
 	<tx:annotation-driven/>
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.h2.Driver"/>
+		<property name="driverClassName" value="${hibernate.connection.driver_class}"/>
 		<property name="url" value="${hibernate.connection.url}"/>
-		<property name="username" value="sa"/>
-		<property name="password" value=""/>
+		<property name="username" value="${hibernate.connection.username}"/>
+		<property name="password" value="${hibernate.connection.password}"/>
 	</bean>
 
 	<!-- Drives transactions using local JPA APIs -->
@@ -34,9 +34,12 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <!--todo next properties can't be removed, otherwise unit tests can't use DB. This worse investigating-->
 				<prop key="hibernate.connection.url">${hibernate.connection.url}</prop>
+				<prop key="hibernate.connection.driver_class">${hibernate.connection.driver_class}</prop>
 				<prop key="hibernate.connection.username">${hibernate.connection.username}</prop>
 				<prop key="hibernate.connection.password">${hibernate.connection.password}</prop>
+				<prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
 			</props>
 		</property>
 		<property name="jpaVendorAdapter">
@@ -44,7 +47,7 @@
 		</property>
 		<property name="persistenceUnitManager">
 			<bean class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
-				<property name="persistenceXmlLocation" value="file:${MEITAN_HOME}/Web/src/test/resources/META-INF/persistence.xml"/>
+				<property name="persistenceXmlLocation" value="file:${MEITAN_HOME}/Web/src/main/resources/META-INF/persistence.xml"/>
 <!--
 				<property name="resourceLoader">
 					<bean class="org.springframework.core.io.FileSystemResource">
