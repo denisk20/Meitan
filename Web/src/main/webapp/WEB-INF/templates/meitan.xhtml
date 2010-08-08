@@ -33,7 +33,7 @@
 		<div id="topPanel">
 			<div id="loginPanel">
 				<c:if test="${not empty currentUser.name}">
-					Welcome, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Выйти</a>
+					Добро пожаловать, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Выйти</a>
 				</c:if>
 				<c:if test="${empty currentUser.name}">
 					<a href="${request.contextPath}/spring/login">Войти</a>
