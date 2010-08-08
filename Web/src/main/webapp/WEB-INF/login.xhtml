@@ -35,22 +35,23 @@
                 <fieldset>
                     <div class="field">
                         <div class="label">Логин:</div>
-                        <div class="output">
+                        <div class="input">
                             <c:if test="${not empty param.login_error}">
                                 <c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
                             </c:if>
 					<input type="text" name="j_username"/>
                         </div>
                     </div>
+
                     <div class="field">
                         <div class="label">Пароль:</div>
-                        <div class="output">
+                        <div class="input">
 					<input type="password" name="j_password" />
                         </div>
                     </div>
                 </fieldset>
                 <div class="buttonGroup">
-			<input name="submit" type="submit" value="Login" />
+			<input name="submit" type="submit" value="Войти в систему" />
                 </div>
             </form>
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html
+		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:sec="http://www.springframework.org/security/facelets/tags"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:denis="http://meitan-kh.com/"
+        xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
+        >
+    <div class="actionMenu" style="float:none;">
+         <ul>
+             <li>
+                 <sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
+                                 processIds="*">
+                     <f:param name="productId" value="#{entity.id}"/>
+                 </sf:commandLink>
+             </li>
+         </ul>
+     </div>
+
+</ui:component>

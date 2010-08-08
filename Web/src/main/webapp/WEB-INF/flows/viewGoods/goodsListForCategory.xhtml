@@ -16,45 +16,12 @@
         <h:form>
             <c:forEach items="#{products}" var="product">
                 <div class="imageItem">
-
                     <denis:image imageName="#{product.name} - #{product.price.amount}" imageUrl="#{product.avatar.url}"
                                  action="#{utils.getMethodExpression('select')}" id="#{product.id}"/>
-
-                    <!--todo make a tag-->
-                    <div class="actionMenu">
-                        <ul>
-                            <!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
-                            <li>
-                                <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
-                                    <f:param name="id" value="#{product.id}"/>
-                                </sf:commandLink>
-                            </li>
-                            <li>
-                                <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
-                                                action="editImages">
-                                    <f:param name="id" value="#{product.id}"/>
-                                </sf:commandLink>
-                            </li>
-                            <li>
-                                <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
-                                                processIds="*">
-                                    <f:param name="id" value="#{product.id}"/>
-                                </sf:commandLink>
-                            </li>
-                            <!--</sec:ifAllGranted>-->
-                        </ul>
-                    </div>
-
-                    <div class="actionMenu" style="float:none;">
-                        <ul>
-                            <li>
-                                <sf:commandLink styleClass="menuItem" value="Купить!" action="buy"
-                                                processIds="*">
-                                    <f:param name="productId" value="#{product.id}"/>
-                                </sf:commandLink>
-                            </li>
-                        </ul>
-                    </div>
+                    <sec:ifAllGranted roles="ROLE_ADMIN">
+                        <denis:actionMenu entity="#{product}"/>
+                    </sec:ifAllGranted>
+                    <denis:goodMenu entity="#{product}"/>
                 </div>
             </c:forEach>
         </h:form>
