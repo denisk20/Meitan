@@ -16,4 +16,13 @@
         <source>tags/board.xhtml</source>
      </tag>
 
+    <tag>
+        <tag-name>actionMenu</tag-name>
+        <source>tags/actionMenu.xhtml</source>
+    </tag>
+
+    <tag>
+        <tag-name>goodMenu</tag-name>
+        <source>tags/goodMenu.xhtml</source>
+    </tag>
 </facelet-taglib>

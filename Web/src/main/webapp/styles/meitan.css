@@ -36,6 +36,7 @@ body {
 #topPanel {
     background-color:    #adff2f;
     height:              100px;
+    margin-bottom: 15px;
 }
 
 #middle {
@@ -43,10 +44,14 @@ body {
     margin-top:          15px;
 }
 
+.contentTable {
+    background-color: white;
+}
+
 .container {
     width:               85%;
     margin:              auto;
-    background-color:    white;
+    background-color:    #ccffff;
     margin-top:          10px;
 
     font-family:         sans-serif;
@@ -111,7 +116,7 @@ a:hover, a:active {
 
 }*/
 .actionMenu {
-    float:left;
+    float:none;
 }
 .actionMenu ul {
     list-style-type:     none;
