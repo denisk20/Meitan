@@ -31,10 +31,10 @@
 
                     <denis:image imageName="#{product.name} - #{product.price.amount}" imageUrl="#{product.avatar.url}"
                                  action="#{utils.getMethodExpression('select')}" id="#{product.id}"/>
-                    <denis:actionMenu entity="#{product}"/>
                     <sec:ifAllGranted roles="ROLE_ADMIN">
-                        <denis:goodMenu entity="#{product}"/>
+                        <denis:actionMenu entity="#{product}"/>
                     </sec:ifAllGranted>
+                    <denis:goodMenu entity="#{product}"/>
                 </div>
             </c:forEach>
         </h:form>
