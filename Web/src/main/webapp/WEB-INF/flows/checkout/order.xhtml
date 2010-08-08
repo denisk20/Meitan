@@ -13,24 +13,24 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1>Order the following goods:</h1>
+		<h1>Вы заказали следующие товары:</h1>
 		<h:form id="orderForm">
 			<h:dataTable id="orderedItemsDT" value="#{cart.items}" var="item">
 				<h:column>
-					<f:facet name="header">Name</f:facet>
+					<f:facet name="header">Товар</f:facet>
 					#{item.item.name}
 				</h:column>
 				<h:column>
-					<f:facet name="header">Quantity</f:facet>
+					<f:facet name="header">Количество</f:facet>
 					#{item.quantity}
 				</h:column>
 				<h:column>
-					<f:facet name="header">Price</f:facet>
+					<f:facet name="header">Цана</f:facet>
 					#{item.price}
 				</h:column>
 			</h:dataTable>
 
-			<h:commandButton value="Make order" action="order"/>
+			<h:commandButton value="Сделать заказ" action="order"/>
 		</h:form>
 
 	</ui:define>
