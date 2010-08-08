@@ -5,11 +5,9 @@
 			 version="1.0">
 	<persistence-unit name="meitanDatabase">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<!--компоненты можно не указывать-->
-        <!--todo why can't we merge this with /Meitan-mama/Web/src/test/resources/META-INF/persistence.xml? -->
 		<class>com.meitan.lubov.model.persistent.BuyingAct</class>
 		<class>com.meitan.lubov.model.persistent.Client</class>
-		<class>com.meitan.lubov.model.persistent.Consultant</class>
+		<!--<class>com.meitan.lubov.model.persistent.Consultant</class>-->
 		<class>com.meitan.lubov.model.persistent.Product</class>
 		<class>com.meitan.lubov.model.persistent.Category</class>
 		<class>com.meitan.lubov.model.persistent.Image</class>
@@ -18,8 +16,8 @@
 		<class>com.meitan.lubov.model.persistent.BoardItem</class>
 		<class>com.meitan.lubov.model.persistent.NewsBoard</class>
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 			<property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.current_session_context_class" value="thread"/>
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
 		</properties>
 	</persistence-unit>

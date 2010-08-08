@@ -51,7 +51,7 @@ public class TestDataPopulator {
 		Properties props = new Properties();
 		props.load(new FileInputStream(hibernateProps));
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testMeitanDatabase", props);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("meitanDatabase", props);
 		em = emf.createEntityManager();
 		File outputFile = new File(sourceRoot + "/" + TEST_XML_FILE_NAME);
 		//		context = new XmlBeanFactory(new FileSystemResource(sourceRoot + "/" + SPRING_XML_FILE_NAME));
