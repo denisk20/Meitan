@@ -30,8 +30,8 @@
   -->
 		<!--todo this is really ugly... Who do we use hibernate???-->
 		<security:jdbc-user-service data-source-ref="dataSource"
-									users-by-username-query="SELECT LOGIN, PASSWORD, ENABLED FROM CLIENT WHERE LOGIN=?"
-									authorities-by-username-query="SELECT C.LOGIN, A.ROLE FROM CLIENT C LEFT JOIN AUTHORITY A ON C.ID=A.CLIENT_ID WHERE C.LOGIN=?"/>
+									users-by-username-query="SELECT LOGIN, PASSWORD, ENABLED FROM denisk_meitan.Client WHERE LOGIN=?"
+									authorities-by-username-query="SELECT C.LOGIN, A.ROLE FROM denisk_meitan.Client C LEFT JOIN denisk_meitan.Authority A ON C.ID=A.CLIENT_ID WHERE C.LOGIN=?"/>
 
         </security:authentication-provider>
 	</security:authentication-manager>

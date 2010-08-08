@@ -16,12 +16,12 @@
 		</on-render>
 
 		<transition on="saveItem" to="saveItem">
-			<evaluate expression="newsBoardDao.makePersistent(boardItems.selectedRow)"/>
+			<evaluate expression="boardItemDao.makePersistent(boardItems.selectedRow)"/>
 			<set name="requestScope.savedItem" value="utils.getShortName(boardItems.selectedRow.content)"/>
 		</transition>
 
 		<transition on="deleteNews" to="#{viewName}">
-			<evaluate expression="newsBoardDao.makeTransient(boardItems.selectedRow)"/>
+			<evaluate expression="boardItemDao.makeTransient(boardItems.selectedRow)"/>
 		</transition>
 
 		<transition on="create" to="#{viewName}">
