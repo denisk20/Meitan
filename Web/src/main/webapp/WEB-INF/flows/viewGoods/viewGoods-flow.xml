@@ -20,7 +20,6 @@
 	</decision-state>
 
 	<view-state id="baseGoodList" parent="baseGood#baseGood" view="goodsListForCategory.xhtml">
-
 		<transition on="back" to="back"/>
 	</view-state>
 
