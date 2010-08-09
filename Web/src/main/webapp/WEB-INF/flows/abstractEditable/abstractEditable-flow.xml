@@ -9,9 +9,8 @@
 			<set name="requestScope.id" value="requestParameters.id"/>
 		</transition>
 
-		<transition on="edit" to="conformDelete">
+		<transition on="edit" to="edit">
 			<set name="flashScope.id" value="requestParameters.id" type="long"/>
-			<set name="flashScope.name" value="requestParameters.name"/>
 		</transition>
 
 		<transition on="editImages" to="imagesManager">
@@ -19,20 +18,20 @@
 		</transition>
 
 		<!--todo this is not quite right. We don't have to execute anything to determine the actual flow-->
-		<transition on="delete" to="#{outState}">
-			<set name="requestScope.deleteId" value="requestParameters.id" type="long"/>
-			<evaluate expression="dao.deleteById(deleteId)"/>
+		<transition on="delete" to="conformDelete">
+            <set name="requestScope.id" value="requestParameters.id"/>
+            <set name="requestScope.name" value="requestParameters.name"/>
 		</transition>
 	</view-state>
 
     <view-state id="conformDelete">
         <on-entry>
-            <set name="viewScope.id" value="id"/>
+            <set name="viewScope.deleteId" value="id" type="long"/>
             <set name="viewScope.name" value="name"/>
         </on-entry>
 
-        <transition on="ok" to="edit">
-            <set name="requestScope.id" value="id"/>
+        <transition on="ok" to="#{outState}">
+            <evaluate expression="dao.deleteById(deleteId)"/>
         </transition>
 
         <transition on="cancel" to="#{outState}"/>

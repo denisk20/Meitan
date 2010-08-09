@@ -184,6 +184,12 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 			resumeFlow(context);
 
 			assertFlowExecutionActive();
+			assertCurrentStateEquals("conformDelete");
+
+			context.setEventId("ok");
+			resumeFlow(context);
+
+			assertFlowExecutionActive();
 			assertCurrentStateEquals("categories");
 
 			Category deleted = testCategoryDao.findById(persistentCategory.getId());
