@@ -25,7 +25,7 @@
 <!--
 	<bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
 		<property name="flowExecutor" ref="flowExecutor"/>
-		<property name="ajaxHandler">
+		<property name="ajaxHandler"> 
 			<bean class="org.springframework.faces.richfaces.RichFacesAjaxHandler"/>
 		</property>
 	</bean>

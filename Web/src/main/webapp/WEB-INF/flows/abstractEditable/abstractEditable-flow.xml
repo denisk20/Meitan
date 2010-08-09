@@ -9,8 +9,9 @@
 			<set name="requestScope.id" value="requestParameters.id"/>
 		</transition>
 
-		<transition on="edit" to="edit">
+		<transition on="edit" to="conformDelete">
 			<set name="flashScope.id" value="requestParameters.id" type="long"/>
+			<set name="flashScope.name" value="requestParameters.name"/>
 		</transition>
 
 		<transition on="editImages" to="imagesManager">
@@ -22,8 +23,21 @@
 			<set name="requestScope.deleteId" value="requestParameters.id" type="long"/>
 			<evaluate expression="dao.deleteById(deleteId)"/>
 		</transition>
-
 	</view-state>
+
+    <view-state id="conformDelete">
+        <on-entry>
+            <set name="viewScope.id" value="id"/>
+            <set name="viewScope.name" value="name"/>
+        </on-entry>
+
+        <transition on="ok" to="edit">
+            <set name="requestScope.id" value="id"/>
+        </transition>
+
+        <transition on="cancel" to="#{outState}"/>
+    </view-state>
+
 	<subflow-state id="edit" subflow="#{editFlow}">
 		<input name="id" value="id"/>
 		<transition to="#{outState}"/>
