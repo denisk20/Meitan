@@ -14,14 +14,15 @@
             <legend>Информация о продукте</legend>
             <div class="output">
                 <div class="name">Название продукта</div>
-                <div class="value">
+                <div class="value" style="font: italic bold 19px/37px Georgia,serif; color:red">
                     <h:outputText value="#{product.name}"/>
                 </div>
             </div>
             <div class="output">
                 <div class="name">Описание</div>
-                <div class="value hugevalue">
-                    <h:outputText value="#{product.description}"/>
+                <!--<div class="value hugevalue">-->
+				<div id = "news#{product.id}" style="width:98%;overflow-x:auto;border:dotted 1px;padding:5px">
+                    <h:outputText escape="false" value="#{product.description}"/>
                 </div>
             </div>
             <div class="output">
@@ -37,7 +38,7 @@
             <h:form>
                 <h:dataTable value="#{imagesList}" var="image">
                     <h:column>
-                        <denis:image imageUrl="#{image.url}" imageName="Ура, работает!" action="#{utils.getMethodExpression('hitImage')}"/>
+                        <denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}"/>
                     </h:column>
                 </h:dataTable>
             </h:form>

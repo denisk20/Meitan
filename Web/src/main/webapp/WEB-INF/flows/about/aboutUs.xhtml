@@ -23,13 +23,13 @@
             <denis:board boardItems="#{boardItems}"/>
         </h:form>
 
-        <p>Новинки!!</p>
+        <h1 style="text-align:left;">Новинки!!</h1>
         <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
         <h:form id="newProductsForm">
             <c:forEach items="#{newProducts}" var="product">
                 <div class="imageItem">
 
-                    <denis:image imageName="#{product.name} - #{product.price.amount}" imageUrl="#{product.avatar.url}"
+                    <denis:image imageName="#{product.name}" price="#{product.price.amount}" imageUrl="#{product.avatar.url}"
                                  action="#{utils.getMethodExpression('select')}" id="#{product.id}"/>
                     <sec:ifAllGranted roles="ROLE_ADMIN">
                         <denis:actionMenu entity="#{product}"/>

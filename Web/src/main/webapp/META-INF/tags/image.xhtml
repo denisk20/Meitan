@@ -6,19 +6,17 @@
         xmlns:sec="http://www.springframework.org/security/facelets/tags"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:c="http://java.sun.com/jstl/core"
-        xmlns:a4j="http://richfaces.org/a4j"
         xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
         >
     <div id="imageDiv">
         <div class="img">
             <sf:commandLink action="#{action}">
                 <h:graphicImage value="/icon#{imageUrl}"/>
-                <!--<a4j:mediaOutput element="img" cacheable="false" session="true"
-                                 createContent="#{imageManager.paint}" value="#{imageUrl}" mimeType="image/jpeg"/>-->
                 <f:param name="id" value="#{id}"/>
             </sf:commandLink>
 
             <div class="desc">#{imageName}</div>
+			<div class="desc">#{price}</div>
         </div>
 	</div>
 </ui:component>

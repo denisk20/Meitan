@@ -170,7 +170,7 @@ div.img {
     border:              1px solid #0000ff;
     height:              auto;
     width:               auto;
-    float:               left;
+    /*float:               left;*/
     text-align:          center;
 }
 
