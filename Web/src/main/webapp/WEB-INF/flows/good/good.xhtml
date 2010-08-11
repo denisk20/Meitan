@@ -3,6 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:denis="http://meitan-kh.com/"
                 xmlns:sf="http://www.springframework.org/tags/faces"
@@ -36,11 +37,16 @@
 
         <div class="images">
             <h:form>
+<!--
                 <h:dataTable value="#{imagesList}" var="image">
                     <h:column>
                         <denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}"/>
                     </h:column>
                 </h:dataTable>
+-->
+				<c:forEach items="#{imagesList}" var="image">
+					<denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}" id="#{image.id}"/>
+				</c:forEach>
             </h:form>
         </div>
         <ui:fragment id="bigPicture">

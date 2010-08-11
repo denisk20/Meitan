@@ -8,14 +8,15 @@
 
 	<on-start>
 		<evaluate expression="productDao.findById(id)" result="flowScope.product"/>
-        <evaluate expression="utils.asList(product.images)" result="flowScope.imagesList" result-type="dataModel"/>
+        <evaluate expression="utils.asList(product.images)" result="flowScope.imagesList"/>
 		
 		<set name="flashScope.selectedImage" value="utils.asList(product.images).get(0)"/>
 	</on-start>
 	<view-state id="good">
         <!--todo how to unit test this?-->
         <transition on="hitImage">
-            <set name="flashScope.selectedImage" value="imagesList.selectedRow"/>
+            <set name="requestScope.imageId" value="requestParameters.id" type="long"/>
+            <set name="flashScope.selectedImage" value="imageDao.findById(imageId)"/>
             <render fragments="bigPicture"/>
         </transition>
 	</view-state>
