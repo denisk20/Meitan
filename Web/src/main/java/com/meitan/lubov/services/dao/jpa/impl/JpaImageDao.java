@@ -5,8 +5,10 @@ import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import com.meitan.lubov.services.util.FileUploadHandler;
+import com.meitan.lubov.services.util.Utils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +24,11 @@ import java.io.File;
  */
 @Service("imageDao")
 @Repository
-public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, ServletContextAware {
+public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao{
 	private final Log log = LogFactory.getLog(getClass());
-    private ServletContext context;
+	@Autowired
+	private Utils utils;
+//    private ServletContext context;
 
     private String customPathPrefix;
 
@@ -39,23 +43,8 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, Servle
     }
 
     @Override
-    //todo any chance to unit test this with Web application?
-    public String getPathPrefix() {
-        //look in customPathPrefix first
-        if (customPathPrefix != null) {
-            return customPathPrefix;
-        } else if (context != null) {
-            String path = context.getRealPath(FileUploadHandler.UPLOAD_DIR_NAME);
-            path = path.substring(0, path.indexOf(FileUploadHandler.UPLOAD_DIR_NAME) - 1);
-            return path;
-        } else {
-            throw new IllegalStateException("No customPathPrefix nor ServletContext was set for ImageDao");
-        }
-    }
-
-    @Override
 	public void deleteFromDisk(Image i) {
-        String path = getPathPrefix() + i.getUrl();
+        String path = utils.getImageUploadDirectoryPath() + i.getUrl();
 
         if (path.equals("")) {
             log.error("Path was null for image " + i);
@@ -106,13 +95,4 @@ public class JpaImageDao extends JpaDao<Image, Long> implements ImageDao, Servle
 		//em.merge(entity);
 	}
 
-    @Override
-    public void setServletContext(ServletContext servletContext) {
-        this.context = servletContext;
-    }
-
-    @Override
-    public ServletContext getContext() {
-        return context;
-    }
 }

@@ -7,6 +7,8 @@ import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.Dao;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.util.FileBackupRestoreManager;
+import com.meitan.lubov.services.util.FileUploadHandler;
+import com.meitan.lubov.services.util.Utils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 	private CategoryDao testCategoryDao;
 	@Autowired
 	private ImageDao testImageDao;
+
+	@Autowired
+	private FileUploadHandler fileUploadHandler;
 
 	private static final Integer EXPECTED_CATEGORY_COUNT = 1;
 
@@ -85,9 +90,9 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 		ArrayList<Product> products = new ArrayList<Product>(c.getProducts());
         Image image = c.getImage();
 
-        creamsImageRestoreManager = new FileBackupRestoreManager(testImageDao.getPathPrefix() + image.getUrl());
+		String absolutePath = fileUploadHandler.getUploadPath() + image.getUrl();
+		creamsImageRestoreManager = new FileBackupRestoreManager(absolutePath);
 
-        String absolutePath = testImageDao.getPathPrefix() + image.getUrl();
 		File imageFile = new File(absolutePath);
 		assertTrue("File doesn't exist for path " + absolutePath, imageFile.exists());
 

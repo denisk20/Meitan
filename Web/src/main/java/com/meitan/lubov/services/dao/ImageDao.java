@@ -21,10 +21,4 @@ public interface ImageDao extends Dao<Image, Long>{
     String getCustomPathPrefix();
 
     void setCustomPathPrefix(String pathPrefix);
-
-    void setServletContext(ServletContext servletContext);
-
-    ServletContext getContext();
-
-    String getPathPrefix();
 }

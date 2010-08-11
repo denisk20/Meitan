@@ -5,6 +5,7 @@ import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.util.DenisConversionService;
 import com.meitan.lubov.services.util.FileBackupRestoreManager;
+import com.meitan.lubov.services.util.FileUploadHandler;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.mapping.Mapper;
@@ -37,6 +38,8 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private CategoryDao testCategoryDao;
 
+	@Autowired
+	private FileUploadHandler fileUploadHandler;
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
@@ -157,13 +160,12 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	}
 
 	@Test
-	//todo update to test product deletion as well
 	public void testDeleteCategory() throws IOException {
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
 		Category persistentCategory = testCategoryDao.findAll().get(0);
 
-		FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(rootPath + persistentCategory.getImage().getUrl());
+		FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(fileUploadHandler.getUploadPath() + persistentCategory.getImage().getUrl());
 		restoreManager.backup();
 
 		ArrayList<Category> categories = new ArrayList<Category>();

@@ -4,14 +4,20 @@ import com.meitan.lubov.model.NameAware;
 import com.sun.facelets.el.TagMethodExpression;
 import com.sun.facelets.tag.Location;
 import com.sun.facelets.tag.TagAttribute;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jboss.el.MethodExpressionLiteral;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.web.context.ServletContextAware;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletContext;
@@ -27,6 +33,11 @@ public class Utils implements ServletContextAware {
 	private static final String DOTS = "...";
 
 	private ServletContext servletContext;
+
+	private final Log log = LogFactory.getLog(getClass());
+	private static final String MEITAN_PROPS = "MEITAN_PROPS";
+	private static final String COMMON_PROPERTIES = "common.properties";
+	private static final String MEITAN_UPLOAD_FOLDER = "meitan.upload_folder";
 
 	public ServletContext getServletContext() {
 		return servletContext;
@@ -97,6 +108,31 @@ public class Utils implements ServletContextAware {
 			result.add(item);
 		}
 		return result;
+	}
+
+	public String getMeitanProperty(String name) {
+		File pathToHibernateProperties = new File(System.getenv(MEITAN_PROPS) + "/" + COMMON_PROPERTIES);
+		String property = null;
+		FileInputStream in = null;
+		try {
+			in = new FileInputStream(pathToHibernateProperties);
+		} catch (FileNotFoundException e) {
+			log.warn("Can't find common.properties!");
+		}
+		Properties meitanProps = new Properties();
+		try {
+			meitanProps.load(in);
+			property = (String) meitanProps.get(name);
+		} catch (IOException e) {
+			log.warn("Can't load common.properties!");
+		}
+
+		return property;
+
+	}
+
+	public String getImageUploadDirectoryPath() {
+		return getMeitanProperty(MEITAN_UPLOAD_FOLDER);
 	}
 	public StringWrap createStringWrap() {
 		return new StringWrap("Hello world");

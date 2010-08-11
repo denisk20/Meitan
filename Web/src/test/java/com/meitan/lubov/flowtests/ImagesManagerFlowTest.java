@@ -1,17 +1,11 @@
 package com.meitan.lubov.flowtests;
 
-import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.FileUploadHandlerTest;
-import com.meitan.lubov.services.MockFileUploadHandler;
-import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.ProductDao;
-import com.meitan.lubov.services.util.DenisConversionService;
-import com.meitan.lubov.services.util.FileBackupRestoreManager;
-import com.meitan.lubov.services.util.ImageIdGenerationServiceImpl;
-import com.meitan.lubov.services.util.Utils;
+import com.meitan.lubov.services.util.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
@@ -39,6 +33,9 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 	private ImageDao testImageDao;
 	@Autowired
 	private ProductDao testProductDao;
+	@Autowired
+	private FileUploadHandler fileUploadHandler;
+
 	private Utils utils = new Utils();
 
 	@Override
@@ -51,7 +48,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 		builderContext.registerBean("imageDao", testImageDao);
 		builderContext.registerBean("utils", utils);
 		builderContext.registerBean("imageIdGenerationService", new ImageIdGenerationServiceImpl());
-		builderContext.registerBean("fileUploadHandler", new MockFileUploadHandler());
+		builderContext.registerBean("fileUploadHandler", fileUploadHandler);
 
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
@@ -94,7 +91,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 				if (images.size() > 0) {
 					Image addedImage = images.iterator().next();
 
-					File addedImageFile = new File(rootPath + addedImage.getUrl());
+					File addedImageFile = new File(utils.getImageUploadDirectoryPath() + addedImage.getUrl());
 					assertTrue("Image file wasn't cleaned: " + addedImageFile, addedImageFile.delete());
 				}
 			}
@@ -121,7 +118,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 		Image toDelete = startImagesArrayList.get(0);
 		images.select(toDelete);
 
-		String imagePath = rootPath + toDelete.getUrl();
+		String imagePath = utils.getImageUploadDirectoryPath() + toDelete.getUrl();
 		FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(imagePath);
 		restoreManager.backup();
 
