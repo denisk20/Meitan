@@ -63,8 +63,11 @@
         </constructor-arg>
     </bean>
 
-    <bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler"/>
     <bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
+
+    <bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler">
+        <property name="uploadPath" value="#{utils.imageUploadDirectoryPath}"/>
+    </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com"/>

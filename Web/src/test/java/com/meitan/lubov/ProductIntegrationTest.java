@@ -10,6 +10,7 @@ import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.util.FileBackupRestoreManager;
 import com.meitan.lubov.services.util.Selectable;
 import com.meitan.lubov.services.util.SelectableImpl;
+import com.meitan.lubov.services.util.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +37,8 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 	private CategoryDao testCategoryDao;
 	@Autowired
 	private ImageDao testImageDao;
+	@Autowired
+	private Utils utils;
 	private static final Integer EXPECTED_NEW_PRODUCTS_COUNT = 1;
 	private static final int EXPECTED_PRODUCTS_FOR_CATEGORY_COUNT = 2;
 
@@ -204,7 +207,7 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 		Set<Image> images = p.getImages();
 
 		HashSet<FileBackupRestoreManager> restoreManagers = new HashSet<FileBackupRestoreManager>();
-		String pathPrefix = testImageDao.getPathPrefix(); 
+		String pathPrefix = utils.getImageUploadDirectoryPath(); 
 		for (Image i : images) {
 			FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(pathPrefix + i.getUrl());
 			restoreManagers.add(restoreManager);

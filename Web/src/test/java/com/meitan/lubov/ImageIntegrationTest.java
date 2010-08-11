@@ -6,6 +6,7 @@ import com.meitan.lubov.services.dao.Dao;
 import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.util.FileBackupRestoreManager;
+import com.meitan.lubov.services.util.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.hamcrest.CoreMatchers.*;
@@ -24,10 +25,12 @@ import java.util.Set;
 public class ImageIntegrationTest extends GenericIntegrationTest<Image>{
     @Autowired
     private ImageDao testImageDao;
-
     @Autowired
     private ProductDao testProductDao;
-    @Override
+	@Autowired
+	private Utils utils;
+
+	@Override
     protected void setUpBeanNames() {
         beanNames.add("ent_creamsImage");
         beanNames.add("ent_megaCreamImageFront");
@@ -44,7 +47,7 @@ public class ImageIntegrationTest extends GenericIntegrationTest<Image>{
     @Test
     public void testDeleteFromDisk() throws IOException {
         Image i = beansFromXml.get(0);
-        final String imagePath = testImageDao.getPathPrefix() + i.getUrl();
+        final String imagePath = utils.getImageUploadDirectoryPath() + i.getUrl();
         FileBackupRestoreManager restoreManager =
                 new FileBackupRestoreManager(
                         imagePath);
@@ -103,7 +106,7 @@ public class ImageIntegrationTest extends GenericIntegrationTest<Image>{
         int startImagesCount = dbMegaCream.getImages().size();
 
         Image image = dbMegaCream.getImages().iterator().next();
-        String imagePath = testImageDao.getPathPrefix() + image.getUrl();
+        String imagePath = utils.getImageUploadDirectoryPath() + image.getUrl();
         FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(imagePath);
 
         restoreManager.backup();

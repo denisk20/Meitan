@@ -136,12 +136,8 @@ public class ImageManager {
 		return cm.hasAlpha();
 	}
 
-	public void paint(OutputStream outputStream, Object data) throws IOException {
-		String url = (String) data;
-		int slash = url.lastIndexOf("/");
-		String uploadDir = url.substring(1, slash);
-		String fileName = url.substring(slash + 1);
-		File f = utils.getDestFile(uploadDir, fileName);
+	public void paintIcon(OutputStream outputStream, String url) throws IOException {
+		File f = new File(url);
 
 		if (!f.exists()) {
 			throw new IllegalStateException("Image doesn't exist: " + f);
@@ -150,5 +146,16 @@ public class ImageManager {
 		Image scaledImage = bi.getScaledInstance(ICON_WIDTH, ICON_HEIGHT, Image.SCALE_SMOOTH);
 
 		ImageIO.write(toBufferedImage(scaledImage), "jpeg", outputStream);
+	}
+
+	public void paintImage(OutputStream outputStream, String url) throws IOException {
+		File f = new File(url);
+
+		if (!f.exists()) {
+			throw new IllegalStateException("Image doesn't exist: " + f);
+		}
+		BufferedImage bi = ImageIO.read(f);
+//		bi.coerceData(true);
+		ImageIO.write(bi, "jpg", outputStream);
 	}
 }

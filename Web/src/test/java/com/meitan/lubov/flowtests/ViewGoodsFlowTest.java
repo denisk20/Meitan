@@ -11,6 +11,7 @@ import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import com.meitan.lubov.services.util.DenisConversionService;
 import com.meitan.lubov.services.util.FileBackupRestoreManager;
+import com.meitan.lubov.services.util.FileUploadHandler;
 import com.meitan.lubov.services.util.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,10 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private CategoryDao testCategoryDao;
 
-	private ShoppingCart cart = new ShoppingCartImpl();
+	@Autowired
+	private FileUploadHandler fileUploadHandler;
 
+	private ShoppingCart cart = new ShoppingCartImpl();
 	private Utils utils = new Utils();
 
 	@Override
@@ -200,7 +203,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		FileBackupRestoreManager[] restoreManagers =
 				new FileBackupRestoreManager[imagesList.size()];
 		for (int i = 0; i<imagesList.size(); i++) {
-			restoreManagers[i] = new FileBackupRestoreManager(rootPath + imagesList.get(i).getUrl());
+			restoreManagers[i] = new FileBackupRestoreManager(fileUploadHandler.getUploadPath() + imagesList.get(i).getUrl());
 			restoreManagers[i].backup();
 		}
 

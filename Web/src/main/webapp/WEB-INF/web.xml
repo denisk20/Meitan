@@ -142,7 +142,7 @@
 
 	<servlet>
 		<servlet-name>icon servlet</servlet-name>
-		<servlet-class>com.meitan.lubov.services.util.IconServlet</servlet-class>
+		<servlet-class>com.meitan.lubov.services.media.IconServlet</servlet-class>
 		<!--<load-on-startup>0</load-on-startup>-->
 	</servlet>
 
@@ -150,6 +150,17 @@
 		<servlet-name>icon servlet</servlet-name>
 		<url-pattern>/icon/*</url-pattern>
 	</servlet-mapping>
+
+    <servlet>
+        <servlet-name>image servlet</servlet-name>
+        <servlet-class>com.meitan.lubov.services.media.ImageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>image servlet</servlet-name>
+        <url-pattern>/image/*</url-pattern>
+    </servlet-mapping>
+    
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

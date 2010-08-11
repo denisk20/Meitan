@@ -7,6 +7,7 @@ import net.tanesha.recaptcha.http.HttpLoader;
 import net.tanesha.recaptcha.http.SimpleHttpLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Service;
@@ -29,16 +30,24 @@ import java.util.Properties;
 //todo unit test this
 public class ReCaptchaService implements CaptchaService{
 	private final Log log = LogFactory.getLog(getClass());
+
+	@Autowired
+	private Utils utils;
+	private static final String PROXY_ADDRESS = "10.10.0.1";
+	private static final int PROXY_PORT = 3128;
+	private static final String MEITAN_USE_PROXY = "meitan.use_proxy";
+	private static final String RECAPTCHA_PRIVATE_KEY = "6LcTPLsSAAAAAHuWXn5FMN4Cx96AXOdVVr0w2O0-";
+	private static final String RECAPTCHA_CHALLENGE_FIELD = "recaptcha_challenge_field";
+	private static final String RECAPTCHA_RESPONSE_FIELD = "recaptcha_response_field";
+
 	@Override
 	public void validateCaptcha(RequestContext requestContext) {
 		ParameterMap parameterMap = requestContext.getExternalContext().getRequestParameterMap();
-		//todo!!!
-		String challenge = parameterMap.get("recaptcha_challenge_field");
-		String response = parameterMap.get("recaptcha_response_field");
+		String challenge = parameterMap.get(RECAPTCHA_CHALLENGE_FIELD);
+		String response = parameterMap.get(RECAPTCHA_RESPONSE_FIELD);
 
 		ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-		//todo!!!
-		reCaptcha.setPrivateKey("6LcTPLsSAAAAAHuWXn5FMN4Cx96AXOdVVr0w2O0-");
+		reCaptcha.setPrivateKey(RECAPTCHA_PRIVATE_KEY);
 
 		String remoteAddress = ((SecurityContextHolderAwareRequestWrapper) requestContext.getExternalContext()
 				.getNativeRequest()).getRemoteAddr();
@@ -60,27 +69,10 @@ public class ReCaptchaService implements CaptchaService{
 	}
 
 	private HttpLoader getHttpLoader() {
-		//todo!!!
-		File pathToHibernateProperties = new File(System.getenv("MEITAN_PROPS") + "/common.properties");
-		boolean useProxy = false;
-		FileInputStream in = null;
-		try {
-			in = new FileInputStream(pathToHibernateProperties);
-		} catch (FileNotFoundException e) {
-			log.warn("Can't find common.properties!");
-		}
-		Properties meitanProps = new Properties();
-		try {
-			meitanProps.load(in);
-			useProxy = Boolean.parseBoolean((String) meitanProps.get("meitan.use_proxy"));
-		} catch (IOException e) {
-			log.warn("Can't load common.properties!");
-		}
-		//todo
 		HttpLoader httpLoader;
+		Boolean useProxy = Boolean.parseBoolean(utils.getMeitanProperty(MEITAN_USE_PROXY));
 		if (useProxy) {
-			//todo
-			httpLoader = new ProxyHttpLoader("10.10.0.1", 3128);
+			httpLoader = new ProxyHttpLoader(PROXY_ADDRESS, PROXY_PORT);
 		} else {
 			httpLoader = new SimpleHttpLoader();
 		}

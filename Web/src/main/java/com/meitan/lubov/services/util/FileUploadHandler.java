@@ -38,14 +38,21 @@ public class FileUploadHandler implements Serializable {
 	@Autowired
 	protected ImageManager imageManager;
 
-	@Autowired
-	protected Utils utils;
+	private String uploadPath;
 
-	public Image precessTempFile(RequestContext requestContext, StringWrap imageName) throws IOException {
-		return processFile(requestContext, UPLOAD_DIR_NAME, imageName.getWrapped());
+	public String getUploadPath() {
+		return uploadPath;
 	}
 
-	protected Image processFile(RequestContext requestContext, String uploadDirName, String imageName) throws IOException {
+	public void setUploadPath(String uploadPath) {
+		this.uploadPath = uploadPath;
+	}
+
+	public Image precessTempFile(RequestContext requestContext, StringWrap imageName) throws IOException {
+		return processFile(requestContext, imageName.getWrapped());
+	}
+
+	protected Image processFile(RequestContext requestContext, String imageName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
 		if (file == null) {
@@ -55,16 +62,11 @@ public class FileUploadHandler implements Serializable {
 			if (! isFileValid(requestContext, file)) {
 				throw new IllegalArgumentException("Not valid image type: " + file.getContentType());
 			}
-			File imageFile = utils.getDestFile(uploadDirName, imageName);
+			File imageFile = new File(uploadPath + "/" + imageName);
 
 			imageManager.uploadImage(file, imageFile, MAX_WIDTH, MAX_HEIGHT);
 			//			String imageRelativePath = "/" + UPLOAD_DIR_NAME + "/" + newName;
-			String fullPath = imageFile.getPath();
-			int directoryIndex = fullPath.indexOf(uploadDirName);
-			String imageRelativePath = fullPath.substring(directoryIndex);
-			imageRelativePath = imageRelativePath.replace("\\", "/");
-			imageRelativePath = "/" + imageRelativePath;
-			Image image = createImage(imageRelativePath, imageFile.getAbsolutePath());
+			Image image = createImage("/" + imageName);
 
 			return image;
 		} else {
@@ -93,11 +95,10 @@ public class FileUploadHandler implements Serializable {
 		return false;
 	}
 
-	private Image createImage(String imageRelativePath, String imageAbsolutePath) {
+	private Image createImage(String imageRelativePath) {
 		Image image = new Image(imageRelativePath);
 		return image;
 	}
-
 
 	public void sayHello() {
 		System.out.printf("Hello!");

@@ -28,7 +28,7 @@
                 <h:panelGrid rendered="${! empty(category.image)}">
                     <p>Изображения:</p>
                     <br/>
-                    <img src="${category.image.url}" alt="${category.name}"/>
+                    <img src="/image#{category.image.url}" alt="${category.name}"/>
                 </h:panelGrid>
             </fieldset>
 
