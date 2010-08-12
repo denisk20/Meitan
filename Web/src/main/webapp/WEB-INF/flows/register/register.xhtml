@@ -84,9 +84,9 @@
                         <div class="label">Пароль</div>
                         <div class="input">
                             <sf:clientTextValidator promptMessage="Введите ваш пароль">
-                                <h:inputText id="pass" value="#{newClient.password}">
+                                <h:inputSecret id="pass" value="#{newClient.password}">
                                     <j4j:idProxy id="origPass"/>
-                                </h:inputText>
+                                </h:inputSecret>
                             </sf:clientTextValidator>
                         </div>
                     </div>
@@ -95,9 +95,9 @@
                         <div class="label">Повторите пароль</div>
                         <div class="input">
                             <sf:clientTextValidator promptMessage="Введите пароль ещё раз">
-                                <h:inputText id="conformPass" value="#{newClient.conformedPassword}">
+                                <h:inputSecret id="conformPass" value="#{newClient.conformedPassword}">
                                     <j4j:idProxy id="conformedPass"/>
-                                </h:inputText>
+                                </h:inputSecret>
                             </sf:clientTextValidator>
                         </div>
                     </div>

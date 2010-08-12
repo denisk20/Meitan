@@ -22,9 +22,9 @@
 
 		<sec:ifAllGranted roles="ROLE_CLIENT">
 			<sec:ifNotGranted roles="ROLE_CONSULTANT">
-				<p>It is very cool to be consultant. You can register here:</p>
+				<p>Быть консультантом очень здорово! Вы можете стать консультантом здесь:</p>
 				<h:form>
-					<h:commandLink value="Register as consultant!" action="signConsultant"/>
+					<h:commandLink value="Стать консультантом!" action="signConsultant"/>
 				</h:form>
 			</sec:ifNotGranted>
 		</sec:ifAllGranted>
