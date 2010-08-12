@@ -1,31 +1,41 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:sec="http://www.springframework.org/security/facelets/tags"
-                xmlns:sf="http://www.springframework.org/tags/faces"
-                template="/WEB-INF/templates/meitan.xhtml">
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				template="/WEB-INF/templates/meitan.xhtml">
 
-    <ui:define name="content">
-            <h1>Страница с формой для консультанта</h1>
+	<ui:define name="content">
+		<h1>Страница с формой для консультанта</h1>
 
-				<p>It is very cool to be consultant. You can register here:</p>
-				<h:form>
-					<h:outputLabel for="passportSeries" value="Passport Series"/>
-					<sf:clientTextValidator promptMessage="Enter passport series">
+		<p>Здесь вы можете стать официальным консультантом компании Мей Тан! Для этого введите, пожалуйста, следующие данные</p>
+		<h:form>
+			<div class="field">
+				<div class="label">Серия паспорта</div>
+				<div class="input">
+					<sf:clientTextValidator promptMessage="Введите серию вашего паспорта">
 						<h:inputText id="passportSeries" value="#{client.passport.series}"/>
 					</sf:clientTextValidator>
-					<br/>
+				</div>
+			</div>
 
-					<h:outputLabel for="passportNumber" value="Passport number"/>
-					<sf:clientTextValidator promptMessage="Enter passport number">
+			<div class="field">
+				<div class="label">
+					<h:outputLabel for="passportNumber" value="Номер паспорта"/>
+				</div>
+				<div class="input">
+					<sf:clientNumberValidator promptMessage="Введите номер паспорта">
 						<h:inputText id="passportNumber" value="#{client.passport.number}"/>
-					</sf:clientTextValidator>
-					<br/>
-					<sf:commandLink value="Подписаться" action="createNewConsultant" processIds="*"/>
-				</h:form>
+					</sf:clientNumberValidator>
+				</div>
 
-    </ui:define>
+			</div>
+			<br/>
+			<sf:commandLink value="Подписаться" action="createNewConsultant" processIds="*"/>
+		</h:form>
+
+	</ui:define>
 </ui:composition>
