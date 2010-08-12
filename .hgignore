@@ -6,3 +6,4 @@ Web/Web.iml
 Model/Model.iml
 target
 .directory
+local.ignore
