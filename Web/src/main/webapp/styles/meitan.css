@@ -1,75 +1,84 @@
 body {
-    background-color:    #ccffff;
+    background-color:      #ccffff;
 }
 
 .menuTd {
-    vertical-align:      top;
+    vertical-align:        top;
 }
 
 #content {
-    background-image:    url("/images/flower5.png");
-    background-attachment:fixed;
-    background-position: 90% 79%;
-    background-repeat:no-repeat;
-    width:100%;
+    background-image:      url("/images/flower5.png");
+    background-attachment: fixed;
+    background-position:   90% 79%;
+    background-repeat:     no-repeat;
+    width:                 100%;
+}
+
+.topPanelContent {
+    float:left;
+    width: 1031px;
 }
 
 #loginPanel {
-    float:               left;
-    margin-top:          40px;
-    margin-left:         30px;
+    float:                 left;
+    margin-top:            8px;
+    margin-left:           8px;
 }
 
 #cartDiv {
-    float:               right;
-    margin-top:          40px;
+    float:                 right;
+    margin-top:            14px;
+    margin-left:           40px;
 }
-
+#cartDivTop {
+    float:right;
+    margin:0 0 0 0;
+}
 #cartInfo {
-    margin-right:        15px;
+    margin-right:          15px;
 }
 
 #checkoutLink {
-    margin-right:        10px;
+    margin: 10px 0 0;
 }
 
 #topPanel {
-    background-color:    #adff2f;
-    height:              100px;
-    margin-bottom: 15px;
+    background-color:      #adff2f;
+    height:                120px;
+    margin-bottom:         15px;
 }
 
 #middle {
-    background-color:    #f0fff0;
-    margin-top:          15px;
+    background-color:      #f0fff0;
+    margin-top:            15px;
 }
 
 .contentTable {
-    background-color: white;
+    background-color:      white;
 }
 
 .container {
-    width:               85%;
-    margin:              auto;
-    background-color:    #ccffff;
-    margin-top:          10px;
+    width:                 1075px;
+    margin:                auto;
+    background-color:      #ccffff;
+    margin-top:            10px;
 
-    font-family:         sans-serif;
-    font-style:          normal;
-    font-size:           1.2em;
+    font-family:           sans-serif;
+    font-style:            normal;
+    font-size:             1.2em;
 }
 
 .vmenu {
-    width:               165px;
-    list-style-type:     none;
-    margin-top:          30px;
+    width:                 165px;
+    list-style-type:       none;
+    margin-top:            30px;
 }
 
 .vmenu li {
-    margin-left:         0;
-    margin-bottom:       1.25em;
-    font-weight:         bold;
-    font-size:           110%;
+    margin-left:           0;
+    margin-bottom:         1.25em;
+    font-weight:           bold;
+    font-size:             110%;
 }
 
 .kolona {
@@ -77,28 +86,28 @@ body {
 }
 
 #menu_content > div {
-    float:               left;
-    font-size:           125%;
+    float:                 left;
+    font-size:             125%;
 }
 
 #menu_links {
 /*todo*/
-    background-image:    url("/images/money-ready.png");
-    background-repeat:   no-repeat;
-    background-position: -9px 5%;
-    height:              240px;
+    background-image:      url("/images/money-ready.png");
+    background-repeat:     no-repeat;
+    background-position:   -9px 5%;
+    height:                240px;
 }
 
 #menu_links a:link, a:visited, a:hover, a:active {
-    background-color:    transparent;
+    background-color:      transparent;
 }
 
 a:link, a:visited {
-    color:               red;
+    color:                 red;
 }
 
 a:hover, a:active {
-    color:               blue;
+    color:                 blue;
 }
 
 /*
@@ -116,159 +125,245 @@ a:hover, a:active {
 
 }*/
 .actionMenu {
-    float:none;
+    float:                 none;
 }
+
 .actionMenu ul {
-    list-style-type:     none;
-    margin:              0;
-    padding:             0;
+    list-style-type:       none;
+    margin:                0;
+    padding:               0;
 }
 
 .actionMenu li {
-    margin: 5px 0;
+    margin:                5px 0;
 }
 
 a, a:link {
-    background-color:    transparent;
+    background-color:      transparent;
 }
 
 a.menuItem:link, a.menuItem:visited {
-    display:             block;
-    width:               130px;
-    font-weight:         bold;
-    color:               #FFFFFF;
-    background-color:    #98bf21;
-    text-align:          center;
-    padding:             4px;
-    text-decoration:     none;
-    text-transform:      uppercase;
+    display:               block;
+    width:                 130px;
+    font-weight:           bold;
+    color:                 #FFFFFF;
+    background-color:      #98bf21;
+    text-align:            center;
+    padding:               4px;
+    text-decoration:       none;
+    text-transform:        uppercase;
 }
 
 a.menuItem:hover, a.menuItem:active {
-    background-color:    #7A991A;
+    background-color:      #7A991A;
 }
 
 a.adminItem:link, a.adminItem:visited {
-    background-color:    #ffcccc;
+    background-color:      #ffcccc;
 }
 
 a.adminItem:hover, a.adminItem:active {
-    background-color:    #ff9999;
+    background-color:      #ff9999;
 }
 
 #imageDiv {
-    overflow:auto;
-    margin:0;
+    overflow:              auto;
+    margin:                0;
 }
+
 .imageItem {
-    float:left;
-    margin:0 3px
+    float:                 left;
+    margin:                0 3px
 }
 
 div.img {
-    margin:              5px;
-    border:              1px solid #0000ff;
-    height:              auto;
-    width:               auto;
-    /*float:               left;*/
-    text-align:          center;
+    margin:                5px;
+    border:                1px solid #0000ff;
+    height:                auto;
+    width:                 auto; /*float:               left;*/
+    text-align:            center;
 }
 
 div.img img {
-    display:             inline;
-    margin:              3px;
-    border:              1px solid #ffffff;
+    display:               inline;
+    margin:                3px;
+    border:                1px solid #ffffff;
 }
 
 div.img a:hover img {
-    border:              1px solid #0000ff;
+    border:                1px solid #0000ff;
 }
 
 div.desc {
-    text-align:          center;
-    font-weight:         normal;
-    width:               120px;
-    margin:              2px;
+    text-align:            center;
+    font-weight:           normal;
+    width:                 120px;
+    margin:                2px;
 }
 
 .label {
-    font:                15px arial, sans-serif;
+    font:                  15px arial, sans-serif;
 }
 
 .field {
-    overflow:auto;
+    overflow:              auto;
 }
 
 .field .label {
-    float:               left;
-    padding-top:         5px;
-    padding-right:       5px;
-    font-weight:         bold;
-    width:               150px;
-    text-align:          right;
+    float:                 left;
+    padding-top:           5px;
+    padding-right:         5px;
+    font-weight:           bold;
+    width:                 150px;
+    text-align:            right;
 }
 
 .field .input {
-    float:               left;
-    width:               250px;
-    text-align:          left;
+    float:                 left;
+    width:                 250px;
+    text-align:            left;
 }
 
 .output {
-    overflow:            auto;
-    clear:               both;
-    margin:              10px 15px 0px
+    overflow:              auto;
+    clear:                 both;
+    margin:                10px 15px 0px
 }
 
-.output .name,.value {
-    margin: 5px;
+.output .name, .value {
+    margin:                5px;
 }
 
 .output .name {
-    float:left;
+    float:                 left;
 }
 
 .output .value {
-    float:right;
+    float:                 right;
 }
 
 .output .hugevalue {
-    width:200px;
-    height:100px;
-    overflow:auto;
+    width:                 200px;
+    height:                100px;
+    overflow:              auto;
 }
 
 .images {
-    width:110; height:150; overflow:auto; float:left;
+    width:                 110;
+    height:                150;
+    overflow:              auto;
+    float:                 left;
 }
 
 .images .img {
-    
+
 }
 
 .mceIframeContainer iframe {
-    width:610px;
-    height:250px;
+    width:                 610px;
+    height:                250px;
 }
 
 .imageEditSet {
-    margin: 5px 0;
-    border: 1px solid;
-    padding: 7px;
+    margin:                5px 0;
+    border:                1px solid;
+    padding:               7px;
 }
+
 .editImageMenuBar {
-    overflow:auto;
+    overflow:              auto;
 }
+
 .makeMainImageButton, .isMainLabel {
-    float:right;
-    margin: 5px;
+    float:                 right;
+    margin:                5px;
 }
+
 .deleteButton {
-    float:left
+    float:                 left
 }
+
 .saveEditedImages {
-    
+
 }
+
 .flip {
-    background-color:mediumSpringGreen;
+    background-color:      mediumSpringGreen;
+}
+
+.topOutline {
+    background-image:      url(/images/top_border_small.png);
+    background-repeat:     repeat-x;
+    width:                 1033px;
+    height:                25px;
+    float:                 left;
+}
+
+.topCorner_left, .topCorner_right, .bottomCorner_left, .bottomCorner_right {
+    background-image:      url(/images/top_border_corner.png);
+    background-repeat:     no-repeat;
+}
+
+
+
+.topCorner_right {
+    float:                 right;
+    border-top:1px solid;
+    border-right:1px solid;
+    width:20px;
+    height:24px;
+}
+
+.topCorner_left {
+    float:                 left;
+    border-top:1px solid;
+    border-left:1px solid;
+    width:20px;
+    height:24px;
+}
+.bottomCorner_right {
+    float:                 right;
+    border-bottom:1px solid;
+    border-right:1px solid;
+    width:20px;
+    height:24px;
+}
+.bottomCorner_left {
+    float:                 left;
+    border-bottom:1px solid;
+    border-left:1px solid;
+    width:20px;
+    height:24px;
+}
+.topAlmostRight {
+    background-image:      url(/images/top_border_almost_right.png);
+}
+
+.top_bottomOutline {
+    clear:                 both;
+}
+
+.sideOutlineRight, .sideOutlineLeft {
+    width:                 22px;
+    height:                95px;
+    background-image:      url(/images/side_border.png);
+    background-repeat:     repeat-y;
+    float:                 left;
+}
+
+.sideOutlineRight {
+    float:                 right;
+}
+
+a.enter:link, a.enter:visited {
+    background-image:url("/images/enter_button_mouseover.png");
+}
+
+a.enter:hover, a.enter:active {
+    background-image:url("/images/enter_button_still.png");
+}
+
+.exclamation {
+    font-size:larger;
+    color:red;
 }
