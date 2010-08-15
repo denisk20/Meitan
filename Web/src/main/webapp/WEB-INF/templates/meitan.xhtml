@@ -1,69 +1,102 @@
 <!DOCTYPE html
-		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:c="http://java.sun.com/jstl/core"
-		xmlns:sf="http://www.springframework.org/tags/faces"
-		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-		contentType="text/html" encoding="UTF-8">
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:sf="http://www.springframework.org/tags/faces"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        contentType="text/html" encoding="UTF-8">
 
-	<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>Мейтан в Харькове, лечебная китайская косметика</title>
-		<sf:includeStyles/>
-		<sf:resourceGroup>
-			<sf:resource path="/css-framework/css/tools.css"/>
-			<sf:resource path="/css-framework/css/typo.css"/>
-			<sf:resource path="/css-framework/css/forms.css"/>
-			<sf:resource path="/css-framework/css/layout-navtop-localleft.css"/>
-			<sf:resource path="/css-framework/css/layout.css"/>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Мейтан в Харькове, лечебная китайская косметика</title>
+        <sf:includeStyles/>
+        <sf:resourceGroup>
+            <sf:resource path="/css-framework/css/tools.css"/>
+            <sf:resource path="/css-framework/css/typo.css"/>
+            <sf:resource path="/css-framework/css/forms.css"/>
+            <sf:resource path="/css-framework/css/layout-navtop-localleft.css"/>
+            <sf:resource path="/css-framework/css/layout.css"/>
 
-			<sf:resource path="/styles/meitan.css"/>
-		</sf:resourceGroup>
+            <sf:resource path="/styles/meitan.css"/>
+        </sf:resourceGroup>
 
-		<ui:insert name="header"/>
-	</head>
+        <ui:insert name="header"/>
+    </head>
 
-	<body class="tundra spring">
-	<div class="container">
-		<div id="topPanel">
-			<div id="loginPanel">
-				<c:if test="${not empty currentUser.name}">
-					Добро пожаловать, ${currentUser.name} | <a href="${request.contextPath}/spring/logout">Выйти</a>
-				</c:if>
-				<c:if test="${empty currentUser.name}">
-					<a href="${request.contextPath}/spring/login">Войти</a>
-				</c:if>
-			</div>
-			<div id="cartDivTop">
-				<h:form id="topPanelForm">
-					<ui:fragment id="shoppingCartFragment">
-						<div id="cartDiv"
-							 align="right"><span id="cartInfo"> Всего в тележке товаров #{cart.count} на сумму ${cart.totalPrice}</span>
-                            <c:if test="#{cart.count > 0}">
-                                <span id="checkoutLink"><a href="checkout">Оформить заказ</a></span>
-                            </c:if>
-						</div>
-					</ui:fragment>
-				</h:form>
-			</div>
-		</div>
+    <body class="tundra spring">
+    <div class="container">
+        <div id="topPanel">
+            <div class="top_topOutline">
+                <div class="topCorner_left"/>
+                <div class="topOutline"/>
+                <!--<div class="topAlmostRight"/>-->
+                <div class="topCorner_right"/>
+            </div>
+            <div class="sideOutlineLeft"/>
+            <div class="topPanelContent">
+                <div id="loginPanel">
+                    <c:if test="${not empty currentUser.name}">
+                        Добро пожаловать, <span class="exclamation">${currentUser.name}</span> <a
+                            href="${request.contextPath}/spring/logout">
+                        <img style="vertical-align:middle;" src="/images/exit_button_still.png" alt="Войти"
+                             onmouseover="this.src = '/images/exit_button_mouseover.png'"
+                             onmouseout="this.src='/images/exit_button_still.png'"/>
+                    </a>
+                    </c:if>
+                    <c:if test="${empty currentUser.name}">
+                        <a href="${request.contextPath}/spring/login">
+                            <img src="/images/enter_button_still.png" alt="Войти"
+                                 onmouseover="this.src = '/images/enter_button_mouseover.png'"
+                                 onmouseout="this.src='/images/enter_button_still.png'"/>
+                        </a>
+                    </c:if>
+                </div>
 
-		<table class="contentTable">
-			<tr>
-				<td class="menuTd">
-					<ui:include src="menu.xhtml"/>
-				</td>
-				<td id="content">
-					<ui:insert name="content"/>
-				</td>
-			</tr>
-		</table>
-	</div>
-	</body>
-	</html>
+                <div id="cartDivTop">
+                    <h:form id="topPanelForm">
+                        <ui:fragment id="shoppingCartFragment">
+                            <div id="cartDiv">
+                                <span id="cartInfo"> Всего в тележке товаров <span class="exclamation">#{cart.count}</span> на сумму <span class="exclamation">#{cart.totalPrice}</span></span>
+                                <c:if test="#{cart.count > 0}">
+                                    <div id="checkoutLink">
+                                        <a href="checkout">
+                                            <img src="/images/checkout_button_still.png" alt="Войти"
+                                                 onmouseover="this.src = '/images/checkout_button_mouseover.png'"
+                                                 onmouseout="this.src='/images/checkout_button_still.png'"/>
+                                        </a>
+                                    </div>
+                                </c:if>
+                            </div>
+                        </ui:fragment>
+                    </h:form>
+                </div>
+            </div>
+            <div class="sideOutlineRight"/>
+            <div class="top_bottomOutline">
+                <div class="bottomCorner_left"/>
+                <div class="topOutline"/>
+                <!--<div class="topAlmostRight"/>-->
+                <div class="bottomCorner_right"/>
+            </div>
+
+        </div>
+
+        <table class="contentTable">
+            <tr>
+                <td class="menuTd">
+                    <ui:include src="menu.xhtml"/>
+                </td>
+                <td id="content">
+                    <ui:insert name="content"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </body>
+    </html>
 </f:view>
