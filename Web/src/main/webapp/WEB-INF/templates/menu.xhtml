@@ -12,68 +12,55 @@
 			<img src="/images/roof-ready.png" alt="roof"/>
 		</div>
 		<div id="menu_content">
-			<div id="left_kolona" class="kolona">
-				<!--todo-->
-				<!--<div id="left_kolona_top" class="kolona_top">
-					<img src="/images/kolona_top.png" alt="kolona top"/>
-				</div>
-				<div id="left_kolona_middle" class="kolona_middle">
-					<img src="/images/kolona_middle.png" alt="kolona middle"/>
-				</div>
-				<div id="left_kolona_botton" class="kolona_bottom">
-					<img src="/images/kolona_bottom.png" alt="kolona bottom"/>
-				</div>-->
-				<img src="/images/Kolonna_Darina_shamot.png" alt="kolona"/>
-
-			</div>
 			<div id="menu_links">
 				<h:form>
 					<ul class="vmenu">
 
 						<li>
-							<!--<sf:commandLink id="aboutLink" value="О компании" action="about_action"/>-->
-                            <a href="about">О компании</a>
+							<div class="navMenuItem">
+								<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+								<a href="about" class="navMenuLink">О компании</a>
+							</div>
 						</li>
 
 
 						<li>
-							<!--<sf:commandLink id="goodsLink" value="Продукция" action="browseCategories"/>-->
-                            <a href="categories">Продукция</a>
-                        </li>
+							<div class="navMenuItem">
+								<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+								<a href="categories" class="navMenuLink">Продукция</a>
+							</div>
+						</li>
 
 
-                        <sec:ifNotGranted roles="ROLE_CONSULTANT">
-                            <li>
-                                <!--<sf:commandLink id="consultantLink" value="Стань консультантом!" action="joinUs"/>-->
-                                <a href="join">Стань консультантом!</a>
+						<sec:ifNotGranted roles="ROLE_CONSULTANT">
+							<li>
+								<div class="navMenuItem">
+									<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+									<a href="join" class="navMenuLink">Стань консультантом!</a>
+								</div>
 							</li>
 						</sec:ifNotGranted>
 
-
 						<sec:ifAllGranted roles="ROLE_CONSULTANT">
 							<li>
-								<!--<sf:commandLink value="Объявления для консультантов" action="boardForConsultants"/>-->
-                                <a href="boardForConsultants">Объявления для консультантов</a>
+								<div class="navMenuItem">
+									<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+									<a href="boardForConsultants" class="navMenuLink">Объявления для консультантов</a>
+								</div>
 							</li>
 						</sec:ifAllGranted>
-
 					</ul>
 				</h:form>
 			</div>
-			<div id="right_kolona" class="kolona">
-				<!--todo-->
-				<!--
-				<div id="right_kolona_top" class="kolona_top">
-					<img src="/images/kolona_top.png" alt="kolona top"/>
-				</div>
-				<div id="right_kolona_middle" class="kolona_middle">
-					<img src="/images/kolona_middle.png" alt="kolona middle"/>
-				</div>
-				<div id="right_kolona_botton" class="kolona_botton">
-					<img src="/images/kolona_bottom.png" alt="kolona bottom"/>
-				</div>
--->
-				<img src="/images/Kolonna_Darina_shamot.png" alt="kolona"/>
+
+			<div class="menu_side">
+				<img src="/images/geysha_left.png" alt=""/>
+			</div>
+			<div style="float:left">
+				<img src="/images/money-ready.png" alt=""/>
+			</div>
+			<div class="menu_side">
+				<img src="/images/geysha_right.png" alt=""/>
 			</div>
 		</div>
 	</div>
