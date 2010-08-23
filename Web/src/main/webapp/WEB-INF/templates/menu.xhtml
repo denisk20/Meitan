@@ -18,7 +18,7 @@
 
 						<li>
 							<div class="navMenuItem">
-								<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+								<img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg" class="menubg"/>
 								<a href="about" class="navMenuLink">О компании</a>
 							</div>
 						</li>
@@ -26,7 +26,7 @@
 
 						<li>
 							<div class="navMenuItem">
-								<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+								<img src="/images/#{menuBackgroundService.getImage('categories')}" alt="bg" class="menubg"/>
 								<a href="categories" class="navMenuLink">Продукция</a>
 							</div>
 						</li>
@@ -35,7 +35,7 @@
 						<sec:ifNotGranted roles="ROLE_CONSULTANT">
 							<li>
 								<div class="navMenuItem">
-									<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+									<img src="/images/#{menuBackgroundService.getImage('join')}" alt="bg" class="menubg"/>
 									<a href="join" class="navMenuLink">Стань консультантом!</a>
 								</div>
 							</li>
@@ -44,7 +44,7 @@
 						<sec:ifAllGranted roles="ROLE_CONSULTANT">
 							<li>
 								<div class="navMenuItem">
-									<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+									<img src="/images/#{menuBackgroundService.getImage('boardForConsultants')}" alt="bg" class="menubg"/>
 									<a href="boardForConsultants" class="navMenuLink">Объявления для консультантов</a>
 								</div>
 							</li>

@@ -11,6 +11,8 @@
         <set name="flowScope.editFlow" value="'editCategory'"/>
         <set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Category'"/>
         <set name="conversationScope.dao" value="categoryDao"/>
+        <!--for global-->
+        <set name="flowScope.flowName" value="'categories'"/>
     </on-start>
 
 	<view-state id="categories" parent="abstractEditable#abstractEditable">

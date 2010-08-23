@@ -9,7 +9,12 @@
 -->
     <persistence-context/>
     
-	<view-state id="join">
+    <on-start>
+        <!--for global-->
+        <set name="flowScope.flowName" value="'join'"/>
+    </on-start>
+
+	<view-state id="join" parent="global#menuAwareViewState">
         <transition on="register" to="register"/>
         <transition on="signConsultant" to="sign"/>
 	</view-state>

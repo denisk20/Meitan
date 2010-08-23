@@ -4,7 +4,7 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
 
-	<view-state id="abstractEditable">
+	<view-state id="abstractEditable" parent="global#menuAwareViewState">
 		<transition on="select" to="selectFlow">
 			<set name="requestScope.id" value="requestParameters.id"/>
 		</transition>
