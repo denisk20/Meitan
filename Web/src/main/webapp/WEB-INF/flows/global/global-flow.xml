@@ -3,17 +3,9 @@
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-	<!--todo we don't need this anymore-->
-	<view-state id="aboutFlow" view="flowRedirect:about"/>
-	<view-state id="joinFlow" view="flowRedirect:join"/>
-	<view-state id="categoriesFlow" view="flowRedirect:categories"/>
-	<view-state id="boardForConsultantsFlow" view="flowRedirect:boardForConsultants"/>
-
-	<global-transitions>
-		<transition on="about_action" to="aboutFlow"/>
-		<transition on="browseCategories" to="categoriesFlow"/>
-		<transition on="joinUs" to="joinFlow"/>
-		<transition on="boardForConsultants" to="boardForConsultantsFlow"/>
-	</global-transitions>
-
+    <view-state id="menuAwareViewState">
+        <on-entry>
+            <set name="menuBackgroundService.selectedItem" value="flowName"/>
+        </on-entry>
+    </view-state>
 </flow>

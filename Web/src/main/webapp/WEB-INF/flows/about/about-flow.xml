@@ -14,6 +14,7 @@
         <set name="flowScope.editFlow" value="'editGood'"/>
         <set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Product'"/>
         <set name="conversationScope.dao" value="productDao"/>
+        <!--menu background-->
 	</on-start>
 
 	<view-state id="aboutUs" parent="abstractBoard#abstractBoardViewState">
