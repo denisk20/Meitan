@@ -9,7 +9,7 @@ body {
 #content {
     background-image:      url("/images/flower5.png");
     background-attachment: fixed;
-    background-position:   90% 79%;
+    background-position:   79% 79%;
     background-repeat:     no-repeat;
     width:                 100%;
 }

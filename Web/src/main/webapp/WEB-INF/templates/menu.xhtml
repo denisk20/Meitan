@@ -3,6 +3,7 @@
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition
 		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jstl/core"
 		xmlns:sec="http://www.springframework.org/security/facelets/tags"
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:sf="http://www.springframework.org/tags/faces"
@@ -17,8 +18,17 @@
 					<ul class="vmenu">
 
 						<li>
+							<!--todo custom tags!-->
 							<div class="navMenuItem">
-								<img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg" class="menubg"/>
+								<c:choose>
+									<c:when test="#{not empty menuBackgroundService}">
+										<img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg" class="menubg"/>
+									</c:when>
+
+									<c:otherwise>
+										<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+									</c:otherwise>
+								</c:choose>
 								<a href="about" class="navMenuLink">О компании</a>
 							</div>
 						</li>
@@ -26,7 +36,15 @@
 
 						<li>
 							<div class="navMenuItem">
-								<img src="/images/#{menuBackgroundService.getImage('categories')}" alt="bg" class="menubg"/>
+								<c:choose>
+									<c:when test="#{not empty menuBackgroundService}">
+										<img src="/images/#{menuBackgroundService.getImage('categories')}" alt="bg" class="menubg"/>
+									</c:when>
+
+									<c:otherwise>
+										<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+									</c:otherwise>
+								</c:choose>
 								<a href="categories" class="navMenuLink">Продукция</a>
 							</div>
 						</li>
@@ -35,7 +53,15 @@
 						<sec:ifNotGranted roles="ROLE_CONSULTANT">
 							<li>
 								<div class="navMenuItem">
-									<img src="/images/#{menuBackgroundService.getImage('join')}" alt="bg" class="menubg"/>
+									<c:choose>
+										<c:when test="#{not empty menuBackgroundService}">
+											<img src="/images/#{menuBackgroundService.getImage('join')}" alt="bg" class="menubg"/>
+										</c:when>
+
+										<c:otherwise>
+											<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+										</c:otherwise>
+									</c:choose>
 									<a href="join" class="navMenuLink">Стань консультантом!</a>
 								</div>
 							</li>
@@ -44,7 +70,15 @@
 						<sec:ifAllGranted roles="ROLE_CONSULTANT">
 							<li>
 								<div class="navMenuItem">
-									<img src="/images/#{menuBackgroundService.getImage('boardForConsultants')}" alt="bg" class="menubg"/>
+									<c:choose>
+										<c:when test="#{not empty menuBackgroundService}">
+											<img src="/images/#{menuBackgroundService.getImage('boardForConsultants')}" alt="bg" class="menubg"/>
+										</c:when>
+
+										<c:otherwise>
+											<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+										</c:otherwise>
+									</c:choose>
 									<a href="boardForConsultants" class="navMenuLink">Объявления для консультантов</a>
 								</div>
 							</li>
