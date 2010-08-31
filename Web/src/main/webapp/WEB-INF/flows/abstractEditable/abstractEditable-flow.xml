@@ -24,7 +24,7 @@
 		</transition>
 	</view-state>
 
-    <view-state id="conformDelete">
+    <view-state id="conformDelete" view="../abstractEditable/conformDelete.xhtml">
         <on-entry>
             <set name="viewScope.deleteId" value="id" type="long"/>
             <set name="viewScope.name" value="name"/>
