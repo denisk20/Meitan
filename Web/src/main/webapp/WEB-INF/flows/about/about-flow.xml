@@ -23,6 +23,8 @@
             <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
         </on-render>
 
+        <transition on="test" to="finish"/>
 	</view-state>
 
+    <end-state id="finish" view="../abstractEditable/conformDelete.xhtml"/>
 </flow>
