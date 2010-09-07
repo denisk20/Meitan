@@ -17,7 +17,6 @@
 			<set name="flashScope.id" value="requestParameters.id" type="long"/>
 		</transition>
 
-		<!--todo this is not quite right. We don't have to execute anything to determine the actual flow-->
 		<transition on="delete" to="conformDelete">
             <set name="requestScope.id" value="requestParameters.id"/>
             <set name="requestScope.name" value="requestParameters.name"/>
