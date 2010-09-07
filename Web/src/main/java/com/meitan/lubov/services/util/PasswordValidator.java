@@ -9,7 +9,7 @@ import org.springframework.webflow.execution.RequestContext;
  *         Date: 09.07.2010
  *         Time: 22:01:48
  */
-@Service("passwordsValidator")
+@Service("passwordValidator")
 public class PasswordValidator {
 	public void validatePasswords(String original, String conformed, RequestContext requestContext) throws Exception {
 		if (original == null || conformed == null) {

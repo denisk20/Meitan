@@ -38,6 +38,7 @@ public class Utils implements ServletContextAware {
 	private static final String MEITAN_PROPS = "MEITAN_PROPS";
 	private static final String COMMON_PROPERTIES = "common.properties";
 	private static final String MEITAN_UPLOAD_FOLDER = "meitan.upload_folder";
+	private static final String MEITAN_HOME = "MEITAN_HOME";
 
 	public ServletContext getServletContext() {
 		return servletContext;
@@ -136,5 +137,10 @@ public class Utils implements ServletContextAware {
 	}
 	public StringWrap createStringWrap() {
 		return new StringWrap("Hello world");
+	}
+
+	//todo replace all MEITAN_HOME usages with this one
+	public String getHomePath() {
+		return System.getenv(MEITAN_HOME);
 	}
 }

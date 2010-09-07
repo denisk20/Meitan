@@ -4,7 +4,6 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
       parent="global">
 
-    <!--todo unit test this-->
     <var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>
 
     <view-state id="register">
@@ -12,7 +11,7 @@
             <set name="newClient.enabled" value="true"/>
         </on-entry>
         <transition on="register" to="done">
-            <evaluate expression="passwordsValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
+            <evaluate expression="passwordValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
 
             <set name="newClient.password" value="utils.getMD5(newClient.password)"/>
