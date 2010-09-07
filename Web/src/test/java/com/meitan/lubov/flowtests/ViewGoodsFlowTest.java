@@ -163,16 +163,17 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
 
-		final Long prodId = new Long(1L);
 
 		assertCurrentStateEquals("allGoodsList");
 
 		MockParameterMap map = new MockParameterMap();
-		//todo this actually sets IDs of both input and request parameters. I can't figure out how to reset input after this because I don't have access to the source of org.springframework.binding.mapping.Mapper
+		final Long prodId = new Long(1L);
+		//todo this actually sets IDs of both input and request parameters.
+		// I can't figure out how to reset input after this because
+		// I don't have access to the source of org.springframework.binding.mapping.Mapper
 		map.put("id", prodId.toString());
 
 		context.setRequestParameterMap(map);
-
 
 		Flow imagesManagerSubflow = FlowTestUtils.createMockImagesManagerFlow(prodId, Product.class.getName());
 

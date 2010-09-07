@@ -114,6 +114,8 @@
     <bean id="testAuthorityDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaAuthorityDao"/>
 
     <bean id="testNewsBoardDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaNewsBoardDao"/>
+
+    <bean id="testBoardItemDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaBoardItemDao"/>
     <!-- /DAOs======================================================================================-->
 
     <!-- Mail settings===========================================================================-->

@@ -19,6 +19,6 @@ public interface ImageAware extends IdAware {
 	boolean isAllowedToAdd();
 
 	Image getAvatar();
-//todo unit test
+	
 	void setAvatar(Image image);
 }
