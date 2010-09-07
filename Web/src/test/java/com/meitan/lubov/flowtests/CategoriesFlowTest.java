@@ -40,6 +40,14 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
+	
+	@Override
+	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
+		super.configureFlowBuilderContext(builderContext);
+		builderContext.registerBean("categoryDao", testCategoryDao);
+		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
+	}
+
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
@@ -49,6 +57,8 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 		result.addAll(Arrays.asList(superResources));
 
+//		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/categories/categories-flow.xml"));
+//		result.add(new FlowDefinitionResource("categories", localFlowResource1, null));
 		Resource localFlowResource3 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
 		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource3, null));
 
@@ -58,12 +68,6 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
 		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/categories/categories-flow.xml");
-	}
-
-	@Override
-	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
-		builderContext.registerBean("categoryDao", testCategoryDao);
-		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
 	@Test
@@ -204,13 +208,13 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testAddCategorySubflow() {
-		setCurrentState("categories");
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
 
 		Flow addCategorySubflow = new Flow("addCategory");
 		new EndState(addCategorySubflow, "categoryCreated");
 		getFlowDefinitionRegistry().registerFlowDefinition(addCategorySubflow);
 
-		MockExternalContext context = new MockExternalContext();
 		context.setEventId("add");
 
 		resumeFlow(context);
@@ -221,13 +225,13 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testAddGoodSubflow() {
-		setCurrentState("categories");
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
 
 		Flow addGoodSubflow = new Flow("addGood");
 		new EndState(addGoodSubflow, "create");
 		getFlowDefinitionRegistry().registerFlowDefinition(addGoodSubflow);
 
-		MockExternalContext context = new MockExternalContext();
 		context.setEventId("addGood");
 
 		resumeFlow(context);

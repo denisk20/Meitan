@@ -61,19 +61,19 @@ public class FlowTestUtils {
 		return editCategorySubflow;
 	}
 
-	public static OneSelectionTrackingListDataModel getProductDataModel(Long selectedProdId) {
-		Product p1 = new Product("p1");
-		p1.setId(selectedProdId);
-
-		Product p2 = new Product("p2");
-
-		ArrayList<Product> products = new ArrayList<Product>();
-		products.add(p1);
-		products.add(p2);
-
-		OneSelectionTrackingListDataModel dataModel = new OneSelectionTrackingListDataModel(products);
-		dataModel.select(p1);
-		return dataModel;
-	}
+//	public static OneSelectionTrackingListDataModel getProductDataModel(Long selectedProdId) {
+//		Product p1 = new Product("p1");
+//		p1.setId(selectedProdId);
+//
+//		Product p2 = new Product("p2");
+//
+//		ArrayList<Product> products = new ArrayList<Product>();
+//		products.add(p1);
+//		products.add(p2);
+//
+//		OneSelectionTrackingListDataModel dataModel = new OneSelectionTrackingListDataModel(products);
+//		dataModel.select(p1);
+//		return dataModel;
+//	}
 
 }

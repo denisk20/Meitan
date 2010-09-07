@@ -1,5 +1,6 @@
 package com.meitan.lubov.flowtests;
 
+import com.meitan.lubov.services.util.MenuBackgroundService;
 import org.junit.runner.RunWith;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -12,6 +13,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
+import org.springframework.webflow.test.MockFlowBuilderContext;
 import org.springframework.webflow.test.execution.AbstractXmlFlowExecutionTests;
 
 import java.io.File;
@@ -29,6 +31,11 @@ import java.io.File;
 public abstract class AbstractFlowIntegrationTest extends AbstractXmlFlowExecutionTests {
 
 	protected String rootPath = System.getenv("MEITAN_HOME");
+
+	@Override
+	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
+		builderContext.registerBean("menuBackgroundService", new MenuBackgroundService());
+	}
 
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {

@@ -19,6 +19,11 @@ import org.springframework.webflow.test.MockFlowBuilderContext;
 public class JoinFlowTest extends AbstractFlowIntegrationTest{
 
 	@Override
+	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
+		super.configureFlowBuilderContext(builderContext);
+	}
+
+	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
 		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/join/join-flow.xml");
 	}

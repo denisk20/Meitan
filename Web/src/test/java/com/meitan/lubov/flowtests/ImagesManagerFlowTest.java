@@ -45,6 +45,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
+		super.configureFlowBuilderContext(builderContext);
 		builderContext.registerBean("imageDao", testImageDao);
 		builderContext.registerBean("utils", utils);
 		builderContext.registerBean("imageIdGenerationService", new ImageIdGenerationServiceImpl());
