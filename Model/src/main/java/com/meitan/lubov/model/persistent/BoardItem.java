@@ -16,8 +16,8 @@ import java.util.Set;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "getAll", query = "from BoardItem order by postDate"),
-		@NamedQuery(name = "getForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate desc"),
-		@NamedQuery(name = "getForType", query = "from NewsBoard b where b.boardType=:type")
+		@NamedQuery(name = "getItemsForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate desc"),
+		@NamedQuery(name = "getBoardForType", query = "from NewsBoard b where b.boardType=:type")
 })
 public class BoardItem extends PersistentOrderableImpl implements Serializable {
 	private Long id;

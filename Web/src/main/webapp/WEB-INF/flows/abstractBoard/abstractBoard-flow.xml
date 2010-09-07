@@ -8,14 +8,14 @@
 <!--this parent here is total hack to overcome the fact that views don't support multiple parents-->
 	<view-state id="abstractBoardViewState" parent="baseGood#baseGood">
 		<on-entry>
-            <evaluate expression="newsBoardDao.getForType(boardType)" result="flowScope.board"/>
+            <evaluate expression="newsBoardDao.getBoardForType(boardType)" result="flowScope.board"/>
 		</on-entry>
 		<on-render>
 			<evaluate expression="boardItemDao.newInstance()" result="viewScope.newNews"/>
-			<evaluate expression="newsBoardDao.getForBoard(boardType)" result="viewScope.boardItems" result-type="dataModel"/>
+			<evaluate expression="newsBoardDao.getItemsForBoard(boardType)" result="viewScope.boardItems" result-type="dataModel"/>
 		</on-render>
 
-		<transition on="saveItem" to="saveItem">
+		<transition on="saveNews" to="saveItem">
 			<evaluate expression="boardItemDao.makePersistent(boardItems.selectedRow)"/>
 			<set name="requestScope.savedItem" value="utils.getShortName(boardItems.selectedRow.content)"/>
 		</transition>
@@ -24,7 +24,7 @@
 			<evaluate expression="boardItemDao.makeTransient(boardItems.selectedRow)"/>
 		</transition>
 
-		<transition on="create" to="#{viewName}">
+		<transition on="createNews" to="#{viewName}">
 			<evaluate expression="newNews.boards.add(board)"/>
 			<evaluate expression="boardItemDao.makePersistent(newNews)"/>
 		</transition>

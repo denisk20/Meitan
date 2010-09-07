@@ -33,7 +33,7 @@
                     <rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
                     <!--<h:inputText value="#{newNews.content}"/>-->
                     <br/>
-                    <h:commandButton value="Создать" action="create"/>
+                    <h:commandButton value="Создать" action="createNews"/>
                 </h:form>
             </div>
         </sec:ifAllGranted>
@@ -51,7 +51,7 @@
                     <rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
                     <br/>
 
-                    <h:commandButton value="Сохранить" action="saveItem"/>
+                    <h:commandButton value="Сохранить" action="saveNews"/>
                     <h:commandButton value="Удалить" action="deleteNews"/>
                 </sec:ifAllGranted>
 

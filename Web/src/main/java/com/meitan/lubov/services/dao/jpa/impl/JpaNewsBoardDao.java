@@ -30,8 +30,8 @@ public class JpaNewsBoardDao extends JpaDao<NewsBoard, Long> implements NewsBoar
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	 public List<BoardItem> getForBoard(BoardType boardType) {
-		List<BoardItem> result = em.createNamedQuery("getForBoard")
+	 public List<BoardItem> getItemsForBoard(BoardType boardType) {
+		List<BoardItem> result = em.createNamedQuery("getItemsForBoard")
 				.setParameter("boardType", boardType).getResultList();
 		return result;
 
@@ -40,8 +40,8 @@ public class JpaNewsBoardDao extends JpaDao<NewsBoard, Long> implements NewsBoar
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public NewsBoard getForType(BoardType type) {
-		NewsBoard board = (NewsBoard) em.createNamedQuery("getForType")
+	public NewsBoard getBoardForType(BoardType type) {
+		NewsBoard board = (NewsBoard) em.createNamedQuery("getBoardForType")
 				.setParameter("type", type).getResultList().get(0);
 		return board;
 	}

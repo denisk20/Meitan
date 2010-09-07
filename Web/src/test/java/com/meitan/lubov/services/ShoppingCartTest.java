@@ -85,4 +85,22 @@ public class ShoppingCartTest {
 
 		testable.getQuantity(p1);
 	}
+
+	@Test
+	public void testGetCount() {
+		String description = "desc";
+		Product p1 = new Product("p1");
+		p1.setDescription(description);
+
+		Product p2 = new Product("p2");
+		p2.setDescription(description);
+
+		testable.addItem(p1);
+		testable.addItem(p2);
+
+		ArrayList<ShoppingCartItem> items = testable.getItems();
+		assertEquals("Wrong number of items", 2, items.size());
+
+		assertEquals("Wrong items count", 2, testable.getCount());
+	}
 }
