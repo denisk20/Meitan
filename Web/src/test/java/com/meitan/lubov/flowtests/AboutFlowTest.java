@@ -31,11 +31,10 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private ProductDao testProductDao;
 
-	//	todo make this test
 	@Autowired
-	private NewsBoardDao newsBoardDao;
+	private NewsBoardDao testNewsBoardDao;
 	@Autowired
-	private BoardItemDao boardItemDao;
+	private BoardItemDao testBoardItemDao;
 	
 	private FileUploadHandler fileUploadHandler = new FileUploadHandler();
 
@@ -47,7 +46,6 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
 		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
-
 
 		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
 
@@ -67,9 +65,9 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
 		builderContext.registerBean("productDao", testProductDao);
-		builderContext.registerBean("newsBoardDao", newsBoardDao);
+		builderContext.registerBean("newsBoardDao", testNewsBoardDao);
 		builderContext.registerBean("fileUploadHandler", fileUploadHandler);
-		builderContext.registerBean("boardItemDao", boardItemDao);
+		builderContext.registerBean("boardItemDao", testBoardItemDao);
 		builderContext.registerBean("utils", new Utils());
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}

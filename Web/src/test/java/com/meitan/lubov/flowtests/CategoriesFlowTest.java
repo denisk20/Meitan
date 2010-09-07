@@ -139,7 +139,6 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		assertCurrentStateEquals("categories");
 	}
 
-	//todo merge this with testEditCategory
 	@Test
 	public void testEditImages() {
 		MockExternalContext context = new MockExternalContext();

@@ -17,7 +17,7 @@ import java.util.Date;
  */
 @Service("cart")
 public class ShoppingCartImpl implements ShoppingCart{
-	private ArrayList<ShoppingCartItem> items = new ArrayList<ShoppingCartItem>();
+	protected ArrayList<ShoppingCartItem> items = new ArrayList<ShoppingCartItem>();
 
 	private OneSelectionTrackingListDataModel itemsDataModel = new OneSelectionTrackingListDataModel(items);
 	@Override

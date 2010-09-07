@@ -106,4 +106,12 @@ public class ProductTest {
 		testable.getPurchases().addAll(purchases);
 		assertEquals(purchases, testable.getPurchases());
 	}
+
+	@Test
+	public void testAvatar() {
+		Image ava = new Image("some url...");
+		testable.setAvatar(ava);
+
+		assertEquals(ava, testable.getAvatar());
+	}
 }

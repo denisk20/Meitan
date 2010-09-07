@@ -72,4 +72,17 @@ public class ShoppingCartTest {
 		assertEquals(p1, item.getItem());
 		assertEquals(new Integer(2), item.getQuantity());
 	}
+
+	@Test(expected = IllegalStateException.class)
+	public void testDuplicateItemsState() {
+		String name = "p1";
+		String description = "desc";
+		Product p1 = new Product(name);
+		p1.setDescription(description);
+
+		testable.getItems().add(new ShoppingCartItem(p1, 1));
+		testable.getItems().add(new ShoppingCartItem(p1, 1));
+
+		testable.getQuantity(p1);
+	}
 }
