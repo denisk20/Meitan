@@ -47,7 +47,6 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	private ProductDao testProductDao;
 	@Autowired
 	private CategoryDao testCategoryDao;
-
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
 

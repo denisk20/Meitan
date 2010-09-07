@@ -86,7 +86,6 @@ public class ShoppingCartImpl implements ShoppingCart{
 		for (ShoppingCartItem i : items) {
 			if (i.getItem().equals(item)) {
 				if (found != null) {
-					//todo unit test this
 					throw new IllegalStateException("Duplicate entities with item " + item);
 				}
 				found = i;
@@ -111,7 +110,6 @@ public class ShoppingCartImpl implements ShoppingCart{
 		items.clear();
 	}
 
-	//todo unit test
 	@Override
 	public int getCount() {
 		int result = 0;

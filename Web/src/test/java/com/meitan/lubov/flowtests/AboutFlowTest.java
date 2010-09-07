@@ -1,5 +1,7 @@
 package com.meitan.lubov.flowtests;
 
+import com.meitan.lubov.model.persistent.BoardItem;
+import com.meitan.lubov.model.persistent.NewsBoard;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.BoardItemDao;
 import com.meitan.lubov.services.dao.NewsBoardDao;
@@ -17,10 +19,10 @@ import org.springframework.webflow.config.FlowDefinitionResourceFactory;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
-import javax.faces.model.DataModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author denis_k
@@ -86,7 +88,7 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	public void testNavigateToGood() {
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
-		setCurrentState("aboutUs");
+		assertCurrentStateEquals("aboutUs");
 		context.setEventId("select");
 		Product p = new Product("some product");
 		p.setId(1L);
@@ -102,4 +104,101 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 		assertFlowExecutionOutcomeEquals("selectFlow");
 	}
 
+	/*Here goes tests for abstractBoard. I wonder if they can be cleanly moved to
+		separate test class
+	*/
+
+	@Test
+	public void testBoardItems() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		final int expectedNewsCount = 2;
+
+		NewsBoard board = (NewsBoard) getFlowAttribute("board");
+		assertEquals(expectedNewsCount, board.getItems().size());
+
+		BoardItem newItem = (BoardItem) getViewAttribute("newNews");
+		assertNotNull(newItem);
+		OneSelectionTrackingListDataModel boardItems =
+				(OneSelectionTrackingListDataModel) getViewAttribute("boardItems");
+		final Object data = boardItems.getWrappedData();
+		List<BoardItem> items = (List<BoardItem>) data;
+		assertEquals(expectedNewsCount, items.size());
+	}
+
+	@Test
+	public void testModifyNews() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		OneSelectionTrackingListDataModel boardItems =
+				(OneSelectionTrackingListDataModel) getViewAttribute("boardItems");
+		final Object data = boardItems.getWrappedData();
+		List<BoardItem> items = (List<BoardItem>) data;
+		BoardItem item = items.get(0);
+		boardItems.select(item);
+
+		final String content = "this is test context";
+		item.setContent(content);
+
+		context.setEventId("saveNews");
+		resumeFlow(context);
+
+		BoardItem loadedItem = testBoardItemDao.findById(item.getId());
+		assertEquals(content, loadedItem.getContent());
+	}
+
+	@Test
+	public void testCreateNews() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		OneSelectionTrackingListDataModel boardItems =
+				(OneSelectionTrackingListDataModel) getViewAttribute("boardItems");
+		final Object data = boardItems.getWrappedData();
+		List<BoardItem> items = (List<BoardItem>) data;
+		final int initialNewsCount = items.size();
+
+
+		BoardItem newItem = (BoardItem) getViewAttribute("newNews");
+		final String content = "hello";
+		newItem.setContent(content);
+
+		context.setEventId("createNews");
+		resumeFlow(context);
+
+		NewsBoard board = (NewsBoard) getFlowAttribute("board");
+		List<BoardItem> newItems = testNewsBoardDao.getItemsForBoard(board.getBoardType());
+		
+		assertEquals(initialNewsCount + 1, newItems.size());
+
+		newItems.removeAll(items);
+		assertEquals(content, newItems.get(0).getContent());
+	}
+
+	@Test
+	public void testDeleteNews() {
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		OneSelectionTrackingListDataModel boardItems =
+				(OneSelectionTrackingListDataModel) getViewAttribute("boardItems");
+		final Object data = boardItems.getWrappedData();
+		List<BoardItem> items = (List<BoardItem>) data;
+		BoardItem item = items.get(0);
+		final int initialNewsCount = items.size();
+
+		boardItems.select(item);
+
+		context.setEventId("deleteNews");
+		resumeFlow(context);
+		
+		NewsBoard board = (NewsBoard) getFlowAttribute("board");
+		List<BoardItem> newItems = testNewsBoardDao.getItemsForBoard(board.getBoardType());
+
+		assertEquals(initialNewsCount - 1, newItems.size());
+
+		assertFalse(newItems.contains(item));
+	}
 }

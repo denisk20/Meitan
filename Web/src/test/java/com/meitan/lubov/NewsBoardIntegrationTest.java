@@ -54,10 +54,10 @@ public class NewsBoardIntegrationTest extends GenericIntegrationTest <NewsBoard>
 		BoardType aboutType = BoardType.ABOUT;
 		BoardType consultantsType = BoardType.FOR_CONSULTANTS;
 
-		List<BoardItem> aboutItems = testNewsBoardDao.getForBoard(aboutType);
+		List<BoardItem> aboutItems = testNewsBoardDao.getItemsForBoard(aboutType);
 		assertEquals(EXPECTED_ABOUT_ITEMS_COUNT, aboutItems.size());
 
-		List<BoardItem> consultantItems = testNewsBoardDao.getForBoard(consultantsType);
+		List<BoardItem> consultantItems = testNewsBoardDao.getItemsForBoard(consultantsType);
 		assertEquals(EXPECTED_CONSULTANT_ITEMS_COUNT, consultantItems.size());
 	}
 
@@ -66,10 +66,10 @@ public class NewsBoardIntegrationTest extends GenericIntegrationTest <NewsBoard>
 		BoardType aboutType = BoardType.ABOUT;
 		BoardType consultantsType = BoardType.FOR_CONSULTANTS;
 
-		NewsBoard aboutBoard = testNewsBoardDao.getForType(aboutType);
+		NewsBoard aboutBoard = testNewsBoardDao.getBoardForType(aboutType);
 		assertNotNull(aboutBoard);
 
-		NewsBoard consultantBoard = testNewsBoardDao.getForType(consultantsType);
+		NewsBoard consultantBoard = testNewsBoardDao.getBoardForType(consultantsType);
 		assertNotNull(consultantBoard);
 	}
 }
