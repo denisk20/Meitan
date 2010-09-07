@@ -34,9 +34,9 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
+		super.configureFlowBuilderContext(builderContext);
 		builderContext.registerBean("captchaService", captchaService);
 		builderContext.registerBean("clientDao", testClientDao);
-		//builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
 	@Test

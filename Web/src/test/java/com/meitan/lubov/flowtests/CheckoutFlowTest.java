@@ -29,8 +29,8 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
+		super.configureFlowBuilderContext(builderContext);
 		builderContext.registerBean("cart", cart);
-		//builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
 	@Test

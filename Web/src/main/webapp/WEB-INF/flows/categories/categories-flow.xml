@@ -25,13 +25,10 @@
 			<set name="requestScope.id" value="null"/>
 		</transition>
 
-
 		<transition on="add" to="addCategory"/>
 
 		<transition on="addGood" to="addGoodSubflow"/>
 	</view-state>
-
-
 
 	<subflow-state id="addCategory" subflow="addCategory">
 		<output name="createdCategoryName"/>
