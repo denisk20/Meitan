@@ -22,6 +22,8 @@ import java.util.Set;
  *         Time: 20:52:05
  */
 public class MailServiceIntegrationTest extends GenericIntegrationTest<Client>{
+	private final static String TO_EMAIL = "denis.k1985@gmail.com";
+
 	@Autowired
 	private ClientDao testClientDao;
 
@@ -41,6 +43,8 @@ public class MailServiceIntegrationTest extends GenericIntegrationTest<Client>{
 	@Test
 	public void testSendEmail() {
 		Client client = beansFromDb.get(0);
+		client.setEmail(TO_EMAIL);
+		testClientDao.makePersistent(client);
 		Set<Authority> roles = client.getRoles();
 		GrantedAuthorityImpl[] auths = new GrantedAuthorityImpl[roles.size()];
 		int i = 0;
