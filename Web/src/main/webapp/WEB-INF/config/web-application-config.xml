@@ -22,8 +22,10 @@
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
 		<property name="searchSystemEnvironment" value="true"/>
 		<property name="locations">
-			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
-			<!--<value>file:${MEITAN_PROPS}/common.properties</value>-->
+			<array>
+				<value>file:${MEITAN_PROPS}/hibernate.properties</value>
+				<value>file:${MEITAN_PROPS}/common.properties</value>
+			</array>
 		</property>
 	</bean>
 	
