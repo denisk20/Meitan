@@ -82,12 +82,11 @@
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
 		<property name="searchSystemEnvironment" value="true"/>
 		<property name="locations">
-			<bean class="org.springframework.core.io.UrlResource" depends-on="propertyConfigurer">
-				<constructor-arg>
-					<value>file:#{T(java.lang.System).getenv().get('MEITAN_PROPS')}/hibernate.properties</value>
-				</constructor-arg>
-			</bean>
-			<!--<value>file:${MEITAN_PROPS}/hibernate.properties</value>-->
+			<array>
+				<value>file:${MEITAN_PROPS}/hibernate.properties</value>
+				<value>file:${MEITAN_PROPS}/common.properties</value>
+				<!--<value>file:#{T(java.lang.System).getenv().get('MEITAN_PROPS')}/hibernate.properties</value>-->
+			</array>
 		</property>
 	</bean>
 
@@ -125,24 +124,24 @@
 
     <!-- Mail settings===========================================================================-->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="mail.meitan-kh.com"/>
-        <property name="username" value="admin@meitan-kh.com"/>
-        <property name="password" value="adm1n!"/>
+        <property name="host" value="${meitan.mail.host}"/>
+        <property name="username" value="${meitan.mail.username}"/>
+        <property name="password" value="${meitan.mail.password}"/>
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.debug">true</prop>
-                <prop key="mail.smtp.socketFactory.port">465</prop>
-                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-                <prop key="mail.smtp.socketFactory.fallback">false</prop>
+                <prop key="mail.smtp.auth">${meitan.mail.smtp.auth}</prop>
+                <prop key="mail.debug">${meitan.mail.debug}</prop>
+                <prop key="mail.smtp.socketFactory.port">${meitan.mail.socketfactory.port}</prop>
+                <prop key="mail.smtp.socketFactory.class">${meitan.mail.socketfactory.class}</prop>
+                <prop key="mail.smtp.socketFactory.fallback">${meitan.mail.socketfactory.fallback}</prop>
             </props>
         </property>
     </bean>
 
     <!-- this is a template message that we can pre-load with default state -->
     <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="admin@meitan-kh.com"/>
-        <property name="subject" value="Your order"/>
+        <property name="from" value="${meitan.mail.username}"/>
+        <property name="subject" value="Ваш заказ"/>
     </bean>
     <!-- /Mail settings===========================================================================-->
 
