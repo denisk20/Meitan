@@ -23,6 +23,7 @@
 		<property name="searchSystemEnvironment" value="true"/>
 		<property name="locations">
 			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
+			<!--<value>file:${MEITAN_PROPS}/common.properties</value>-->
 		</property>
 	</bean>
 	

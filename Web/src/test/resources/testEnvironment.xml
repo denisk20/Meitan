@@ -82,7 +82,12 @@
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"/>
 		<property name="searchSystemEnvironment" value="true"/>
 		<property name="locations">
-			<value>file:${MEITAN_PROPS}/hibernate.properties</value>
+			<bean class="org.springframework.core.io.UrlResource" depends-on="propertyConfigurer">
+				<constructor-arg>
+					<value>file:#{T(java.lang.System).getenv().get('MEITAN_PROPS')}/hibernate.properties</value>
+				</constructor-arg>
+			</bean>
+			<!--<value>file:${MEITAN_PROPS}/hibernate.properties</value>-->
 		</property>
 	</bean>
 
@@ -120,9 +125,9 @@
 
     <!-- Mail settings===========================================================================-->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.gmail.com"/>
-        <property name="username" value="denis.k1985@gmail.com"/>
-        <property name="password" value="this too will pass"/>
+        <property name="host" value="mail.meitan-kh.com"/>
+        <property name="username" value="admin@meitan-kh.com"/>
+        <property name="password" value="adm1n!"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">true</prop>
@@ -132,12 +137,11 @@
                 <prop key="mail.smtp.socketFactory.fallback">false</prop>
             </props>
         </property>
-
     </bean>
 
     <!-- this is a template message that we can pre-load with default state -->
     <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="denis.k1985@gmail.com"/>
+        <property name="from" value="admin@meitan-kh.com"/>
         <property name="subject" value="Your order"/>
     </bean>
     <!-- /Mail settings===========================================================================-->
