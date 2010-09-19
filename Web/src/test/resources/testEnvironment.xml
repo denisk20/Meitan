@@ -131,9 +131,12 @@
             <props>
                 <prop key="mail.smtp.auth">${meitan.mail.smtp.auth}</prop>
                 <prop key="mail.debug">${meitan.mail.debug}</prop>
+<!--this is for ssl, if it ever work-->
+				<!--
                 <prop key="mail.smtp.socketFactory.port">${meitan.mail.socketfactory.port}</prop>
                 <prop key="mail.smtp.socketFactory.class">${meitan.mail.socketfactory.class}</prop>
                 <prop key="mail.smtp.socketFactory.fallback">${meitan.mail.socketfactory.fallback}</prop>
+-->
             </props>
         </property>
     </bean>

@@ -1,3 +1,9 @@
+@font-face {
+    font-family: matreshka;
+    src: url("/fonts/Matreshka.eot");
+    src: local(matreshka), url("/fonts/Matreshka.ttf") format("opentype");
+}
+
 body {
     background-color:      #ccffff;
 }
