@@ -31,14 +31,24 @@
 			<!--<evaluate expression="productDao.getForCategory(categoryId)" result="viewScope.products" result-type="dataModel"/>-->
 			<evaluate expression="productDao.getForCategory(id)" result="viewScope.products"/>
 		</on-entry>
+		<transition on="addGood" to="addGoodSubflow">
+			<evaluate expression="id" result="requestScope.categoryId"/>
+		</transition>
 	</view-state>
 
 	<view-state id="allGoodsList" parent="viewGoods#baseGoodList" >
 		<on-entry>
 			<evaluate expression="productDao.findAll()" result="viewScope.products"/>
 		</on-entry>
+		<transition on="addGood" to="addGoodSubflow">
+			<!--do nothing-->
+		</transition>
 	</view-state>
 
+	<subflow-state id="addGoodSubflow" subflow="addGood">
+		<input name="categoryId" value="requestScope.categoryId"/>
+		<transition to="allCategoriesQueried"/>
+	</subflow-state>
 
 	<end-state id="back"/>
 </flow>

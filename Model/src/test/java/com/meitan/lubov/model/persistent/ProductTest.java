@@ -114,4 +114,36 @@ public class ProductTest {
 
 		assertEquals(ava, testable.getAvatar());
 	}
+
+	@Test
+	public void testSelectNullCategory() {
+		testable.selectCategory(null);
+		assertNull(testable.getCategoriesIdArray());
+	}
+
+	@Test
+	public void testSelectNotNullCategory() {
+		Long id = new Long(1);
+		testable.selectCategory(id);
+		Object[] idArray = testable.getCategoriesIdArray();
+		assertNotNull(idArray);
+		assertEquals(1, idArray.length);
+		assertEquals(id.toString(), idArray[0]);
+	}
+
+	@Test
+	public void testSelectNotNullCategoryForNonEmptyArray() {
+		Long id = new Long(1);
+		Object[] initArray = new String[1];
+		initArray[0] = id.toString();
+		testable.setCategoriesIdArray(initArray);
+
+		Long newId = new Long(2);
+		testable.selectCategory(newId);
+		Object[] idArray = testable.getCategoriesIdArray();
+		assertNotNull(idArray);
+		assertEquals(2, idArray.length);
+		assertEquals(id.toString(), idArray[0]);
+		assertEquals(newId.toString(), idArray[1]);
+	}
 }

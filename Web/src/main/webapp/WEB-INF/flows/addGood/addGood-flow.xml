@@ -7,10 +7,13 @@
 
 	<var name="newGood" class="com.meitan.lubov.model.persistent.Product"/>
 
+	<input name="categoryId" type="long" required="false"/>
+
 	<view-state id="addGood">
 		<on-entry>
 			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>
-			<evaluate expression="utils.getSelectItems(viewScope.categories)" result="viewScope.categoriesItems"/>
+			<evaluate expression="utils.getSelectItems(viewScope.categories, categoryId)" result="viewScope.categoriesItems"/>
+			<evaluate expression="newGood.selectCategory(categoryId)"/>
 		</on-entry>
 
 		<transition on="create" to="create">
