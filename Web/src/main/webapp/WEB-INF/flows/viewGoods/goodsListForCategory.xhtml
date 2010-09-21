@@ -14,6 +14,7 @@
         <h1>Товары! Самые лучшие!!!</h1>
 
         <h:form>
+            <h:commandButton value="Добавить продукт" action="addGood"/>
             <c:forEach items="#{products}" var="product">
                 <div class="imageItem">
                     <denis:image imageName="#{product.name}" price="#{product.price.amount}" imageUrl="#{product.avatar.url}"

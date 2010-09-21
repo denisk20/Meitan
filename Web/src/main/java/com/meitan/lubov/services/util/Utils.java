@@ -97,7 +97,7 @@ public class Utils implements ServletContextAware {
 		return imageFile;
 	}
 
-	public ArrayList<SelectItem> getSelectItems(List<NameAware> source) {
+	public ArrayList<SelectItem> getSelectItems(List<NameAware> source, Long selectedId) {
 		if (source == null) {
 			throw new IllegalArgumentException("Source for SelectItems was null");
 		}
@@ -105,7 +105,11 @@ public class Utils implements ServletContextAware {
 		for (NameAware nameAware : source) {
 			SelectItem item = new SelectItem();
 			item.setLabel(nameAware.getName());
-			item.setValue(nameAware.getId());
+			Long id = nameAware.getId();
+			item.setValue(id);
+			if (selectedId!=null && id.equals(selectedId)) {
+				item.setDisabled(false);
+			}
 			result.add(item);
 		}
 		return result;

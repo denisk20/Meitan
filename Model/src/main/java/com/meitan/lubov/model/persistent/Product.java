@@ -43,6 +43,22 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
         this.categoriesIdArray = categoriesArray;
     }
 
+	public void selectCategory(Long categoryId) {
+		if (categoryId != null) {
+			if (categoriesIdArray == null) {
+				categoriesIdArray = new String[1];
+				categoriesIdArray[0] = categoryId.toString();
+			} else {
+				int length = categoriesIdArray.length;
+				String[] tmp = new String[length + 1];
+				System.arraycopy(categoriesIdArray, 0, tmp, 0, length);
+
+				tmp[length] = categoryId.toString();
+				categoriesIdArray = tmp;
+			}
+		}
+	}
+
 	public Product() {
 	}
 
