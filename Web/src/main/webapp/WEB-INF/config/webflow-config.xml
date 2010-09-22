@@ -11,31 +11,31 @@
            http://www.springframework.org/schema/faces
            http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
 
-    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
+	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
 	<webflow:flow-executor id="flowExecutor">
-        <webflow:flow-execution-listeners>
-            <webflow:listener ref="jpaFlowExecutionListener"/>
-            <webflow:listener ref="securityFlowExecutionListener"/>
-        </webflow:flow-execution-listeners>
-        <webflow:flow-execution-attributes>
-            <webflow:always-redirect-on-pause value="true"/>
-        </webflow:flow-execution-attributes>
-    </webflow:flow-executor>
+		<webflow:flow-execution-listeners>
+			<webflow:listener ref="jpaFlowExecutionListener"/>
+			<webflow:listener ref="securityFlowExecutionListener"/>
+		</webflow:flow-execution-listeners>
+		<webflow:flow-execution-attributes>
+			<webflow:always-redirect-on-pause value="true"/>
+		</webflow:flow-execution-attributes>
+	</webflow:flow-executor>
 
-<!--
-	<bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
-		<property name="flowExecutor" ref="flowExecutor"/>
-		<property name="ajaxHandler"> 
-			<bean class="org.springframework.faces.richfaces.RichFacesAjaxHandler"/>
-		</property>
-	</bean>
--->
+	<!--
+	 <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+		 <property name="flowExecutor" ref="flowExecutor"/>
+		 <property name="ajaxHandler">
+			 <bean class="org.springframework.faces.richfaces.RichFacesAjaxHandler"/>
+		 </property>
+	 </bean>
+ -->
 
 	<!-- The registry of executable flow definitions -->
 	<webflow:flow-registry id="flowRegistry" flow-builder-services="facesFlowBuilderServices"
 						   base-path="/WEB-INF/flows">
-        <webflow:flow-location-pattern value="/**/*-flow.xml"/>
-    </webflow:flow-registry>
+		<webflow:flow-location-pattern value="/**/*-flow.xml"/>
+	</webflow:flow-registry>
 
 	<!-- Configures the Spring Web Flow JSF integration -->
 	<!--<faces:flow-builder-services id="facesFlowBuilderServices" development="true"/>-->
@@ -44,29 +44,29 @@
 
 	<!-- Installs a listener that manages JPA persistence contexts for flows that require them -->
 	<bean id="jpaFlowExecutionListener" class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
-        <constructor-arg ref="entityManagerFactory"/>
-        <constructor-arg ref="transactionManager"/>
-    </bean>
+		<constructor-arg ref="entityManagerFactory"/>
+		<constructor-arg ref="transactionManager"/>
+	</bean>
 
 	<!-- Installs a listener to apply Spring Security authorities -->
 	<bean id="securityFlowExecutionListener"
 		  class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="-1"/>
-    </bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="-1"/>
+	</bean>
 
-    <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
-        <constructor-arg>
-            <value>temp</value>
-        </constructor-arg>
-    </bean>
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>temp</value>
+		</constructor-arg>
+	</bean>
 
-    <bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
+	<bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
 
-    <bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler">
-        <property name="uploadPath" value="#{utils.imageUploadDirectoryPath}"/>
-    </bean>
+	<bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler">
+		<property name="uploadPath" value="#{utils.imageUploadDirectoryPath}"/>
+	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="${meitan.mail.host}"/>
@@ -87,15 +87,26 @@
 	</bean>
 
 	<!-- this is a template message that we can pre-load with default state -->
-	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+	<bean id="templateMessage" class="com.meitan.lubov.services.commerce.ConfirmOrderMailMessage">
 		<property name="from" value="${meitan.mail.username}"/>
-		<property name="subject" value="Ваш заказ"/>
 	</bean>
 
+	<bean id="adminEmail" class="java.lang.String">
+		<constructor-arg value="denis_k@nixsolutions.com"/>
+	</bean>
+
+	<bean id="ccEmails" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>denis_k@nixsolutions.com</value>
+				<value>denis.k1985@gmail.com</value>
+			</list>
+		</constructor-arg>
+	</bean>
 
 	<!--Test section -->
 	<bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">
-        <property name="min" value="1"/>
-        <property name="max" value="10"/>
-    </bean>
+		<property name="min" value="1"/>
+		<property name="max" value="10"/>
+	</bean>
 </beans>

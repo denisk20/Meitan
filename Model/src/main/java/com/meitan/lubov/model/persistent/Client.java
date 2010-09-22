@@ -40,6 +40,9 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	//todo
 	private Date joinDate = new Date();
 	private String conformedPassword;
+	//todo unit test
+	private String phone;
+
 	public Client() {
 
 	}
@@ -155,6 +158,13 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		this.joinDate = joinDate;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	@Transient
 	public String getConformedPassword() {
 		return conformedPassword;
@@ -196,4 +206,5 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	public String toString() {
 		return "Client{" + "id=" + id + ", name=" + name + ", email='" + email + '\'' + '}';
 	}
+
 }
