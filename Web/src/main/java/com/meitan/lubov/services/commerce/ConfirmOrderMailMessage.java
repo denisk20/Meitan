@@ -22,4 +22,36 @@ public class ConfirmOrderMailMessage extends SimpleMailMessage {
 	public ConfirmOrderMailMessage() {
 		MessageBuilder mb = new MessageBuilder();
 	}
+
+	public String getGreeting() {
+		return greeting;
+	}
+
+	public String getWhatWasOrdered() {
+		return whatWasOrdered;
+	}
+
+	public String getByPrice() {
+		return byPrice;
+	}
+
+	public String getForItemInQuantity() {
+		return forItemInQuantity;
+	}
+
+	public String getPricesTotal() {
+		return pricesTotal;
+	}
+
+	public String getBuyerCoordinates() {
+		return buyerCoordinates;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
 }

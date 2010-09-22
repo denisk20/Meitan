@@ -2,15 +2,20 @@ package com.meitan.lubov.services.util;
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Client;
+import com.meitan.lubov.services.commerce.AdminConfirmOrderMessageBuilder;
+import com.meitan.lubov.services.commerce.BuyerConfirmOrderMessageBuilder;
+import com.meitan.lubov.services.commerce.ConfirmOrderMessageBuilder;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.dao.ClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 /**
  * @author denis_k
@@ -25,41 +30,50 @@ public class MailServiceImpl implements MailService {
 	private JavaMailSenderImpl mailSender;
 	@Autowired
 	private SimpleMailMessage templateMessage;
+//	@Autowired
+//	@Qualifier(value = "adminEmail")
+	private String adminEmail = "denis.k1985@gmail.com";
+//	@Autowired
+	private ArrayList<String> ccEmails;
 	
 	@Override
 	//todo make this accept only login
 	public void sendBuyingActNotification(ShoppingCart cart, Principal currentUser) {
 		Client client = clientDao.getByLogin(currentUser.getName());
 
-		SimpleMailMessage message = new SimpleMailMessage(templateMessage);
-		message.setTo(client.getEmail());
+		ConfirmOrderMessageBuilder adminBuilder = new AdminConfirmOrderMessageBuilder();
+		prepareBuilder(cart, client, adminBuilder);
 
-		String mailText = getMailText(cart, client);
-		message.setText(mailText);
+		SimpleMailMessage messageToAdmin = getMessage(adminBuilder);
+		messageToAdmin.setTo(adminEmail);
 
-		mailSender.send(message);
+
+		ConfirmOrderMessageBuilder buyerBuilder = new BuyerConfirmOrderMessageBuilder();
+		prepareBuilder(cart, client, buyerBuilder);
+
+		SimpleMailMessage messageToBuyer = getMessage(buyerBuilder);
+		messageToBuyer.setTo(client.getEmail());
+
+		ccEmails = new ArrayList<String>();
+		ccEmails.add("denis.k1985@gmail.com");
+		ccEmails.add("denis_k@nixsolutions.com");
+		
+		messageToBuyer.setCc(ccEmails.toArray(new String[0]));
+
+		mailSender.send(messageToAdmin);
+		mailSender.send(messageToBuyer);
 	}
 
-	private String getMailText(ShoppingCart cart, Client client) {
-		StringBuilder sb = new StringBuilder("Дорогая Мамуся !\n\n");
-		sb.append("Тебе пришёл новый заказ. Прислал его ");
-		sb.append(client.getName().getFirstName() + " "
-				+ client.getName().getPatronymic() + " "
-				+ client.getName().getSecondName() + "\n");
+	private void prepareBuilder(ShoppingCart cart, Client client, ConfirmOrderMessageBuilder adminBuilder) {
+		adminBuilder.setClient(client);
+		adminBuilder.setShoppingCart(cart);
+	}
 
-		sb.append("Вот что было заказано:\n");
+	private SimpleMailMessage getMessage(ConfirmOrderMessageBuilder builder) {
+		SimpleMailMessage message = new SimpleMailMessage(templateMessage);
+		message.setSubject(builder.getHeader());
+		message.setText(builder.getMessageText());
 
-		for (ShoppingCartItem i : cart.getItems()) {
-			PriceAware item = i.getItem();
-			sb.append(item.getName() +
-					" по цене " + item.getPrice().getAmount() +
-					" за штуку в колчестве " + i.getQuantity() +
-					" штук на сумму " + i.getPrice() + "\n");
-		}
-		sb.append("Итого товара на сумму " + cart.getTotalPrice()+ "\n");
-
-		sb.append("Вот координаты покупателя:\n");
-		sb.append("Почта: " + client.getEmail() + "\n");
-		return sb.toString();
+		return message;
 	}
 }
