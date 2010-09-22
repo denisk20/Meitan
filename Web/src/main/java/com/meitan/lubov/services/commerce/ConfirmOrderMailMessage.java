@@ -19,10 +19,6 @@ public class ConfirmOrderMailMessage extends SimpleMailMessage {
 	private String email;
 	private String phone;
 
-	public ConfirmOrderMailMessage() {
-		MessageBuilder mb = new MessageBuilder();
-	}
-
 	public String getGreeting() {
 		return greeting;
 	}

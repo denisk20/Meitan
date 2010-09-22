@@ -1,21 +1,21 @@
 package com.meitan.lubov.services.util; 
 
-import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.commerce.AdminConfirmOrderMessageBuilder;
 import com.meitan.lubov.services.commerce.BuyerConfirmOrderMessageBuilder;
 import com.meitan.lubov.services.commerce.ConfirmOrderMessageBuilder;
 import com.meitan.lubov.services.commerce.ShoppingCart;
-import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.dao.ClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import javax.mail.MessagingException;
 
 /**
  * @author denis_k
@@ -29,39 +29,37 @@ public class MailServiceImpl implements MailService {
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	@Autowired
-	private SimpleMailMessage templateMessage;
-//	@Autowired
-//	@Qualifier(value = "adminEmail")
-	private String adminEmail = "denis.k1985@gmail.com";
-//	@Autowired
+	private String adminEmail;
+	@Autowired
 	private ArrayList<String> ccEmails;
+	@Autowired
+	private String from;
 	
 	@Override
 	//todo make this accept only login
-	public void sendBuyingActNotification(ShoppingCart cart, Principal currentUser) {
+	public void sendBuyingActNotification(ShoppingCart cart, Principal currentUser) throws MessagingException {
 		Client client = clientDao.getByLogin(currentUser.getName());
 
 		ConfirmOrderMessageBuilder adminBuilder = new AdminConfirmOrderMessageBuilder();
-		prepareBuilder(cart, client, adminBuilder);
-
-		SimpleMailMessage messageToAdmin = getMessage(adminBuilder);
-		messageToAdmin.setTo(adminEmail);
-
-
 		ConfirmOrderMessageBuilder buyerBuilder = new BuyerConfirmOrderMessageBuilder();
+
+		prepareBuilder(cart, client, adminBuilder);
 		prepareBuilder(cart, client, buyerBuilder);
 
-		SimpleMailMessage messageToBuyer = getMessage(buyerBuilder);
-		messageToBuyer.setTo(client.getEmail());
+		MimeMailMessage messageToAdmin = getMessage(adminBuilder);
+		MimeMailMessage messageToBuyer = getMessage(buyerBuilder);
 
-		ccEmails = new ArrayList<String>();
-		ccEmails.add("denis.k1985@gmail.com");
-		ccEmails.add("denis_k@nixsolutions.com");
-		
+
+
+		messageToAdmin.setTo(adminEmail);
+		messageToBuyer.setTo(client.getEmail());
 		messageToBuyer.setCc(ccEmails.toArray(new String[0]));
 
-		mailSender.send(messageToAdmin);
-		mailSender.send(messageToBuyer);
+		messageToAdmin.setFrom(from);
+		messageToBuyer.setFrom(from);
+		
+		mailSender.send(messageToAdmin.getMimeMessage());
+		mailSender.send(messageToBuyer.getMimeMessage());
 	}
 
 	private void prepareBuilder(ShoppingCart cart, Client client, ConfirmOrderMessageBuilder adminBuilder) {
@@ -69,10 +67,11 @@ public class MailServiceImpl implements MailService {
 		adminBuilder.setShoppingCart(cart);
 	}
 
-	private SimpleMailMessage getMessage(ConfirmOrderMessageBuilder builder) {
-		SimpleMailMessage message = new SimpleMailMessage(templateMessage);
+	private MimeMailMessage getMessage(ConfirmOrderMessageBuilder builder) throws MessagingException {
+		MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage(), "UTF-8");
+		MimeMailMessage message = new MimeMailMessage(helper);
 		message.setSubject(builder.getHeader());
-		message.setText(builder.getMessageText());
+		helper.setText(builder.getMessageText(), true);
 
 		return message;
 	}

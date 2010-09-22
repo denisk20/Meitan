@@ -141,11 +141,29 @@
         </property>
     </bean>
 
+	<bean id="adminEmail" class="java.lang.String">
+		<constructor-arg value="denis.k1985@gmail.com"/>
+	</bean>
+
+	<bean id="ccEmails" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>denis_k@nixsolutions.com</value>
+				<value>denis.k1985@gmail.com</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="from" class="java.lang.String">
+		<constructor-arg>
+			<value>${meitan.mail.username}</value>
+		</constructor-arg>
+	</bean>
     <!-- this is a template message that we can pre-load with default state -->
-    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="${meitan.mail.username}"/>
-        <property name="subject" value="Ваш заказ"/>
-    </bean>
+    <!--<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">-->
+        <!--<property name="from" value="${meitan.mail.username}"/>-->
+        <!--<property name="subject" value="Ваш заказ"/>-->
+    <!--</bean>-->
     <!-- /Mail settings===========================================================================-->
 
 </beans>

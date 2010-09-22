@@ -304,6 +304,7 @@
         <property name="login" value="consultant"/>
         <property name="password" value="202cb962ac59075b964b07152d234b70"/> <!--123-->
         <property name="enabled" value="true"/>
+		<property name="phone" value="+380931122333"/>
 	</bean>
 
 	<bean id="ent_creamLover" class="com.meitan.lubov.model.persistent.Client">
@@ -391,6 +392,7 @@
         </property>
         <property name="joinDate" value="01/27/2008"/>
         <property name="enabled" value="true"/>
+		<property name="phone" value="33322244234"/>
     </bean>
 
     <bean id="ent_creamLoverAuthority" class="com.meitan.lubov.model.persistent.Authority">
