@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  */
 public class AdminConfirmOrderMessageBuilder extends AbstractConfirmOrderMessageBuilder {
 
-	private static final String GREETING = "message.order.header.mama";
+	private static final String GREETING = "message.order.greeting.mama";
 	private static final String HEADER = "message.order.header.mama";
 	private static final String WHAT_WAS_ORDERED = "message.order.whatwasordered";
 	private static final String BUY_PRICE = "message.order.buyprice";

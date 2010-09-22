@@ -4,15 +4,36 @@
 	<comment>This is test message</comment>
 	<entry key="message.order.header.mama">Новый заказ</entry>
 	<entry key="message.order.header.buyer">Ваш заказ на meitan-kh.com</entry>
-	<entry key="message.order.greeting.mama">Дорогая мамуся!\nТебе пришёл заказ с сайта. Прислал его</entry>
-	<entry key="message.order.greeting.buyer">Добрый день,</entry>
-	<entry key="message.order.whatwasordered">Вот что было заказано:</entry>
-	<entry key="message.order.buyprice">по цене</entry>
-	<entry key="message.order.foriteminquantity">за штуку в количестве</entry>
-	<entry key="message.order.piecestotal">на сумму</entry>
-	<entry key="message.order.totalgoods">Итого на сумму</entry>
-	<entry key="message.order.buyercoords.mama">Это координаты покупателя:</entry>
-	<entry key="message.order.buyercoords.buyer">С вами свяжутся по следующим координатам:</entry>
-	<entry key="message.order.email">Почтовый адрес:</entry>
-	<entry key="message.order.phone">Номер телефона:</entry>
+	<entry key="message.order.greeting.mama"><![CDATA[
+	Дорогая мамуся! Тебе пришёл заказ с сайта. Прислал его
+	]]></entry>
+	<entry key="message.order.greeting.buyer"><![CDATA[
+	Добрый день,
+	]]></entry>
+	<entry key="message.order.whatwasordered"><![CDATA[
+	Вот что было заказано:
+	]]></entry>
+	<entry key="message.order.buyprice"><![CDATA[
+	 по цене
+	]]></entry>
+	<entry key="message.order.foriteminquantity"><![CDATA[
+	 за штуку в количестве
+	]]></entry>
+	<entry key="message.order.piecestotal"><![CDATA[
+	 на сумму
+	]]></entry>
+	<entry key="message.order.totalgoods"><![CDATA[
+	Итого на сумму
+	]]></entry>
+	<entry key="message.order.buyercoords.mama"><![CDATA[
+	Это координаты покупателя:
+	]]></entry>
+	<entry key="message.order.buyercoords.buyer"><![CDATA[
+	С вами свяжутся по следующим координатам:
+	]]></entry>
+	<entry key="message.order.email"><![CDATA[
+	&nbsp;&nbsp;&nbsp;&nbsp;Почтовый <b>адрес</b>:]]></entry>
+	<entry key="message.order.phone"><![CDATA[
+	&nbsp;&nbsp;&nbsp;&nbsp;Номер телефона:
+	]]></entry>
 </properties>

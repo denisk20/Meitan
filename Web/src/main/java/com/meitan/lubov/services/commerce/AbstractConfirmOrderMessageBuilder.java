@@ -55,26 +55,25 @@ public abstract class AbstractConfirmOrderMessageBuilder implements ConfirmOrder
 	public String getMessageText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getGreeting());
-		sb.append(client.getName());
 
 		sb.append(client.getName().getFirstName() + " "
 				+ client.getName().getPatronymic() + " "
-				+ client.getName().getSecondName() + "\n");
+				+ client.getName().getSecondName() + "<br/>");
 
-		sb.append(getWhatWasOrdered() + "\n");
+		sb.append(getWhatWasOrdered() + "<br/>");
 
 		for (ShoppingCartItem i : shoppingCart.getItems()) {
 			PriceAware item = i.getItem();
 			sb.append(item.getName() +
 					getByPrice() + item.getPrice().getAmount() +
 					getForItemInQuantity() + i.getQuantity() +
-					getPricesTotal() + i.getPrice() + "\n");
+					getPricesTotal() + i.getPrice() + "<br/>");
 		}
-		sb.append(getTotal() + shoppingCart.getTotalPrice()+ "\n");
+		sb.append(getTotal() + shoppingCart.getTotalPrice()+ "<br/>");
 
-		sb.append(getBuyerCoordinates() + "\n");
-		sb.append(getEmail() + client.getEmail() + "\n");
-		sb.append(getPhone() + client.getPhone() + "\n");
+		sb.append(getBuyerCoordinates() + "<br/>");
+		sb.append(getEmail() + client.getEmail() + "<br/>");
+		sb.append(getPhone() + client.getPhone() + "<br/>");
 
 		return sb.toString();
 	}

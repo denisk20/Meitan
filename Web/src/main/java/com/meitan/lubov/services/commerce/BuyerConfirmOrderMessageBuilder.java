@@ -7,14 +7,14 @@ package com.meitan.lubov.services.commerce;
  * @author denisk
  */
 public class BuyerConfirmOrderMessageBuilder extends AbstractConfirmOrderMessageBuilder {
-	private static final String GREETING = "message.order.header.mama";
-	private static final String HEADER = "message.order.header.mama";
+	private static final String GREETING = "message.order.greeting.buyer";
+	private static final String HEADER = "message.order.header.buyer";
 	private static final String WHAT_WAS_ORDERED = "message.order.whatwasordered";
 	private static final String BUY_PRICE = "message.order.buyprice";
 	private static final String FOR_ITEMS_QUANTITY = "message.order.foriteminquantity";
 	private static final String PRICE_ITEM_TOTAL = "message.order.piecestotal";
 	private static final String TOTAL_PRICE = "message.order.totalgoods";
-	private static final String COORDS_HEADER = "message.order.buyercoords.mama";
+	private static final String COORDS_HEADER = "message.order.buyercoords.buyer";
 	private static final String EMAIL = "message.order.email";
 	private static final String PHONE = "message.order.phone";
 
