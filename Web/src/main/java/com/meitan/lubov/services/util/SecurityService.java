@@ -1,12 +1,17 @@
 package com.meitan.lubov.services.util;
 
+import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
+import com.meitan.lubov.services.dao.AuthorityDao;
+import com.meitan.lubov.services.dao.ClientDao;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +20,9 @@ import org.springframework.webflow.context.ExternalContext;
 import org.springframework.webflow.execution.RequestContext;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -26,10 +34,16 @@ import java.util.Set;
 //todo unit test
 @Service("securityService")
 public class SecurityService implements ApplicationContextAware{
-	private ApplicationContext applicationContext;
+	public ApplicationContext applicationContext;
+	public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
+	public static final String ROLE_CLIENT = "ROLE_CLIENT";
+	public static final String ROLE_CONSULTANT = "ROLE_CONSULTANT";
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
+	//todo unit test
 	public void authenticateUser(Client user) {
 		GrantedAuthority[] authorities =
-				new GrantedAuthority[] {new GrantedAuthorityImpl("ROLE_CLIENT")};
+				new GrantedAuthority[] {new GrantedAuthorityImpl(ROLE_CLIENT)};
 
 		authenticateUser(user, authorities);
 	}
@@ -37,7 +51,7 @@ public class SecurityService implements ApplicationContextAware{
 	private void authenticateUser(Client user, GrantedAuthority[] authorities) {
 		UsernamePasswordAuthenticationToken token =
 				new UsernamePasswordAuthenticationToken(
-						user.getLogin(), user.getPassword(), authorities);
+						user.getLogin(), user.getPassword(), Arrays.asList(authorities));
 		SecurityContextHolder.getContext().setAuthentication(token);
 
 		if (this.applicationContext != null) {
@@ -45,6 +59,7 @@ public class SecurityService implements ApplicationContextAware{
         }
 	}
 
+	//todo unit test
 	public void addCurrentSessionAuthority(Client user, String newRole) {
 		Set<Authority> roles = user.getRoles();
 		int newRolesCount = roles.size() + 1;
@@ -59,6 +74,58 @@ public class SecurityService implements ApplicationContextAware{
 
 		authenticateUser(user, authorities);
 	}
+
+	//todo unit test
+	public String isUserAuthenticated() {
+		String result = "no";
+
+		HashSet<String> acceptableRoles = new HashSet<String>();
+		acceptableRoles.add(ROLE_CLIENT);
+		acceptableRoles.add(ROLE_CONSULTANT);
+		acceptableRoles.add(ROLE_ADMIN);
+
+		HashSet<String> actualRoles = new HashSet<String>();
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null) {
+			Collection<GrantedAuthority> authorities = authentication.getAuthorities();
+			if (authorities != null) {
+				for (GrantedAuthority auth : authorities) {
+					actualRoles.add(auth.getAuthority());
+				}
+				if (acceptableRoles.removeAll(actualRoles)) {
+					result = "yes";
+				}
+			}
+		}
+
+		return result;
+	}
+
+	//todo unit test
+	public Client authenticateAnonymousClient(Client client) {
+		addCurrentSessionAuthority(client, ROLE_ANONYMOUS);
+		//do not persist for now
+		return client;
+	}
+
+	//todo unit test
+	public void tryToLogoutAnonymous(String login) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null) {
+			String currentUser = (String) authentication.getPrincipal();
+			if (login.equals(currentUser)) {
+				final Collection<GrantedAuthority> grantedAuthorityCollection = authentication.getAuthorities();
+				if (grantedAuthorityCollection != null) {
+					final GrantedAuthority authority = grantedAuthorityCollection.iterator().next();
+					final String role = authority.getAuthority();
+					if (grantedAuthorityCollection.size() == 1 && role.equals(ROLE_ANONYMOUS)) {
+						SecurityContextHolder.getContext().setAuthentication(null);
+					}
+				}
+			}
+		}
+	}
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;

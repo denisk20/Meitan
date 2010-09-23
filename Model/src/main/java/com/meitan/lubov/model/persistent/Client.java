@@ -20,7 +20,8 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-		@NamedQuery(name = "getClientByLogin", query = "from Client c where c.login = :login")
+		@NamedQuery(name = "getClientByLogin", query = "from Client c where c.login = :login"),
+		@NamedQuery(name = "getClientByEmail", query = "from Client c where c.email = :email")
 })
 //@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"passport_series", "passport_number"})})
 //todo rename to User

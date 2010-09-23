@@ -2,6 +2,7 @@ package com.meitan.lubov.services.dao;
 
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.commerce.ShoppingCart;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Date: Mar 5, 2010
@@ -21,4 +22,8 @@ public interface ClientDao extends Dao<Client, Long>{
 	ShoppingCartItemDao getShoppingCartItemDao();
 
 	void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao);
+
+	@Transactional
+	//todo u-test
+	void saveOrFetchClientByEmail(Client c);
 }

@@ -52,6 +52,9 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Transactional
 	public void buyGoods(ShoppingCart cart, String login) {
 		Client client = getByLogin(login);
+		if (client == null) {
+			throw new IllegalArgumentException("No user in session: " + login);
+		}
 		BuyingAct act = new BuyingAct(new Date(), client);
 
 		for (ShoppingCartItem it : cart.getItems()) {
@@ -61,6 +64,29 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 
 		client.getPurchases().add(act);
 		buyingActDao.makePersistent(act);
+	}
+
+	@Override
+	@Transactional
+	//todo u-test
+	public void saveOrFetchClientByEmail(Client c) {
+		if (c == null) {
+			throw new IllegalArgumentException("Client was null");
+		}
+		final String email = c.getEmail();
+		if (email == null || email.equals("")) {
+			throw new IllegalArgumentException("Email is undefined for client " + c);
+		}
+
+		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
+		if (resultList.size() == 0) {
+			makePersistent(c);
+		} else {
+			if (resultList.size() != 1) {
+				throw new IllegalStateException("Multiple users with email " + email);
+			}
+		}
+
 	}
 
 	@Override
@@ -88,4 +114,5 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	public void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao) {
 		this.shoppingCartItemDao = shoppingCartItemDao;
 	}
+	
 }
