@@ -16,19 +16,34 @@
             <render fragments="checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
         </transition>
 
-        <transition on="order" to="order">
-            <secured attributes="ROLE_CLIENT, ROLE_CONSULTANT, ROLE_ADMIN" match="any"/>
+        <transition on="order" to="decideIfUserIsAuthenticated">
+            <!--<secured attributes="ROLE_ANONYMOUS, ROLE_CLIENT, ROLE_CONSULTANT, ROLE_ADMIN" match="any"/>-->
         </transition>
 
         <transition on-exception="org.springframework.security.access.AccessDeniedException" to="error"/>
     </view-state>
+
+	<decision-state id="decideIfUserIsAuthenticated">
+		<if test="securityService.isUserAuthenticated()" then="order" else="quickRegistration"/>
+	</decision-state>
+
+	<view-state id="quickRegistration" model="anonymousClient">
+		<on-entry>
+			<evaluate expression="clientDao.newInstance()"  result="viewScope.anonymousClient"/>
+		</on-entry>
+		<transition on="quickreg" to="order">
+			<evaluate expression="clientDao.saveOrFetchClientByEmail(anonymousClient)"/>
+			<evaluate expression="securityService.authenticateAnonymousClient(anonymousClient)"/>
+		</transition>
+	</view-state>
 
     <view-state id="order">
         <transition on="order" to="success" >
             <evaluate expression="clientDao.buyGoods(cart, currentUser.name)"/>
             <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
             <evaluate expression="cart.emptyCart()"/>
-        </transition>
+			<evaluate expression="securityService.tryToLogoutAnonymous(currentUser.name)"/>
+		</transition>
     </view-state>
 
     <view-state id="success">

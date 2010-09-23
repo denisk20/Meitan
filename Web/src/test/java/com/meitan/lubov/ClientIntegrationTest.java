@@ -266,4 +266,21 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		testClientDao.makePersistent(c);
 		testClientDao.flush();
 	}
+
+	@Test
+	public void testSaveOrFetchClientByEmail_newClient() {
+		Client c = new Client(new Name(), "non.existing@email");
+		testClientDao.saveOrFetchClientByEmail(c);
+		assertNotNull(c.getId());
+
+		Client loaded = testClientDao.findById(c.getId());
+		assertEquals(c, loaded);
+	}
+
+	@Test
+	public void testSaveOrFetchClientByEmail_existingClient() {
+		Client c = beansFromDb.get(0);
+		testClientDao.saveOrFetchClientByEmail(c);
+		//nothing should actually happen
+	}
 }
