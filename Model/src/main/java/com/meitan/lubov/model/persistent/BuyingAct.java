@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
@@ -17,7 +18,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "buying_act")
 @NamedQueries({
-		@NamedQuery(name = "findForCartItem", query = "select b from BuyingAct b inner join b.products i where i.id = :itemId")
+		@NamedQuery(name = "findForCartItem", query = "select b from BuyingAct b inner join b.products i where i.id = :itemId"),
+		@NamedQuery(name = "findForLogin", query = "from BuyingAct b where b.client.login = :login")
 })
 public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Serializable {
 	private long id;
@@ -75,6 +77,7 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 		this.client = client;
 	}
 
+	//TODO RENAME THIS
 	@OneToMany
 	public Set<ShoppingCartItem> getProducts() {
 		return products;
@@ -93,6 +96,15 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 		return new Price(result);
 	}
 
+	@Transient
+	public HashSet<PriceAware> getProductsSet() {
+		HashSet<PriceAware> result = new HashSet<PriceAware>();
+		for (ShoppingCartItem item : products) {
+			result.add(item.getItem());
+		}
+		return result;
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

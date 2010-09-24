@@ -2,11 +2,13 @@ package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
+import com.meitan.lubov.services.dao.BuyingActDao;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.ShoppingCartItemDao;
@@ -27,6 +29,7 @@ import javax.mail.MessagingException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -49,6 +52,9 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 	private ClientDao testClientDao;
 	@Autowired
 	private ShoppingCartItemDao testShoppingCartItemDao;
+	@Autowired
+	private BuyingActDao testBuyingActDao;
+
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
 		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/checkout/checkout-flow.xml");
@@ -186,13 +192,15 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 		//check that goods were bought
 
-		//todo create query to get BuyingAct for Client
-/*
-		for (Product p : prods) {
-			List<ShoppingCartItem> items = testShoppingCartItemDao.getForProduct(p.getId());
-			assertNotNull(items);
+		List<BuyingAct> boughts = testBuyingActDao.findForLogin(anonymous.getLogin());
+		assertEquals(1, boughts.size());
+
+		BuyingAct act = boughts.get(0);
+
+		final HashSet<PriceAware> boughtProducts = act.getProductsSet();
+		for (Product prod : prods) {
+			assertTrue(boughtProducts.contains(prod));
 		}
-*/
 
 	}
 

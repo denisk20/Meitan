@@ -25,4 +25,12 @@ public class JpaBuyingActDao extends JpaDao<BuyingAct, Long> implements BuyingAc
 		List<BuyingAct> result = em.createNamedQuery("findForCartItem").setParameter("itemId", itemId).getResultList();
 		return result;
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<BuyingAct> findForLogin(String login) {
+		List<BuyingAct> result = em.createNamedQuery("findForLogin").setParameter("login", login).getResultList();
+		return result;
+	}
 }

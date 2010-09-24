@@ -15,4 +15,8 @@ public interface BuyingActDao extends Dao<BuyingAct, Long>{
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
 	List<BuyingAct> findForCartItem(Long itemId);
+
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	List<BuyingAct> findForLogin(String login);
 }
