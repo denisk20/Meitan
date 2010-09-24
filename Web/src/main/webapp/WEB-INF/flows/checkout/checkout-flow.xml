@@ -32,8 +32,9 @@
 			<evaluate expression="clientDao.newInstance()"  result="viewScope.anonymousClient"/>
 		</on-entry>
 		<transition on="quickreg" to="order">
+			<set name="anonymousClient.login" value="anonymousClient.email"/>
 			<evaluate expression="clientDao.saveOrFetchClientByEmail(anonymousClient)"/>
-			<evaluate expression="securityService.authenticateAnonymousClient(anonymousClient)"/>
+			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>
 
@@ -42,8 +43,10 @@
             <evaluate expression="clientDao.buyGoods(cart, currentUser.name)"/>
             <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
             <evaluate expression="cart.emptyCart()"/>
-			<evaluate expression="securityService.tryToLogoutAnonymous(currentUser.name)"/>
 		</transition>
+		<on-exit>
+			<evaluate expression="securityService.tryToLogoutAnonymous(currentUser.name)"/>
+		</on-exit>
     </view-state>
 
     <view-state id="success">

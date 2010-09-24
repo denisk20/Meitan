@@ -2,6 +2,7 @@ package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Name;
+import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.model.persistent.Product;
@@ -14,6 +15,7 @@ import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.dao.ShoppingCartItemDao;
 import com.meitan.lubov.services.util.MailService;
 import com.meitan.lubov.services.util.SecurityService;
+import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author denis_k
@@ -69,6 +72,11 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		builderContext.registerBean("clientDao", testClientDao);
 	}
 
+	@After
+	public void after() {
+		//make sure there are no user in session
+		SecurityContextHolder.getContext().setAuthentication(null);
+	}
 	@Test
 	public void testFlowStart() {
 		MockExternalContext context = new MockExternalContext();
@@ -102,8 +110,6 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 	@Test
 	public void testDecisionStateNoUser() {
 		MockExternalContext context = new MockExternalContext();
-		//make sure there are no user in session
-		SecurityContextHolder.getContext().setAuthentication(null);
 		startFlow(context);
 
 		context.setEventId("order");
@@ -120,6 +126,8 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 		context.setEventId("order");
 		Client c = new Client(new Name(), "some@email.com");
+		Authority a = new Authority(c, SecurityService.ROLE_ANONYMOUS);
+		c.getRoles().add(a);
 
 		testSecurityService.authenticateUser(c);
 
@@ -160,7 +168,6 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 		final String email = "some@mail.add";
 		anonymous.setEmail(email);
-		anonymous.setLogin(email);
 
 		List<Product> prods = testProductDao.findAll();
 		for (Product p : prods) {
@@ -171,6 +178,11 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		resumeFlow(context);
 
 		assertCurrentStateEquals("order");
+
+		Set<Authority> roles = anonymous.getRoles();
+		assertEquals(1, roles.size());
+		Authority role = roles.iterator().next();
+		assertEquals(SecurityService.ROLE_ANONYMOUS, role.getRole());
 
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		assertNotNull(authentication);
@@ -203,7 +215,12 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		for (Product prod : prods) {
 			assertTrue(boughtProducts.contains(prod));
 		}
+	}
 
+	@Test
+	public void testLogoutOnExit() {
+		MockExternalContext context = new MockExternalContext();
+		setCurrentState("order");
 	}
 
 	private static class MockMailSerice implements MailService {
