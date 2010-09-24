@@ -111,7 +111,9 @@
 
     <bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">
         <property name="buyingActDao" ref="testBuyingActDao"/>
-    </bean>
+		<property name="shoppingCartItemDao" ref="testShoppingCartItemDao"/>
+		<property name="authorityDao" ref="testAuthorityDao"/>
+	</bean>
 
     <bean id="testShoppingCartItemDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaShoppingCartItemDao"/>
 

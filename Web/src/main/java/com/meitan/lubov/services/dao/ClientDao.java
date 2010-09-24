@@ -26,4 +26,8 @@ public interface ClientDao extends Dao<Client, Long>{
 	@Transactional
 	//todo u-test
 	void saveOrFetchClientByEmail(Client c);
+
+	AuthorityDao getAuthorityDao();
+
+	void setAuthorityDao(AuthorityDao authorityDao);
 }

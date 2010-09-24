@@ -4,10 +4,12 @@ import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.commerce.ShoppingCart;
+import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.BuyingActDao;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.ShoppingCartItemDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
+import com.meitan.lubov.services.util.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,9 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 
 	@Autowired
 	private ShoppingCartItemDao shoppingCartItemDao;
+
+	@Autowired
+	private AuthorityDao authorityDao;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -80,6 +85,7 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 
 		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
 		if (resultList.size() == 0) {
+			authorityDao.assignAuthority(c, SecurityService.ROLE_ANONYMOUS);
 			makePersistent(c);
 		} else {
 			if (resultList.size() != 1) {
@@ -95,6 +101,14 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	public void deleteById(Long id) {
 		super.deleteById(id);
 	}
+
+	@Override
+	public Client newInstance() throws IllegalAccessException, InstantiationException {
+		final Client client = super.newInstance();
+		client.getName().setFirstName("no name");
+		return client;
+	}
+
 	@Override
 	public void setBuyingActDao(BuyingActDao buyingActDao) {
 		this.buyingActDao = buyingActDao;
@@ -114,5 +128,14 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	public void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao) {
 		this.shoppingCartItemDao = shoppingCartItemDao;
 	}
-	
+
+	@Override
+	public AuthorityDao getAuthorityDao() {
+		return authorityDao;
+	}
+
+	@Override
+	public void setAuthorityDao(AuthorityDao authorityDao) {
+		this.authorityDao = authorityDao;
+	}
 }

@@ -42,8 +42,16 @@ public class SecurityService implements ApplicationContextAware{
 
 	//todo unit test
 	public void authenticateUser(Client user) {
+		Set<Authority> roles = user.getRoles();
+
+		final int size = roles.size();
 		GrantedAuthority[] authorities =
-				new GrantedAuthority[] {new GrantedAuthorityImpl(ROLE_CLIENT)};
+				new GrantedAuthority[size];
+		Iterator<Authority> it = roles.iterator();
+		for (int i = 0; i < size; i++) {
+			Authority a = it.next();
+			authorities[i] = new GrantedAuthorityImpl(a.getRole());
+		}
 
 		authenticateUser(user, authorities);
 	}
@@ -83,6 +91,7 @@ public class SecurityService implements ApplicationContextAware{
 		acceptableRoles.add(ROLE_CLIENT);
 		acceptableRoles.add(ROLE_CONSULTANT);
 		acceptableRoles.add(ROLE_ADMIN);
+		acceptableRoles.add(ROLE_ANONYMOUS);
 
 		HashSet<String> actualRoles = new HashSet<String>();
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -99,13 +108,6 @@ public class SecurityService implements ApplicationContextAware{
 		}
 
 		return result;
-	}
-
-	//todo unit test
-	public Client authenticateAnonymousClient(Client client) {
-		addCurrentSessionAuthority(client, ROLE_ANONYMOUS);
-		//do not persist for now
-		return client;
 	}
 
 	//todo unit test
