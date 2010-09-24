@@ -269,7 +269,10 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 
 	@Test
 	public void testSaveOrFetchClientByEmail_newClient() {
-		Client c = new Client(new Name(), "non.existing@email");
+		final String email = "non.existing@email";
+		Client c = new Client(new Name(), email);
+		c.setLogin(email);
+		
 		testClientDao.saveOrFetchClientByEmail(c);
 		assertNotNull(c.getId());
 
