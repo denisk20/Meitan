@@ -102,6 +102,8 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 	@Test
 	public void testDecisionStateNoUser() {
 		MockExternalContext context = new MockExternalContext();
+		//make sure there are no user in session
+		SecurityContextHolder.getContext().setAuthentication(null);
 		startFlow(context);
 
 		context.setEventId("order");
