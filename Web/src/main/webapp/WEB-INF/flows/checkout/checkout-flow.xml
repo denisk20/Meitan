@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-      parent="global">
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	  parent="global">
 
     <!--todo unit test this-->
 
-    <view-state id="checkout" model="cart">
-        <transition on="delete" >
+	<view-state id="checkout" model="cart">
+        <transition on="delete">
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
             <render fragments="checkout:quantityTable,checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
         </transition>
@@ -17,36 +17,60 @@
         </transition>
 
         <transition on="order" to="decideIfUserIsAuthenticated">
-            <!--<secured attributes="ROLE_ANONYMOUS, ROLE_CLIENT, ROLE_CONSULTANT, ROLE_ADMIN" match="any"/>-->
+            <!--<secured attributes="ROLE_UNREGISTERED, ROLE_CLIENT, ROLE_CONSULTANT, ROLE_ADMIN" match="any"/>-->
         </transition>
 
         <transition on-exception="org.springframework.security.access.AccessDeniedException" to="error"/>
     </view-state>
 
-	<decision-state id="decideIfUserIsAuthenticated">
-		<if test="securityService.isUserAuthenticated()" then="order" else="quickRegistration"/>
-	</decision-state>
+	<action-state id="decideIfUserIsAuthenticated">
+		<evaluate expression="securityService.isUserAuthenticated()"/>
+		<transition on="yes" to="order"/>
+		<transition on="no" to="quickRegistrationFirstTime">
+			<evaluate expression="clientDao.newInstance()" result="flowScope.anonymousClient"/>
+		</transition>
+		<transition on="unregistered" to="changeQuickregDetails">
+			<evaluate expression="clientDao.getByLogin(currentUser.name)" result="flowScope.anonymousClient"/>
+		</transition>
+	</action-state>
+
+	<view-state id="changeQuickregDetails" model="anonymousClient">
+		<transition on="change" to="quickRegistrationAdjustDetails"/>
+		<transition on="itsOK" to="order"/>
+	</view-state>
 
 	<view-state id="quickRegistration" model="anonymousClient">
-		<on-entry>
-			<evaluate expression="clientDao.newInstance()"  result="viewScope.anonymousClient"/>
-		</on-entry>
+		<transition on="quickreg" to="order">
+		</transition>
+	</view-state>
+
+	<view-state id="quickRegistrationFirstTime" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml">
 		<transition on="quickreg" to="order">
 			<set name="anonymousClient.login" value="anonymousClient.email"/>
-			<evaluate expression="clientDao.saveOrFetchClientByEmail(anonymousClient)"/>
+			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(anonymousClient)" result="flowScope.createdNewUser" result-type="boolean"/>
 			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>
 
-    <view-state id="order">
-        <transition on="order" to="success" >
+	<view-state id="quickRegistrationAdjustDetails" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml">
+		<transition on="quickreg" to="order">
+			<!--<set name="anonymousClient.login" value="anonymousClient.email"/>-->
+			<evaluate expression="clientDao.mergeAnonymousClient(anonymousClient)"/>
+			<!--<evaluate expression="securityService.authenticateUser(anonymousClient)"/>-->
+		</transition>
+	</view-state>
+
+	<view-state id="order">
+        <transition on="order" to="success">
             <evaluate expression="clientDao.buyGoods(cart, currentUser.name)"/>
             <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
             <evaluate expression="cart.emptyCart()"/>
 		</transition>
-		<on-exit>
-			<evaluate expression="securityService.tryToLogoutAnonymous(currentUser.name)"/>
-		</on-exit>
+		<!--
+		  <on-exit>
+			  <evaluate expression="securityService.tryToLogoutAnonymous(currentUser.name)"/>
+		  </on-exit>
+  -->
     </view-state>
 
     <view-state id="success">

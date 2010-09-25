@@ -1,5 +1,6 @@
 package com.meitan.lubov.services.dao.jpa.impl;
 
+import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.model.persistent.ShoppingCartItem;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Date: Mar 5, 2010
@@ -74,7 +76,7 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Override
 	@Transactional
 	//todo u-test
-	public void saveOrFetchClientByEmail(Client c) {
+	public boolean saveOrFetchUnregisteredClientByEmail(Client c) throws IllegalAccessException {
 		if (c == null) {
 			throw new IllegalArgumentException("Client was null");
 		}
@@ -85,14 +87,53 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 
 		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
 		if (resultList.size() == 0) {
-			authorityDao.assignAuthority(c, SecurityService.ROLE_ANONYMOUS);
+			authorityDao.assignAuthority(c, SecurityService.ROLE_UNREGISTERED);
 			makePersistent(c);
+			return true;
 		} else {
 			if (resultList.size() != 1) {
 				throw new IllegalStateException("Multiple users with email " + email);
 			}
+			Client existing = (Client) resultList.get(0);
+			checkIfUnregistered(existing);
+//			merge(c);
+			return false;
+		}
+	}
+
+	@Override
+	//todo unit test
+	@Transactional
+	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
+		if (c == null) {
+			throw new IllegalArgumentException("Client was null");
+		}
+		final String email = c.getEmail();
+		if (email == null || email.equals("")) {
+			throw new IllegalArgumentException("Email is undefined for client " + c);
 		}
 
+		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
+		if (resultList.size() == 0) {
+			throw new IllegalStateException("No corresponding client in DB: " + c);
+		} else {
+			if (resultList.size() != 1) {
+				throw new IllegalStateException("Multiple users with email " + email);
+			}
+			Client existing = (Client) resultList.get(0);
+			checkIfUnregistered(existing);
+
+			existing.setEmail(c.getEmail());
+		}
+	}
+
+	private void checkIfUnregistered(Client existing) throws IllegalAccessException {
+		Set<Authority> roles = existing.getRoles();
+		for (Authority authority: roles) {
+			if (! authority.getRole().equals(SecurityService.ROLE_UNREGISTERED)) {
+				throw new IllegalAccessException("Atempt to anonymously login for existent client " + existing);
+			}
+		}
 	}
 
 	@Override

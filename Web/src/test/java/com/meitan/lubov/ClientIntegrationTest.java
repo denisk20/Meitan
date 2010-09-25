@@ -1,7 +1,6 @@
 package com.meitan.lubov;
 
 import com.meitan.lubov.model.components.Name;
-import com.meitan.lubov.model.components.Passport;
 import com.meitan.lubov.model.persistent.*;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.*;
@@ -268,22 +267,22 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	}
 
 	@Test
-	public void testSaveOrFetchClientByEmail_newClient() {
+	public void testSaveOrFetchClientByEmail_newClient() throws IllegalAccessException {
 		final String email = "non.existing@email";
 		Client c = new Client(new Name(), email);
 		c.setLogin(email);
 		
-		testClientDao.saveOrFetchClientByEmail(c);
+		assertTrue(testClientDao.saveOrFetchUnregisteredClientByEmail(c));
 		assertNotNull(c.getId());
 
 		Client loaded = testClientDao.findById(c.getId());
 		assertEquals(c, loaded);
 	}
 
-	@Test
-	public void testSaveOrFetchClientByEmail_existingClient() {
+	@Test(expected = IllegalAccessException.class)
+	public void testSaveOrFetchClientByEmail_existingClient() throws IllegalAccessException {
 		Client c = beansFromDb.get(0);
-		testClientDao.saveOrFetchClientByEmail(c);
-		//nothing should actually happen
+		testClientDao.saveOrFetchUnregisteredClientByEmail(c);
 	}
+
 }

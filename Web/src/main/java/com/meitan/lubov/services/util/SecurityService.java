@@ -1,12 +1,8 @@
 package com.meitan.lubov.services.util;
 
-import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
-import com.meitan.lubov.services.dao.AuthorityDao;
-import com.meitan.lubov.services.dao.ClientDao;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,10 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.webflow.context.ExternalContext;
-import org.springframework.webflow.execution.RequestContext;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,7 +28,7 @@ import java.util.Set;
 @Service("securityService")
 public class SecurityService implements ApplicationContextAware{
 	public ApplicationContext applicationContext;
-	public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
+	public static final String ROLE_UNREGISTERED = "ROLE_UNREGISTERED";
 	public static final String ROLE_CLIENT = "ROLE_CLIENT";
 	public static final String ROLE_CONSULTANT = "ROLE_CONSULTANT";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
@@ -91,7 +84,7 @@ public class SecurityService implements ApplicationContextAware{
 		acceptableRoles.add(ROLE_CLIENT);
 		acceptableRoles.add(ROLE_CONSULTANT);
 		acceptableRoles.add(ROLE_ADMIN);
-		acceptableRoles.add(ROLE_ANONYMOUS);
+//		acceptableRoles.add(ROLE_UNREGISTERED);
 
 		HashSet<String> actualRoles = new HashSet<String>();
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -103,6 +96,10 @@ public class SecurityService implements ApplicationContextAware{
 				}
 				if (acceptableRoles.removeAll(actualRoles)) {
 					result = "yes";
+				} else {
+					if (actualRoles.contains(ROLE_UNREGISTERED)) {
+						result = "unregistered";
+					}
 				}
 			}
 		}
@@ -120,7 +117,7 @@ public class SecurityService implements ApplicationContextAware{
 				if (grantedAuthorityCollection != null) {
 					final GrantedAuthority authority = grantedAuthorityCollection.iterator().next();
 					final String role = authority.getAuthority();
-					if (grantedAuthorityCollection.size() == 1 && role.equals(ROLE_ANONYMOUS)) {
+					if (grantedAuthorityCollection.size() == 1 && role.equals(ROLE_UNREGISTERED)) {
 						SecurityContextHolder.getContext().setAuthentication(null);
 					}
 				}
