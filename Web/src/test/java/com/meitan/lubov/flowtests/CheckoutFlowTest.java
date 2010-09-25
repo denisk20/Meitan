@@ -6,9 +6,9 @@ import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.BuyingAct;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.model.persistent.Product;
-import com.meitan.lubov.model.persistent.ShoppingCartItem;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
+import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.BuyingActDao;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.dao.ProductDao;
@@ -18,22 +18,28 @@ import com.meitan.lubov.services.util.SecurityService;
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.expression.ExpressionInvocationTargetException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
+import org.springframework.webflow.execution.ActionExecutionException;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
-import javax.mail.MessagingException;
+import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.mail.MessagingException;
 
 /**
  * @author denis_k
@@ -41,7 +47,7 @@ import java.util.Set;
  *         Time: 11:37:08
  */
 //todo how to test the fact that the flow is secured?
-public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
+public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 
 	private ShoppingCart cart = new ShoppingCartImpl();
 	private MailService mailService = new MockMailSerice();
@@ -57,10 +63,27 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 	private ShoppingCartItemDao testShoppingCartItemDao;
 	@Autowired
 	private BuyingActDao testBuyingActDao;
+	@Autowired
+	private AuthorityDao testAuthorityDao;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
-		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/checkout/checkout-flow.xml");
+		return resourceFactory
+				.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/checkout/checkout-flow.xml");
+	}
+
+	@Override
+	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
+		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
+
+		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
+
+		result.addAll(Arrays.asList(superResources));
+
+		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/checkout/checkout-flow.xml"));
+		result.add(new FlowDefinitionResource("checkout", localFlowResource1, null));
+
+		return result.toArray(new FlowDefinitionResource[0]);
 	}
 
 	@Override
@@ -77,6 +100,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		//make sure there are no user in session
 		SecurityContextHolder.getContext().setAuthentication(null);
 	}
+
 	@Test
 	public void testFlowStart() {
 		MockExternalContext context = new MockExternalContext();
@@ -116,7 +140,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		//no user associated
 		resumeFlow(context);
 
-		assertCurrentStateEquals("quickRegistration");
+		assertCurrentStateEquals("quickRegistrationFirstTime");
 	}
 
 	@Test
@@ -125,9 +149,14 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		startFlow(context);
 
 		context.setEventId("order");
-		Client c = new Client(new Name(), "some@email.com");
-		Authority a = new Authority(c, SecurityService.ROLE_ANONYMOUS);
+		String email = "some@email.com";
+		Client c = new Client(new Name(), email);
+		c.setEmail(email);
+		Authority a = new Authority(c, SecurityService.ROLE_CLIENT);
 		c.getRoles().add(a);
+		c.setLogin(email);
+		context.setCurrentUser(c.getLogin());
+		testClientDao.makePersistent(c);
 
 		testSecurityService.authenticateUser(c);
 
@@ -135,6 +164,112 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 		assertCurrentStateEquals("order");
 	}
+
+	@Test
+	public void testAnonymousReturns() {
+		String email = "some@email.com";
+		String reEnterdEmail = email;
+		Boolean shouldCreateUser = Boolean.FALSE;
+
+		anonymousBurglesAgain(email, reEnterdEmail, shouldCreateUser);
+	}
+
+	@Test
+	public void testAnonymousReturns2() {
+		String email = "some@email.com";
+		String enterdEmail = email + "blah";
+
+		anonymousBurglesAgain(email, enterdEmail, Boolean.TRUE);
+	}
+
+	@Test(expected = IllegalAccessException.class)
+	public void testAnonymousReturns3_theCrime() throws Throwable {
+		String email = "some@email.com";
+		String adminEmail = "admin@meitan-kh.com";
+		Client admin = createAdmin(adminEmail);
+		//you thief!!!
+		String enteredEmail = admin.getEmail();
+
+		try {
+			try {
+				anonymousBurglesAgain(email, enteredEmail, Boolean.TRUE);
+			} catch (ActionExecutionException e) {
+				e.printStackTrace();
+				throw e.getCause();
+			}
+		} catch (ExpressionInvocationTargetException e) {
+			e.printStackTrace();
+			throw e.getCause();
+		}
+	}
+
+	private Client createAdmin(String adminEmail) {
+		Client admin = new Client(new Name("admin", "", ""), adminEmail);
+		admin.setLogin("Ted");
+		testClientDao.makePersistent(admin);
+		testAuthorityDao.assignAuthority(admin, SecurityService.ROLE_ADMIN);
+		return admin;
+	}
+
+	@Test(expected = IllegalAccessException.class)
+	public void testAnonymousReturns4_organizedCrime() throws Throwable {
+		String email = "some@email.com";
+		String enteredEmail = email;
+
+		String adminEmail = "admin@meitan-kh.com";
+
+		createAdmin(adminEmail);
+
+		Client criminal = createAndPersistClient(email, SecurityService.ROLE_UNREGISTERED);
+
+		testSecurityService.authenticateUser(criminal);
+		//ok, he's in session now
+
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		context.setEventId("order");
+		context.setCurrentUser(criminal.getLogin());
+		resumeFlow(context);
+
+		assertCurrentStateEquals("changeQuickregDetails");
+
+		context.setEventId("change");
+		resumeFlow(context);
+
+		assertCurrentStateEquals("quickRegistrationAdjustDetails");
+
+		Client stub = new Client();
+		//how come!!!
+		stub.setEmail(adminEmail);
+		getFlowScope().put("anonymousClient", stub);
+
+		context.setEventId("quickreg");
+
+		try {
+			try {
+				resumeFlow(context);
+			} catch (ActionExecutionException e) {
+				e.printStackTrace();
+				throw e.getCause();
+			}
+		} catch (ExpressionInvocationTargetException e) {
+			e.printStackTrace();
+			throw e.getCause();
+		}
+	}
+
+
+	private Client createAndPersistClient(String email, String role) {
+		Client c = new Client(new Name(), email);
+		c.setEmail(email);
+		c.setLogin(email);
+
+		testClientDao.makePersistent(c);
+		testAuthorityDao.assignAuthority(c, role);
+		return c;
+	}
+
 
 	@Test
 	public void testDecisionStateWrongUserInSession() {
@@ -148,11 +283,11 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 		resumeFlow(context);
 
-		assertCurrentStateEquals("quickRegistration");
+		assertCurrentStateEquals("quickRegistrationFirstTime");
 	}
 
 	@Test
-	public void testCreateAnonymousUser() {
+	public void testAnonymousUserWorkflow() {
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
 
@@ -160,11 +295,11 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 
 		resumeFlow(context);
 
-		assertCurrentStateEquals("quickRegistration");
-
+		assertCurrentStateEquals("quickRegistrationFirstTime");
 		//not persistent yet
-		Client anonymous = (Client) getViewScope().get("anonymousClient", Client.class);
+		Client anonymous = (Client) getFlowScope().get("anonymousClient", Client.class);
 		assertNotNull(anonymous);
+		assertEquals(0, anonymous.getId());
 
 		final String email = "some@mail.add";
 		anonymous.setEmail(email);
@@ -174,15 +309,21 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 			cart.addItem(p);
 		}
 
+		assertNull(SecurityContextHolder.getContext().getAuthentication());
+
 		context.setEventId("quickreg");
 		resumeFlow(context);
+
+		assertTrue((Boolean) getFlowScope().get("createdNewUser"));
+		//persisted
+		assertTrue(anonymous.getId() != 0);
 
 		assertCurrentStateEquals("order");
 
 		Set<Authority> roles = anonymous.getRoles();
 		assertEquals(1, roles.size());
 		Authority role = roles.iterator().next();
-		assertEquals(SecurityService.ROLE_ANONYMOUS, role.getRole());
+		assertEquals(SecurityService.ROLE_UNREGISTERED, role.getRole());
 
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		assertNotNull(authentication);
@@ -190,23 +331,77 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		assertNotNull(auths);
 		assertEquals(1, auths.size());
 		final GrantedAuthority authority = auths.iterator().next();
-		assertEquals(SecurityService.ROLE_ANONYMOUS, authority.getAuthority());
+		assertEquals(SecurityService.ROLE_UNREGISTERED, authority.getAuthority());
 
 		//set currentUser var
 		Principal p = new UsernamePasswordAuthenticationToken(anonymous.getLogin(), null);
+		context.setCurrentUser(p);
 
 		context.setEventId("order");
-		context.setCurrentUser(p);
 		resumeFlow(context);
-		
+
+		assertCurrentStateEquals("success");
 		assertTrue(cart.getItems().isEmpty());
 
-		//check that user was logged out
-		assertNull(SecurityContextHolder.getContext().getAuthentication());
+		//check that user was NOT logged out
+		Authentication authenticationAfterBuy = SecurityContextHolder.getContext().getAuthentication();
+		assertNotNull(authenticationAfterBuy);
+		assertEquals(authentication, authenticationAfterBuy);
 
+		assertProductsWereBought(anonymous.getLogin(), prods);
+
+		//we're back to checkout
+		setCurrentState("checkout");
+		context.setEventId("order");
+		resumeFlow(context);
+
+		//we can re-use previous user
+		assertEquals(anonymous, getFlowScope().get("anonymousClient"));
+
+		//assertThat auth in session is the same, that is, no re-auth happened
+		assertSame(authentication, SecurityContextHolder.getContext().getAuthentication());
+
+		assertCurrentStateEquals("changeQuickregDetails");
+
+		//accept settings
+		context.setEventId("change");
+		resumeFlow(context);
+
+		assertCurrentStateEquals("quickRegistrationAdjustDetails");
+
+		//change email
+		String newEmail = "new@email.com";
+		anonymous.setEmail(newEmail);
+		context.setEventId("quickreg");
+
+		resumeFlow(context);
+
+		assertCurrentStateEquals("order");
+		testClientDao.flush();
+		Client loaded = testClientDao.findById(anonymous.getId());
+		//ok, it changed user in DB
+		assertEquals(newEmail, loaded.getEmail());
+
+		//step back
+		setCurrentState("checkout");
+		context.setEventId("order");
+
+		resumeFlow(context);
+
+		assertCurrentStateEquals("changeQuickregDetails");
+		context.setEventId("itsOK");
+		resumeFlow(context);
+
+		assertCurrentStateEquals("order");
+
+		Client anotherLoaded = testClientDao.findById(anonymous.getId());
+		assertEquals(anonymous, anotherLoaded);
+	}
+
+	private void assertProductsWereBought(String login, List<Product> prods) {
 		//check that goods were bought
 
-		List<BuyingAct> boughts = testBuyingActDao.findForLogin(anonymous.getLogin());
+		List<BuyingAct> boughts = testBuyingActDao.findForLogin(login);
 		assertEquals(1, boughts.size());
 
 		BuyingAct act = boughts.get(0);
@@ -217,10 +412,27 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest{
 		}
 	}
 
-	@Test
-	public void testLogoutOnExit() {
+	private void anonymousBurglesAgain(String email, String reEnterdEmail, Boolean shouldCreateUser) {
 		MockExternalContext context = new MockExternalContext();
-		setCurrentState("order");
+		startFlow(context);
+
+		//checkout
+
+		createAndPersistClient(email, SecurityService.ROLE_UNREGISTERED);
+
+		context.setEventId("order");
+		resumeFlow(context);
+
+		assertCurrentStateEquals("quickRegistrationFirstTime");
+
+		Client stub = (Client) getFlowScope().get("anonymousClient");
+		assertEquals(0, stub.getId());
+		stub.setEmail(reEnterdEmail);
+
+		context.setEventId("quickreg");
+		resumeFlow(context);
+
+		assertEquals(shouldCreateUser, getFlowScope().get("createdNewUser"));
 	}
 
 	private static class MockMailSerice implements MailService {

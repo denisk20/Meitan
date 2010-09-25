@@ -25,9 +25,11 @@ public interface ClientDao extends Dao<Client, Long>{
 
 	@Transactional
 	//todo u-test
-	void saveOrFetchClientByEmail(Client c);
+	boolean saveOrFetchUnregisteredClientByEmail(Client c) throws IllegalAccessException;
 
 	AuthorityDao getAuthorityDao();
 
 	void setAuthorityDao(AuthorityDao authorityDao);
+
+	void mergeAnonymousClient(Client c) throws IllegalAccessException;
 }
