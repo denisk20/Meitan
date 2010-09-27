@@ -11,9 +11,9 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Name implements Serializable {
-	private String firstName;
-	private String patronymic;
-	private String secondName;
+	private String firstName = "";
+	private String patronymic= "";
+	private String secondName= "";
 
 	public Name() {
 	}
