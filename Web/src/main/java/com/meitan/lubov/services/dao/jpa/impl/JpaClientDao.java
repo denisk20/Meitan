@@ -87,8 +87,8 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 
 		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
 		if (resultList.size() == 0) {
-			authorityDao.assignAuthority(c, SecurityService.ROLE_UNREGISTERED);
 			makePersistent(c);
+			authorityDao.assignAuthority(c, SecurityService.ROLE_UNREGISTERED);
 			return true;
 		} else {
 			if (resultList.size() != 1) {
@@ -113,6 +113,7 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 			throw new IllegalArgumentException("Email is undefined for client " + c);
 		}
 
+		//todo ID! Make Unit test for this to fail!
 		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
 		if (resultList.size() == 0) {
 			throw new IllegalStateException("No corresponding client in DB: " + c);
@@ -126,6 +127,27 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 			existing.setEmail(c.getEmail());
 		}
 	}
+
+//	@Override
+//	@Transactional
+//	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
+//		if (c == null) {
+//			throw new IllegalArgumentException("Client was null");
+//		}
+//		final String email = c.getEmail();
+//		if (email == null || email.equals("")) {
+//			throw new IllegalArgumentException("Email is undefined for client " + c);
+//		}
+//
+//		final long id = c.getId();
+//		if (id == 0L) {
+//			throw new IllegalArgumentException("Id is undefined for client " + c);
+//		}
+//		final Client result = findById(id);
+//		checkIfUnregistered(result);
+//
+//		result.setEmail(c.getEmail());
+//	}
 
 	private void checkIfUnregistered(Client existing) throws IllegalAccessException {
 		Set<Authority> roles = existing.getRoles();

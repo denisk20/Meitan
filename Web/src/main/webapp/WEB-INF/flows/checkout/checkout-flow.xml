@@ -28,6 +28,8 @@
 		<transition on="yes" to="order"/>
 		<transition on="no" to="quickRegistrationFirstTime">
 			<evaluate expression="clientDao.newInstance()" result="flowScope.anonymousClient"/>
+			<!--todo why do we get null in de-serialized Client's name?-->
+			<!--<evaluate expression="clientDao.newInstance()" result="conversationScope.anonymousClient"/>-->
 		</transition>
 		<transition on="unregistered" to="changeQuickregDetails">
 			<evaluate expression="clientDao.getByLogin(currentUser.name)" result="flowScope.anonymousClient"/>

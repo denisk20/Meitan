@@ -1,0 +1,47 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:form="http://www.springframework.org/tags/form"
+				xmlns:sec="http://www.springframework.org/security/tags"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+				template="/WEB-INF/templates/meitan.xhtml">
+
+	<ui:define name="content">
+		<h:messages/>
+
+		<h1>Будут использованы следующие ваши координаты:</h1>
+
+		<h:form>
+			<fieldset>
+				<div class="field">
+					<div class="field">
+						<div class="label">Почтовый ящик</div>
+						<div class="output">
+							<h:outputLabel id="emailAddress" value="#{anonymousClient.email}"/>
+						</div>
+					</div>
+				</div>
+
+<!--
+				<div class="field">
+					<div class="label">Телефон</div>
+					<div class="input">
+						<sf:clientTextValidator promptMessage="Номер телефона, по которому с вами можно связаться">
+							<h:inputText id="email" value="#{anonymousClient.phone}"/>
+						</sf:clientTextValidator>
+					</div>
+				</div>
+-->
+			</fieldset>
+
+			<p>Вы хотите изменить эти данные?</p>
+			<h:commandLink value="Да" action="change"/>
+			<h:commandLink value="Нет" action="itsOK"/>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
