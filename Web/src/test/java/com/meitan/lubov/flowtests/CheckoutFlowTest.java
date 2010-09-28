@@ -31,6 +31,7 @@ import org.springframework.webflow.execution.ActionExecutionException;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
+import javax.mail.MessagingException;
 import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -39,7 +40,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.mail.MessagingException;
 
 /**
  * @author denis_k
@@ -211,66 +211,6 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		return admin;
 	}
 
-	@Test(expected = IllegalAccessException.class)
-	public void testAnonymousReturns4_organizedCrime() throws Throwable {
-		String email = "some@email.com";
-		String enteredEmail = email;
-
-		String adminEmail = "admin@meitan-kh.com";
-
-		createAdmin(adminEmail);
-
-		Client criminal = createAndPersistClient(email, SecurityService.ROLE_UNREGISTERED);
-
-		testSecurityService.authenticateUser(criminal);
-		//ok, he's in session now
-
-		MockExternalContext context = new MockExternalContext();
-		startFlow(context);
-
-		context.setEventId("order");
-		context.setCurrentUser(criminal.getLogin());
-		resumeFlow(context);
-
-		assertCurrentStateEquals("changeQuickregDetails");
-
-		context.setEventId("change");
-		resumeFlow(context);
-
-		assertCurrentStateEquals("quickRegistrationAdjustDetails");
-
-		Client stub = new Client();
-		//how come!!!
-		stub.setEmail(adminEmail);
-		getFlowScope().put("anonymousClient", stub);
-
-		context.setEventId("quickreg");
-
-		try {
-			try {
-				resumeFlow(context);
-			} catch (ActionExecutionException e) {
-				e.printStackTrace();
-				throw e.getCause();
-			}
-		} catch (ExpressionInvocationTargetException e) {
-			e.printStackTrace();
-			throw e.getCause();
-		}
-	}
-
-
-	private Client createAndPersistClient(String email, String role) {
-		Client c = new Client(new Name(), email);
-		c.setEmail(email);
-		c.setLogin(email);
-
-		testClientDao.makePersistent(c);
-		testAuthorityDao.assignAuthority(c, role);
-		return c;
-	}
-
-
 	@Test
 	public void testDecisionStateWrongUserInSession() {
 		MockExternalContext context = new MockExternalContext();
@@ -285,6 +225,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 
 		assertCurrentStateEquals("quickRegistrationFirstTime");
 	}
+
 
 	@Test
 	public void testAnonymousUserWorkflow() {
@@ -385,7 +326,8 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		//step back
 		setCurrentState("checkout");
 		context.setEventId("order");
-
+		//refresh current user
+		context.setCurrentUser(anonymous.getLogin());
 		resumeFlow(context);
 
 		assertCurrentStateEquals("changeQuickregDetails");
@@ -396,6 +338,86 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 
 		Client anotherLoaded = testClientDao.findById(anonymous.getId());
 		assertEquals(anonymous, anotherLoaded);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAdjustQuickRegDetails() throws Throwable {
+		String email = "some@email.com";
+		Client c = new Client(new Name(), email);
+		c.setEmail(email);
+		c.setLogin(email);
+
+		testAuthorityDao.assignAuthority(c, SecurityService.ROLE_UNREGISTERED);
+		testSecurityService.authenticateUser(c);
+
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		getFlowScope().put("anonymousClient", c);
+
+		setCurrentState("quickRegistrationAdjustDetails");
+
+		context.setEventId("quickreg");
+		try {
+			try {
+				resumeFlow(context);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e.getCause();
+			}
+		} catch (ActionExecutionException e) {
+			e.printStackTrace();
+			throw e.getCause();
+		}
+	}
+
+	@Test
+	public void changeUnregisteredUserEmail() {
+		String email = "some@email.com";
+		Client c = new Client(new Name(), email);
+		c.setEmail(email);
+		c.setLogin(email);
+
+		testClientDao.makePersistent(c);
+		testAuthorityDao.assignAuthority(c, SecurityService.ROLE_UNREGISTERED);
+		testSecurityService.authenticateUser(c);
+
+		MockExternalContext context = new MockExternalContext();
+		startFlow(context);
+
+		Client stub = new Client();
+
+
+		String newEmail = "new@email.com";
+		stub.setEmail(newEmail);
+		stub.setId(c.getId());
+
+		getFlowScope().put("anonymousClient", stub);
+
+		setCurrentState("quickRegistrationAdjustDetails");
+		context.setEventId("quickreg");
+
+		resumeFlow(context);
+
+		assertEquals(newEmail, c.getLogin() );
+		String login = SecurityContextHolder.getContext().getAuthentication().getName();
+		assertEquals(newEmail, login);
+
+		Client loaded = testClientDao.getByLogin(newEmail);
+
+		assertEquals(newEmail, loaded.getLogin());
+		assertEquals(newEmail, loaded.getEmail());
+
+	}
+
+	private Client createAndPersistClient(String email, String role) {
+		Client c = new Client(new Name(), email);
+		c.setEmail(email);
+		c.setLogin(email);
+
+		testClientDao.makePersistent(c);
+		testAuthorityDao.assignAuthority(c, role);
+		return c;
 	}
 
 	private void assertProductsWereBought(String login, List<Product> prods) {

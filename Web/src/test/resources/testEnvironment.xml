@@ -124,7 +124,7 @@
     <bean id="testBoardItemDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaBoardItemDao"/>
     <!-- /DAOs======================================================================================-->
 
-	<bean id="testSecurityService" class="com.meitan.lubov.services.util.SecurityService"/>
+	<bean id="testSecurityService" class="com.meitan.lubov.services.util.SecurityServiceImpl"/>
     <!-- Mail settings===========================================================================-->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${meitan.mail.host}"/>

@@ -101,34 +101,8 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 		}
 	}
 
-	@Override
-	//todo unit test
-	@Transactional
-	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
-		if (c == null) {
-			throw new IllegalArgumentException("Client was null");
-		}
-		final String email = c.getEmail();
-		if (email == null || email.equals("")) {
-			throw new IllegalArgumentException("Email is undefined for client " + c);
-		}
-
-		//todo ID! Make Unit test for this to fail!
-		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
-		if (resultList.size() == 0) {
-			throw new IllegalStateException("No corresponding client in DB: " + c);
-		} else {
-			if (resultList.size() != 1) {
-				throw new IllegalStateException("Multiple users with email " + email);
-			}
-			Client existing = (Client) resultList.get(0);
-			checkIfUnregistered(existing);
-
-			existing.setEmail(c.getEmail());
-		}
-	}
-
 //	@Override
+//	//todo unit test
 //	@Transactional
 //	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
 //		if (c == null) {
@@ -139,15 +113,47 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 //			throw new IllegalArgumentException("Email is undefined for client " + c);
 //		}
 //
-//		final long id = c.getId();
-//		if (id == 0L) {
-//			throw new IllegalArgumentException("Id is undefined for client " + c);
-//		}
-//		final Client result = findById(id);
-//		checkIfUnregistered(result);
+//		//todo ID! Make Unit test for this to fail!
+//		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
+//		if (resultList.size() == 0) {
+//			throw new IllegalStateException("No corresponding client in DB: " + c);
+//		} else {
+//			if (resultList.size() != 1) {
+//				throw new IllegalStateException("Multiple users with email " + email);
+//			}
+//			Client existing = (Client) resultList.get(0);
+//			checkIfUnregistered(existing);
 //
-//		result.setEmail(c.getEmail());
+//			//todo this is not very nice if we will have to deal with different props
+//			existing.setEmail(c.getEmail());
+//		}
 //	}
+
+	@Override
+	@Transactional
+	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
+		if (c == null) {
+			throw new IllegalArgumentException("Client was null");
+		}
+		final String email = c.getEmail();
+		if (email == null || email.equals("")) {
+			throw new IllegalArgumentException("Email is undefined for client " + c);
+		}
+
+		final long id = c.getId();
+		if (id == 0L) {
+			throw new IllegalArgumentException("Id is undefined for client " + c);
+		}
+		final Client result = findById(id);
+		if (result == null) {
+			throw new IllegalArgumentException("No corresponding DB entity for client " + c);
+		}
+		checkIfUnregistered(result);
+		//todo this is not very nice if we will have to deal with different props
+		result.setEmail(c.getEmail());
+		result.setLogin(c.getEmail());
+
+	}
 
 	private void checkIfUnregistered(Client existing) throws IllegalAccessException {
 		Set<Authority> roles = existing.getRoles();
