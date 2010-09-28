@@ -54,11 +54,11 @@
 		</transition>
 	</view-state>
 
-	<view-state id="quickRegistrationAdjustDetails" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml">
+	<view-state id="quickRegistrationAdjustDetails" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml" model="anonymousClient">
 		<transition on="quickreg" to="order">
-			<!--<set name="anonymousClient.login" value="anonymousClient.email"/>-->
+			<set name="anonymousClient.login" value="anonymousClient.email"/>
 			<evaluate expression="clientDao.mergeAnonymousClient(anonymousClient)"/>
-			<!--<evaluate expression="securityService.authenticateUser(anonymousClient)"/>-->
+			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>
 

@@ -11,9 +11,11 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Name implements Serializable {
-	private String firstName = "";
-	private String patronymic= "";
-	private String secondName= "";
+	private String firstName;
+	private String patronymic;
+	private String secondName;
+
+	private static final long serialVersionUID = -5246951662845966416L;
 
 	public Name() {
 	}

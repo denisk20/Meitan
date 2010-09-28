@@ -1,12 +1,8 @@
 package com.meitan.lubov.flowtests;
 
-import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
-import com.meitan.lubov.model.persistent.Product;
-import com.meitan.lubov.services.commerce.ShoppingCart;
-import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.util.CaptchaService;
@@ -26,7 +22,6 @@ import org.springframework.webflow.execution.RequestContext;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -49,8 +44,9 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 	@Autowired
 	private AuthorityDao testAuthorityDao;
 	@Autowired
+	private SecurityService testSecurityService;
+	@Autowired
 	private ClientDao testClientDao;
-	private SecurityService securityService = new SecurityService();
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
@@ -63,7 +59,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		builderContext.registerBean("captchaService", captchaService);
 		builderContext.registerBean("clientDao", testClientDao);
 		builderContext.registerBean("authorityDao", testAuthorityDao);
-		builderContext.registerBean("securityService", securityService);
+		builderContext.registerBean("securityService", testSecurityService);
 		builderContext.registerBean("utils", utils);
 		builderContext.registerBean("passwordValidator", passwordValidator);
 	}

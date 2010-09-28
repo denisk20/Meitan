@@ -9,7 +9,6 @@ import java.io.Serializable;
  * Date: Jul 9, 2010
  * Time: 10:42:03 AM
  *
- * This class is not used currently
  * @author denisk
  */
 @Entity
@@ -17,6 +16,8 @@ public class Authority extends PersistentOrderableImpl implements Serializable {
 	private Long id;
 	private Client client;
 	private String role;
+
+	private static final long serialVersionUID = 8793626097376668155L;
 
 	public Authority() {
 	}

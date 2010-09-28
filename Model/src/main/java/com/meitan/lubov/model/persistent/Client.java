@@ -5,6 +5,8 @@ import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.components.Passport;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
+import java.io.IOException;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -43,6 +45,8 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 	private String conformedPassword;
 	//todo unit test
 	private String phone;
+
+	private static final long serialVersionUID = -1634311520960706521L;
 
 	public Client() {
 
@@ -208,4 +212,14 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		return "Client{" + "id=" + id + ", name=" + name + ", email='" + email + '\'' + '}';
 	}
 
+	private void readObject(java.io.ObjectInputStream in)
+			throws IOException, ClassNotFoundException {
+		if (name == null) {
+			name = new Name("hacked name readObject", "", "");
+		}
+		if (email == null) {
+			email = "hacked email readObject";
+		}
+		in.defaultReadObject();
+	}
 }
