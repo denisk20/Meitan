@@ -147,4 +147,8 @@ public class Utils implements ServletContextAware {
 	public String getHomePath() {
 		return System.getenv(MEITAN_HOME);
 	}
+
+	public void printMessage(String msg) {
+		System.out.printf("Utils:" + msg);
+	}
 }

@@ -1,5 +1,6 @@
 package com.meitan.lubov.flowtests;
 
+import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
@@ -47,6 +48,8 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 	private SecurityService testSecurityService;
 	@Autowired
 	private ClientDao testClientDao;
+	@Autowired
+	private SecurityService testSecurityService;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {

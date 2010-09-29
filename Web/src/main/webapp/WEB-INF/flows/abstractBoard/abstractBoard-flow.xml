@@ -29,6 +29,10 @@
 			<evaluate expression="boardItemDao.makePersistent(newNews)"/>
 		</transition>
 
+		<transition on="test">
+						<evaluate expression="utils.printMessage('inside abstractBoardViewState')"/>
+
+		</transition>
 	</view-state>
 
 	<end-state id="saveItem" view="flowRedirect:#{flowName}?lastSavedItem=#{savedItem}" commit="true"/>

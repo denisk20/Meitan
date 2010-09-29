@@ -4,6 +4,7 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:sec="http://www.springframework.org/security/tags"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:c="http://java.sun.com/jstl/core"
         xmlns:sf="http://www.springframework.org/tags/faces"
@@ -45,7 +46,7 @@
                     <c:if test="${not empty currentUser.name}">
                         Добро пожаловать, <span class="exclamation">${currentUser.name}</span> <a
                             href="${request.contextPath}/spring/logout">
-                        <img style="vertical-align:middle;" src="/images/exit_button_still.png" alt="Войти"
+                        <img style="vertical-align:middle;" src="/images/exit_button_still.png" alt="Выйти"
                              onmouseover="this.src = '/images/exit_button_mouseover.png'"
                              onmouseout="this.src='/images/exit_button_still.png'"/>
                     </a>
@@ -67,7 +68,7 @@
                                 <c:if test="#{cart.count > 0}">
                                     <div id="checkoutLink">
                                         <a href="checkout">
-                                            <img src="/images/checkout_button_still.png" alt="Войти"
+                                            <img src="/images/checkout_button_still.png" alt="Оформить заказ"
                                                  onmouseover="this.src = '/images/checkout_button_mouseover.png'"
                                                  onmouseout="this.src='/images/checkout_button_still.png'"/>
                                         </a>
