@@ -45,8 +45,6 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 	@Autowired
 	private AuthorityDao testAuthorityDao;
 	@Autowired
-	private SecurityService testSecurityService;
-	@Autowired
 	private ClientDao testClientDao;
 	@Autowired
 	private SecurityService testSecurityService;
