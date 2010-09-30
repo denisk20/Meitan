@@ -135,7 +135,7 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 		this.enabled = enabled;
 	}
 
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
 	public Set<Authority> getRoles() {
 		return roles;
 	}

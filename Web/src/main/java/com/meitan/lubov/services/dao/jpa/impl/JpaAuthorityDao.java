@@ -30,7 +30,8 @@ public class JpaAuthorityDao extends JpaDao<Authority, Long> implements Authorit
 				.add(Restrictions.eq("name", exampleInstance.getClient().getName()))
 				.add(Restrictions.eq("email", exampleInstance.getClient().getEmail()));
 
-		return criteria.list();
+		final List list = criteria.list();
+		return getDistinct(list);
 	}
 
 	@Override
@@ -40,4 +41,6 @@ public class JpaAuthorityDao extends JpaDao<Authority, Long> implements Authorit
 		client.getRoles().add(auth);
 		makePersistent(auth);
 	}
+
+
 }

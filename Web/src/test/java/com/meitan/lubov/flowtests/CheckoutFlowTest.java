@@ -255,7 +255,8 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		context.setEventId("quickreg");
 		resumeFlow(context);
 
-		assertTrue((Boolean) getFlowScope().get("createdNewUser"));
+		assertSame(getFlowScope().get("anonymousClient"), anonymous);
+		
 		//persisted
 		assertTrue(anonymous.getId() != 0);
 
@@ -454,7 +455,11 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		context.setEventId("quickreg");
 		resumeFlow(context);
 
-		assertEquals(shouldCreateUser, getFlowScope().get("createdNewUser"));
+		if (shouldCreateUser) {
+			assertSame(stub, getFlowScope().get("anonymousClient"));
+		} else {
+			assertNotSame(stub, getFlowScope().get("anonymousClient"));
+		}
 	}
 
 	private static class MockMailSerice implements MailService {
