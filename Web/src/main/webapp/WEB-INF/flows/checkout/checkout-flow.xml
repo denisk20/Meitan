@@ -49,7 +49,7 @@
 	<view-state id="quickRegistrationFirstTime" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml">
 		<transition on="quickreg" to="order">
 			<set name="anonymousClient.login" value="anonymousClient.email"/>
-			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(anonymousClient)" result="flowScope.createdNewUser" result-type="boolean"/>
+			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(anonymousClient)" result="flowScope.anonymousClient"/>
 			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>
