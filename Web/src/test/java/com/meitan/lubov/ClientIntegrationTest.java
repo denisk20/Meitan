@@ -6,6 +6,7 @@ import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.webflow.test.MockRequestContext;
 
 import javax.persistence.PersistenceException;
 import java.util.*;
@@ -272,7 +273,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		Client c = new Client(new Name(), email);
 		c.setLogin(email);
 
-		final Client created = testClientDao.saveOrFetchUnregisteredClientByEmail(c);
+		final Client created = testClientDao.saveOrFetchUnregisteredClientByEmail(new MockRequestContext(), c);
 		assertSame(c, created);
 		assertNotNull(c.getId());
 
@@ -283,7 +284,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	@Test(expected = IllegalAccessException.class)
 	public void testSaveOrFetchClientByEmail_existingClient() throws IllegalAccessException {
 		Client c = beansFromDb.get(0);
-		testClientDao.saveOrFetchUnregisteredClientByEmail(c);
+		testClientDao.saveOrFetchUnregisteredClientByEmail(new MockRequestContext(), c);
 	}
 
 }
