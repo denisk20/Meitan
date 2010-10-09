@@ -3,6 +3,7 @@ package com.meitan.lubov.services.dao;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.webflow.execution.RequestContext;
 
 /**
  * Date: Mar 5, 2010
@@ -25,11 +26,11 @@ public interface ClientDao extends Dao<Client, Long>{
 
 	@Transactional
 	//todo u-test
-	Client saveOrFetchUnregisteredClientByEmail(Client c) throws IllegalAccessException;
+	Client saveOrFetchUnregisteredClientByEmail(RequestContext requestContext, Client c) throws IllegalAccessException;
 
 	AuthorityDao getAuthorityDao();
 
 	void setAuthorityDao(AuthorityDao authorityDao);
 
-	void mergeAnonymousClient(Client c) throws IllegalAccessException;
+	void mergeAnonymousClient(RequestContext requestContext, Client c) throws IllegalAccessException;
 }

@@ -12,9 +12,11 @@ import com.meitan.lubov.services.dao.ShoppingCartItemDao;
 import com.meitan.lubov.services.dao.jpa.JpaDao;
 import com.meitan.lubov.services.util.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.webflow.execution.RequestContext;
 
 import java.util.Date;
 import java.util.List;
@@ -55,9 +57,7 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Override
 	@Transactional(readOnly = true)
 	public Client getByLogin(String login) {
-		List<Client> result = em.createNamedQuery("getClientByLogin")
-				.setParameter("login", login)
-				.getResultList();
+		List<Client> result = em.createNamedQuery("getClientByLogin").setParameter("login", login).getResultList();
 		if (result.size() == 0) {
 			throw new IllegalArgumentException("Can't find user with login " + login);
 		}
@@ -88,7 +88,8 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Override
 	@Transactional
 	//todo u-test
-	public Client saveOrFetchUnregisteredClientByEmail(Client c) throws IllegalAccessException {
+	public Client saveOrFetchUnregisteredClientByEmail(RequestContext requestContext,
+													   Client c) throws IllegalAccessException {
 		if (c == null) {
 			throw new IllegalArgumentException("Client was null");
 		}
@@ -107,43 +108,15 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 				throw new IllegalStateException("Multiple users with email " + email);
 			}
 			Client existing = (Client) resultList.get(0);
-			checkIfUnregistered(existing);
-//			merge(c);
+			checkIfUnregistered(existing, requestContext);
 			return existing;
 		}
 	}
 
-//	@Override
-//	//todo unit test
-//	@Transactional
-//	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
-//		if (c == null) {
-//			throw new IllegalArgumentException("Client was null");
-//		}
-//		final String email = c.getEmail();
-//		if (email == null || email.equals("")) {
-//			throw new IllegalArgumentException("Email is undefined for client " + c);
-//		}
-//
-//		//todo ID! Make Unit test for this to fail!
-//		final List resultList = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
-//		if (resultList.size() == 0) {
-//			throw new IllegalStateException("No corresponding client in DB: " + c);
-//		} else {
-//			if (resultList.size() != 1) {
-//				throw new IllegalStateException("Multiple users with email " + email);
-//			}
-//			Client existing = (Client) resultList.get(0);
-//			checkIfUnregistered(existing);
-//
-//			//todo this is not very nice if we will have to deal with different props
-//			existing.setEmail(c.getEmail());
-//		}
-//	}
-
 	@Override
 	@Transactional
-	public void mergeAnonymousClient(Client c) throws IllegalAccessException {
+	//todo unit test
+	public void mergeAnonymousClient(RequestContext requestContext, Client c) throws IllegalAccessException {
 		if (c == null) {
 			throw new IllegalArgumentException("Client was null");
 		}
@@ -160,17 +133,27 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 		if (result == null) {
 			throw new IllegalArgumentException("No corresponding DB entity for client " + c);
 		}
-		checkIfUnregistered(result);
+		checkIfUnregistered(result, requestContext);
+		final List sameEmails = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
+		if (sameEmails.size() > 0) {
+			requestContext.getMessageContext().addMessage(new MessageBuilder().error()
+					.defaultText("Пользователь с таким почтовым ящиком уже существует. Выберите другой").build());
+
+			throw new IllegalAccessException("Email already exists: " + email);
+		}
+
 		//todo this is not very nice if we will have to deal with different props
 		result.setEmail(c.getEmail());
 		result.setLogin(c.getEmail());
-
 	}
 
-	private void checkIfUnregistered(Client existing) throws IllegalAccessException {
+	private void checkIfUnregistered(Client existing, RequestContext requestContext) throws IllegalAccessException {
 		Set<Authority> roles = existing.getRoles();
-		for (Authority authority: roles) {
-			if (! authority.getRole().equals(SecurityService.ROLE_UNREGISTERED)) {
+		for (Authority authority : roles) {
+			if (!authority.getRole().equals(SecurityService.ROLE_UNREGISTERED)) {
+				requestContext.getMessageContext().addMessage(new MessageBuilder().error()
+						.defaultText("Пользователь с таким почтовым ящиком уже существует. Выберите другого").build());
+
 				throw new IllegalAccessException("Atempt to anonymously login for existent client " + existing);
 			}
 		}

@@ -27,7 +27,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
+import org.springframework.webflow.engine.Flow;
+import org.springframework.webflow.engine.FlowExecutionExceptionHandler;
+import org.springframework.webflow.engine.FlowExecutionExceptionHandlerSet;
+import org.springframework.webflow.engine.State;
 import org.springframework.webflow.execution.ActionExecutionException;
+import org.springframework.webflow.execution.FlowExecution;
+import org.springframework.webflow.execution.FlowSession;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
@@ -203,6 +209,33 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		}
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testAnoymousReturns4_theCrimeThroughAdjust() throws Throwable {
+		String adminEmail = "admin@meitan-kh.com";
+		Client admin = createAdmin(adminEmail);
+
+		MockExternalContext context = new MockExternalContext();
+		setCurrentState("quickRegistrationAdjustDetails");
+		resumeFlow(context);
+		Client c = createAndPersistClient("some@email.com", SecurityService.ROLE_UNREGISTERED);
+		Client stub = new Client(null, adminEmail);
+		stub.setId(c.getId());
+		getFlowScope().put("anonymousClient", stub);
+		context.setEventId("quickreg");
+		getViewScope().put("viewName", "WTF view");
+		try {
+			try {
+				resumeFlow(context);
+			} catch (ActionExecutionException e) {
+				e.printStackTrace();
+				throw e.getCause();
+			}
+		} catch (ExpressionInvocationTargetException e) {
+			e.printStackTrace();
+			throw e.getCause();
+		}
+	}
+
 	private Client createAdmin(String adminEmail) {
 		Client admin = new Client(new Name("admin", "", ""), adminEmail);
 		admin.setLogin("Ted");
@@ -312,11 +345,16 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		assertCurrentStateEquals("quickRegistrationAdjustDetails");
 
 		//change email
-		String newEmail = "new@email.com";
-		anonymous.setEmail(newEmail);
+		String newEmail = "another_new@email.com";
+		Client stub = new Client(null, newEmail);
+		stub.setId(anonymous.getId());
+		stub.setRoles(anonymous.getRoles());
+		getFlowScope().put("anonymousClient", stub);
 		context.setEventId("quickreg");
 
 		resumeFlow(context);
+		//restore
+		getFlowScope().put("anonymousClient", anonymous);
 
 		assertCurrentStateEquals("order");
 		testClientDao.flush();
@@ -438,15 +476,19 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 	private void anonymousBurglesAgain(String email, String reEnterdEmail, Boolean shouldCreateUser) {
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
+		String stateId = "quickRegistrationFirstTime";
+
+		//remove exceptions handlers
+		removeExceptionHandlers(stateId);
 
 		//checkout
 
 		createAndPersistClient(email, SecurityService.ROLE_UNREGISTERED);
-
+		//just persist, not authenticate
 		context.setEventId("order");
 		resumeFlow(context);
 
-		assertCurrentStateEquals("quickRegistrationFirstTime");
+		assertCurrentStateEquals(stateId);
 
 		Client stub = (Client) getFlowScope().get("anonymousClient");
 		assertEquals(0, stub.getId());
@@ -459,6 +501,19 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 			assertSame(stub, getFlowScope().get("anonymousClient"));
 		} else {
 			assertNotSame(stub, getFlowScope().get("anonymousClient"));
+		}
+	}
+
+	private void removeExceptionHandlers(String stateId) {
+		FlowExecution flowExecution1 = getFlowExecution();
+		FlowSession flowSession = flowExecution1.getActiveSession();
+		Flow flow = (Flow) flowSession.getDefinition();
+		State state = flow
+				.getStateInstance(stateId);
+		FlowExecutionExceptionHandlerSet exceptionHandlerSet = state.getExceptionHandlerSet();
+		FlowExecutionExceptionHandler[] executionExceptionHandlers = exceptionHandlerSet.toArray();
+		for (FlowExecutionExceptionHandler eh : executionExceptionHandlers) {
+			exceptionHandlerSet.remove(eh);
 		}
 	}
 

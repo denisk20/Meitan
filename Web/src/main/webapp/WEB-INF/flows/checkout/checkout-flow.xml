@@ -42,22 +42,28 @@
 	</view-state>
 
 	<view-state id="quickRegistration" model="anonymousClient">
-		<transition on="quickreg" to="order">
-		</transition>
+		<transition on="quickreg" to="order"/>
+		<transition on-exception="java.lang.IllegalAccessException" to="#{viewName}"/>
 	</view-state>
 
 	<view-state id="quickRegistrationFirstTime" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml">
+		<on-entry>
+			<set name="viewScope.viewName" value="'quickRegistrationFirstTime'"/>
+		</on-entry>
 		<transition on="quickreg" to="order">
 			<set name="anonymousClient.login" value="anonymousClient.email"/>
-			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(anonymousClient)" result="flowScope.anonymousClient"/>
+			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(flowRequestContext, anonymousClient)" result="flowScope.anonymousClient"/>
 			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>
 
 	<view-state id="quickRegistrationAdjustDetails" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml" model="anonymousClient">
+		<on-entry>
+			<set name="viewScope.viewName" value="'quickRegistrationAdjustDetails'"/>
+		</on-entry>
 		<transition on="quickreg" to="order">
 			<set name="anonymousClient.login" value="anonymousClient.email"/>
-			<evaluate expression="clientDao.mergeAnonymousClient(anonymousClient)"/>
+			<evaluate expression="clientDao.mergeAnonymousClient(flowRequestContext, anonymousClient)"/>
 			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>
