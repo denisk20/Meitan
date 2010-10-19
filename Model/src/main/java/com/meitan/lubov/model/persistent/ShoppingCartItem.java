@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 		@NamedQuery(name = "findByProduct", query = "from ShoppingCartItem where item.id = :productId")
 })
 @Entity
-public class ShoppingCartItem extends PersistentOrderableImpl implements Serializable {
+public class ShoppingCartItem extends PersistentOrderableImpl implements Serializable, IdAware {
 	private Long id;
 	private PriceAware item;
 	private Integer quantity;

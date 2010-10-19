@@ -16,6 +16,7 @@ public interface SecurityService {
 	String ROLE_CLIENT = "ROLE_CLIENT";
 	String ROLE_CONSULTANT = "ROLE_CONSULTANT";
 	String ROLE_ADMIN = "ROLE_ADMIN";
+	String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
 
 	@Transactional(readOnly = true)
 	void authenticateUser(Client user);

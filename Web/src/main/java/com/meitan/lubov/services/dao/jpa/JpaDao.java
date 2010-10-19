@@ -32,7 +32,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author denisk
  */
-public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>, Serializable {
+public abstract class JpaDao <T extends IdAware, ID extends Serializable> implements Dao<T, ID>, Serializable {
 
 	private Class<T> persistentClass;
 	protected EntityManager em;
@@ -124,6 +124,19 @@ public abstract class JpaDao <T, ID extends Serializable> implements Dao<T, ID>,
 	@Transactional
 	public void refresh(T entity) {
 		em.refresh(entity);
+	}
+
+	@Override
+	@Transactional
+	public T saveOrUpdate(T entity) {
+		T result;
+		if (entity.getId() != 0L) {
+			result = em.merge(entity);
+		} else {
+			em.persist(entity);
+			result = entity;
+		}
+		return result;
 	}
 
 	@Override

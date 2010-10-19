@@ -4,8 +4,10 @@ import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.*;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.*;
+import com.meitan.lubov.services.util.SecurityService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.webflow.test.MockRequestContext;
 
 import javax.persistence.PersistenceException;
@@ -20,7 +22,7 @@ import static org.hamcrest.CoreMatchers.is;
  *
  * @author denisk
  */
-public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
+public class ClientIntegrationTest extends GenericIntegrationTest<Client> {
 	@Autowired
 	private ClientDao testClientDao;
 	@Autowired
@@ -30,7 +32,7 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 	@Autowired
 	private BuyingActDao testBuyingActDao;
 
-    private int expectedClientCount = 2;
+	private int expectedClientCount = 2;
 
 	@Override
 	protected void setUpBeanNames() {
@@ -51,41 +53,41 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		assertThat(beanFromSpring.isEnabled(), is(beanFromDB.isEnabled()));
 	}
 
-    @Test
-    public void testCreateClient() {
-        Client newClient = new Client();
-        Name name = new Name();
-        name.setFirstName("ab");
-        name.setPatronymic("xy");
-        name.setSecondName("cd");
+	@Test
+	public void testCreateClient() {
+		Client newClient = new Client();
+		Name name = new Name();
+		name.setFirstName("ab");
+		name.setPatronymic("xy");
+		name.setSecondName("cd");
 
 		newClient.setEmail("a@b.com");
 		newClient.setLogin("Login");
 		newClient.setJoinDate(new Date());
-        testClientDao.makePersistent(newClient);
+		testClientDao.makePersistent(newClient);
 
-        List<Client> clients = testClientDao.findAll();
-        assertThat(clients.size(), is(expectedClientCount + 1));
-    }
+		List<Client> clients = testClientDao.findAll();
+		assertThat(clients.size(), is(expectedClientCount + 1));
+	}
 
-    @Test
-    public void testUpdateClient() {
-        Client client = beansFromDb.get(0);
-        String oldEmail = client.getEmail();
-        String newEmail = oldEmail + "_changed";
+	@Test
+	public void testUpdateClient() {
+		Client client = beansFromDb.get(0);
+		String oldEmail = client.getEmail();
+		String newEmail = oldEmail + "_changed";
 
-        client.setEmail(newEmail);
+		client.setEmail(newEmail);
 
-        Client reloaded = testClientDao.findById(client.getId());
+		Client reloaded = testClientDao.findById(client.getId());
 
-        assertThat(newEmail, is(reloaded.getEmail()));
-    }
+		assertThat(newEmail, is(reloaded.getEmail()));
+	}
 
-    @Test
+	@Test
 	//todo this should be extended
-    public void testDeleteClient() {
-        Client client = beansFromDb.get(0);
-		Set<Authority> roles =client.getRoles();
+	public void testDeleteClient() {
+		Client client = beansFromDb.get(0);
+		Set<Authority> roles = client.getRoles();
 		for (Authority a : roles) {
 			testAuthorityDao.makeTransient(a);
 		}
@@ -98,12 +100,12 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 			testBuyingActDao.makeTransient(act);
 
 		}
-        testClientDao.makeTransient(client);
+		testClientDao.makeTransient(client);
 
 		testClientDao.flush();
-        Client reloaded = testClientDao.findById(client.getId());
-        assertNull(reloaded);
-    }
+		Client reloaded = testClientDao.findById(client.getId());
+		assertNull(reloaded);
+	}
 
 	@Test(expected = PersistenceException.class)
 	public void insertNullableEmail() {
@@ -287,4 +289,28 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client>{
 		testClientDao.saveOrFetchUnregisteredClientByEmail(new MockRequestContext(), c);
 	}
 
+	@Test
+	public void testFindByLoginOrCreateNew() {
+		Client c = beansFromDb.get(0);
+		UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(c.getLogin(), null);
+		final Client loaded = testClientDao.findByLoginOrCreateNew(principal);
+
+		assertEquals(c, loaded);
+
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindByLoginOrCreateNew_nullLogin() {
+		UsernamePasswordAuthenticationToken principal =
+				new UsernamePasswordAuthenticationToken("is this login or what?", null);
+		testClientDao.findByLoginOrCreateNew(principal);
+	}
+
+	@Test
+	public void testFindByLoginOrCreateNew_createNew() {
+		Client c = testClientDao.findByLoginOrCreateNew(null);
+		assertNotNull(c);
+		assertEquals(new Long(0), c.getId());
+	}
 }

@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * @author denisk
  */
 @Entity
-public class Image extends PersistentOrderableImpl implements Serializable {
+public class Image extends PersistentOrderableImpl implements Serializable, IdAware {
 	private long id;
     //with trailing slash
 	private String url;
@@ -25,11 +26,11 @@ public class Image extends PersistentOrderableImpl implements Serializable {
 
 	@Id
 	@GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

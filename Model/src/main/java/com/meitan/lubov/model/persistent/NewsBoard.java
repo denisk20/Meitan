@@ -1,6 +1,7 @@
 package com.meitan.lubov.model.persistent;
 
 import com.meitan.lubov.model.BoardType;
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.util.PersistentOrderable;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
@@ -20,7 +21,7 @@ import java.util.List;
  *         Time: 22:48:06
  */
 @Entity
-public class NewsBoard extends PersistentOrderableImpl implements Serializable {
+public class NewsBoard extends PersistentOrderableImpl implements Serializable, IdAware {
 	private Long id;
 	private BoardType boardType;
 	private List<BoardItem> items = new ArrayList<BoardItem>();
