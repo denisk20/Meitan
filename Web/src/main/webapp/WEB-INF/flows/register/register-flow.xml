@@ -6,10 +6,11 @@
 
 	<secured attributes="ROLE_ANONYMOUS, ROLE_UNREGISTERED"/>
 
-    <var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>
+    <!--<var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>-->
 
     <view-state id="register">
         <on-entry>
+			<evaluate expression="clientDao.findByLoginOrCreateNew(currentUser)" result="viewScope.newClient"/>
             <set name="newClient.enabled" value="true"/>
 			<!--this is a bit hacky, but saves plenty of coding-->
             <!--<set name="newClient.email" value="currentUser.name"/>-->

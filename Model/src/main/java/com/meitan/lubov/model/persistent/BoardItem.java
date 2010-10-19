@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import java.util.Set;
 		@NamedQuery(name = "getItemsForBoard", query = "select b.items from NewsBoard b where b.boardType=:boardType order by postDate desc"),
 		@NamedQuery(name = "getBoardForType", query = "from NewsBoard b where b.boardType=:type")
 })
-public class BoardItem extends PersistentOrderableImpl implements Serializable {
+public class BoardItem extends PersistentOrderableImpl implements Serializable, IdAware {
 	private Long id;
 	private Date postDate;
 	private String content = "";

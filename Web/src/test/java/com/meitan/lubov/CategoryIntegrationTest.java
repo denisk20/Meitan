@@ -117,6 +117,37 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 			creamsImageRestoreManager.restore();
 			assertTrue("Failed to restore image " + creamsImageRestoreManager.getBasePath(), imageFile.exists());
 		}
+	}
 
+	@Test
+	public void testMergePersistRefresh() {
+		Category c = beansFromDb.get(0);
+
+		testCategoryDao.merge(c);
+
+		Category newC = new Category();
+		newC.setId(c.getId());
+		String name = "this is unique name ;sldfsdlkjhgsdjkahfsdkljhfj;lks0-9QW23R";
+		newC.setName(name);
+		testCategoryDao.merge(newC);
+
+		Category loaded = testCategoryDao.findById(c.getId());
+		assertEquals(name, loaded.getName());
+	}
+
+	@Test
+	public void testSaveOrUpdate() {
+		Category c = beansFromDb.get(0);
+		String name = "s;aldfj;asldkjf";
+
+		c.setName(name);
+
+		Category updated = testCategoryDao.saveOrUpdate(c);
+
+		assertEquals(name, updated.getName());
+
+		Category newC = new Category("name");
+		final Category saved = testCategoryDao.saveOrUpdate(newC);
+		assertFalse(new Long(0).equals(saved.getId()));
 	}
 }

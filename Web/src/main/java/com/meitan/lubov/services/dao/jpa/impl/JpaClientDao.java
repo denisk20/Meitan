@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -67,6 +68,20 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 		return result.get(0);
 	}
 
+	@Override
+	@Transactional
+	public Client findByLoginOrCreateNew(Principal p) {
+		Client c;
+		if (p == null) {
+			c = new Client();
+
+		}
+		else {
+			c = getByLogin(p.getName());
+		}
+
+		return c;
+	}
 	@Override
 	@Transactional
 	public void buyGoods(ShoppingCart cart, String login) {

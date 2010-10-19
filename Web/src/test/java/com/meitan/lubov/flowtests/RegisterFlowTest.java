@@ -90,7 +90,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		startFlow(context);
 
 		assertCurrentStateEquals("register");
-		Client newClient = (Client) getFlowAttribute("newClient");
+		Client newClient = (Client) getViewAttribute("newClient");
 		assertNotNull(newClient);
 		String pass = "abc";
 		newClient.setPassword(pass);
@@ -130,5 +130,36 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		assertEquals(1, grantedAuthorityCollection.size());
 		GrantedAuthority grantedAuthority = grantedAuthorityCollection.iterator().next();
 		assertEquals(roleClient, grantedAuthority.getAuthority());
+	}
+
+	@Test
+	public void testUpdateExistingUser() {
+		Client newClient = new Client();
+
+		String pass = "abc";
+		newClient.setPassword(pass);
+		newClient.setConformedPassword(pass);
+		newClient.setName(new Name("first", "patro", "second"));
+		newClient.setEmail("a@b.com");
+		String login = "login";
+		newClient.setLogin(login);
+
+		testClientDao.makePersistent(newClient);
+		testAuthorityDao.assignAuthority(newClient, SecurityService.ROLE_UNREGISTERED);
+
+		MockExternalContext context = new MockExternalContext();
+		context.setCurrentUser(newClient.getLogin());
+
+		startFlow(context);
+
+		Client reloaded = (Client) getViewAttribute("newClient");
+		assertEquals(newClient, reloaded);
+
+		reloaded.setLogin("lllllllllllllogin");
+		context.setEventId("register");
+		resumeFlow(context);
+
+		Client loaded = testClientDao.findById(reloaded.getId());
+		assertEquals(reloaded.getLogin(), loaded.getLogin());
 	}
 }

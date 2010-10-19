@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author denisk
  */
-public interface Dao<T, ID extends Serializable> {
+public interface Dao<T extends IdAware, ID extends Serializable> {
 	T findById(ID id);
 
     List<T> findAll();
@@ -35,6 +35,9 @@ public interface Dao<T, ID extends Serializable> {
 
 	@Transactional
 	void refresh(T entity);
+
+	@Transactional
+	T saveOrUpdate(T entity);
 
 	T newInstance() throws IllegalAccessException, InstantiationException;
 

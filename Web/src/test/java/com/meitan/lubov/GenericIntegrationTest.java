@@ -1,5 +1,6 @@
 package com.meitan.lubov;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.services.dao.Dao;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ import static org.junit.Assert.fail;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testsSetup.xml"})
-public abstract class GenericIntegrationTest<T> extends AbstractTransactionalJUnit4SpringContextTests {
+public abstract class GenericIntegrationTest<T extends IdAware> extends AbstractTransactionalJUnit4SpringContextTests {
 	protected static final String PATH_DELIM = "/";
 	protected List<String> beanNames = new ArrayList<String>();
 	protected List<T> beansFromXml = new ArrayList<T>();

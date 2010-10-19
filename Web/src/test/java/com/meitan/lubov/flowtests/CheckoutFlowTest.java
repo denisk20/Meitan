@@ -273,7 +273,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		//not persistent yet
 		Client anonymous = (Client) getFlowScope().get("anonymousClient", Client.class);
 		assertNotNull(anonymous);
-		assertEquals(0, anonymous.getId());
+		assertEquals(new Long(0), anonymous.getId());
 
 		final String email = "some@mail.add";
 		anonymous.setEmail(email);
@@ -491,7 +491,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		assertCurrentStateEquals(stateId);
 
 		Client stub = (Client) getFlowScope().get("anonymousClient");
-		assertEquals(0, stub.getId());
+		assertEquals(new Long(0), stub.getId());
 		stub.setEmail(reEnterdEmail);
 
 		context.setEventId("quickreg");

@@ -5,6 +5,8 @@ import com.meitan.lubov.services.commerce.ShoppingCart;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
 
+import java.security.Principal;
+
 /**
  * Date: Mar 5, 2010
  * Time: 10:15:02 PM
@@ -33,4 +35,7 @@ public interface ClientDao extends Dao<Client, Long>{
 	void setAuthorityDao(AuthorityDao authorityDao);
 
 	void mergeAnonymousClient(RequestContext requestContext, Client c) throws IllegalAccessException;
+
+	@Transactional
+	Client findByLoginOrCreateNew(Principal p);
 }

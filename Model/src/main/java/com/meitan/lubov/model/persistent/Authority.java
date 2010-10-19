@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * @author denisk
  */
 @Entity
-public class Authority extends PersistentOrderableImpl implements Serializable {
+public class Authority extends PersistentOrderableImpl implements Serializable, IdAware {
 	private Long id;
 	private Client client;
 	private String role;

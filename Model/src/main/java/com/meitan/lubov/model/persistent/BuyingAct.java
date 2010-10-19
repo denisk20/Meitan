@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Price;
 import com.meitan.lubov.model.util.PersistentOrderableImpl;
@@ -21,7 +22,7 @@ import javax.persistence.*;
 		@NamedQuery(name = "findForCartItem", query = "select b from BuyingAct b inner join b.products i where i.id = :itemId"),
 		@NamedQuery(name = "findForLogin", query = "from BuyingAct b where b.client.login = :login")
 })
-public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Serializable {
+public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Serializable, IdAware {
 	private long id;
 	private Date date;
 	private Client client;
@@ -49,11 +50,11 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 
     @Id
 	@GeneratedValue
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

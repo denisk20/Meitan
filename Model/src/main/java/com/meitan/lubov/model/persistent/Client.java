@@ -1,5 +1,6 @@
 package com.meitan.lubov.model.persistent;
 
+import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.model.NameAware;
 import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.components.Passport;
@@ -27,7 +28,7 @@ import javax.persistence.*;
 })
 //@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"passport_series", "passport_number"})})
 //todo rename to User
-public class Client extends PersistentOrderableImpl implements Serializable {
+public class Client extends PersistentOrderableImpl implements Serializable, IdAware {
 	private long id;
 	private Name name = new Name();
 	private String email;
@@ -65,11 +66,11 @@ public class Client extends PersistentOrderableImpl implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
