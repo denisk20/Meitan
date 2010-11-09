@@ -31,7 +31,7 @@ public interface Dao<T extends IdAware, ID extends Serializable> {
 	Object getPersistentObject(IdAware entity);
 
 	@Transactional
-	void merge(T entity);
+	T merge(T entity);
 
 	@Transactional
 	void refresh(T entity);

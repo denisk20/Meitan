@@ -6,7 +6,10 @@ import com.meitan.lubov.services.commerce.BuyerConfirmOrderMessageBuilder;
 import com.meitan.lubov.services.commerce.ConfirmOrderMessageBuilder;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.dao.ClientDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMailMessage;
@@ -24,6 +27,7 @@ import javax.mail.MessagingException;
  */
 @Service("mailService")
 public class MailServiceImpl implements MailService {
+	private final Log log = LogFactory.getLog(getClass());
 	@Autowired
 	private ClientDao clientDao;
 	@Autowired
@@ -57,9 +61,13 @@ public class MailServiceImpl implements MailService {
 
 		messageToAdmin.setFrom(from);
 		messageToBuyer.setFrom(from);
-		
-		mailSender.send(messageToAdmin.getMimeMessage());
-		mailSender.send(messageToBuyer.getMimeMessage());
+
+		try {
+			mailSender.send(messageToAdmin.getMimeMessage());
+			mailSender.send(messageToBuyer.getMimeMessage());
+		} catch (MailException e) {
+			log.error("Can't send message", e);
+		}
 	}
 
 	private void prepareBuilder(ShoppingCart cart, Client client, ConfirmOrderMessageBuilder adminBuilder) {

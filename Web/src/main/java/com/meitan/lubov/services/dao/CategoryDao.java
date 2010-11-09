@@ -12,7 +12,7 @@ import java.util.List;
  * @author denisk
  */
 public interface CategoryDao extends Dao<Category, Long>{
-	void merge(Category c);
+	Category merge(Category c);
 
     ImageDao getImageDao();
 

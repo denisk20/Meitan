@@ -21,7 +21,7 @@
 
             <set name="newClient.password" value="utils.getMD5(newClient.password)"/>
             
-			<evaluate expression="clientDao.makePersistent(newClient)"/>
+			<evaluate expression="clientDao.merge(newClient)" result="viewScope.newClient"/>
 			<evaluate expression="authorityDao.assignAuthority(newClient, 'ROLE_CLIENT')"/>
             <evaluate expression="securityService.authenticateUser(newClient)"/>
         </transition>
