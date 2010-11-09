@@ -1,0 +1,44 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:denis="http://meitan-kh.com/"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:sec="http://www.springframework.org/security/facelets/tags"
+				xmlns:c="http://java.sun.com/jstl/core"
+				template="/WEB-INF/templates/meitan.xhtml">
+
+	<ui:define name="content">
+		<h1>Товары, купленные #{client.name}</h1>
+		<table class="itemsTable">
+			<thead>
+			<tr>
+				<th>Дата</th>
+				<th>Купленные продукты</th>
+				<th>Общая сумма покупки</th>
+			</tr>
+			</thead>
+			<c:forEach items="#{boughts}" var="bought">
+				<tr>
+					<td>#{bought.date}</td>
+					<td>
+						<table class="innerBoughtsTable">
+							<ui:repeat value="#{bought.products}" var="item">
+								<tr>
+									<td>#{item.item.name}##{item.quantity}##{item.price}</td>
+								</tr>
+							</ui:repeat>
+						</table>
+					</td>
+					<td>#{bought.totalPrice}</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+		<h:form>
+			<h:commandButton value="Назад" action="back"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
