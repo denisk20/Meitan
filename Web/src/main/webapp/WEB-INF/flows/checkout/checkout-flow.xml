@@ -64,6 +64,7 @@
 		<transition on="quickreg" to="order">
 			<set name="anonymousClient.login" value="anonymousClient.email"/>
 			<evaluate expression="clientDao.mergeAnonymousClient(flowRequestContext, anonymousClient)"/>
+			<!--todo do we need it here?-->
 			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
 		</transition>
 	</view-state>

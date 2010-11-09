@@ -11,7 +11,7 @@
 				template="/WEB-INF/templates/meitan.xhtml">
 
 	<ui:define name="content">
-		<h1>Товары, купленные #{client.name}</h1>
+		<h1>Товары, купленные #{currentUser.name}</h1>
 		<table class="itemsTable">
 			<thead>
 			<tr>
@@ -25,11 +25,11 @@
 					<td>#{bought.date}</td>
 					<td>
 						<table class="innerBoughtsTable">
-							<ui:repeat value="#{bought.products}" var="item">
+							<c:forEach items="#{bought.products}" var="item">
 								<tr>
 									<td>#{item.item.name}##{item.quantity}##{item.price}</td>
 								</tr>
-							</ui:repeat>
+							</c:forEach>
 						</table>
 					</td>
 					<td>#{bought.totalPrice}</td>

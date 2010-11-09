@@ -50,6 +50,8 @@
                              onmouseover="this.src = '/images/exit_button_mouseover.png'"
                              onmouseout="this.src='/images/exit_button_still.png'"/>
                     </a>
+                        <br/>
+                        <a href="itemsList">Посмотреть историю покупок</a>
                     </c:if>
                     <c:if test="${empty currentUser.name}">
                         <a href="${request.contextPath}/spring/login">
