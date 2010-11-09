@@ -116,8 +116,8 @@ public abstract class JpaDao <T extends IdAware, ID extends Serializable> implem
 
 	@Override
 	@Transactional
-	public void merge(T entity) {
-		em.merge(entity);
+	public T merge(T entity) {
+		return em.merge(entity);
 	}
 
 	@Override

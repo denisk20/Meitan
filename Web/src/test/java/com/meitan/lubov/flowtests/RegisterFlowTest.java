@@ -140,15 +140,18 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		newClient.setPassword(pass);
 		newClient.setConformedPassword(pass);
 		newClient.setName(new Name("first", "patro", "second"));
-		newClient.setEmail("a@b.com");
+		newClient.setEmail("aa@b.com");
 		String login = "login";
 		newClient.setLogin(login);
 
 		testClientDao.makePersistent(newClient);
-		testAuthorityDao.assignAuthority(newClient, SecurityService.ROLE_UNREGISTERED);
+
+		Client stub = new Client();
+		stub.setId(newClient.getId());
+		stub.setLogin(newClient.getLogin());
 
 		MockExternalContext context = new MockExternalContext();
-		context.setCurrentUser(newClient.getLogin());
+		context.setCurrentUser(stub.getLogin());
 
 		startFlow(context);
 
