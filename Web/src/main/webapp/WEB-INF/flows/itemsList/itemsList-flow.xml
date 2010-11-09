@@ -2,14 +2,11 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="baseGood,abstractEditable"
-		start-state="allCategoriesQueried">
-
-	<input name="login" required="true" />
-
-	<view-state id="allGoodsList" parent="viewGoods#baseGoodList" >
+		>
+<persistence-context/>
+	<view-state id="itemsList" >
 		<on-entry>
-			<evaluate expression="productDao.findAll()" result="viewScope.products"/>
+			<evaluate expression="buyingActDao.findForLogin(currentUser.name)" result="viewScope.boughts"/>
 		</on-entry>
 		<transition on="back" to="back">
 			<!--do nothing-->
