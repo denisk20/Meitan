@@ -51,7 +51,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
-		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/register/register-flow.xml");
+		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/userProfile/userProfile-flow.xml");
 	}
 
 	@Override
@@ -71,13 +71,13 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
 
-		assertCurrentStateEquals("register");
+		assertCurrentStateEquals("userProfile");
 		Client newClient = (Client) getFlowAttribute("newClient");
 		String pass = "abc";
 		newClient.setPassword(pass);
 		newClient.setConformedPassword(pass + "oops");
 
-		context.setEventId("register");
+		context.setEventId("saveProfile");
 		resumeFlow(context);
 	}
 
@@ -89,7 +89,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
 
-		assertCurrentStateEquals("register");
+		assertCurrentStateEquals("userProfile");
 		Client newClient = (Client) getViewAttribute("newClient");
 		assertNotNull(newClient);
 		String pass = "abc";
@@ -100,7 +100,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		String login = "login";
 		newClient.setLogin(login);
 
-		context.setEventId("register");
+		context.setEventId("saveProfile");
 		resumeFlow(context);
 
 		String md5 = utils.getMD5(pass);
@@ -159,7 +159,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		assertEquals(newClient, reloaded);
 
 		reloaded.setLogin("lllllllllllllogin");
-		context.setEventId("register");
+		context.setEventId("saveProfile");
 		resumeFlow(context);
 
 		Client loaded = testClientDao.findById(reloaded.getId());

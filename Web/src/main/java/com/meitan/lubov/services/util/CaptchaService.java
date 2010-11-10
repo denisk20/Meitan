@@ -10,4 +10,6 @@ import org.springframework.webflow.execution.RequestContext;
  */
 public interface CaptchaService {
 	void validateCaptcha(RequestContext requestContext);
+
+	String getCaptchaHtml();
 }

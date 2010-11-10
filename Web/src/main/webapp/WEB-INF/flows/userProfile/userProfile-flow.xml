@@ -4,18 +4,16 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	  parent="global">
 
-	<secured attributes="ROLE_ANONYMOUS, ROLE_UNREGISTERED"/>
+	<!--<secured attributes="ROLE_ANONYMOUS, ROLE_UNREGISTERED"/>-->
 
     <!--<var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>-->
 
-    <view-state id="register">
+    <view-state id="userProfile">
         <on-entry>
 			<evaluate expression="clientDao.findByLoginOrCreateNew(currentUser)" result="viewScope.newClient"/>
             <set name="newClient.enabled" value="true"/>
-			<!--this is a bit hacky, but saves plenty of coding-->
-            <!--<set name="newClient.email" value="currentUser.name"/>-->
         </on-entry>
-        <transition on="register" to="done">
+        <transition on="saveProfile" to="done">
             <evaluate expression="passwordValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
 
@@ -27,9 +25,9 @@
         </transition>
 
         <transition on="cancel" to="cancel"/>
-        <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="register"/>
+        <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="userProfile"/>
 		<!--passwords don't match-->
-		<transition on-exception="java.lang.IllegalArgumentException" to="register"/>
+		<transition on-exception="java.lang.IllegalArgumentException" to="userProfile"/>
     </view-state>
 
     <view-state id="error"/>
