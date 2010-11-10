@@ -37,9 +37,25 @@ public class JpaAuthorityDao extends JpaDao<Authority, Long> implements Authorit
 	@Override
 	@Transactional
 	public void assignAuthority(Client client, String role) {
+		if (clientHasRole(client, role)) {
+			return;
+		}
 		Authority auth = new Authority(client, role);
 		client.getRoles().add(auth);
 		makePersistent(auth);
+	}
+
+	@Override
+	public boolean clientHasRole(Client client, String role) {
+		boolean result = false;
+		for (Authority a : client.getRoles()) {
+			if (a.getRole().equals(role)) {
+				result = true;
+				break;
+			}
+		}
+
+		return result;
 	}
 
 

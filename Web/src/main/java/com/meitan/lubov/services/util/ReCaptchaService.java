@@ -14,10 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.webflow.core.collection.ParameterMap;
 import org.springframework.webflow.execution.RequestContext;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -36,25 +32,37 @@ public class ReCaptchaService implements CaptchaService{
 	private static final String PROXY_ADDRESS = "10.10.0.1";
 	private static final int PROXY_PORT = 3128;
 	private static final String MEITAN_USE_PROXY = "meitan.use_proxy";
-	private static final String RECAPTCHA_PRIVATE_KEY = "6LcTPLsSAAAAAHuWXn5FMN4Cx96AXOdVVr0w2O0-";
+	private static final String PRIVATE_KEY = "6LcTPLsSAAAAAHuWXn5FMN4Cx96AXOdVVr0w2O0-";
+	private static final String PUBLIC_KEY = "6LcTPLsSAAAAAGxZPlc-ho30s-GlcYREXPM3sAzx";
 	private static final String RECAPTCHA_CHALLENGE_FIELD = "recaptcha_challenge_field";
 	private static final String RECAPTCHA_RESPONSE_FIELD = "recaptcha_response_field";
+	private static final String LANG = "lang";
+	private static final String LANG_VALUE = "ru";
+	private static final String THEME_NAME = "white";
+
+	private ReCaptchaImpl reCaptcha;
+	private Properties options = new Properties();
+
+	public ReCaptchaService() {
+		reCaptcha = new ReCaptchaImpl();
+		reCaptcha.setPublicKey(PUBLIC_KEY);
+
+		options.put(ReCaptchaImpl.PROPERTY_THEME, THEME_NAME);
+		options.put(LANG, LANG_VALUE);
+	}
 
 	@Override
 	public void validateCaptcha(RequestContext requestContext) {
 		ParameterMap parameterMap = requestContext.getExternalContext().getRequestParameterMap();
 		String challenge = parameterMap.get(RECAPTCHA_CHALLENGE_FIELD);
 		String response = parameterMap.get(RECAPTCHA_RESPONSE_FIELD);
-
-		ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-		reCaptcha.setPrivateKey(RECAPTCHA_PRIVATE_KEY);
-
 		String remoteAddress = ((SecurityContextHolderAwareRequestWrapper) requestContext.getExternalContext()
 				.getNativeRequest()).getRemoteAddr();
 
+
 		HttpLoader httpLoader = getHttpLoader();
-		
 		reCaptcha.setHttpLoader(httpLoader);
+		reCaptcha.setPrivateKey(PRIVATE_KEY);
 
 		ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddress, challenge, response);
 
@@ -66,6 +74,12 @@ public class ReCaptchaService implements CaptchaService{
 							.build());
 			throw new ReCaptchaException(reCaptchaResponse.getErrorMessage());
 		}
+	}
+
+	@Override
+	public String getCaptchaHtml() {
+		String html = reCaptcha.createRecaptchaHtml("Can't render captcha...", options);
+		return html;
 	}
 
 	private HttpLoader getHttpLoader() {

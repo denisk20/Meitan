@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -77,5 +78,36 @@ public class AuthorityIntegrationTest extends GenericIntegrationTest <Authority>
 		Authority loaded = authorityList.get(0);
 		assertEquals(c, loaded.getClient());
 		assertEquals(role, loaded.getRole());
+	}
+
+	@Test
+	public void testAddExistingAuthority() {
+		Client c = testClientDao.findAll().get(0);
+
+		int initialAuthoritiesCount = testAuthorityDao.findAll().size();
+		Set<Authority> authoritySet = c.getRoles();
+		//we assume this
+		assertTrue(authoritySet.size() > 0);
+		Authority auth = authoritySet.iterator().next();
+
+		String existingRole = auth.getRole();
+
+		testAuthorityDao.assignAuthority(c, existingRole);
+//		testAuthorityDao.flush();
+
+		Client loaded = testClientDao.findById(c.getId());
+
+		assertEquals(authoritySet, loaded.getRoles());
+
+		assertEquals(initialAuthoritiesCount, testAuthorityDao.findAll().size());
+	}
+
+	@Test
+	public void testClientHasRole() {
+		Client c = testClientDao.findAll().get(0);
+		String role = c.getRoles().iterator().next().getRole();
+
+		assertTrue(testAuthorityDao.clientHasRole(c, role));
+		assertFalse(testAuthorityDao.clientHasRole(c, role+"_does_not_exist"));
 	}
 }

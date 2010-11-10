@@ -13,4 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AuthorityDao extends Dao<Authority, Long>{
 	@Transactional
 	void assignAuthority(Client client, String role);
+
+	boolean clientHasRole(Client client, String role);
 }
