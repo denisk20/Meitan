@@ -24,7 +24,7 @@
 						<div class="label">Имя</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Введите ваше имя">
-								<h:inputText id="firstName" value="#{newClient.name.firstName}"/>
+								<h:inputText id="firstName" value="#{client.name.firstName}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
@@ -33,7 +33,7 @@
 						<div class="label">Отчество</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Введите отчество">
-								<h:inputText id="patronymic" value="#{newClient.name.patronymic}"/>
+								<h:inputText id="patronymic" value="#{client.name.patronymic}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
@@ -43,7 +43,7 @@
 						<div class="label">Фамилия</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Введите фамилию">
-								<h:inputText id="secondName" value="#{newClient.name.secondName}"/>
+								<h:inputText id="secondName" value="#{client.name.secondName}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
@@ -52,11 +52,12 @@
 						<div class="field">
 							<div class="label">Почтовый ящик</div>
 							<!--todo this validator works only partially-->
-							<div class="input"><sf:clientTextValidator
-									regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="true"
+							<div class="input">
+								<sf:clientTextValidator
+									regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
 									promptMessage="Ваш электронный почтовый ящик"
 									invalidMessage="Ваш ящик некорректен">
-								<h:inputText id="emailAddress" value="#{newClient.email}" required="true"/>
+								<h:inputText id="emailAddress" value="#{client.email}" required="false"/>
 							</sf:clientTextValidator>
 							</div>
 						</div>
@@ -66,7 +67,7 @@
 						<div class="label">Пометки</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Дополнительные сведения о вас">
-								<h:inputText id="notes" value="#{newClient.notes}"/>
+								<h:inputText id="notes" value="#{client.notes}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
@@ -75,7 +76,7 @@
 						<div class="label">Логин</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Введите ваш логин (запишите его!)">
-								<h:inputText id="login" value="#{newClient.login}"/>
+								<h:inputText id="login" value="#{client.login}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
@@ -85,7 +86,7 @@
 						<div class="label">Пароль</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Введите ваш пароль">
-								<h:inputSecret id="pass" value="#{newClient.password}">
+								<h:inputSecret id="pass" value="#{client.password}">
 									<j4j:idProxy id="origPass"/>
 								</h:inputSecret>
 							</sf:clientTextValidator>
@@ -96,7 +97,7 @@
 						<div class="label">Повторите пароль</div>
 						<div class="input">
 							<sf:clientTextValidator promptMessage="Введите пароль ещё раз">
-								<h:inputSecret id="conformPass" value="#{newClient.conformedPassword}">
+								<h:inputSecret id="conformPass" value="#{client.conformedPassword}">
 									<j4j:idProxy id="conformedPass"/>
 								</h:inputSecret>
 							</sf:clientTextValidator>
