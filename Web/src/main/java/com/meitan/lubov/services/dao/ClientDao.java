@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Date: Mar 5, 2010
@@ -38,4 +39,6 @@ public interface ClientDao extends Dao<Client, Long>{
 
 	@Transactional
 	Client findByLoginOrCreateNew(Principal p);
+
+	List<Client> findByEmail(String email);
 }

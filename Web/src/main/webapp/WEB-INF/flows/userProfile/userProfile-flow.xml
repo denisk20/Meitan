@@ -6,28 +6,29 @@
 
 	<!--<secured attributes="ROLE_ANONYMOUS, ROLE_UNREGISTERED"/>-->
 
-    <!--<var name="newClient" class="com.meitan.lubov.model.persistent.Client"/>-->
+	<on-start>
+		<evaluate expression="clientDao.findByLoginOrCreateNew(currentUser)" result="flowScope.client"/>
+		<set name="client.enabled" value="true"/>
+	</on-start>
 
-    <view-state id="userProfile">
-        <on-entry>
-			<evaluate expression="clientDao.findByLoginOrCreateNew(currentUser)" result="viewScope.newClient"/>
-            <set name="newClient.enabled" value="true"/>
-        </on-entry>
+	<view-state id="userProfile" model="client">
         <transition on="saveProfile" to="done">
-            <evaluate expression="passwordValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>
+            <!--<evaluate expression="profileValidator.validatePasswords(newClient.password, newClient.conformedPassword, flowRequestContext)"/>-->
             <evaluate expression="captchaService.validateCaptcha(flowRequestContext)"/>
 
-            <set name="newClient.password" value="utils.getMD5(newClient.password)"/>
+            <set name="client.password" value="utils.getMD5(client.password)"/>
             
-			<evaluate expression="clientDao.merge(newClient)" result="viewScope.newClient"/>
-			<evaluate expression="authorityDao.assignAuthority(newClient, 'ROLE_CLIENT')"/>
-            <evaluate expression="securityService.authenticateUser(newClient)"/>
+			<evaluate expression="clientDao.merge(client)" result="flowScope.client"/>
+			<evaluate expression="authorityDao.assignAuthority(client, 'ROLE_CLIENT')"/>
+            <evaluate expression="securityService.authenticateUser(client)"/>
         </transition>
 
         <transition on="cancel" to="cancel"/>
         <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="userProfile"/>
 		<!--passwords don't match-->
 		<transition on-exception="java.lang.IllegalArgumentException" to="userProfile"/>
+		<transition on-exception="org.hibernate.exception.ConstraintViolationException" to="userProfile"/>
+
     </view-state>
 
     <view-state id="error"/>

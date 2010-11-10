@@ -175,6 +175,11 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	}
 
 	@Override
+	public List<Client> findByEmail(String email) {
+		return em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
+	}
+
+	@Override
 	@Transactional
 	//todo implement and test it properly
 	public void deleteById(Long id) {

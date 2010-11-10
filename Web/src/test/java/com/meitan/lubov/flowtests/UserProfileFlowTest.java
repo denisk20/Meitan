@@ -1,13 +1,12 @@
 package com.meitan.lubov.flowtests;
 
-import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.components.Name;
 import com.meitan.lubov.model.persistent.Authority;
 import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.util.CaptchaService;
-import com.meitan.lubov.services.util.PasswordValidator;
+import com.meitan.lubov.services.validator.ClientValidator;
 import com.meitan.lubov.services.util.ReCaptchaService;
 import com.meitan.lubov.services.util.SecurityService;
 import com.meitan.lubov.services.util.Utils;
@@ -32,7 +31,7 @@ import java.util.Set;
  *         Date: 21.06.2010
  *         Time: 11:37:08
  */
-public class RegisterFlowTest extends AbstractFlowIntegrationTest{
+public class UserProfileFlowTest extends AbstractFlowIntegrationTest{
 	private CaptchaService captchaService = new ReCaptchaService() {
 		@Override
 		public void validateCaptcha(RequestContext requestContext) {
@@ -40,7 +39,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		}
 	};
 
-	private PasswordValidator passwordValidator = new PasswordValidator();
+	private ClientValidator profileValidator = new ClientValidator();
 	private Utils utils = new Utils();
 	@Autowired
 	private AuthorityDao testAuthorityDao;
@@ -62,7 +61,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		builderContext.registerBean("authorityDao", testAuthorityDao);
 		builderContext.registerBean("securityService", testSecurityService);
 		builderContext.registerBean("utils", utils);
-		builderContext.registerBean("passwordValidator", passwordValidator);
+		builderContext.registerBean("profileValidator", profileValidator);
 	}
 
 	@Ignore("Exception is thrown, but never bubbles up...")
@@ -90,7 +89,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 		startFlow(context);
 
 		assertCurrentStateEquals("userProfile");
-		Client newClient = (Client) getViewAttribute("newClient");
+		Client newClient = (Client) getFlowAttribute("client");
 		assertNotNull(newClient);
 		String pass = "abc";
 		newClient.setPassword(pass);
@@ -155,7 +154,7 @@ public class RegisterFlowTest extends AbstractFlowIntegrationTest{
 
 		startFlow(context);
 
-		Client reloaded = (Client) getViewAttribute("newClient");
+		Client reloaded = (Client) getFlowAttribute("client");
 		assertEquals(newClient, reloaded);
 
 		reloaded.setLogin("lllllllllllllogin");
