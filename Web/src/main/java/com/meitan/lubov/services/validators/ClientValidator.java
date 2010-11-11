@@ -8,6 +8,8 @@ import org.springframework.binding.validation.ValidationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author denis_k
@@ -55,6 +57,16 @@ public class ClientValidator {
 			valid = false;
 		}
 
+		Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
+		Matcher emailMatcher = emailPattern.matcher(email);
+		if (!emailMatcher.matches()) {
+			context.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.defaultText("Email address seems to be wrong: " + email)
+							.build());
+			valid = false;
+		}
 		Client existingClient = null;
 		if (c.getId() != 0) {
 			existingClient = clientDao.findById(c.getId());
