@@ -105,6 +105,15 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="messageSource"
+		  class="org.springframework.context.support.ResourceBundleMessageSource">
+	  <property name="basenames">
+		<list>
+		  <value>messages</value>
+		</list>
+	  </property>
+	</bean>
+
 	<!--Test section -->
 	<bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">
 		<property name="min" value="1"/>
