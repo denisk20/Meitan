@@ -6,7 +6,6 @@ import com.meitan.lubov.model.persistent.Client;
 import com.meitan.lubov.services.dao.AuthorityDao;
 import com.meitan.lubov.services.dao.ClientDao;
 import com.meitan.lubov.services.util.CaptchaService;
-import com.meitan.lubov.services.validator.ClientValidator;
 import com.meitan.lubov.services.util.ReCaptchaService;
 import com.meitan.lubov.services.util.SecurityService;
 import com.meitan.lubov.services.util.Utils;
@@ -39,7 +38,6 @@ public class UserProfileFlowTest extends AbstractFlowIntegrationTest{
 		}
 	};
 
-	private ClientValidator profileValidator = new ClientValidator();
 	private Utils utils = new Utils();
 	@Autowired
 	private AuthorityDao testAuthorityDao;
@@ -61,7 +59,6 @@ public class UserProfileFlowTest extends AbstractFlowIntegrationTest{
 		builderContext.registerBean("authorityDao", testAuthorityDao);
 		builderContext.registerBean("securityService", testSecurityService);
 		builderContext.registerBean("utils", utils);
-		builderContext.registerBean("profileValidator", profileValidator);
 	}
 
 	@Ignore("Exception is thrown, but never bubbles up...")
