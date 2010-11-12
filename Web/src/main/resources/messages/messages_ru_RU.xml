@@ -2,7 +2,40 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment>This is main applications message source</comment>
-	<entry key="key.one">Сообщение из XML!!!</entry>
+
 	<entry key="passwordsDontMatch">Пароли не совпадают!</entry>
-	<entry key="aboutHeader">О компании - из XML!</entry>
+
+	<!--menu template-->
+	<entry key="aboutCompanyMenu">О компании</entry>
+	<entry key="productionMenu">Продукция</entry>
+	<entry key="becumeConsultantMenu">Стань консультантом!</entry>
+	<entry key="addsForConsultantsMenu">Объявления для консультантов</entry>
+	<!--about us-->
+	<entry key="aboutH2">Компания очень интересная и классная!!!</entry>
+	<entry key="aboutHeader">О компании</entry>
+	<entry key="aboutNewItems">Новинки!!!</entry>
+	<!--confirm delete-->
+	<entry key="confirmDeleteAreYouSure">Вы уверены, что хотите удалить </entry>
+	<entry key="confirmDeleteYes">Да</entry>
+	<entry key="confirmDeleteNo">Нет</entry>
+	<!--create category-->
+	<entry key="addCategoryHeader">Введите название категории</entry>
+	<entry key="addCategoryTitle">Создание новой категории</entry>
+	<entry key="addCategoryEditBoxPrompt">Название категории</entry>
+	<!--create product-->
+	<entry key="addGoodHeader">Создание нового продукта</entry>
+	<entry key="addGoodNameTitle">Введите название продукта</entry>
+	<entry key="addGoodNameEditPrompt">Название продукта</entry>
+	<entry key="addGoodDescriptionTitle">Введите описание продукта</entry>
+	<entry key="addGoodDescriptionEditPrompt">Описание продукта</entry>
+	<entry key="addGoodPriceTitle">Цена</entry>
+	<entry key="addGoodPriceEditPrompt">Цена продукта - в гривнах</entry>
+	<entry key="addGoodIsNew">Отметьте, если продукт - новинка</entry>
+	<entry key="addGoodCategories">Выберите категории для данного продукта (удерживайте CTRL, чтобы выбрать несколько категорий)</entry>
+	<entry key="addGoodCreate">Создать продукт!</entry>
+	<entry key="addGoodCancel">Отмена</entry>
+	<!--board for consultants-->
+	<entry key="boardForConsultantsTitle">ОБЪЯВЛЕНИЯ ДЛЯ КОНСУЛЬТАНТОВ!</entry>
+	<entry key="boardForConsultantsHeader">Тут вы найдёте много полезной и нужной информации</entry>
+
 </properties>

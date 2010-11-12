@@ -24,11 +24,16 @@ public class ClientValidator {
 	public void validateUserProfile(Client c, ValidationContext context) throws Exception {
 		String original = c.getPassword();
 		String conformed = c.getConformedPassword();
+		boolean valid = true;
 		if (original == null || conformed == null) {
-			throw new Exception("Illegal arguments: original = " + original + ", conformed= " + conformed);
+			context.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.defaultText("Password can't be null")
+							.build());
+			valid = false;
 		}
 
-		boolean valid = true;
 		if (original.equals("") || conformed.equals("")) {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()

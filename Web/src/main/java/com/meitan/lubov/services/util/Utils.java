@@ -167,12 +167,4 @@ public class Utils implements ServletContextAware , ApplicationContextAware{
 		System.out.printf("Utils:" + msg);
 	}
 
-	public void testMessage(MessageContext context) {
-		MessageResolver messageResolver = new MessageBuilder().source("messages.messages").code("key.one").build();
-		Message[] allMessages = context.getAllMessages();
-		System.out.println(Arrays.toString(allMessages));
-
-		String message = applicationContext.getMessage("key.one", null, new Locale("ru", "RU"));
-		System.out.println(message);
-	}
 }

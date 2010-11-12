@@ -10,13 +10,13 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-        <h1>Создание новой категории</h1>
+        <h1><h:outputText value="#{resourceBundle.addCategoryTitle}"/></h1>
         <h:form>
             <fieldset>
                 <div class="field">
-                    <div class="label">Введите название категории</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.addCategoryHeader}"/></div>
                     <div class="input">
-                        <sf:clientTextValidator promptMessage="Введите название категории товаров">
+                        <sf:clientTextValidator promptMessage="#{resourceBundle.addCategoryEditBoxPrompt}">
                             <h:inputText id="categoryName" value="#{newCategory.name}"/>
                         </sf:clientTextValidator>
                     </div>
