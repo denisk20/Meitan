@@ -7,6 +7,13 @@ import com.sun.facelets.tag.TagAttribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.el.MethodExpressionLiteral;
+import org.springframework.beans.BeansException;
+import org.springframework.binding.message.Message;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
+import org.springframework.binding.message.MessageResolver;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.web.context.ServletContextAware;
@@ -16,7 +23,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 import javax.faces.model.SelectItem;
@@ -28,7 +37,7 @@ import javax.servlet.ServletContext;
  *         Time: 15:39:14
  */
 //todo remove ServletContextAware
-public class Utils implements ServletContextAware {
+public class Utils implements ServletContextAware , ApplicationContextAware{
 	private static final int STRING_LIMIT = 30;
 	private static final String DOTS = "...";
 
@@ -39,6 +48,12 @@ public class Utils implements ServletContextAware {
 	private static final String COMMON_PROPERTIES = "common.properties";
 	private static final String MEITAN_UPLOAD_FOLDER = "meitan.upload_folder";
 	private static final String MEITAN_HOME = "MEITAN_HOME";
+	private ApplicationContext applicationContext;
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 
 	public ServletContext getServletContext() {
 		return servletContext;
@@ -150,5 +165,14 @@ public class Utils implements ServletContextAware {
 
 	public void printMessage(String msg) {
 		System.out.printf("Utils:" + msg);
+	}
+
+	public void testMessage(MessageContext context) {
+		MessageResolver messageResolver = new MessageBuilder().source("messages.messages").code("key.one").build();
+		Message[] allMessages = context.getAllMessages();
+		System.out.println(Arrays.toString(allMessages));
+
+		String message = applicationContext.getMessage("key.one", null, new Locale("ru", "RU"));
+		System.out.println(message);
 	}
 }

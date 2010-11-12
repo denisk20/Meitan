@@ -77,11 +77,11 @@
 				<prop key="mail.smtp.auth">${meitan.mail.smtp.auth}</prop>
 				<prop key="mail.debug">${meitan.mail.debug}</prop>
 				<!--this is for ssl-->
-<!--
-				<prop key="mail.smtp.socketFactory.port">${meitan.mail.socketfactory.port}</prop>
-				<prop key="mail.smtp.socketFactory.class">${meitan.mail.socketfactory.class}</prop>
-				<prop key="mail.smtp.socketFactory.fallback">${meitan.mail.socketfactory.fallback}</prop>
--->
+				<!--
+					<prop key="mail.smtp.socketFactory.port">${meitan.mail.socketfactory.port}</prop>
+					<prop key="mail.smtp.socketFactory.class">${meitan.mail.socketfactory.class}</prop>
+					<prop key="mail.smtp.socketFactory.fallback">${meitan.mail.socketfactory.fallback}</prop>
+	-->
 			</props>
 		</property>
 	</bean>
@@ -105,13 +105,16 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="xmlResourdceBundleControl" class="com.meitan.lubov.services.util.XmlResourceBundleControl"/>
+
 	<bean id="messageSource"
-		  class="org.springframework.context.support.ResourceBundleMessageSource">
-	  <property name="basenames">
-		<list>
-		  <value>messages</value>
-		</list>
-	  </property>
+		  class="com.meitan.lubov.services.util.ControlledResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages.messages</value>
+			</list>
+		</property>
+		<property name="control" ref="xmlResourdceBundleControl"/>
 	</bean>
 
 	<!--Test section -->
