@@ -3,5 +3,6 @@
 <properties>
 	<comment>This is main applications message source</comment>
 	<entry key="key.one">Сообщение из XML!!!</entry>
-	<entry key="passwords.dont.match">Пароли не совпадают!</entry>
+	<entry key="passwordsDontMatch">Пароли не совпадают!</entry>
+	<entry key="aboutHeader">О компании - из XML!</entry>
 </properties>

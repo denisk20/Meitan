@@ -4,5 +4,7 @@
 	<comment>This is main applications message source</comment>
 
 	<entry key="key.one">message from XML!!!</entry>
-	<entry key="passwords.dont.match">Passwords don't match - из XML!</entry>
+	<entry key="passwordsDontMatch">Passwords don't match - из XML!</entry>
+
+	<entry key="aboutHeader">About the company - from XML!</entry>
 </properties>
