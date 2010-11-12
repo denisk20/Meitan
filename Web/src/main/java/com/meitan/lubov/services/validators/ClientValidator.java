@@ -42,6 +42,8 @@ public class ClientValidator {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("passwords.dont.match")
 							.defaultText("Passwords don't match")
 							.build());
 			valid = false;

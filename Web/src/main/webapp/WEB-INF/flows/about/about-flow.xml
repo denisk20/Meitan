@@ -24,7 +24,7 @@
         </on-render>
 
         		<transition on="test">
-						<evaluate expression="utils.printMessage('inside aboutUs')"/>
+						<evaluate expression="utils.testMessage(messageContext)"/>
 
 		</transition>
 

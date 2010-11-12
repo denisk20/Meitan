@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<comment>This is test message</comment>
+	<comment>This is messages that are used in emails</comment>
 	<entry key="message.order.header.mama">Новый заказ</entry>
 	<entry key="message.order.header.buyer">Ваш заказ на meitan-kh.com</entry>
 	<entry key="message.order.greeting.mama"><![CDATA[

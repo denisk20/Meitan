@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>This is main applications message source</comment>
+	<entry key="key.one">Сообщение из XML!!!</entry>
+	<entry key="passwords.dont.match">Пароли не совпадают!</entry>
+</properties>
