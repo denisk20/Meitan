@@ -23,13 +23,14 @@
 								<c:choose>
 									<c:when test="#{not empty menuBackgroundService}">
 										<img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg" class="menubg"/>
+										<a href="about" class="navMenuLink"><h:outputText value="#{resourceBundle.aboutCompanyMenu}"/></a>
 									</c:when>
 
 									<c:otherwise>
 										<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+										<a href="about" class="navMenuLink">О компании</a>
 									</c:otherwise>
 								</c:choose>
-								<a href="about" class="navMenuLink">О компании</a>
 							</div>
 						</li>
 
@@ -39,13 +40,14 @@
 								<c:choose>
 									<c:when test="#{not empty menuBackgroundService}">
 										<img src="/images/#{menuBackgroundService.getImage('categories')}" alt="bg" class="menubg"/>
+										<a href="categories" class="navMenuLink"><h:outputText value="#{resourceBundle.productionMenu}"/></a>
 									</c:when>
 
 									<c:otherwise>
 										<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+										<a href="categories" class="navMenuLink">Продукция</a>
 									</c:otherwise>
 								</c:choose>
-								<a href="categories" class="navMenuLink">Продукция</a>
 							</div>
 						</li>
 
@@ -56,13 +58,14 @@
 									<c:choose>
 										<c:when test="#{not empty menuBackgroundService}">
 											<img src="/images/#{menuBackgroundService.getImage('join')}" alt="bg" class="menubg"/>
+											<a href="join" class="navMenuLink"><h:outputText value="#{resourceBundle.becumeConsultantMenu}"/></a>
 										</c:when>
 
 										<c:otherwise>
 											<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+											<a href="join" class="navMenuLink">Стань консультантом!</a>
 										</c:otherwise>
 									</c:choose>
-									<a href="join" class="navMenuLink">Стань консультантом!</a>
 								</div>
 							</li>
 						</sec:ifNotGranted>
@@ -73,13 +76,14 @@
 									<c:choose>
 										<c:when test="#{not empty menuBackgroundService}">
 											<img src="/images/#{menuBackgroundService.getImage('boardForConsultants')}" alt="bg" class="menubg"/>
+											<a href="boardForConsultants" class="navMenuLink"><h:outputText value="#{resourceBundle.addsForConsultantsMenu}"/></a>
 										</c:when>
 
 										<c:otherwise>
 											<img src="/images/menu_background.png" alt="bg" class="menubg"/>
+											<a href="boardForConsultants" class="navMenuLink">Объявления для консультантов</a>
 										</c:otherwise>
 									</c:choose>
-									<a href="boardForConsultants" class="navMenuLink">Объявления для консультантов</a>
 								</div>
 							</li>
 						</sec:ifAllGranted>

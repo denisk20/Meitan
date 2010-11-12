@@ -15,45 +15,45 @@
 
     </ui:define>
     <ui:define name="content">
-        <h1>Добавить новый продукт</h1>
+        <h1><h:outputText value="#{resourceBundle.addGoodHeader}"/></h1>
         <h:form>
             <fieldset>
                 <div class="field">
-                    <div class="label">Введите название продукта</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.addGoodNameTitle}"/></div>
                     <div class="input">
-                        <sf:clientTextValidator promptMessage="Введите название продукта">
+                        <sf:clientTextValidator promptMessage="#{resourceBundle.addGoodNameEditPrompt}">
                             <h:inputText id="inputGoodName" value="#{newGood.name}"/>
                         </sf:clientTextValidator>
                     </div>
                 </div>
 
                 <div class="field">
-                    <div class="label">Введите описание продукта</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.addGoodDescriptionTitle}"/></div>
                     <div class="input">
-                        <sf:clientTextValidator promptMessage="Введите описание продукта">
+                        <sf:clientTextValidator promptMessage="#{resourceBundle.addGoodDescriptionEditPrompt}">
                             <h:inputText id="inputGoodDescription" value="#{newGood.description}"/>
                         </sf:clientTextValidator>
                     </div>
                 </div>
 
                 <div class="field">
-                    <div class="label">Цена</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.addGoodPriceTitle}"/></div>
                     <div class="input">
-                        <sf:clientCurrencyValidator currency="UAH" promptMessage="Введите цену продукта">
+                        <sf:clientCurrencyValidator currency="UAH" promptMessage="#{resourceBundle.addGoodPriceEditPrompt}">
                             <h:inputText id="inputCurrency" value="#{newGood.price.amount}"/>
                         </sf:clientCurrencyValidator>
                     </div>
                 </div>
 
                 <div class="field">
-                    <div class="label">Отметьте, если продукт-новинка</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.addGoodIsNew}"/></div>
                     <div class="input">
                         <h:selectBooleanCheckbox id="isNew" value="#{newGood.new}"/>
                     </div>
                 </div>
 
                 <div class="field">
-                    <div class="label">Выберите категории для данного продукта</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.addGoodCategories}"/></div>
                     <div class="input">
                         <h:selectManyListbox id="availableCategoriesListbox" value="#{newGood.categoriesIdArray}">
                             <f:selectItems value="#{categoriesItems}"/>
@@ -62,8 +62,8 @@
                     </div>
                 </div>
             </fieldset>
-            <sf:commandButton value="Create product!" processIds="*" action="create"/>
-            <sf:commandButton value="Back" action="back"/>
+            <sf:commandButton value="#{resourceBundle.addGoodCreate}" processIds="*" action="create"/>
+            <sf:commandButton value="#{resourceBundle.addGoodCancel}" action="back"/>
 
         </h:form>
 

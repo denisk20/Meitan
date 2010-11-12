@@ -12,9 +12,9 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-        <h1>ОБЪЯВЛЕНИЯ ДЛЯ КОНСУЛЬТАНТОВ!</h1>
+        <h1><h:outputText value="#{resourceBundle.boardForConsultantsTitle}"/></h1>
 
-        <p>Тут вы найдёте очень много полезной информации</p>
+        <p><h:outputText value="#{resourceBundle.boardForConsultantsHeader}"/></p>
 
         <h:form>
             <denis:board boardItems="#{boardItems}"/>

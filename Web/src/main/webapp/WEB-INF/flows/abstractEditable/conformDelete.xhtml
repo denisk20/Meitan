@@ -9,18 +9,15 @@
                 xmlns:form="http://www.springframework.org/tags/form"
                 xmlns:j4j="http://javascript4jsf.dev.java.net/"
                 template="/WEB-INF/templates/meitan.xhtml">
-<!--todo wait on forum responce and remove all copies of this file except one in base flow-->
     <ui:define name="header">
-        <!--<script type="text/javascript" src="/WEB-INF/js/jquery-1.4.min.js"></script>-->
-        <!--<sf:resource path="/js/jquery-1.4.js"/>-->
-
     </ui:define>
+
     <ui:define name="content">
-        <h1>Вы уверены, что хотите удалить #{name}?</h1>
+        <h1><h:outputText value="#{resourceBundle.confirmDeleteAreYouSure}"/> #{name}?</h1>
         <h:form>
             <fieldset>
-             <sf:commandButton value="Да" action="ok"/>
-            <sf:commandButton value="Отмена" action="cancel"/>
+             <sf:commandButton value="#{resourceBundle.confirmDeleteYes}" action="ok"/>
+            <sf:commandButton value="#{resourceBundle.confirmDeleteNo}" action="cancel"/>
 </fieldset>
         </h:form>
 
