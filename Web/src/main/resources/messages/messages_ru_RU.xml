@@ -22,6 +22,8 @@
 	<entry key="addCategoryHeader">Введите название категории</entry>
 	<entry key="addCategoryTitle">Создание новой категории</entry>
 	<entry key="addCategoryEditBoxPrompt">Название категории</entry>
+	<entry key="addCategoryConfirm">Создать категорию</entry>
+	<entry key="addCategoryCancel">Отмена</entry>
 	<!--create product-->
 	<entry key="addGoodHeader">Создание нового продукта</entry>
 	<entry key="addGoodNameTitle">Введите название продукта</entry>
@@ -38,4 +40,16 @@
 	<entry key="boardForConsultantsTitle">ОБЪЯВЛЕНИЯ ДЛЯ КОНСУЛЬТАНТОВ!</entry>
 	<entry key="boardForConsultantsHeader">Тут вы найдёте много полезной и нужной информации</entry>
 
+	<!--categories-->
+	<entry key="categoriesHeader">Категории товаров</entry>
+	<entry key="categoriesAllProductsMenu">Показать товары для всех категорий</entry>
+	<entry key="categoriesAddCategoryMenu">Добавить категорию</entry>
+	<entry key="categoriesAddGoodMenu">Добавить продукт</entry>
+
+	<!--checkout-->
+	<entry key="checkoutChangeQuickregDetailsHeader">Будут использованы следующие ваши координаты:</entry>
+	<entry key="checkoutChangeQuickregDetailsEmailTitle">Почтовый ящик</entry>
+	<entry key="checkoutChangeQuickregDetailsWannaChange">Хотите изменить их?</entry>
+	<entry key="checkoutChangeQuickregDetailsYes">Да</entry>
+	<entry key="checkoutChangeQuickregDetailsNo">Нет</entry>
 </properties>

@@ -13,13 +13,13 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1>Будут использованы следующие ваши координаты:</h1>
+		<h1><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsHeader}"/></h1>
 
 		<h:form>
 			<fieldset>
 				<div class="field">
 					<div class="field">
-						<div class="label">Почтовый ящик</div>
+						<div class="label"><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsEmailTitle}"/></div>
 						<div class="output">
 							<h:outputLabel id="emailAddress" value="#{anonymousClient.email}"/>
 						</div>
@@ -38,9 +38,9 @@
 -->
 			</fieldset>
 
-			<p>Вы хотите изменить эти данные?</p>
-			<h:commandLink value="Да" action="change"/>
-			<h:commandLink value="Нет" action="itsOK"/>
+			<p><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsWannaChange}"/></p>
+			<h:commandLink value="#{resourceBundle.categoriesAddGoodMenu}" action="change"/>
+			<h:commandLink value="#{resourceBundle.categoriesAddGoodMenu}" action="itsOK"/>
 		</h:form>
 
 	</ui:define>
