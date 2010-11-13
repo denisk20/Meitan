@@ -11,22 +11,22 @@
 
     <ui:define name="content">
         <h:form>
-            <h1>Категории товаров</h1>
+            <h1><h:outputText value="#{resourceBundle.categoriesHeader}"/></h1>
 
             <h1>#{lastSavedItem}</h1>
             <!--<h1>Just created category name: #{createdCategoryName}</h1>-->
             <div class="actionMenu" style="float:left">
                 <ul>
                     <li>
-                        <sf:commandLink styleClass="menuItem" value="Показать продукты для всех категорий"
+                        <sf:commandLink styleClass="menuItem" value="#{resourceBundle.categoriesAllProductsMenu}"
                                         action="all"/>
                     </li>
                     <sec:ifAllGranted roles="ROLE_ADMIN">
                         <li>
-                            <sf:commandLink styleClass="menuItem adminItem" value="Добавить продукт" action="addGood"/>
+                            <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.categoriesAddGoodMenu}" action="addGood"/>
                         </li>
                         <li>
-                            <sf:commandLink styleClass="menuItem adminItem" value="Добавить категорию" action="add"/>
+                            <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.categoriesAddCategoryMenu}" action="add"/>
                         </li>
                     </sec:ifAllGranted>
                 </ul>

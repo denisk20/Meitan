@@ -21,8 +21,8 @@
                         </sf:clientTextValidator>
                     </div>
                 </div>
-                <sf:commandButton id="createCategoryButton" value="Создать категорию!" processIds="*" action="create"/>
-                <sf:commandButton value="Отмена" action="cancel"/>
+                <sf:commandButton id="createCategoryButton" value="#{resourceBundle.addCategoryConfirm}" processIds="*" action="create"/>
+                <sf:commandButton value="#{resourceBundle.addCategoryCancel}" action="cancel"/>
             </fieldset>
         </h:form>
 
