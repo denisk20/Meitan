@@ -12,7 +12,7 @@
 		
 		<set name="flashScope.selectedImage" value="utils.asList(product.images).get(0)"/>
 	</on-start>
-	<view-state id="good">
+	<view-state id="good" parent="baseGood#baseGood">
         <!--todo how to unit test this?-->
         <transition on="hitImage">
             <set name="requestScope.imageId" value="requestParameters.id" type="long"/>

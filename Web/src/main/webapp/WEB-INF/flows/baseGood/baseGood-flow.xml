@@ -6,7 +6,6 @@
 
 	<view-state id="baseGood" view="" parent="abstractEditable#abstractEditable">
 
-		<!--<transition on="buy" to="#{outState}">-->
 		<transition on="buy">
 			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
 			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>

@@ -34,16 +34,9 @@
             </div>
         </fieldset>
 
-
         <div class="images">
             <h:form>
-<!--
-                <h:dataTable value="#{imagesList}" var="image">
-                    <h:column>
-                        <denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}"/>
-                    </h:column>
-                </h:dataTable>
--->
+				<denis:goodMenu entity="#{product}"/>
 				<c:forEach items="#{imagesList}" var="image">
 					<denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}" id="#{image.id}"/>
 				</c:forEach>
