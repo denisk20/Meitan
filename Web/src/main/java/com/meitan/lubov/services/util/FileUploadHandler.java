@@ -25,12 +25,10 @@ import java.io.Serializable;
  */
 public class FileUploadHandler implements Serializable {
 	public final static String FILE_PARAM_NAME = "file";
-	public static final String UPLOAD_DIR_NAME = "uploaded";
 
 	private static final String JPEG_TYPE = "image/jpeg";
 	private static final String BMP_TYPE = "image/bmp";
 	private static final String GIF_TYPE = "image/gif";
-	private static final String PNG_TYPE = "image/png";
 
 	private static final int MAX_WIDTH = 475;
 	private static final int MAX_HEIGHT = 475;
@@ -84,7 +82,7 @@ public class FileUploadHandler implements Serializable {
 		if (contentType == null) {
 			throw new IllegalArgumentException("No extension in file " + file);
 		}
-		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)|| contentType.equals(PNG_TYPE)) {
+		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)) {
 			return true;
 		}
 		requestContext.getMessageContext()
