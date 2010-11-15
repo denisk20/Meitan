@@ -2,7 +2,7 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
+		parent="global,baseGood,abstractEditable">
 
 	<input name="id" required="true" type="long" />
 
@@ -11,6 +11,15 @@
         <evaluate expression="utils.asList(product.images)" result="flowScope.imagesList"/>
 		
 		<set name="flashScope.selectedImage" value="utils.asList(product.images).get(0)"/>
+
+		<set name="flowScope.outState" value="'good'"/>
+		<set name="flowScope.selectFlow" value="'good'"/>
+		<set name="flowScope.editFlow" value="'editGood'"/>
+		<set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Product'"/>
+		<set name="conversationScope.dao" value="productDao"/>
+
+		<set name="flowScope.flowName" value="'good'"/>
+
 	</on-start>
 	<view-state id="good" parent="baseGood#baseGood">
         <!--todo how to unit test this?-->
