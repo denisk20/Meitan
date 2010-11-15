@@ -47,9 +47,40 @@
 	<entry key="categoriesAddGoodMenu">Добавить продукт</entry>
 
 	<!--checkout-->
+	<!--===changeQuickregDetails.xhtml-->
 	<entry key="checkoutChangeQuickregDetailsHeader">Будут использованы следующие ваши координаты:</entry>
 	<entry key="checkoutChangeQuickregDetailsEmailTitle">Почтовый ящик</entry>
 	<entry key="checkoutChangeQuickregDetailsWannaChange">Хотите изменить их?</entry>
 	<entry key="checkoutChangeQuickregDetailsYes">Да</entry>
 	<entry key="checkoutChangeQuickregDetailsNo">Нет</entry>
+
+	<!--===checkout.xhtml-->
+	<entry key="checkoutCheckoutHeader">Оформление заказа</entry>
+	<entry key="checkoutCheckoutTableheaderGood">Товар</entry>
+	<entry key="checkoutCheckoutTableheaderQuantity">Количество</entry>
+	<entry key="checkoutCheckoutTableheaderQuantityPrompt">Изменить количество товара</entry>
+	<entry key="checkoutCheckoutTableheaderDelete">Удалить из корзины</entry>
+	<entry key="checkoutCheckoutTableheaderDeleteButton">Удалить</entry>
+	<entry key="checkoutCheckoutTableheaderPrices">Цены с учётом количества</entry>
+	<entry key="checkoutCheckoutTableheaderTotalPrice">Общая цена заказа:</entry>
+	<entry key="checkoutCheckoutNext">Далее</entry>
+	<!--===order.xhtml-->
+	<entry key="checkoutOrderHeader">Вы заказали следующие товары:</entry>
+	<entry key="checkoutOrderTableheaderGood">Товар</entry>
+	<entry key="checkoutOrderTableheaderQuantity">Количество</entry>
+	<entry key="checkoutOrderTableheaderPrice">Цена</entry>
+	<entry key="checkoutOrderGo">Сделать заказ</entry>
+	<!--===quickRegistration.xhtml-->
+	<entry key="checkoutQuickRegHeader">Пожалуйста, оставьте свои минимальные координаты</entry>
+	<entry key="checkoutQuickRegRegisterPrompt">Или зарегистрируйтесь:</entry>
+	<entry key="checkoutQuickRegRegisterLink">зарегистрироваться</entry>
+	<entry key="checkoutQuickRegEmailLabel">Почтовый ящик</entry>
+	<entry key="checkoutQuickRegEmailPrompt">Ваш электронный почтовый ящик</entry>
+	<entry key="checkoutQuickRegEmailError">Ваш ящик некорректен</entry>
+	<entry key="checkoutQuickRegGo">Продолжить</entry>
+	<!--===success.xhtml-->
+	<entry key="checkoutSuccessHeader">Спасибо Вам за Ваш заказ!</entry>
+	<entry key="checkoutSuccessMessage">С вами скоро свяжутся</entry>
+	<entry key="checkoutSuccessGo">Продолжить</entry>
+
 </properties>

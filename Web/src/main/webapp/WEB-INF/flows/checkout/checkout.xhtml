@@ -13,7 +13,7 @@
     <ui:define name="content">
         <h:messages/>
 
-        <h1>Оформление заказа</h1>
+        <h1><h:outputText value="#{resourceBundle.checkoutCheckoutHeader}"/></h1>
         <h:form id="checkout">
 
             <ui:fragment id="quantityTable">
@@ -21,20 +21,20 @@
                     <h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
                             >
                         <h:column>
-                            <f:facet name="header">Товар</f:facet>
+                            <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderGood}"/></f:facet>
                             <h:outputText value="#{shoppingCartItem.item.name}"/>
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Количество</f:facet>
-                            <sf:clientNumberValidator promptMessage="Change the name">
+                            <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderQuantity}"/></f:facet>
+                            <sf:clientNumberValidator promptMessage="#{resourceBundle.checkoutCheckoutTableheaderQuantityPrompt}">
                                 <h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
                             </sf:clientNumberValidator>
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Удалить из корзины</f:facet>
-                            <sf:commandButton value="Удалить" action="delete" processIds="*"/>
+                            <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderDelete}"/></f:facet>
+                            <sf:commandButton value="#{resourceBundle.checkoutCheckoutTableheaderDeleteButton}" action="delete" processIds="*"/>
                         </h:column>
 
                     </h:dataTable>
@@ -45,15 +45,15 @@
                 <h:dataTable id="shoppingCartItems1" value="#{cart.itemsDataModel}" var="shoppingCartItem"
                         >
                     <h:column>
-                        <f:facet name="header">Цены с учётом количества</f:facet>
+                        <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderPrices}"/></f:facet>
                         <h:outputText value="#{shoppingCartItem.price}"/>
                     </h:column>
                 </h:dataTable>
 
-                <div id="total"> Общая цена заказа: #{cart.totalPrice}</div>
+                <div id="total"> <h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderTotalPrice}"/> #{cart.totalPrice}</div>
             </ui:fragment>
 
-            <c:if test="#{cart.count > 0}"><sf:commandButton value="Далее" action="order"/></c:if>
+            <c:if test="#{cart.count > 0}"><sf:commandButton value="#{resourceBundle.checkoutCheckoutNext}" action="order"/></c:if>
         </h:form>
 
     </ui:define>
