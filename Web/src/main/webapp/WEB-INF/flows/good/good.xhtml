@@ -12,22 +12,22 @@
     <ui:define name="content">
         <h1>#{product.name}</h1>
         <fieldset>
-            <legend>Информация о продукте</legend>
+            <legend><h:outputText value="#{resourceBundle.goodHeader}"/></legend>
             <div class="output">
-                <div class="name">Название продукта</div>
+                <div class="name"><h:outputText value="#{resourceBundle.goodName}"/></div>
                 <div class="value" style="font: italic bold 19px/37px Georgia,serif; color:red">
                     <h:outputText value="#{product.name}"/>
                 </div>
             </div>
             <div class="output">
-                <div class="name">Описание</div>
+                <div class="name"><h:outputText value="#{resourceBundle.goodDescription}"/></div>
                 <!--<div class="value hugevalue">-->
 				<div id = "news#{product.id}" style="width:98%;overflow-x:auto;border:dotted 1px;padding:5px">
                     <h:outputText escape="false" value="#{product.description}"/>
                 </div>
             </div>
             <div class="output">
-                <div class="name">Цена</div>
+                <div class="name"><h:outputText value="#{resourceBundle.goodPrice}"/></div>
                 <div class="value">
                     <h:outputText value="#{product.price.amount}"/>
                 </div>

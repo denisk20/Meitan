@@ -11,20 +11,20 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1>Изменить продукт</h1>
+		<h1><h:outputText value="#{resourceBundle.editGoodHeader}"/></h1>
 		<h:form>
 			<fieldset>
 				<div class="field">
-					<div class="label">Название продукта</div>
+					<div class="label"><h:outputText value="#{resourceBundle.editGoodGoodNameLabel}"/></div>
 					<div class="input">
-						<sf:clientTextValidator promptMessage="Введите название продукта">
+						<sf:clientTextValidator promptMessage="#{resourceBundle.editGoodGoodNamePrompt}">
 							<h:inputText id="productName" value="#{product.name}"/>
 						</sf:clientTextValidator>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="label">Описание продукта</div>
+					<div class="label"><h:outputText value="#{resourceBundle.editGoodGoodDescriptionLabel}"/></div>
 					<div class="input">
 						
 							<rich:editor id="productDescription" configuration="editor" value="#{product.description}" theme="advanced"/>
@@ -35,9 +35,9 @@
 				</div>
 
 				<div class="field">
-					<div class="label">Цена</div>
+					<div class="label"><h:outputText value="#{resourceBundle.editGoodGoodPriceLabel}"/></div>
 					<div class="input">
-						<sf:clientCurrencyValidator currency="UAH" promptMessage="Введите цену продукта"
+						<sf:clientCurrencyValidator currency="UAH" promptMessage="#{resourceBundle.editGoodGoodPricePrompt}"
 													required="true">
 							<h:inputText id="inputCurrency" value="#{product.price.amount}" required="true"/>
 						</sf:clientCurrencyValidator>
@@ -45,14 +45,14 @@
 				</div>
 
 				<div class="field">
-					<div class="label">Отметьте, если продукт - новинка</div>
+					<div class="label"><h:outputText value="#{resourceBundle.editGoodNewLabel}"/></div>
 					<div class="input">
 						<h:selectBooleanCheckbox id="isProductNew" value="#{product.new}"/>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="label">Выберите категории для данного продукта</div>
+					<div class="label"><h:outputText value="#{resourceBundle.editGoodCategoriesLabel}"/></div>
 					<div class="input">
 						<ui:repeat value="#{categoriesSelector.items}" var="selectable">
 							<h:selectBooleanCheckbox id="categoriesCheckboxes" value="#{selectable.selected}"/>
@@ -62,8 +62,8 @@
 					</div>
 				</div>
 			</fieldset>
-			<h:commandButton id="createCategoryButton" value="Сохранить" action="save"/>
-			<sf:commandButton value="Назад" action="back"/>
+			<h:commandButton id="createCategoryButton" value="#{resourceBundle.editGoodSave}" action="save"/>
+			<sf:commandButton value="#{resourceBundle.editGoodBack}" action="back"/>
 		</h:form>
 
 	</ui:define>

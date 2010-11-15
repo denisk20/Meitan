@@ -12,13 +12,13 @@
     <ui:define name="content">
         <h:messages/>
 
-        <h1>Редактирование категории</h1>
+        <h1><h:outputText value="#{resourceBundle.editCategoryHeader}"/></h1>
         <h:form>
             <fieldset>
                 <div class="field">
-                    <div class="label">Название категории</div>
+                    <div class="label"><h:outputText value="#{resourceBundle.editCategoryCategoryNameLabel}"/></div>
                     <div class="input">
-                        <sf:clientTextValidator promptMessage="Измените название категории">
+                        <sf:clientTextValidator promptMessage="#{resourceBundle.editCategoryCategoryNamePrompt}">
                             <h:inputText id="categoryName" value="#{category.name}"/>
                         </sf:clientTextValidator>
                     </div>
@@ -26,23 +26,15 @@
                 <br/>
 
                 <h:panelGrid rendered="${! empty(category.image)}">
-                    <p>Изображения:</p>
+                    <p><h:outputText value="#{resourceBundle.editCategoryImages}"/></p>
                     <br/>
                     <img src="/image#{category.image.url}" alt="${category.name}"/>
                 </h:panelGrid>
             </fieldset>
 
-            <sf:commandButton id="createCategoryButton" value="Сохранить" processIds="*" action="save"/>
-            <sf:commandButton value="Назад" action="back"/>
+            <sf:commandButton id="createCategoryButton" value="#{resourceBundle.editCategorySave}" processIds="*" action="save"/>
+            <sf:commandButton value="#{resourceBundle.editCategoryBack}" action="back"/>
         </h:form>
-
-
-        <!--
-        <h:form enctype="multipart/form-data">
-            <input type="file" name="file"/>
-            <h:commandButton action="upload" value="Upload"/>
-        </h:form>
--->
 
     </ui:define>
 </ui:composition>

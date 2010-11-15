@@ -12,18 +12,18 @@
     <div class="actionMenu">
         <ul>
             <li>
-                <sf:commandLink styleClass="menuItem adminItem" value="Изменить" action="edit">
+                <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.actionMenuAdd}" action="edit">
                     <f:param name="id" value="#{entity.id}"/>
                 </sf:commandLink>
             </li>
             <li>
-                <sf:commandLink styleClass="menuItem adminItem" value="Править изображения"
+                <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.actionMenuEditImages}"
                                 action="editImages">
                     <f:param name="id" value="#{entity.id}"/>
                 </sf:commandLink>
             </li>
             <li>
-                <sf:commandLink styleClass="menuItem adminItem" value="Удалить" action="delete"
+                <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.actionMenuDelete}" action="delete"
                                 processIds="*">
                     <f:param name="id" value="#{entity.id}"/>
                     <f:param name="name" value="#{entity.name}"/>

@@ -9,22 +9,22 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-            <h1>Стань консультантом</h1>
+            <h1><h:outputText value="#{resourceBundle.joinJoinHeader}"/></h1>
 
 		<sec:ifNotGranted roles="ROLE_CLIENT">
 			<sec:ifNotGranted roles="ROLE_CONSULTANT">
-				<p>Нужно вначале зарегистрироваться как клиенту</p>
+				<p><h:outputText value="#{resourceBundle.joinJoinRegisterPrompt}"/></p>
 				<h:form>
-					<h:commandLink value="Register as client" action="register"/>
+					<h:commandLink value="#{resourceBundle.joinJoinRegisterLink}" action="register"/>
 				</h:form>
 			</sec:ifNotGranted>
 		</sec:ifNotGranted>
 
 		<sec:ifAllGranted roles="ROLE_CLIENT">
 			<sec:ifNotGranted roles="ROLE_CONSULTANT">
-				<p>Быть консультантом очень здорово! Вы можете стать консультантом здесь:</p>
+				<p>#{resourceBundle.joinJoinSlogan}</p>
 				<h:form>
-					<h:commandLink value="Стать консультантом!" action="signConsultant"/>
+					<h:commandLink value="#{resourceBundle.joinJoinLink}" action="signConsultant"/>
 				</h:form>
 			</sec:ifNotGranted>
 		</sec:ifAllGranted>

@@ -9,14 +9,14 @@
 				template="/WEB-INF/templates/meitan.xhtml">
 
 	<ui:define name="content">
-		<h1>Страница с формой для консультанта</h1>
+		<h1><h:outputText value="#{resourceBundle.joinSignHeader}"/></h1>
 
-		<p>Здесь вы можете стать официальным консультантом компании Мей Тан! Для этого введите, пожалуйста, следующие данные</p>
+		<p><h:outputText value="#{resourceBundle.joinSignTitle}"/></p>
 		<h:form>
 			<div class="field">
-				<div class="label">Серия паспорта</div>
+				<div class="label"><h:outputText value="#{resourceBundle.joinSignPassSeriesLabel}"/></div>
 				<div class="input">
-					<sf:clientTextValidator promptMessage="Введите серию вашего паспорта">
+					<sf:clientTextValidator promptMessage="#{resourceBundle.joinSignPassSeriesPrompt}">
 						<h:inputText id="passportSeries" value="#{client.passport.series}"/>
 					</sf:clientTextValidator>
 				</div>
@@ -24,17 +24,17 @@
 
 			<div class="field">
 				<div class="label">
-					<h:outputLabel for="passportNumber" value="Номер паспорта"/>
+					<h:outputLabel for="passportNumber" value="#{resourceBundle.joinSignPassIdLabel}"/>
 				</div>
 				<div class="input">
-					<sf:clientNumberValidator promptMessage="Введите номер паспорта">
+					<sf:clientNumberValidator promptMessage="#{resourceBundle.joinSignPassIdPrompt}">
 						<h:inputText id="passportNumber" value="#{client.passport.number}"/>
 					</sf:clientNumberValidator>
 				</div>
 
 			</div>
 			<br/>
-			<sf:commandLink value="Подписаться" action="createNewConsultant" processIds="*"/>
+			<sf:commandLink value="#{resourceBundle.joinSignGo}" action="createNewConsultant" processIds="*"/>
 		</h:form>
 
 	</ui:define>
