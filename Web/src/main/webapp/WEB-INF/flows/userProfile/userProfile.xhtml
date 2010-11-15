@@ -13,26 +13,26 @@
 	</ui:define>
 	<ui:define name="content">
 
-		<h1>Введите ваши личные данные</h1>
+		<h1><h:outputText value="#{resourceBundle.userProfileHeader}"/></h1>
 
 		<div class="section">
 			<h:messages/>
 			<h:form id="registeringForm">
 				<fieldset>
-					<legend>Ваши данные</legend>
+					<legend><h:outputText value="#{resourceBundle.userProfileLegend}"/></legend>
 					<div class="field">
-						<div class="label">Имя</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfileNameLabel}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Введите ваше имя">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfileNamePrompt}">
 								<h:inputText id="firstName" value="#{client.name.firstName}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
 
 					<div class="field">
-						<div class="label">Отчество</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfilePatroLabel}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Введите отчество">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfilePatroPrompt}">
 								<h:inputText id="patronymic" value="#{client.name.patronymic}"/>
 							</sf:clientTextValidator>
 						</div>
@@ -40,9 +40,9 @@
 
 
 					<div class="field">
-						<div class="label">Фамилия</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfileSurnameLabel}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Введите фамилию">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfileSurnamePrompt}">
 								<h:inputText id="secondName" value="#{client.name.secondName}"/>
 							</sf:clientTextValidator>
 						</div>
@@ -50,13 +50,13 @@
 
 					<div class="field">
 						<div class="field">
-							<div class="label">Почтовый ящик</div>
+							<div class="label"><h:outputText value="#{resourceBundle.userProfileEmailLabel}"/></div>
 							<!--todo this validator works only partially-->
 							<div class="input">
 								<sf:clientTextValidator
 									regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
-									promptMessage="Ваш электронный почтовый ящик"
-									invalidMessage="Ваш ящик некорректен">
+									promptMessage="#{resourceBundle.userProfileEmailPrompt}"
+									invalidMessage="#{resourceBundle.userProfileEmailError}">
 								<h:inputText id="emailAddress" value="#{client.email}" required="false"/>
 							</sf:clientTextValidator>
 							</div>
@@ -64,18 +64,18 @@
 					</div>
 
 					<div class="field">
-						<div class="label">Пометки</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfileNotesLabel}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Дополнительные сведения о вас">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfileNotesPrompt}">
 								<h:inputText id="notes" value="#{client.notes}"/>
 							</sf:clientTextValidator>
 						</div>
 					</div>
 
 					<div class="field">
-						<div class="label">Логин</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfileLoginLabel}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Введите ваш логин (запишите его!)">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfileLoginPrompt}">
 								<h:inputText id="login" value="#{client.login}"/>
 							</sf:clientTextValidator>
 						</div>
@@ -83,9 +83,9 @@
 
 
 					<div class="field">
-						<div class="label">Пароль</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfilePasswordLabel}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Введите ваш пароль">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfilePasswordPrompt}">
 								<h:inputSecret id="pass" value="#{client.password}">
 									<j4j:idProxy id="origPass"/>
 								</h:inputSecret>
@@ -94,9 +94,9 @@
 					</div>
 
 					<div class="field">
-						<div class="label">Повторите пароль</div>
+						<div class="label"><h:outputText value="#{resourceBundle.userProfilePasswordPrompt}"/></div>
 						<div class="input">
-							<sf:clientTextValidator promptMessage="Введите пароль ещё раз">
+							<sf:clientTextValidator promptMessage="#{resourceBundle.userProfilePassword1Prompt}">
 								<h:inputSecret id="conformPass" value="#{client.conformedPassword}">
 									<j4j:idProxy id="conformedPass"/>
 								</h:inputSecret>
@@ -108,8 +108,8 @@
 				<h:outputFormat escape="false" value="#{captchaService.captchaHtml}"/>
 				
 				<!--todo this doesn't work-->
-				<sf:commandButton value="Сохранить личные данные" action="saveProfile" processIds="*"/>
-				<sf:commandButton value="Отмена" action="cancel"/>
+				<sf:commandButton value="#{resourceBundle.userProfileSave}" action="saveProfile" processIds="*"/>
+				<sf:commandButton value="#{resourceBundle.userProfileCancel}" action="cancel"/>
 			</h:form>
 		</div>
 

@@ -11,10 +11,10 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-        <h1>Товары! Самые лучшие!!!</h1>
+        <h1><h:outputText value="#{resourceBundle.goodsListForCategoryHeader}"/></h1>
 
         <h:form>
-            <h:commandButton value="Добавить продукт" action="addGood"/>
+            <h:commandButton value="#{resourceBundle.goodsListForCategoryAddProduct}" action="addGood"/>
             <c:forEach items="#{products}" var="product">
                 <div class="imageItem">
                     <denis:image imageName="#{product.name}" price="#{product.price.amount}" imageUrl="#{product.avatar.url}"

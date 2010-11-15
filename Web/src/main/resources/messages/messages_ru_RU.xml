@@ -83,4 +83,114 @@
 	<entry key="checkoutSuccessMessage">С вами скоро свяжутся</entry>
 	<entry key="checkoutSuccessGo">Продолжить</entry>
 
+	<!--editCategory-->
+	<entry key="editCategoryHeader">Редактирование категории</entry>
+	<entry key="editCategoryCategoryNameLabel">Название категории</entry>
+	<entry key="editCategoryCategoryNamePrompt">Измените название категории</entry>
+	<entry key="editCategoryImages">Изображения:</entry>
+	<entry key="editCategorySave">Сохранить:</entry>
+	<entry key="editCategoryBack">Назад:</entry>
+
+	<!--editGood-->
+	<entry key="editGoodHeader">Изменить продукт</entry>
+	<entry key="editGoodGoodNameLabel">Название продукта</entry>
+	<entry key="editGoodGoodNamePrompt">Введите название продукта</entry>
+	<entry key="editGoodGoodDescriptionLabel">Описание продукта</entry>
+	<entry key="editGoodGoodPriceLabel">Цена</entry>
+	<entry key="editGoodGoodPricePrompt">Введите цену продукта</entry>
+	<entry key="editGoodNewLabel">Отметьте, если продукт - новинка</entry>
+	<entry key="editGoodCategoriesLabel">Выберите категории для данного продукта</entry>
+	<entry key="editGoodSave">Сохранить</entry>
+	<entry key="editGoodBack">Назад</entry>
+
+	<!--good-->
+	<entry key="goodHeader">Информация о продукте</entry>
+	<entry key="goodName">Название продукта</entry>
+	<entry key="goodDescription">Описание</entry>
+	<entry key="goodPrice">Цена</entry>
+	<entry key="goodBuy">Купить</entry>
+
+	<!--images manager-->
+	<entry key="imagesManagerHeader">Изменить изображения</entry>
+	<entry key="imagesManagerHasImages">имеет следующие изображения:</entry>
+	<entry key="imagesManagerDelete">Удалить</entry>
+	<entry key="imagesManagerMakeMain">Сдалать главным изборажением</entry>
+	<entry key="imagesManagerMainLabel">Главное изображение</entry>
+	<entry key="imagesManagerSave">Сохранить</entry>
+	<entry key="imagesManagerUpload">Загрузить...</entry>
+
+	<!--itemsList-->
+	<entry key="itemsListHeader">Товары, купленные</entry>
+	<entry key="itemsListTableDate">Дата</entry>
+	<entry key="itemsListTablePrice">Общая сумма покупки</entry>
+	<entry key="itemsListTableBack">Назад</entry>
+	<!--todo-->
+	<entry key="itemsListTableInnerName">Название</entry>
+	<entry key="itemsListTableInnerQuantity">Количество</entry>
+	<entry key="itemsListTableInnerPrice">Цена</entry>
+
+	<!--join-->
+	<!--===join-->
+	<entry key="joinJoinHeader">Стань консультантом!</entry>
+	<entry key="joinJoinRegisterPrompt">Нужно вначале зарегистрироваться как клиенту</entry>
+	<entry key="joinJoinRegisterLink">Зарегистрироваться как клиенту</entry>
+	<entry key="joinJoinSlogan">Быть консультантом очень здорово! Вы можете стать консультантом здесь:</entry>
+	<entry key="joinJoinLink">Стать консультантом!</entry>
+	<!--===sign-->
+	<entry key="joinSignHeader">Страница с формой для консультанта</entry>
+	<entry key="joinSignTitle">Здесь вы можете стать официальным консультантом компании Мей Тан! Для этого введите, пожалуйста, следующие данные</entry>
+	<entry key="joinSignPassSeriesLabel">Серия паспорта</entry>
+	<entry key="joinSignPassSeriesPrompt">Введите серию вашего паспорта</entry>
+	<entry key="joinSignPassIdLabel">Номер паспорта</entry>
+	<entry key="joinSignPassIdPrompt">Введите номер паспорта</entry>
+	<entry key="joinSignGo">Подписаться</entry>
+
+	<!--userProfile-->
+	<entry key="userProfileHeader">Введите ваши личные данные</entry>
+	<entry key="userProfileLegend">Ваши данные</entry>
+	<entry key="userProfileNameLabel">Имя</entry>
+	<entry key="userProfileNamePrompt">Введите ваше имя</entry>
+	<entry key="userProfilePatroLabel">Отчество</entry>
+	<entry key="userProfilePatroPrompt">Введите отчество</entry>
+	<entry key="userProfileSurnameLabel">Фамилия</entry>
+	<entry key="userProfileSurnamePrompt">Введите фамилию</entry>
+	<entry key="userProfileEmailLabel">Почтовый ящик</entry>
+	<entry key="userProfileEmailPrompt">Ваш электронный почтовый ящик</entry>
+	<entry key="userProfileEmailError">Ваш ящик некорректен</entry>
+	<entry key="userProfileNotesLabel">Пометки</entry>
+	<entry key="userProfileNotesPrompt">Дополнительные сведения о вас</entry>
+	<entry key="userProfileLoginLabel">Логин</entry>
+	<entry key="userProfileLoginPrompt">Введите ваш логин (запишите его!)</entry>
+	<entry key="userProfilePasswordLabel">Пароль</entry>
+	<entry key="userProfilePasswordPrompt">Введите ваш пароль</entry>
+	<entry key="userProfilePassword1Label">Повторите пароль</entry>
+	<entry key="userProfilePassword1Prompt">Введите пароль ещё раз</entry>
+	<entry key="userProfileSave">Сохранить личные данные</entry>
+	<entry key="userProfileCancel">Отмена</entry>
+	<!--goodsListForCategory-->
+	<entry key="goodsListForCategoryHeader">Товары! Самые лучшие!!!</entry>
+	<entry key="goodsListForCategoryAddProduct">Добавить продукт</entry>
+
+	<!--meitan.xhtml-->
+	<entry key="meitanTitle">Мейтан в Харькове, лечебная китайская косметика</entry>
+	<entry key="meitanWelcome"> Добро пожаловать, </entry>
+	<entry key="meitanItemsList">Посмотреть историю покупок</entry>
+	<entry key="meitanProfile">Изменить личные данные</entry>
+	<entry key="meitanItemsInCart"> Всего в тележке товаров </entry>
+	<!--todo-->
+	<entry key="meitanMakeOrder">Оформить заказ</entry>
+	<!--actionMenu.xhtml-->
+	<entry key="actionMenuAdd">Изменить</entry>
+	<entry key="actionMenuEditImages">Править изображения</entry>
+	<entry key="actionMenuDelete">Удалить</entry>
+	<!--board.xhtml-->
+	<entry key="boardSavedInfo">Изменения сохранены в элементе </entry>
+	<entry key="boardAddNews">Добавить новую новость...</entry>
+	<entry key="boardCreate">Создать</entry>
+	<entry key="boardNews">Объявление</entry>
+	<entry key="boardSave">Сохранить</entry>
+	<entry key="boardDelete">Удалить</entry>
+	<!--goodMenu.xhtml-->
+	<entry key="goodMenuBuy">Купить!</entry>
+
 </properties>

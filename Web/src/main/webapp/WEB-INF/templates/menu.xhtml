@@ -28,7 +28,7 @@
 
 									<c:otherwise>
 										<img src="/images/menu_background.png" alt="bg" class="menubg"/>
-										<a href="about" class="navMenuLink">О компании</a>
+										<a href="about" class="navMenuLink"><h:outputText value="#{resourceBundle.aboutCompanyMenu}"/></a>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -45,7 +45,7 @@
 
 									<c:otherwise>
 										<img src="/images/menu_background.png" alt="bg" class="menubg"/>
-										<a href="categories" class="navMenuLink">Продукция</a>
+										<a href="categories" class="navMenuLink"><h:outputText value="#{resourceBundle.productionMenu}"/></a>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -63,7 +63,7 @@
 
 										<c:otherwise>
 											<img src="/images/menu_background.png" alt="bg" class="menubg"/>
-											<a href="join" class="navMenuLink">Стань консультантом!</a>
+											<a href="join" class="navMenuLink"><h:outputText value="#{resourceBundle.becumeConsultantMenu}"/></a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -81,7 +81,7 @@
 
 										<c:otherwise>
 											<img src="/images/menu_background.png" alt="bg" class="menubg"/>
-											<a href="boardForConsultants" class="navMenuLink">Объявления для консультантов</a>
+											<a href="boardForConsultants" class="navMenuLink"><h:outputText value="#{resourceBundle.addsForConsultantsMenu}"/></a>
 										</c:otherwise>
 									</c:choose>
 								</div>
