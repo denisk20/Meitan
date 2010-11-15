@@ -13,10 +13,10 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1>Спасибо Вам за Ваш заказ!</h1>
-		<p>С вами скоро свяжутся</p>
+		<h1><h:outputText value="#{resourceBundle.checkoutSuccessHeader}"/></h1>
+		<p><h:outputText value="#{resourceBundle.checkoutSuccessMessage}"/></p>
 		<h:form>
-			<h:commandLink value="Продолжить" action="done"/>
+			<h:commandLink value="#{resourceBundle.checkoutSuccessGo}" action="done"/>
 		</h:form>
 
 	</ui:define>

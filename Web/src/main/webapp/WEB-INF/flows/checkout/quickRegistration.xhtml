@@ -13,19 +13,19 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1>Пожалуйста, оставьте свои минимальные координаты</h1>
+		<h1><h:outputText value="#{resourceBundle.checkoutQuickRegHeader}"/></h1>
 
-		<p>Или зарегистрируйтесь: <a href="userProfile">зарегистрироваться</a></p>
+		<p><h:outputText value="#{resourceBundle.checkoutQuickRegRegisterPrompt}"/> <a href="userProfile"><h:outputText value="#{resourceBundle.checkoutQuickRegRegisterLink}"/></a></p>
 		<h:form>
 			<fieldset>
 				<div class="field">
 					<div class="field">
-						<div class="label">Почтовый ящик</div>
+						<div class="label"><h:outputText value="#{resourceBundle.checkoutQuickRegEmailLabel}"/></div>
 						<div class="input">
 							<sf:clientTextValidator
 								regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="true"
-								promptMessage="Ваш электронный почтовый ящик"
-								invalidMessage="Ваш ящик некорректен">
+								promptMessage="#{resourceBundle.checkoutQuickRegEmailPrompt}"
+								invalidMessage="#{resourceBundle.checkoutQuickRegEmailError}">
 							<h:inputText id="emailAddress" value="#{anonymousClient.email}" required="true"/>
 						</sf:clientTextValidator>
 						</div>
@@ -44,7 +44,7 @@
 -->
 			</fieldset>
 
-			<sf:commandLink value="Продолжить" action="quickreg" processIds="*"/>
+			<sf:commandLink value="#{resourceBundle.checkoutQuickRegGo}" action="quickreg" processIds="*"/>
 		</h:form>
 
 	</ui:define>
