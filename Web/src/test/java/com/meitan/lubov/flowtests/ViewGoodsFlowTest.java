@@ -226,8 +226,8 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 			testProductDao.flush();
 			assertNull("Product wasn't properly deleted: " + p, loaded);
 
-			assertFlowExecutionActive();
-			assertCurrentStateEquals("allGoodsList");
+//			assertFlowExecutionActive();
+//			assertCurrentStateEquals("allGoodsList");
 		} finally {
 			for (FileBackupRestoreManager m : restoreManagers) {
 				m.restore();

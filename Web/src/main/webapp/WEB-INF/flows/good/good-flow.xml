@@ -19,6 +19,7 @@
 		<set name="conversationScope.dao" value="productDao"/>
 
 		<set name="flowScope.flowName" value="'good'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'viewGoods'"/>
 
 	</on-start>
 	<view-state id="good" parent="baseGood#baseGood">

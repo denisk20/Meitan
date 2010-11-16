@@ -13,6 +13,7 @@
         <set name="conversationScope.dao" value="categoryDao"/>
         <!--for global-->
         <set name="flowScope.flowName" value="'categories'"/>
+		<set name="flowScope.afterDeleteFlowName" value="flowName"/>
     </on-start>
 
 	<view-state id="categories" parent="abstractEditable#abstractEditable">
