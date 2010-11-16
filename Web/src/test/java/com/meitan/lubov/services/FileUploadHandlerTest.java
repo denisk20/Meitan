@@ -3,6 +3,7 @@ package com.meitan.lubov.services;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.util.FileUploadHandler;
 import com.meitan.lubov.services.util.StringWrap;
+import com.meitan.lubov.services.util.Utils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class FileUploadHandlerTest {
 
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
+	@Autowired
+	protected Utils utils;
 
 	@Test
 	public void testProcessFile() throws IOException {
@@ -48,7 +51,7 @@ public class FileUploadHandlerTest {
 
 		assertNotNull("No image was created", image);
 
-		String imageFilePath = fileUploadHandler.getUploadPath() + "/" + image.getUrl();
+		String imageFilePath = utils.getImageUploadDirectoryPath() + "/" + image.getUrl();
 
 		imageFile = new File(imageFilePath);
 		imageFile.deleteOnExit();

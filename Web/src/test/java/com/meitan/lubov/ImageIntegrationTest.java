@@ -27,8 +27,6 @@ public class ImageIntegrationTest extends GenericIntegrationTest<Image>{
     private ImageDao testImageDao;
     @Autowired
     private ProductDao testProductDao;
-	@Autowired
-	private Utils utils;
 
 	@Override
     protected void setUpBeanNames() {

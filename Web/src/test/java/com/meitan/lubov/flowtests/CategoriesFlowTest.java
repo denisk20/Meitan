@@ -168,7 +168,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		startFlow(context);
 		Category persistentCategory = testCategoryDao.findAll().get(0);
 
-		FileBackupRestoreManager restoreManager = new FileBackupRestoreManager(fileUploadHandler.getUploadPath() + persistentCategory.getImage().getUrl());
+		FileBackupRestoreManager restoreManager = new FileBackupRestoreManager( utils.getImageUploadDirectoryPath() + persistentCategory.getImage().getUrl());
 		restoreManager.backup();
 
 		ArrayList<Category> categories = new ArrayList<Category>();

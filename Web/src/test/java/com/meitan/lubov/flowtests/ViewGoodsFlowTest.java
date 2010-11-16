@@ -204,7 +204,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		FileBackupRestoreManager[] restoreManagers =
 				new FileBackupRestoreManager[imagesList.size()];
 		for (int i = 0; i<imagesList.size(); i++) {
-			restoreManagers[i] = new FileBackupRestoreManager(fileUploadHandler.getUploadPath() + imagesList.get(i).getUrl());
+			restoreManagers[i] = new FileBackupRestoreManager(utils.getImageUploadDirectoryPath() + imagesList.get(i).getUrl());
 			restoreManagers[i].backup();
 		}
 

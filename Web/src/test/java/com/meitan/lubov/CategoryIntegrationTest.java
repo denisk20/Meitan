@@ -90,7 +90,7 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 		ArrayList<Product> products = new ArrayList<Product>(c.getProducts());
         Image image = c.getImage();
 
-		String absolutePath = fileUploadHandler.getUploadPath() + image.getUrl();
+		String absolutePath = utils.getImageUploadDirectoryPath() + image.getUrl();
 		creamsImageRestoreManager = new FileBackupRestoreManager(absolutePath);
 
 		File imageFile = new File(absolutePath);
