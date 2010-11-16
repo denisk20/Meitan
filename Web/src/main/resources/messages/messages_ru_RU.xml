@@ -3,7 +3,14 @@
 <properties>
 	<comment>This is main applications message source</comment>
 
-	<entry key="passwordsDontMatch">Пароли не совпадают!</entry>
+	<!--errors-->
+	<entry key="passwordsDontMatch">Пароли не совпадают</entry>
+	<entry key="emailCantBeNull">Почта не может быть пустой</entry>
+	<entry key="emailIsWrong">Почта задана в неправильном формате</entry>
+	<entry key="loginNotUnique">Пользователь с таким именем уже существует</entry>
+	<entry key="emailNotUnique">Почтовый ящик уже существует</entry>
+	<entry key="passportSeriesIsWrong">Серия паспорта должна быть в таком формате: МН</entry>
+	<entry key="passportNumberIsWrong">Номер паспорта должна быть в таком формате: 12345</entry>
 
 	<!--menu template-->
 	<entry key="aboutCompanyMenu">О компании</entry>

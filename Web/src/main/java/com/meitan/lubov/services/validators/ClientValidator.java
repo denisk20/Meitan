@@ -48,7 +48,7 @@ public class ClientValidator {
 					.addMessage(new MessageBuilder()
 							.error()
 							.source("messages")
-							.code("passwords.dont.match")
+							.code("passwordsDontMatch")
 							.defaultText("Passwords don't match")
 							.build());
 			valid = false;
@@ -59,6 +59,8 @@ public class ClientValidator {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("emailCantBeNull")
 							.defaultText("Email can't be null")
 							.build());
 			valid = false;
@@ -70,6 +72,8 @@ public class ClientValidator {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("emailIsWrong")
 							.defaultText("Email address seems to be wrong: " + email)
 							.build());
 			valid = false;
@@ -107,6 +111,21 @@ public class ClientValidator {
 		}
 	}
 
+	public void validateSign(Client c, ValidationContext context) {
+		String series = c.getPassport().getSeries();
+		String number = c.getPassport().getNumber();
+
+		boolean valid = true;
+		if (series == null) {
+
+		}
+
+		if (!valid) {
+			throw new IllegalArgumentException("Passport validation failed");
+		}
+
+	}
+
 	private boolean isLoginUnique(String login, ValidationContext context) {
 		boolean valid = true;
 		Client clientWithSameLogin = clientDao.getByLogin(login);
@@ -114,6 +133,8 @@ public class ClientValidator {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("loginNotUnique")
 							.defaultText("Client already exists with login " + login)
 							.build());
 			valid = false;
@@ -130,6 +151,8 @@ public class ClientValidator {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("emailNotUnique")
 							.defaultText("Client already exists with email " + email)
 							.build());
 			valid = false;
