@@ -51,7 +51,8 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	private FileUploadHandler fileUploadHandler;
 
 	private ShoppingCart cart = new ShoppingCartImpl();
-	private Utils utils = new Utils();
+	@Autowired
+	private Utils utils;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {

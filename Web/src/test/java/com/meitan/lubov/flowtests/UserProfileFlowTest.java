@@ -38,7 +38,8 @@ public class UserProfileFlowTest extends AbstractFlowIntegrationTest{
 		}
 	};
 
-	private Utils utils = new Utils();
+	@Autowired
+	private Utils utils;
 	@Autowired
 	private AuthorityDao testAuthorityDao;
 	@Autowired
