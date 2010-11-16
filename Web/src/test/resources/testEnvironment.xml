@@ -102,7 +102,8 @@
         <property name="categoryDao" ref="testCategoryDao"/>
     </bean>
 
-    <bean id="utils" class="com.meitan.lubov.services.util.Utils"/>
+    <bean id="utils" class="com.meitan.lubov.services.util.TestUtils"/>
+	
     <bean id="fileUploadHandler" class="com.meitan.lubov.services.util.FileUploadHandler">
         <property name="uploadPath" value="#{utils.imageUploadDirectoryPath}"/>
     </bean>

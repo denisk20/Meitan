@@ -29,7 +29,7 @@
             <set name="viewScope.name" value="name"/>
         </on-entry>
 
-        <transition on="ok" to="#{outState}">
+        <transition on="ok" to="afterDeleteFlow">
             <evaluate expression="dao.deleteById(deleteId)"/>
         </transition>
 
@@ -48,5 +48,7 @@
 	</subflow-state>
 
 	<end-state id="selectFlow" view="flowRedirect:#{selectFlow}?id=#{id}"/>
+
+	<end-state id="afterDeleteFlow" view="flowRedirect:#{afterDeleteFlowName}"/>
 
 </flow>

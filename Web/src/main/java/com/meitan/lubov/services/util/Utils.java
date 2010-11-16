@@ -37,7 +37,7 @@ import javax.servlet.ServletContext;
  *         Time: 15:39:14
  */
 //todo remove ServletContextAware
-public class Utils implements ServletContextAware , ApplicationContextAware{
+public class Utils {
 	private static final int STRING_LIMIT = 30;
 	private static final String DOTS = "...";
 
@@ -49,19 +49,6 @@ public class Utils implements ServletContextAware , ApplicationContextAware{
 	private static final String MEITAN_UPLOAD_FOLDER = "meitan.upload_folder";
 	private static final String MEITAN_HOME = "MEITAN_HOME";
 	private ApplicationContext applicationContext;
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
-	}
-
-	public ServletContext getServletContext() {
-		return servletContext;
-	}
-
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
 
 	public ArrayList asList(Set s) {
 		if (s != null) {
@@ -95,21 +82,6 @@ public class Utils implements ServletContextAware , ApplicationContextAware{
 			result = longName + DOTS;
 		}
 		return result;
-	}
-
-	public File getDestFile(String uploadDirName, String imageName) {
-		String uploadedFolderPath = getServletContext().getRealPath(uploadDirName);
-		File uploadDir = new File(uploadedFolderPath);
-		if (!uploadDir.exists()) {
-			throw new IllegalStateException("Upload directory doesn't exist: " + uploadDirName);
-		}
-		if (!uploadDir.isDirectory()) {
-			throw new IllegalStateException("Upload directory is not a directory: " + uploadDirName);
-		}
-		//rename it
-		File imageFile = new File(uploadDir, imageName);
-
-		return imageFile;
 	}
 
 	public ArrayList<SelectItem> getSelectItems(List<NameAware> source, Long selectedId) {

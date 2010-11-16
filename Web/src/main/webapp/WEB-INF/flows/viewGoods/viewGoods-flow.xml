@@ -15,6 +15,7 @@
 		<set name="conversationScope.dao" value="productDao"/>
 
 		<set name="flowScope.flowName" value="'categories'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'viewGoods'"/>
 	</on-start>
 
 	<decision-state id="allCategoriesQueried">
