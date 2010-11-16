@@ -2,9 +2,11 @@ package com.meitan.lubov;
 
 import com.meitan.lubov.model.IdAware;
 import com.meitan.lubov.services.dao.Dao;
+import com.meitan.lubov.services.util.Utils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,6 +32,8 @@ public abstract class GenericIntegrationTest<T extends IdAware> extends Abstract
 	protected List<T> beansFromXml = new ArrayList<T>();
 	protected List<T> beansFromDb = new ArrayList<T>();
 	protected static final String CLIENT_LOGIN = "denis_k";
+	@Autowired
+	protected Utils utils;
 
 	@Before
 	public void beforeTest() {

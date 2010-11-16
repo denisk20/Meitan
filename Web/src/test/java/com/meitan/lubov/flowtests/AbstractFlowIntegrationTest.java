@@ -1,7 +1,9 @@
 package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.services.util.MenuBackgroundService;
+import com.meitan.lubov.services.util.Utils;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,6 +32,9 @@ import java.io.File;
 @Transactional
 public abstract class AbstractFlowIntegrationTest extends AbstractXmlFlowExecutionTests {
 
+	@Autowired
+	protected Utils utils;
+	
 	protected String rootPath = System.getenv("MEITAN_HOME");
 
 	@Override
