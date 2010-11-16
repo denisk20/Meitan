@@ -36,7 +36,8 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
 
-	private Utils utils = new Utils();
+	@Autowired
+	private Utils utils;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {

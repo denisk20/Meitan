@@ -30,8 +30,6 @@ public class ImageManager {
 	private static final int ICON_WIDTH = 100;
 	private static final int ICON_HEIGHT = 100;
 
-	@Autowired
-	private Utils utils;
 	//todo unit test
 	// This method returns a buffered image with the contents of an image
 
