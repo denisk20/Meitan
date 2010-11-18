@@ -18,6 +18,9 @@ import java.util.regex.Pattern;
  */
 @Service("clientValidator")
 public class ClientValidator {
+	private final static String PASSPORT_SERIES_REGEXP = "[a-zA-Z]{2}";
+	private final static String PASSPORT_NUMBER_REGEXP = "[\\d]{5}";
+	private static final String EMAIL_REGEXP = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
 	@Autowired
 	private ClientDao clientDao;
 
@@ -55,7 +58,7 @@ public class ClientValidator {
 		}
 
 		String email = c.getEmail();
-		if (email == null || email.equals("")) {
+		if (email == null) {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
@@ -66,7 +69,7 @@ public class ClientValidator {
 			valid = false;
 		}
 
-		Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
+		Pattern emailPattern = Pattern.compile(EMAIL_REGEXP);
 		Matcher emailMatcher = emailPattern.matcher(email);
 		if (!emailMatcher.matches()) {
 			context.getMessageContext()
@@ -74,7 +77,7 @@ public class ClientValidator {
 							.error()
 							.source("messages")
 							.code("emailIsWrong")
-							.defaultText("Email address seems to be wrong: " + email)
+							.defaultText("Email address seems to be wrong: ")
 							.build());
 			valid = false;
 		}
@@ -116,14 +119,73 @@ public class ClientValidator {
 		String number = c.getPassport().getNumber();
 
 		boolean valid = true;
-		if (series == null) {
 
+		Pattern seriesPattern = Pattern.compile(PASSPORT_SERIES_REGEXP);
+		Matcher seriesMatcher = seriesPattern.matcher(series);
+		if (series == null || !seriesMatcher.matches()) {
+			context.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.source("messages")
+							.code("passportSeriesIsWrong")
+							.defaultText("Passport series is wrong")
+							.build());
+			valid = false;
 		}
+
+		Pattern numberPattern = Pattern.compile(PASSPORT_NUMBER_REGEXP);
+		Matcher numberMatcher = numberPattern.matcher(number);
+		if (number == null || !numberMatcher.matches()) {
+			context.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.source("messages")
+							.code("passportNumberIsWrong")
+							.defaultText("Passport number is wrong")
+							.build());
+			valid = false;
+		}
+
+
+
 
 		if (!valid) {
 			throw new IllegalArgumentException("Passport validation failed");
 		}
 
+	}
+
+	public void validateQuickRegistration(Client c, ValidationContext context) {
+		boolean valid = true;
+
+		String email = c.getEmail();
+
+		Pattern emailPattern = Pattern.compile(EMAIL_REGEXP);
+		Matcher emailMatcher = emailPattern.matcher(email);
+		if (email == null || !emailMatcher.matches()) {
+			context.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.source("messages")
+							.code("emailIsWrong")
+							.defaultText("Email address seems to be wrong")
+							.build());
+			valid = false;
+		}
+
+		Client existingClient = null;
+		if (c.getId() != 0) {
+			existingClient = clientDao.findById(c.getId());
+		}
+		if (existingClient != null) {
+			if (email != null) {
+				if (!email.equals(existingClient.getEmail())) {
+					if (!isEmailUnique(email, context)) {
+						valid = false;
+					}
+				}
+			}
+		}
 	}
 
 	private boolean isLoginUnique(String login, ValidationContext context) {
