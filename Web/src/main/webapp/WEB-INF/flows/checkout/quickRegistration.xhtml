@@ -23,10 +23,10 @@
 						<div class="label"><h:outputText value="#{resourceBundle.checkoutQuickRegEmailLabel}"/></div>
 						<div class="input">
 							<sf:clientTextValidator
-								regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="true"
+								regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
 								promptMessage="#{resourceBundle.checkoutQuickRegEmailPrompt}"
 								invalidMessage="#{resourceBundle.checkoutQuickRegEmailError}">
-							<h:inputText id="emailAddress" value="#{anonymousClient.email}" required="true"/>
+							<h:inputText id="emailAddress" value="#{anonymousClient.email}"/>
 						</sf:clientTextValidator>
 						</div>
 					</div>
