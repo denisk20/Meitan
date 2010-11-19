@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 @Service("clientValidator")
 public class ClientValidator {
-	private final static String PASSPORT_SERIES_REGEXP = "[a-zA-Z]{2}";
+	private final static String PASSPORT_SERIES_REGEXP = "[a-zA-ZА-Я]{2}";
 	private final static String PASSPORT_NUMBER_REGEXP = "[\\d]{5}";
 	private static final String EMAIL_REGEXP = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
 	@Autowired
