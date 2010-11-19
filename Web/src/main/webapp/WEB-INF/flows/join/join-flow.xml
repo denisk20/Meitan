@@ -30,6 +30,8 @@
             <evaluate expression="securityService.addCurrentSessionAuthority(client, 'ROLE_CONSULTANT')"/>
             <evaluate expression="authorityDao.assignAuthority(client, 'ROLE_CONSULTANT')"/>
         </transition>
+		
+		<transition on-exception="java.lang.IllegalArgumentException" to="sign"/>
     </view-state>
 
     <end-state id="register" view="flowRedirect:login"/>
