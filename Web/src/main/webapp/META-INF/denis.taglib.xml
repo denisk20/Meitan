@@ -25,4 +25,9 @@
         <tag-name>goodMenu</tag-name>
         <source>tags/goodMenu.xhtml</source>
     </tag>
+
+    <tag>
+        <tag-name>roundedItem</tag-name>
+        <source>tags/roundedItem.xhtml</source>
+    </tag>
 </facelet-taglib>

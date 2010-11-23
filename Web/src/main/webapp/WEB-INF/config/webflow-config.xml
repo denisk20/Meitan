@@ -117,9 +117,28 @@
 		<property name="control" ref="xmlResourdceBundleControl"/>
 	</bean>
 
+	<!--Rounded borders items-->
+	<bean id="blueBigRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" value="77c8fb"/>
+		<property name="size" value="big"/>
+		<property name="width" value="150px"/>
+		<property name="itemWidth" value="25"/>
+		<property name="itemHeight" value="29"/>
+	</bean>
+
+	<bean id="blueSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" value="77c8fb"/>
+		<property name="size" value="small"/>
+		<property name="width" value="150px"/>
+		<property name="itemWidth" value="17"/>
+		<property name="itemHeight" value="20"/>
+	</bean>
+
 	<!--Test section -->
 	<bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">
 		<property name="min" value="1"/>
 		<property name="max" value="10"/>
 	</bean>
+
+
 </beans>
