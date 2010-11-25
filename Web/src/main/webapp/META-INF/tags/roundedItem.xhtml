@@ -8,20 +8,20 @@
 		xmlns:c="http://java.sun.com/jstl/core"
 		xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
 		>
-	<div style="width:#{width}; height:#{height}">
-		<div style="background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}TopLeft.png) no-repeat top left;">
-			<div style="background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}TopRight.png) no-repeat top right;">
-				<div style="background:url(/images/borders/#{roundedItem.size}Filler#{roundedItem.color}Top.png) repeat-x top right;height:#{roundedItem.itemHeight}px; margin:0 #{roundedItem.itemWidth}px"></div>
+	<div style="margin: 0; width:#{width}; height:#{height}">
+		<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}TopLeft.png) no-repeat top left;">
+			<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}TopRight.png) no-repeat top right;">
+				<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}Filler#{roundedItem.color}Top.png) repeat-x top right;height:#{roundedItem.itemHeight}px; margin:0 #{roundedItem.itemWidth}px"></div>
 			</div>
 		</div>
 
-		<div style="background-color:##{roundedItem.color}; overflow-y:hidden">
+		<div style="margin: 0;background-color:##{roundedItem.color}; overflow-y:hidden">
 			<ui:insert/>
 		</div>
 
-		<div style="background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}BottomLeft.png) no-repeat top left;">
-			<div style="background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}BottomRight.png) no-repeat top right;">
-				<div style="background:url(/images/borders/#{roundedItem.size}Filler#{roundedItem.color}Bottom.png) repeat-x top right;height:#{roundedItem.itemHeight}px; margin:0 #{roundedItem.itemWidth}px"></div>
+		<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}BottomLeft.png) no-repeat top left;">
+			<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}BottomRight.png) no-repeat top right;">
+				<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}Filler#{roundedItem.color}Bottom.png) repeat-x top right;height:#{roundedItem.itemHeight}px; margin:0 #{roundedItem.itemWidth}px"></div>
 			</div>
 		</div>
 	</div>
