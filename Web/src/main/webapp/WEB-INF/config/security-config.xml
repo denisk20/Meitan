@@ -10,8 +10,10 @@
 <!--todo create unit tests for verifying security functions-->
 	<!-- Configure Spring Security -->
 	<security:http auto-config="true">
-		<security:form-login login-page="/spring/login" login-processing-url="/spring/loginProcess" default-target-url="/spring/about" authentication-failure-url="/spring/login?login_state=1"/>
-		<security:logout logout-url="/spring/logout" logout-success-url="/spring/login?login_state=2"/>
+		<security:form-login login-page="/spring/login" login-processing-url="/spring/loginProcess" default-target-url="/spring/about" authentication-failure-url="/spring/wrongCredentials"/>
+		<security:logout logout-url="/spring/logout" logout-success-url="/spring/leftSystem"/>
+		<!--<security:form-login login-page="/spring/login" login-processing-url="/spring/loginProcess" default-target-url="/spring/about" authentication-failure-url="/spring/login?login_state=1"/>-->
+		<!--<security:logout logout-url="/spring/logout" logout-success-url="/spring/login?login_state=2"/>-->
 	</security:http>
 
 	<!--
