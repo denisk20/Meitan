@@ -27,23 +27,24 @@
 		<evaluate expression="securityService.isUserAuthenticated()"/>
 		<transition on="yes" to="order"/>
 		<transition on="no" to="quickRegistrationFirstTime">
-			<evaluate expression="clientDao.newInstance()" result="flowScope.anonymousClient"/>
+			<evaluate expression="clientDao.newInstance()" result="flowScope.client"/>
 			<!--todo why do we get null in de-serialized Client's name?-->
-			<!--<evaluate expression="clientDao.newInstance()" result="conversationScope.anonymousClient"/>-->
+			<!--<evaluate expression="clientDao.newInstance()" result="conversationScope.client"/>-->
 		</transition>
 		<transition on="unregistered" to="changeQuickregDetails">
-			<evaluate expression="clientDao.getByLogin(currentUser.name)" result="flowScope.anonymousClient"/>
+			<evaluate expression="clientDao.getByLogin(currentUser.name)" result="flowScope.client"/>
 		</transition>
 	</action-state>
 
-	<view-state id="changeQuickregDetails" model="anonymousClient">
+	<view-state id="changeQuickregDetails" model="client">
 		<transition on="change" to="quickRegistrationAdjustDetails"/>
 		<transition on="itsOK" to="order"/>
 	</view-state>
 
-	<view-state id="quickRegistration" model="anonymousClient">
+	<view-state id="quickRegistration" model="client">
 		<transition on="quickreg" to="order"/>
 		<transition on-exception="java.lang.IllegalAccessException" to="#{viewName}"/>
+		<transition on-exception="java.lang.IllegalArgumentException" to="#{viewName}"/>
 	</view-state>
 
 	<view-state id="quickRegistrationFirstTime" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml">
@@ -51,21 +52,21 @@
 			<set name="viewScope.viewName" value="'quickRegistrationFirstTime'"/>
 		</on-entry>
 		<transition on="quickreg" to="order">
-			<set name="anonymousClient.login" value="anonymousClient.email"/>
-			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(flowRequestContext, anonymousClient)" result="flowScope.anonymousClient"/>
-			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
+			<set name="client.login" value="client.email"/>
+			<evaluate expression="clientDao.saveOrFetchUnregisteredClientByEmail(flowRequestContext, client)" result="flowScope.client"/>
+			<evaluate expression="securityService.authenticateUser(client)"/>
 		</transition>
 	</view-state>
 
-	<view-state id="quickRegistrationAdjustDetails" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml" model="anonymousClient">
+	<view-state id="quickRegistrationAdjustDetails" parent="checkout#quickRegistration" view="../checkout/quickRegistration.xhtml" model="client">
 		<on-entry>
 			<set name="viewScope.viewName" value="'quickRegistrationAdjustDetails'"/>
 		</on-entry>
 		<transition on="quickreg" to="order">
-			<set name="anonymousClient.login" value="anonymousClient.email"/>
-			<evaluate expression="clientDao.mergeAnonymousClient(flowRequestContext, anonymousClient)"/>
+			<set name="client.login" value="client.email"/>
+			<evaluate expression="clientDao.mergeAnonymousClient(flowRequestContext, client)"/>
 			<!--todo do we need it here?-->
-			<evaluate expression="securityService.authenticateUser(anonymousClient)"/>
+			<evaluate expression="securityService.authenticateUser(client)"/>
 		</transition>
 	</view-state>
 
