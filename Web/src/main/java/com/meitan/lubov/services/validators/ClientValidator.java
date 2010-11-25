@@ -155,7 +155,16 @@ public class ClientValidator {
 
 	}
 
-	public void validateQuickRegistration(Client c, ValidationContext context) {
+
+	public void validateQuickRegistrationFirstTime(Client c, ValidationContext context) {
+		validateQuickRegistration(c, context);
+	}
+
+	public void validateQuickRegistrationAdjustDetails(Client c, ValidationContext context) {
+		validateQuickRegistration(c, context);
+	}
+
+	private void validateQuickRegistration(Client c, ValidationContext context) {
 		boolean valid = true;
 
 		String email = c.getEmail();
@@ -185,6 +194,10 @@ public class ClientValidator {
 					}
 				}
 			}
+		}
+
+		if (!valid) {
+			throw new IllegalArgumentException("Passport validation failed");
 		}
 	}
 

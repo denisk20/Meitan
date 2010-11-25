@@ -21,7 +21,7 @@
 					<div class="field">
 						<div class="label"><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsEmailTitle}"/></div>
 						<div class="output">
-							<h:outputLabel id="emailAddress" value="#{anonymousClient.email}"/>
+							<h:outputLabel id="emailAddress" value="#{client.email}"/>
 						</div>
 					</div>
 				</div>
@@ -39,8 +39,8 @@
 			</fieldset>
 
 			<p><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsWannaChange}"/></p>
-			<h:commandLink value="#{resourceBundle.categoriesAddGoodMenu}" action="change"/>
-			<h:commandLink value="#{resourceBundle.categoriesAddGoodMenu}" action="itsOK"/>
+			<h:commandLink value="#{resourceBundle.checkoutChangeQuickregDetailsYes}" action="change"/>
+			<h:commandLink value="#{resourceBundle.checkoutChangeQuickregDetailsNo}" action="itsOK"/>
 		</h:form>
 
 	</ui:define>
