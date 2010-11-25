@@ -32,25 +32,12 @@
 
 	<body class="tundra spring">
 
-	<denis:roundedItem width="300px" height="auto" item="#{blueTinyRoundedItem}">
-		<p style="margin:0">
-			This is test div This is test div This is test div This is test div This is test div This is test div
-		</p>
-	</denis:roundedItem>
 
 	<div class="container">
 		<div id="topPanel">
-			<div class="top_topOutline">
-				<!--
-					<div class="topCorner_left"/>
-					<div class="topOutline"/>
-					&lt;!&ndash;<div class="topAlmostRight"/>&ndash;&gt;
-					<div class="topCorner_right"/>
-	-->
-			</div>
-			<!--<div class="sideOutlineLeft"/>-->
+
 			<div class="topPanelContent">
-				<denis:roundedItem width="auto" height="auto" item="#{blueBigRoundedItem}">
+				<denis:roundedItem width="auto" height="auto" roundedItem="#{blueBigRoundedItem}">
 					<div id="loginPanel">
 						<c:if test="${not empty currentUser.name}">
 							Добро пожаловать, <span class="exclamation">${currentUser.name}</span> <a
@@ -95,28 +82,25 @@
 					</div>
 				</denis:roundedItem>
 			</div>
-			<!--<div class="sideOutlineRight"/>-->
-			<div class="top_bottomOutline">
-				<!--
-					<div class="bottomCorner_left"/>
-					<div class="topOutline"/>
-					&lt;!&ndash;<div class="topAlmostRight"/>&ndash;&gt;
-					<div class="bottomCorner_right"/>
-	-->
-			</div>
-
 		</div>
 
-		<table class="contentTable">
-			<tr>
-				<td class="menuTd">
-					<ui:include src="menu.xhtml"/>
-				</td>
-				<td id="content">
-					<ui:insert name="content"/>
-				</td>
-			</tr>
-		</table>
+		<div class="content">
+			<denis:roundedItem width="auto" height="auto" roundedItem="#{orangeBigRoundedItem}">
+				<ui:include src="menu.xhtml"/>
+				<ui:insert name="content"/>
+			</denis:roundedItem>
+		</div>
+
+		<!--<table class="contentTable">-->
+			<!--<tr>-->
+				<!--<td class="menuTd">-->
+					<!--&lt;!&ndash;<ui:include src="menu.xhtml"/>&ndash;&gt;-->
+				<!--</td>-->
+				<!--<td id="content">-->
+					<!--<ui:insert name="content"/>-->
+				<!--</td>-->
+			<!--</tr>-->
+		<!--</table>-->
 	</div>
 	</body>
 	</html>
