@@ -21,7 +21,7 @@ body {
 }
 
 .topPanelContent {
-    float:left;
+    /*float:left;*/
     width: 100%;
 }
 
@@ -49,8 +49,8 @@ body {
 }
 
 #topPanel {
-    background-color:      #adff2f;
-    height:                120px;
+    /*background-color:      #adff2f;*/
+    /*height:                120px;*/
     margin-bottom:         15px;
 }
 
@@ -59,13 +59,12 @@ body {
     margin-top:            15px;
 }
 
-.contentTable {
-    background-color:      white;
+.content {
+    margin: 0 auto;
 }
 
 .container {
-    width:                 1315px;
-	min-width: 1000px;
+    width:                 1000px;
     margin:                auto;
     background-color:      #ccffff;
     margin-top:            10px;
@@ -123,14 +122,8 @@ img.menubg {
     font-size:             125%;
 }
 
-#menu_links {
-/*todo*/
-/*
-    background-image:      url("/images/money-ready.png");
-    background-repeat:     no-repeat;
-    background-position:   -9px 5%;
-    height:                240px;
-*/
+.menu_links li {
+	display:inline;
 }
 
 #menu_links a:link, a:visited, a:hover, a:active {

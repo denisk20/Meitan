@@ -180,6 +180,13 @@
 		<property name="itemHeight" ref="bigHeight"/>
 	</bean>
 
+	<bean id="orangeBigRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="orange"/>
+		<property name="size" ref="bigName"/>
+		<property name="itemWidth" ref="bigWidth"/>
+		<property name="itemHeight" ref="bigHeight"/>
+	</bean>
+
 	<bean id="blueSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
 		<property name="color" ref="blue"/>
 		<property name="size" ref="smallName"/>
