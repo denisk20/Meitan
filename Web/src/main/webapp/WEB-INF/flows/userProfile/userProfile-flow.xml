@@ -23,7 +23,7 @@
             <evaluate expression="securityService.authenticateUser(client)"/>
         </transition>
 
-        <transition on="cancel" to="cancel"/>
+        <transition on="cancel" to="cancel" bind="false"/>
         <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="userProfile"/>
 		<!--passwords don't match-->
 		<transition on-exception="java.lang.IllegalArgumentException" to="userProfile"/>

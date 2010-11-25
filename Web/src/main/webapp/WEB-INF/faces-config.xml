@@ -15,4 +15,7 @@
         <!-- Enables Facelets -->
         <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
     </application>
+	<lifecycle>
+		<phase-listener>com.meitan.lubov.services.util.LoginErrorPhaseListener</phase-listener>
+	</lifecycle>
 </faces-config>

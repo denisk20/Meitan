@@ -176,7 +176,6 @@
 	<bean id="blueBigRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
 		<property name="color" ref="blue"/>
 		<property name="size" ref="bigName"/>
-		<property name="width" value="150px"/>
 		<property name="itemWidth" ref="bigWidth"/>
 		<property name="itemHeight" ref="bigHeight"/>
 	</bean>
@@ -184,7 +183,6 @@
 	<bean id="blueSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
 		<property name="color" ref="blue"/>
 		<property name="size" ref="smallName"/>
-		<property name="width" value="150px"/>
 		<property name="itemWidth" ref="smallWidth"/>
 		<property name="itemHeight" ref="smallHeight"/>
 	</bean>
@@ -192,10 +190,13 @@
 	<bean id="blueTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
 		<property name="color" ref="blue"/>
 		<property name="size" ref="tinyName"/>
-		<property name="width" value="150px"/>
 		<property name="itemWidth" ref="tinyWidth"/>
 		<property name="itemHeight" ref="tinyHeight"/>
 	</bean>
+
+
+
+
 
 	<!--Test section -->
 	<bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">

@@ -9,7 +9,6 @@ package com.meitan.lubov.services.util;
 public class RoundedItemBean {
 	private String color;
 	private String size;
-	private String width;
 	private int itemWidth;
 	private int itemHeight;
 
@@ -27,14 +26,6 @@ public class RoundedItemBean {
 
 	public void setSize(String size) {
 		this.size = size;
-	}
-
-	public String getWidth() {
-		return width;
-	}
-
-	public void setWidth(String width) {
-		this.width = width;
 	}
 
 	public int getItemWidth() {
@@ -58,7 +49,6 @@ public class RoundedItemBean {
 		return "RoundedItemBean{" +
 				"color='" + color + '\'' +
 				", size='" + size + '\'' +
-				", width=" + width +
 				", itemWidth=" + itemWidth +
 				", itemHeight=" + itemHeight +
 				'}';

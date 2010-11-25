@@ -1,0 +1,77 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:j4j="http://javascript4jsf.dev.java.net/"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:form="http://www.springframework.org/tags/form" xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:c="http://java.sun.com/jstl/core"
+				template="/WEB-INF/templates/meitan.xhtml">
+
+	<ui:define name="header">
+		<!--<sf:resource path="/styles/login.css"/>-->
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h1>Требуется авторизация</h1>
+
+<!--
+		<div class="section" style="font-weight:bold;color:red;">
+			&lt;!&ndash;this div will never work for webflow...&ndash;&gt;
+			<c:if test="${requestParameters.login_state==1}">
+				<div class="errors">
+					Логин или пароль неверен, попробуйте снова.<br/>
+					Причина: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+				</div>
+			</c:if>
+			<c:if test="${requestParameters.login_state==2}">
+				<div style="font-weight:bold">Вы успешно покинули систему. Возвращайтесь поскорей!</div>
+			</c:if>
+			<br/>
+		</div>
+-->
+
+		<div class="section">
+			<p><h:outputFormat value="#{resourceBundle.loginPleaseEnter}"/> <a href="userProfile"><h:outputFormat value="#{resourceBundle.loginRegister}"/></a></p>
+
+			<h:form id="loginForm"
+					prependId="false">
+				<fieldset>
+					<div class="field">
+						<div class="label"><h:outputFormat value="#{resourceBundle.loginUsername}"/></div>
+						<div class="input">
+							<c:if test="${not empty param.login_error}">
+								<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
+							</c:if>
+							<h:inputText id="j_username" required="true"/>
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="label"><h:outputFormat value="#{resourceBundle.loginPassword}"/></div>
+						<div class="input">
+							<h:inputSecret id="j_password" required="true"/>
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="label"><h:outputFormat value="#{resourceBundle.loginRememberMe}"/></div>
+						<div class="input">
+							<h:selectBooleanCheckbox id="_spring_security_remember_me"/>
+						</div>
+					</div>
+				</fieldset>
+
+
+				<div class="buttonGroup">
+					<h:commandButton action="#{loginBean.doLogin}" value="#{resourceBundle.loginEnter}"/>
+				</div>
+
+			</h:form>
+
+		</div>
+
+	</ui:define>
+</ui:composition>

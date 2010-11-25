@@ -200,4 +200,17 @@
 	<!--goodMenu.xhtml-->
 	<entry key="goodMenuBuy">Купить!</entry>
 
+	<!--login.xhtml-->
+	<entry key="loginPleaseEnter">Пожалуйста, войдите или</entry>
+	<entry key="loginRegister">Зарегистрируйтесь</entry>
+	<entry key="loginUsername">Логин</entry>
+	<entry key="loginPassword">Пароль</entry>
+	<entry key="loginRememberMe">Запомнить меня!</entry>
+	<entry key="loginEnter">Войти</entry>
+	<!--leftSystem.xhtml-->
+	<entry key="leftSystemSeeYa">Вы успешно покинули систему! Возвращайтесь поскорее!!!</entry>
+	<!--wrongCredentials.xhtml-->
+	<entry key="wrongCredentialsFail">Неверное имя или пароль</entry>
+	<entry key="wrongCredentialsTryAgain">Попробуйте снова</entry>
+
 </properties>
