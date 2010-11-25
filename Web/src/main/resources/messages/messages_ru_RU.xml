@@ -15,7 +15,7 @@
 	<!--menu template-->
 	<entry key="aboutCompanyMenu">О компании</entry>
 	<entry key="productionMenu">Продукция</entry>
-	<entry key="becumeConsultantMenu">Стань консультантом!</entry>
+	<entry key="becomeConsultantMenu">Стань консультантом!</entry>
 	<entry key="addsForConsultantsMenu">Объявления для консультантов</entry>
 	<!--about us-->
 	<entry key="aboutH2">Компания очень интересная и классная!!!</entry>

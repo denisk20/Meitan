@@ -194,6 +194,13 @@
 		<property name="itemHeight" ref="smallHeight"/>
 	</bean>
 
+	<bean id="redSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="red"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
 	<bean id="blueTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
 		<property name="color" ref="blue"/>
 		<property name="size" ref="tinyName"/>
