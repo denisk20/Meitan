@@ -66,49 +66,49 @@
 										</div>
 										<div class="menuButtons">
 											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<a href="itemsList">
 													<div class="menuItemText">
+														<a href="itemsList">
 														<h:outputFormat value="#{resourceBundle.meitanItemsList}"/>
-													</div>
 												</a>
+										</div>
 											</denis:roundedItem>
 										</div>
 										<div class="menuButtons">
 											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<a href="userProfile">
 													<div class="menuItemText">
+														<a href="userProfile">
 														<h:outputFormat value="#{resourceBundle.meitanProfile}"/>
-													</div>
 												</a>
+										</div>
 											</denis:roundedItem>
 										</div>
 										<div class="menuButtons">
 											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<a href="${request.contextPath}/spring/logout">
 													<div class="menuItemText">
+														<a href="${request.contextPath}/spring/logout">
 														<h:outputFormat value="#{resourceBundle.exit}"/>
-													</div>
 												</a>
+										</div>
 											</denis:roundedItem>
 										</div>
 									</c:if>
 									<c:if test="${empty currentUser.name}">
 										<div class="menuButtons">
 											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<a href="${request.contextPath}/spring/login">
 													<div class="menuItemText">
+														<a href="${request.contextPath}/spring/login">
 														<h:outputFormat value="#{resourceBundle.enter}"/>
-													</div>
 												</a>
+										</div>
 											</denis:roundedItem>
 										</div>
 										<div class="menuButtons">
 											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<a href="${request.contextPath}/spring/userProfile">
 													<div class="menuItemText">
+														<a href="${request.contextPath}/spring/userProfile">
 														<h:outputFormat value="#{resourceBundle.register}"/>
-													</div>
 												</a>
+										</div>
 											</denis:roundedItem>
 										</div>
 									</c:if>
@@ -133,11 +133,11 @@
 											<c:if test="#{cart.count > 0}">
 												<div class="menuButtons">
 													<denis:roundedItem width="auto" height="auto" roundedItem="#{redTinyRoundedItem}">
-														<a href="${request.contextPath}/spring/checkout">
 															<div class="menuItemText">
+																<a href="${request.contextPath}/spring/checkout">
 																<h:outputFormat value="#{resourceBundle.meitanMakeOrder}"/>
-															</div>
 														</a>
+												</div>
 													</denis:roundedItem>
 												</div>
 											</c:if>

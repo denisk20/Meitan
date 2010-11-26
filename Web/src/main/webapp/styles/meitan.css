@@ -154,7 +154,7 @@ img.menubg {
 	margin:0;
 }
 .topMenuItemText{
-	margin:-10px;
+	margin:0px;
 }
 
 .login, .cart{
@@ -166,7 +166,7 @@ img.menubg {
 
 }
 .cartMenus {
-	margin-top: 90px;
+	margin-top: 117px;
 	margin-left: 50px;
 	position:absolute;
 }
