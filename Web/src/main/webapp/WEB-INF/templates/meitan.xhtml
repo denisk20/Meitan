@@ -38,48 +38,7 @@
 
 			<div class="topPanelContent">
 				<denis:roundedItem width="auto" height="auto" roundedItem="#{blueBigRoundedItem}">
-					<div id="loginPanel">
-						<c:if test="${not empty currentUser.name}">
-							Добро пожаловать, <span class="exclamation">${currentUser.name}</span> <a
-								href="${request.contextPath}/spring/logout">
-							<img style="vertical-align:middle;" src="/images/exit_button_still.png" alt="Выйти"
-								 onmouseover="this.src = '/images/exit_button_mouseover.png'"
-								 onmouseout="this.src='/images/exit_button_still.png'"/>
-						</a>
-							<br/>
-							<a href="itemsList">Посмотреть историю покупок</a>
-							<br/>
-							<a href="userProfile">Изменить личные данные</a>
-						</c:if>
-						<c:if test="${empty currentUser.name}">
-							<a href="${request.contextPath}/spring/login">
-								<img src="/images/enter_button_still.png" alt="Войти"
-									 onmouseover="this.src = '/images/enter_button_mouseover.png'"
-									 onmouseout="this.src='/images/enter_button_still.png'"/>
-							</a>
-						</c:if>
-					</div>
-
-					<div id="cartDivTop">
-						<h:form id="topPanelForm">
-							<ui:fragment id="shoppingCartFragment">
-								<div id="cartDiv">
-									<span id="cartInfo"> Всего в тележке товаров <span
-											class="exclamation">#{cart.count}</span> на сумму <span
-											class="exclamation">#{cart.totalPrice}</span></span>
-									<c:if test="#{cart.count > 0}">
-										<div id="checkoutLink">
-											<a href="checkout">
-												<img src="/images/checkout_button_still.png" alt="Оформить заказ"
-													 onmouseover="this.src = '/images/checkout_button_mouseover.png'"
-													 onmouseout="this.src='/images/checkout_button_still.png'"/>
-											</a>
-										</div>
-									</c:if>
-								</div>
-							</ui:fragment>
-						</h:form>
-					</div>
+					<div style="height:50px;"></div>
 				</denis:roundedItem>
 			</div>
 		</div>
@@ -99,17 +58,10 @@
 									<c:if test="${not empty currentUser.name}">
 										<div class="menuButtons">
 											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<h:outputFormat value="#{resourceBundle.meitanWelcome}"/>
-												<span class="exclamation">${currentUser.name}</span>
-											</denis:roundedItem>
-										</div>
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<a href="${request.contextPath}/spring/logout">
-													<div class="menuItemText">
-														<h:outputFormat value="#{resourceBundle.exit}"/>
-													</div>
-												</a>
+												<div class="menuItemText">
+													<h:outputFormat value="#{resourceBundle.meitanWelcome}"/>
+													<span class="exclamation">${currentUser.name}</span>
+												</div>
 											</denis:roundedItem>
 										</div>
 										<div class="menuButtons">
@@ -130,7 +82,15 @@
 												</a>
 											</denis:roundedItem>
 										</div>
-
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<a href="${request.contextPath}/spring/logout">
+													<div class="menuItemText">
+														<h:outputFormat value="#{resourceBundle.exit}"/>
+													</div>
+												</a>
+											</denis:roundedItem>
+										</div>
 									</c:if>
 									<c:if test="${empty currentUser.name}">
 										<div class="menuButtons">
@@ -142,8 +102,49 @@
 												</a>
 											</denis:roundedItem>
 										</div>
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<a href="${request.contextPath}/spring/userProfile">
+													<div class="menuItemText">
+														<h:outputFormat value="#{resourceBundle.register}"/>
+													</div>
+												</a>
+											</denis:roundedItem>
+										</div>
 									</c:if>
 								</denis:roundedItem>
+							</div>
+							<div class="cart">
+								<h:form id="topPanelForm">
+									<ui:fragment id="shoppingCartFragment">
+
+										<div id="cartMenusId" class="cartMenus">
+											<div class="menuButtons">
+												<denis:roundedItem width="auto" height="auto" roundedItem="#{redTinyRoundedItem}">
+													<div class="menuItemText">
+														<span class="exclamation">#{cart.count}</span>
+														<h:outputFormat value="#{resourceBundle.meitanItemsInCart}"/>
+														<span class="exclamation">#{cart.totalPrice}</span>
+														<h:outputFormat value="#{resourceBundle.meitanGriven}"/>
+													</div>
+												</denis:roundedItem>
+											</div>
+
+											<c:if test="#{cart.count > 0}">
+												<div class="menuButtons">
+													<denis:roundedItem width="auto" height="auto" roundedItem="#{redTinyRoundedItem}">
+														<a href="${request.contextPath}/spring/checkout">
+															<div class="menuItemText">
+																<h:outputFormat value="#{resourceBundle.meitanMakeOrder}"/>
+															</div>
+														</a>
+													</denis:roundedItem>
+												</div>
+											</c:if>
+										</div>
+
+									</ui:fragment>
+								</h:form>
 							</div>
 						</td>
 					</tr>

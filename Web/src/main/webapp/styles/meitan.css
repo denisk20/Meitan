@@ -149,9 +149,30 @@ img.menubg {
     padding:0;
     margin:0;
 }
-.menuItemText {
-    padding:3px 0;
+.menuItemText, .topMenuItemText {
+    padding:2px 0;
 	margin:0;
+}
+.topMenuItemText{
+	margin:-10px;
+}
+
+.login, .cart{
+	margin: 0 5px 0 0;
+}
+.cart {
+	background: url(/images/cart_gift.png) center no-repeat;
+	height:300px;
+
+}
+.cartMenus {
+	margin-top: 90px;
+	margin-left: 50px;
+	position:absolute;
+}
+
+#cartMenusId .menuItemText {
+	padding: 5px;
 }
 .menuTable td {
     width:30%;
@@ -162,7 +183,6 @@ img.menubg {
 }
 
 #menu_content > div {
-    /*float:                 left;*/
     font-size:             125%;
 }
 
@@ -182,20 +202,6 @@ a:hover, a:active {
     color:                 blue;
 }
 
-/*
-.kolona_top
-{
-
-}
-.kolona_middle
-{
-    background-image:url("/images/kolona_middle.png");
-    background-repeat:repeat-y;
-}
-.kolona_bottom
-{
-
-}*/
 .actionMenu {
     float:                 none;
 }
@@ -252,7 +258,7 @@ div.img {
     margin:                5px;
     border:                1px solid #0000ff;
     height:                auto;
-    width:                 auto; /*float:               left;*/
+    width:                 auto;
     text-align:            center;
 }
 
