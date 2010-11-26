@@ -14,6 +14,25 @@ body {
     vertical-align:        top;
 }
 
+.contentTable {
+	width:100%;
+}
+
+.contentTable td:first-child {
+	width:70%;
+}
+
+.menuButtons {
+	margin:3px 3px 0;
+	padding: 5px;
+}
+
+.rowSmallButton {
+	float:left;
+}
+.info {
+	vertical-align:top;
+}
 #content {
     background-image:      url("/images/flower5.png");
     background-attachment: fixed;
@@ -53,7 +72,7 @@ body {
 #topPanel {
     /*background-color:      #adff2f;*/
     /*height:                120px;*/
-    margin-bottom:         15px;
+    margin:         0;
 }
 
 #middle {
@@ -132,6 +151,7 @@ img.menubg {
 }
 .menuItemText {
     padding:3px 0;
+	margin:0;
 }
 .menuTable td {
     width:30%;
@@ -155,7 +175,7 @@ img.menubg {
 }
 
 a:link, a:visited {
-    color:                 red;
+    color:                 blue;
 }
 
 a:hover, a:active {

@@ -201,6 +201,20 @@
 		<property name="itemHeight" ref="smallHeight"/>
 	</bean>
 
+	<bean id="yellowSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="yellow"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
+	<bean id="orangeSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="orange"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
 	<bean id="blueTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
 		<property name="color" ref="blue"/>
 		<property name="size" ref="tinyName"/>
@@ -208,9 +222,19 @@
 		<property name="itemHeight" ref="tinyHeight"/>
 	</bean>
 
+	<bean id="yellowTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="yellow"/>
+		<property name="size" ref="tinyName"/>
+		<property name="itemWidth" ref="tinyWidth"/>
+		<property name="itemHeight" ref="tinyHeight"/>
+	</bean>
 
-
-
+	<bean id="orangeTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="orange"/>
+		<property name="size" ref="tinyName"/>
+		<property name="itemWidth" ref="tinyWidth"/>
+		<property name="itemHeight" ref="tinyHeight"/>
+	</bean>
 
 	<!--Test section -->
 	<bean id="numberBean" class="com.meitan.lubov.services.test.NumberBean">

@@ -84,24 +84,72 @@
 			</div>
 		</div>
 
-        <ui:include src="menu.xhtml"/>
+		<ui:include src="menu.xhtml"/>
 
 		<div class="content">
 			<denis:roundedItem width="auto" height="auto" roundedItem="#{orangeBigRoundedItem}">
-				<ui:insert name="content"/>
+				<table class="contentTable">
+					<tr>
+						<td>
+							<ui:insert name="content"/>
+						</td>
+						<td class="info">
+							<div class="login">
+								<denis:roundedItem width="auto" height="auto" roundedItem="#{blueSmallRoundedItem}">
+									<c:if test="${not empty currentUser.name}">
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<h:outputFormat value="#{resourceBundle.meitanWelcome}"/>
+												<span class="exclamation">${currentUser.name}</span>
+											</denis:roundedItem>
+										</div>
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<a href="${request.contextPath}/spring/logout">
+													<div class="menuItemText">
+														<h:outputFormat value="#{resourceBundle.exit}"/>
+													</div>
+												</a>
+											</denis:roundedItem>
+										</div>
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<a href="itemsList">
+													<div class="menuItemText">
+														<h:outputFormat value="#{resourceBundle.meitanItemsList}"/>
+													</div>
+												</a>
+											</denis:roundedItem>
+										</div>
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<a href="userProfile">
+													<div class="menuItemText">
+														<h:outputFormat value="#{resourceBundle.meitanProfile}"/>
+													</div>
+												</a>
+											</denis:roundedItem>
+										</div>
+
+									</c:if>
+									<c:if test="${empty currentUser.name}">
+										<div class="menuButtons">
+											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+												<a href="${request.contextPath}/spring/login">
+													<div class="menuItemText">
+														<h:outputFormat value="#{resourceBundle.enter}"/>
+													</div>
+												</a>
+											</denis:roundedItem>
+										</div>
+									</c:if>
+								</denis:roundedItem>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</denis:roundedItem>
 		</div>
-
-		<!--<table class="contentTable">-->
-			<!--<tr>-->
-				<!--<td class="menuTd">-->
-					<!--&lt;!&ndash;<ui:include src="menu.xhtml"/>&ndash;&gt;-->
-				<!--</td>-->
-				<!--<td id="content">-->
-					<!--<ui:insert name="content"/>-->
-				<!--</td>-->
-			<!--</tr>-->
-		<!--</table>-->
 	</div>
 	</body>
 	</html>

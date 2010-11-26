@@ -179,6 +179,8 @@
 	<entry key="goodsListForCategoryAddProduct">Добавить продукт</entry>
 
 	<!--meitan.xhtml-->
+	<entry key="enter">Войти</entry>
+	<entry key="exit">Выйти</entry>
 	<entry key="meitanTitle">Мейтан в Харькове, лечебная китайская косметика</entry>
 	<entry key="meitanWelcome"> Добро пожаловать, </entry>
 	<entry key="meitanItemsList">Посмотреть историю покупок</entry>
