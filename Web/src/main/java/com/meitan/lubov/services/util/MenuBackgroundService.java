@@ -45,7 +45,7 @@ public class MenuBackgroundService {
 		if (item.equals(selectedItem)) {
 			return redSmallRoundedItem;
 		} else {
-			return blueTinyRoundedItem;
+			return blueSmallRoundedItem;
 		}
 	}
 }
