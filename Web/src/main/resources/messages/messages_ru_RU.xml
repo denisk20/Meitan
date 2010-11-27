@@ -119,7 +119,7 @@
 
 	<!--images manager-->
 	<entry key="imagesManagerHeader">Изменить изображения</entry>
-	<entry key="imagesManagerHasImages">имеет следующие изображения:</entry>
+	<entry key="imagesManagerHasImages">Изображения:</entry>
 	<entry key="imagesManagerDelete">Удалить</entry>
 	<entry key="imagesManagerMakeMain">Сдалать главным изборажением</entry>
 	<entry key="imagesManagerMainLabel">Главное изображение</entry>
@@ -196,6 +196,7 @@
 	<!--board.xhtml-->
 	<entry key="boardSavedInfo">Изменения сохранены в элементе </entry>
 	<entry key="boardAddNews">Добавить новую новость...</entry>
+	<entry key="boardAdded">Добавлено </entry>
 	<entry key="boardCreate">Создать</entry>
 	<entry key="boardNews">Объявление</entry>
 	<entry key="boardSave">Сохранить</entry>

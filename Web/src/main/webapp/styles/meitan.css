@@ -1,38 +1,44 @@
-@font-face {
-    font-family: matreshka;
-    src: url("/fonts/Matreshka.eot");
-    src: local(matreshka), url("/fonts/Matreshka.ttf") format("opentype");
+@font-face
+{
+    font-family:           matreshka
+;
+    src:                   url("/fonts/Matreshka.eot")
+;
+    src:                   local(matreshka), url("/fonts/Matreshka.ttf") format("opentype")
+;
 }
 
 body {
     background-color:      #ccffff;
-    margin:0;
-    padding:0;
+    margin:                0;
+    padding:               0;
 }
 
-.menuTd {
+.contentTable td {
     vertical-align:        top;
 }
 
 .contentTable {
-	width:100%;
+    width:                 100%;
 }
 
 .contentTable td:first-child {
-	width:70%;
+    width:                 70%;
 }
 
 .menuButtons {
-	margin:3px 3px 0;
-	padding: 5px;
+    margin:                3px 3px 0;
+    padding:               5px;
 }
 
 .rowSmallButton {
-	float:left;
+    float:                 left;
 }
+
 .info {
-	vertical-align:top;
+    vertical-align:        top;
 }
+
 #content {
     background-image:      url("/images/flower5.png");
     background-attachment: fixed;
@@ -42,8 +48,9 @@ body {
 }
 
 .topPanelContent {
-    /*float:left;*/
-    width: 100%;
+/*float:left;*/
+    width:                 100%;
+    position:              relative;
 }
 
 #loginPanel {
@@ -57,22 +64,24 @@ body {
     margin-top:            14px;
     margin-left:           40px;
 }
+
 #cartDivTop {
-    float:right;
-    margin:0 0 0 0;
+    float:                 right;
+    margin:                0 0 0 0;
 }
+
 #cartInfo {
     margin-right:          15px;
 }
 
 #checkoutLink {
-    margin: 10px 0 0;
+    margin:                10px 0 0;
 }
 
 #topPanel {
-    /*background-color:      #adff2f;*/
-    /*height:                120px;*/
-    margin:         0;
+/*background-color:      #adff2f;*/
+/*height:                120px;*/
+    margin:                0;
 }
 
 #middle {
@@ -81,7 +90,7 @@ body {
 }
 
 .content {
-    margin: 0 auto;
+    margin:                0 auto;
 }
 
 .container {
@@ -96,90 +105,107 @@ body {
 }
 
 .vmenu {
-    /*width:                 165px;*/
+/*width:                 165px;*/
     list-style-type:       none;
     margin-top:            10px;
 }
 
 .vmenu li {
     margin-left:           0;
-    margin-bottom:         0;
-    /*font-weight:           bold;*/
-    font-size:             110%;
-	/*background-color: white;*/
-	/*background-image: url("/images/menu_background.png");*/
+    margin-bottom:         0; /*font-weight:           bold;*/
+    font-size:             110%; /*background-color: white;*/
+/*background-image: url("/images/menu_background.png");*/
 }
+
+div.navMenuItem, div.sideMenuItem {
+    position:              relative;
+    line-height:           20px;
+    padding:               10px;
+    margin:                0; /*display: inline;*/
+}
+
 div.navMenuItem {
-	position:relative;
-	line-height:20px;
-	padding: 10px;
-	margin:0;
-    display: inline;
+    font-size:             170%;
 }
+
+div.navMenuItem *, div.sideMenuItem * {
+    position:              relative;
+}
+
 a.navMenuLink {
-	position:relative;
+    position:              relative;
 }
+
 img.menubg {
-	position: absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
+    position:              absolute;
+    top:                   0;
+    left:                  0;
+    width:                 100%;
+    height:                100%;
 }
+
 .menu_side {
 /*display:inline;*/
-	float:left;
+    float:                 left;
 }
+
 .menu_links {
-	margin:0;
+    margin:                15px 0;
 }
 
 .menuItem {
-    padding:0 10px;
-    margin:0;
+    padding:               0 10px;
+    margin:                0;
 }
 
 .menuItem a {
-    /*float:left;*/
-    margin:0;
-    padding: 0 10px;
+/*float:left;*/
+    margin:                0;
+    padding:               0 10px;
 }
+
 .menuTable {
-    width:100%;
-    padding:0;
-    margin:0;
+    width:                 100%;
+    padding:               0;
+    margin:                0;
 }
+
 .menuItemText, .topMenuItemText {
-    padding:2px 0;
-	margin:0;
-}
-.topMenuItemText{
-	margin:0px;
+    padding:               2px 0;
+    margin:                0;
 }
 
-.login, .cart{
-	margin: 0 5px 0 0;
+.topMenuItemText {
+    margin:                0px;
 }
+
+.login, .cart {
+    margin:                0 5px 0 0;
+}
+
 .cart {
-	background: url(/images/cart_gift.png) center no-repeat;
-	height:300px;
+    background:            url(/images/cart_gift.png) center no-repeat;
+    height:                300px;
 
 }
+
 .cartMenus {
-	margin-top: 117px;
-	margin-left: 50px;
-	position:absolute;
+    margin-top:            117px;
+    margin-left:           30px;
+    position:              absolute;
 }
 
 #cartMenusId .menuItemText {
-	padding: 5px;
+    padding:               5px;
 }
+
 .menuTable td {
-    width:30%;
+    width:                 30%;
 }
+
 #menu_content {
-	overflow:auto;
-	background-color:red;
+    overflow:              auto;
+    background-color:      red;
 }
 
 #menu_content > div {
@@ -187,7 +213,7 @@ img.menubg {
 }
 
 .menu_links li {
-	display:inline;
+    display:               inline;
 }
 
 #menu_links a:link, a:visited, a:hover, a:active {
@@ -204,6 +230,10 @@ a:hover, a:active {
 
 .actionMenu {
     float:                 none;
+}
+
+.sideMenuLink {
+
 }
 
 .actionMenu ul {
@@ -287,7 +317,7 @@ div.desc {
     overflow:              auto;
 }
 
-.field .label {
+.field .label,.field .nonLabel{
     float:                 left;
     padding-top:           5px;
     padding-right:         5px;
@@ -296,6 +326,9 @@ div.desc {
     text-align:            right;
 }
 
+.field .nonLabel {
+    float:none;
+}
 .field .input {
     float:                 left;
     width:                 250px;
@@ -382,37 +415,38 @@ div.desc {
     background-repeat:     no-repeat;
 }
 
-
-
 .topCorner_right {
     float:                 right;
-    border-top:1px solid;
-    border-right:1px solid;
-    width:20px;
-    height:24px;
+    border-top:            1px solid;
+    border-right:          1px solid;
+    width:                 20px;
+    height:                24px;
 }
 
 .topCorner_left {
     float:                 left;
-    border-top:1px solid;
-    border-left:1px solid;
-    width:20px;
-    height:24px;
+    border-top:            1px solid;
+    border-left:           1px solid;
+    width:                 20px;
+    height:                24px;
 }
+
 .bottomCorner_right {
     float:                 right;
-    border-bottom:1px solid;
-    border-right:1px solid;
-    width:20px;
-    height:24px;
+    border-bottom:         1px solid;
+    border-right:          1px solid;
+    width:                 20px;
+    height:                24px;
 }
+
 .bottomCorner_left {
     float:                 left;
-    border-bottom:1px solid;
-    border-left:1px solid;
-    width:20px;
-    height:24px;
+    border-bottom:         1px solid;
+    border-left:           1px solid;
+    width:                 20px;
+    height:                24px;
 }
+
 .topAlmostRight {
     background-image:      url(/images/top_border_almost_right.png);
 }
@@ -434,14 +468,55 @@ div.desc {
 }
 
 a.enter:link, a.enter:visited {
-    background-image:url("/images/enter_button_mouseover.png");
+    background-image:      url("/images/enter_button_mouseover.png");
 }
 
 a.enter:hover, a.enter:active {
-    background-image:url("/images/enter_button_still.png");
+    background-image:      url("/images/enter_button_still.png");
 }
 
 .exclamation {
-    font-size:larger;
+    font-size:             larger;
+    color:                 red;
+}
+
+.captcha {
+    margin-left:           185px;
+}
+
+img.topPanelItem {
+    float:                 left;
+}
+
+img.meitanLogo {
+    width:                 85%;
+    margin-left:           5px;
+}
+
+.inKharkov {
+    font-size:             2em;
+    position:              absolute;
+    top:                   85px;
+    left:                  500px;
+}
+
+.roof {
+    width:                 100%;
+}
+
+.newsTable {
+    width:                 100%;
+}
+
+.news {
+    overflow-x:            auto;
+    border:                dotted blue 1px ;
+    padding:               10px
+}
+.newsLegend {
     color:red;
+    background-color:transparent;
+}
+.editPanel {
+    display:none;
 }

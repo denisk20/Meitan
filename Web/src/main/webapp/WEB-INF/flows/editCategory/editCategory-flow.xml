@@ -15,7 +15,7 @@
 		<evaluate expression="categoryDao.findById(id)" result="flowScope.category"/>
 	</on-start>
 
-	<view-state id="edit" model="category">
+	<view-state id="edit" parent="global#newProductsAware" model="category">
 		<transition on="save" to="save"/>
 		<transition on="back" to="cancel"/>
 	</view-state>

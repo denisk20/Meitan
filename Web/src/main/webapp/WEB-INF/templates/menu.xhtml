@@ -1,113 +1,98 @@
 <!DOCTYPE html
-		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:c="http://java.sun.com/jstl/core"
-		xmlns:sec="http://www.springframework.org/security/facelets/tags"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:denis="http://meitan-kh.com/"
-		xmlns:sf="http://www.springframework.org/tags/faces"
-		>
-	<!--<div id="menu_roof">-->
-	<!--<img src="/images/roof-ready.png" alt="roof"/>-->
-	<!--</div>-->
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:sec="http://www.springframework.org/security/facelets/tags"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:denis="http://meitan-kh.com/"
+        xmlns:sf="http://www.springframework.org/tags/faces"
+        >
+    <!--<div id="menu_roof">-->
+    <!--<img src="/images/roof-ready.png" alt="roof"/>-->
+    <!--</div>-->
 
-	<div class="menu_links">
-		<h:form>
+    <div class="menu_links">
+        <h:form>
 
-			<table class="menuTable">
-				<tr>
+            <table class="menuTable">
+                <tr>
 
-					<td>
-						<div class="menuItem">
-							<denis:roundedItem width="auto" height="auto" roundedItem="#{menuBackgroundService.getRoundedItem('about')}">
-								<div class="topMenuItemText">
-									<a href="about" class="navMenuLink">
-										<h:outputText value="#{resourceBundle.aboutCompanyMenu}"/>
-									</a>
-								</div>
-							</denis:roundedItem>
-						</div>
-					</td>
+                    <td>
+                        <div class="navMenuItem">
+                            <img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg"
+                                 class="menubg"/>
+                            <a href="about" class="navMenuLink"><h:outputText
+                                    value="#{resourceBundle.aboutCompanyMenu}"/></a>
+                        </div>
+                    </td>
 
+                    <td>
+                        <div class="navMenuItem">
+                            <img src="/images/#{menuBackgroundService.getImage('categories')}" alt="bg"
+                                 class="menubg"/>
+                            <a href="categories" class="navMenuLink"><h:outputText
+                                    value="#{resourceBundle.productionMenu}"/></a>
+                        </div>
+                    </td>
 
-					<td>
-						<div class="menuItem">
-							<denis:roundedItem width="auto" height="auto" roundedItem="#{menuBackgroundService.getRoundedItem('categories')}">
-								<div class="topMenuItemText">
-									<a href="categories" class="navMenuLink">
-										<h:outputText value="#{resourceBundle.productionMenu}"/>
-									</a>
-								</div>
-							</denis:roundedItem>
-						</div>
-					</td>
+                    <sec:ifNotGranted roles="ROLE_CONSULTANT">
+                        <td>
+                            <div class="navMenuItem">
+                                <img src="/images/#{menuBackgroundService.getImage('join')}" alt="bg"
+                                     class="menubg"/>
+                                <a href="join" class="navMenuLink"><h:outputText
+                                        value="#{resourceBundle.becomeConsultantMenu}"/></a>
+                            </div>
+                        </td>
+                    </sec:ifNotGranted>
 
-					<sec:ifNotGranted roles="ROLE_CONSULTANT">
+                    <sec:ifAllGranted roles="ROLE_CONSULTANT">
+                        <td>
+                            <div class="navMenuItem">
+                                <img src="/images/#{menuBackgroundService.getImage('boardForConsultants')}" alt="bg"
+                                     class="menubg"/>
+                                <a href="boardForConsultants" class="navMenuLink"><h:outputText
+                                        value="#{resourceBundle.addsForConsultantsMenu}"/></a>
+                            </div>
+                        </td>
+                    </sec:ifAllGranted>
+                </tr>
+            </table>
+        </h:form>
+    </div>
 
-						<td>
-							<div class="menuItem">
-								<denis:roundedItem width="auto" height="auto" roundedItem="#{menuBackgroundService.getRoundedItem('join')}">
-									<div class="topMenuItemText">
-										<a href="join" class="navMenuLink">
-											<h:outputText value="#{resourceBundle.becomeConsultantMenu}"/>
-										</a>
-									</div>
-								</denis:roundedItem>
-							</div>
-						</td>
-					</sec:ifNotGranted>
-
-					<sec:ifAllGranted roles="ROLE_CONSULTANT">
-
-						<td>
-							<div class="menuItem">
-								<denis:roundedItem width="auto" height="auto" roundedItem="#{menuBackgroundService.getRoundedItem('boardForConsultants')}">
-									<div class="topMenuItemText">
-										<a href="boardForConsultants" class="navMenuLink">
-											<h:outputText value="#{resourceBundle.addsForConsultantsMenu}"/>
-										</a>
-									</div>
-								</denis:roundedItem>
-							</div>
-						</td>
-					</sec:ifAllGranted>
-				</tr>
-			</table>
-		</h:form>
-	</div>
-
-	<!--
-			 <div class="menu_side">
-				 <img src="/images/geysha_left.png" alt=""/>
-			 </div>
-			 <div style="float:left">
-				 <img src="/images/money-ready.png" alt=""/>
-			 </div>
-			 <div class="menu_side">
-				 <img src="/images/geysha_right.png" alt=""/>
-			 </div>
- -->
+    <!--
+                 <div class="menu_side">
+                     <img src="/images/geysha_left.png" alt=""/>
+                 </div>
+                 <div style="float:left">
+                     <img src="/images/money-ready.png" alt=""/>
+                 </div>
+                 <div class="menu_side">
+                     <img src="/images/geysha_right.png" alt=""/>
+                 </div>
+     -->
 
 
-	<!--
-							 <li>
-							 &lt;!&ndash;todo custom tags!&ndash;&gt;
-							 <div class="navMenuItem">
-								 <c:choose>
-									 <c:when test="#{not empty menuBackgroundService}">
-										 <img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg" class="menubg"/>
-										 <a href="about" class="navMenuLink"><h:outputText value="#{resourceBundle.aboutCompanyMenu}"/></a>
-									 </c:when>
+    <!--
+                                 <li>
+                                 &lt;!&ndash;todo custom tags!&ndash;&gt;
+                                 <div class="navMenuItem">
+                                     <c:choose>
+                                         <c:when test="#{not empty menuBackgroundService}">
+                                             <img src="/images/#{menuBackgroundService.getImage('about')}" alt="bg" class="menubg"/>
+                                             <a href="about" class="navMenuLink"><h:outputText value="#{resourceBundle.aboutCompanyMenu}"/></a>
+                                         </c:when>
 
-									 <c:otherwise>
-										 <img src="/images/menu_background.png" alt="bg" class="menubg"/>
-										 <a href="about" class="navMenuLink"><h:outputText value="#{resourceBundle.aboutCompanyMenu}"/></a>
-									 </c:otherwise>
-								 </c:choose>
-							 </div>
-						 </li>
- -->
+                                         <c:otherwise>
+                                             <img src="/images/menu_background.png" alt="bg" class="menubg"/>
+                                             <a href="about" class="navMenuLink"><h:outputText value="#{resourceBundle.aboutCompanyMenu}"/></a>
+                                         </c:otherwise>
+                                     </c:choose>
+                                 </div>
+                             </li>
+     -->
 
 </ui:composition>

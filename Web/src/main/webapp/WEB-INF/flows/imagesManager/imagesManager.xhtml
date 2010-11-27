@@ -13,18 +13,20 @@
     <ui:define name="content">
         <h:messages/>
 
-        <h1><h:outputText value="#{resourceBundle.imagesManagerHeader}"/></h1>
+        <h1><h:outputText value="#{imageAware.name}"/>:<h:outputText value="#{resourceBundle.imagesManagerHeader}"/></h1>
         <h:form>
             <br/>
             <h:dataTable id="images" value="#{images}" var="image" rendered="#{! empty(images)}">
                 <h:column>
                     <div class="imageEditSet">
-                        <f:facet name="header">#{imageAware.name} <h:outputText value="#{resourceBundle.imagesManagerHasImages}"/></f:facet>
+                        <f:facet name="header"> <h:outputText
+                                value="#{resourceBundle.imagesManagerHasImages}"/></f:facet>
                         <img src="/image#{image.url}" alt="" class="editedImage"/>
                         <br/>
 
                         <div class="editImageMenuBar">
-                            <sf:commandButton value="#{resourceBundle.imagesManagerDelete}" action="delete" styleClass="deleteButton"/>
+                            <sf:commandButton value="#{resourceBundle.imagesManagerDelete}" action="delete"
+                                              styleClass="deleteButton"/>
 
                             <sf:commandLink value="#{resourceBundle.imagesManagerMakeMain}" action="makeAvatar"
                                             styleClass="makeMainImageButton"
@@ -39,8 +41,8 @@
             <sf:commandButton styleClass="saveEditedImages" value="#{resourceBundle.imagesManagerSave}" action="save"/>
             <!--<sf:commandButton value="Back" action="back"/>-->
         </h:form>
-<br/>
-<br/>
+        <br/>
+        <br/>
         <h:form enctype="multipart/form-data">
             <h:panelGroup rendered="#{imageAware.allowedToAdd}">
                 <input type="file" name="file"/>

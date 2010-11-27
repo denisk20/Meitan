@@ -1,157 +1,193 @@
 <!DOCTYPE html
-		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:sec="http://www.springframework.org/security/tags"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:c="http://java.sun.com/jstl/core"
-		xmlns:sf="http://www.springframework.org/tags/faces"
-		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-		xmlns:denis="http://meitan-kh.com/"
-		contentType="text/html" encoding="UTF-8">
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:sec="http://www.springframework.org/security/facelets/tags"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:sf="http://www.springframework.org/tags/faces"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:denis="http://meitan-kh.com/"
+        contentType="text/html" encoding="UTF-8">
 
-	<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>Мейтан в Харькове, лечебная китайская косметика</title>
-		<sf:includeStyles/>
-		<sf:resourceGroup>
-			<sf:resource path="/css-framework/css/tools.css"/>
-			<sf:resource path="/css-framework/css/typo.css"/>
-			<sf:resource path="/css-framework/css/forms.css"/>
-			<sf:resource path="/css-framework/css/layout-navtop-localleft.css"/>
-			<sf:resource path="/css-framework/css/layout.css"/>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Мейтан в Харькове, лечебная китайская косметика</title>
+        <sf:includeStyles/>
+        <sf:resourceGroup>
+            <sf:resource path="/css-framework/css/tools.css"/>
+            <sf:resource path="/css-framework/css/typo.css"/>
+            <sf:resource path="/css-framework/css/forms.css"/>
+            <sf:resource path="/css-framework/css/layout-navtop-localleft.css"/>
+            <sf:resource path="/css-framework/css/layout.css"/>
 
-			<sf:resource path="/styles/meitan.css"/>
-		</sf:resourceGroup>
+            <sf:resource path="/styles/meitan.css"/>
+        </sf:resourceGroup>
 
-		<ui:insert name="header"/>
-	</head>
+        <ui:insert name="header"/>
+    </head>
 
-	<body class="tundra spring">
+    <body class="tundra spring">
 
 
-	<div class="container">
-		<div id="topPanel">
+    <div class="container">
+        <div id="topPanel">
 
-			<div class="topPanelContent">
-				<denis:roundedItem width="auto" height="auto" roundedItem="#{blueBigRoundedItem}">
-					<div style="height:50px;"></div>
-				</denis:roundedItem>
-			</div>
-		</div>
+            <div class="topPanelContent">
+                <denis:roundedItem width="auto" height="auto" roundedItem="#{blueBigRoundedItem}">
+                    <div class="inKharkov">В Харькове</div>
+                    <!--<img src="/images/geysha_left.png" alt="geisha" class="topPanelItem"/>-->
+                    <img src="/images/mirrorStream.png" alt="stream"/>
+                    <img src="/images/meitanLogo.png" alt="logo" class="topPanelItem meitanLogo"/>
+                    <!--<img src="/images/geysha_right.png" alt="geisha" class="topPanelItem"/>-->
 
-		<ui:include src="menu.xhtml"/>
+                </denis:roundedItem>
+            </div>
+        </div>
 
-		<div class="content">
-			<denis:roundedItem width="auto" height="auto" roundedItem="#{orangeBigRoundedItem}">
-				<table class="contentTable">
-					<tr>
-						<td>
-							<ui:insert name="content"/>
-						</td>
-						<td class="info">
-							<div class="login">
-								<denis:roundedItem width="auto" height="auto" roundedItem="#{blueSmallRoundedItem}">
-									<c:if test="${not empty currentUser.name}">
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-												<div class="menuItemText">
-													<h:outputFormat value="#{resourceBundle.meitanWelcome}"/>
-													<span class="exclamation">${currentUser.name}</span>
-												</div>
-											</denis:roundedItem>
-										</div>
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-													<div class="menuItemText">
-														<a href="itemsList">
-														<h:outputFormat value="#{resourceBundle.meitanItemsList}"/>
-												</a>
-										</div>
-											</denis:roundedItem>
-										</div>
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-													<div class="menuItemText">
-														<a href="userProfile">
-														<h:outputFormat value="#{resourceBundle.meitanProfile}"/>
-												</a>
-										</div>
-											</denis:roundedItem>
-										</div>
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-													<div class="menuItemText">
-														<a href="${request.contextPath}/spring/logout">
-														<h:outputFormat value="#{resourceBundle.exit}"/>
-												</a>
-										</div>
-											</denis:roundedItem>
-										</div>
-									</c:if>
-									<c:if test="${empty currentUser.name}">
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-													<div class="menuItemText">
-														<a href="${request.contextPath}/spring/login">
-														<h:outputFormat value="#{resourceBundle.enter}"/>
-												</a>
-										</div>
-											</denis:roundedItem>
-										</div>
-										<div class="menuButtons">
-											<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-													<div class="menuItemText">
-														<a href="${request.contextPath}/spring/userProfile">
-														<h:outputFormat value="#{resourceBundle.register}"/>
-												</a>
-										</div>
-											</denis:roundedItem>
-										</div>
-									</c:if>
-								</denis:roundedItem>
-							</div>
-							<div class="cart">
-								<h:form id="topPanelForm">
-									<ui:fragment id="shoppingCartFragment">
+        <ui:include src="menu.xhtml"/>
 
-										<div id="cartMenusId" class="cartMenus">
-											<div class="menuButtons">
-												<denis:roundedItem width="auto" height="auto" roundedItem="#{redTinyRoundedItem}">
-													<div class="menuItemText">
-														<span class="exclamation">#{cart.count}</span>
-														<h:outputFormat value="#{resourceBundle.meitanItemsInCart}"/>
-														<span class="exclamation">#{cart.totalPrice}</span>
-														<h:outputFormat value="#{resourceBundle.meitanGriven}"/>
-													</div>
-												</denis:roundedItem>
-											</div>
+        <div class="content">
+            <denis:roundedItem width="auto" height="auto" roundedItem="#{orangeBigRoundedItem}">
+                <table class="contentTable">
+                    <tr>
+                        <td>
+                            <ui:insert name="content"/>
+                        </td>
+                        <td class="info">
+                            <img src="/images/roof-ready.png" alt="sun" class="roof"/>
 
-											<c:if test="#{cart.count > 0}">
-												<div class="menuButtons">
-													<denis:roundedItem width="auto" height="auto" roundedItem="#{redTinyRoundedItem}">
-															<div class="menuItemText">
-																<a href="${request.contextPath}/spring/checkout">
-																<h:outputFormat value="#{resourceBundle.meitanMakeOrder}"/>
-														</a>
-												</div>
-													</denis:roundedItem>
-												</div>
-											</c:if>
-										</div>
+                            <div class="login">
+                                <denis:roundedItem width="auto" height="auto" roundedItem="#{blueSmallRoundedItem}">
+                                    <c:if test="${not empty currentUser.name}">
+                                        <div class="menuButtons">
+                                            <denis:roundedItem width="auto" height="auto"
+                                                               roundedItem="#{yellowTinyRoundedItem}">
+                                                <div class="menuItemText">
+                                                    <h:outputFormat value="#{resourceBundle.meitanWelcome}"/>
+                                                    <span class="exclamation">${currentUser.name}</span>
+                                                </div>
+                                            </denis:roundedItem>
+                                        </div>
+                                        <div class="menuButtons">
+                                            <denis:roundedItem width="auto" height="auto"
+                                                               roundedItem="#{yellowTinyRoundedItem}">
+                                                <div class="menuItemText">
+                                                    <a href="itemsList">
+                                                        <h:outputFormat value="#{resourceBundle.meitanItemsList}"/>
+                                                    </a>
+                                                </div>
+                                            </denis:roundedItem>
+                                        </div>
+                                        <div class="menuButtons">
+                                            <denis:roundedItem width="auto" height="auto"
+                                                               roundedItem="#{yellowTinyRoundedItem}">
+                                                <div class="menuItemText">
+                                                    <a href="userProfile">
+                                                        <h:outputFormat value="#{resourceBundle.meitanProfile}"/>
+                                                    </a>
+                                                </div>
+                                            </denis:roundedItem>
+                                        </div>
+                                        <div class="menuButtons">
+                                            <denis:roundedItem width="auto" height="auto"
+                                                               roundedItem="#{yellowTinyRoundedItem}">
+                                                <div class="menuItemText">
+                                                    <a href="${request.contextPath}/spring/logout">
+                                                        <h:outputFormat value="#{resourceBundle.exit}"/>
+                                                    </a>
+                                                </div>
+                                            </denis:roundedItem>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${empty currentUser.name}">
+                                        <div class="menuButtons">
+                                            <denis:roundedItem width="auto" height="auto"
+                                                               roundedItem="#{yellowTinyRoundedItem}">
+                                                <div class="menuItemText">
+                                                    <a href="${request.contextPath}/spring/login">
+                                                        <h:outputFormat value="#{resourceBundle.enter}"/>
+                                                    </a>
+                                                </div>
+                                            </denis:roundedItem>
+                                        </div>
+                                        <div class="menuButtons">
+                                            <denis:roundedItem width="auto" height="auto"
+                                                               roundedItem="#{yellowTinyRoundedItem}">
+                                                <div class="menuItemText">
+                                                    <a href="${request.contextPath}/spring/userProfile">
+                                                        <h:outputFormat value="#{resourceBundle.register}"/>
+                                                    </a>
+                                                </div>
+                                            </denis:roundedItem>
+                                        </div>
+                                    </c:if>
+                                </denis:roundedItem>
+                            </div>
+                            <div class="cart">
+                                <h:form id="topPanelForm">
+                                    <ui:fragment id="shoppingCartFragment">
 
-									</ui:fragment>
-								</h:form>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</denis:roundedItem>
-		</div>
-	</div>
-	</body>
-	</html>
+                                        <div id="cartMenusId" class="cartMenus">
+                                            <div class="menuButtons">
+                                                <div class="sideMenuItem">
+                                                    <img src="/images/#{menuBackgroundService.selectedImage}" alt="bg"
+                                                         class="menubg"/>
+                                                    <span class="exclamation">#{cart.count}</span>
+                                                    <span><h:outputFormat value="#{resourceBundle.meitanItemsInCart}"/></span>
+                                                    <span class="exclamation">#{cart.totalPrice}</span>
+                                                    <span><h:outputFormat
+                                                            value="#{resourceBundle.meitanGriven}"/></span>
+                                                </div>
+                                            </div>
+
+                                            <c:if test="#{cart.count > 0}">
+                                                <div class="menuButtons">
+                                                    <div class="sideMenuItem">
+                                                        <img src="/images/#{menuBackgroundService.selectedImage}"
+                                                             alt="bg"
+                                                             class="menubg"/>
+                                                        <a href="${request.contextPath}/spring/checkout">
+                                                                <span class="sideMenuLink">
+                                                                <h:outputFormat
+                                                                        value="#{resourceBundle.meitanMakeOrder}"/>
+                                                                </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                        </div>
+
+                                    </ui:fragment>
+                                </h:form>
+                            </div>
+                            <h1 style="text-align:left;"><h:outputText value="#{resourceBundle.aboutNewItems}"/></h1>
+                            <!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
+                            <h:form id="newProductsForm">
+                                <c:forEach items="#{newProducts}" var="product">
+                                    <div class="imageItem">
+
+                                        <denis:image imageName="#{product.name}" price="#{product.price.amount}"
+                                                     imageUrl="#{product.avatar.url}"
+                                                     action="#{utils.getMethodExpression('select')}"
+                                                     id="#{product.id}"/>
+                                        <sec:ifAllGranted roles="ROLE_ADMIN">
+                                            <denis:actionMenu entity="#{product}"/>
+                                        </sec:ifAllGranted>
+                                        <denis:goodMenu entity="#{product}"/>
+                                    </div>
+                                </c:forEach>
+                            </h:form>
+
+                        </td>
+                    </tr>
+                </table>
+            </denis:roundedItem>
+        </div>
+    </div>
+    </body>
+    </html>
 </f:view>

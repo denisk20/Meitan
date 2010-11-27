@@ -20,7 +20,6 @@
 	<view-state id="aboutUs" parent="abstractBoard#abstractBoardViewState">
 		<on-render>
 			<set name="flowScope.action" value="utils.getMethodExpression('selectGood')"/>
-            <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
         </on-render>
 
         		<transition on="test">

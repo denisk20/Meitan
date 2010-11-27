@@ -105,8 +105,8 @@
 					</div>
 				</fieldset>
 
-				<h:outputFormat escape="false" value="#{captchaService.captchaHtml}"/>
-				
+				<div class="captcha"><h:outputFormat escape="false" value="#{captchaService.captchaHtml}"/>
+				</div>
 				<!--todo this doesn't work-->
 				<sf:commandButton value="#{resourceBundle.userProfileSave}" action="saveProfile" processIds="*"/>
 				<sf:commandButton value="#{resourceBundle.userProfileCancel}" action="cancel"/>

@@ -5,7 +5,7 @@
 		>
 <persistence-context/>
 
-	<view-state id="itemsList" >
+	<view-state id="itemsList" parent="global#newProductsAware">
 		<on-entry>
 			<evaluate expression="buyingActDao.findForLogin(currentUser.name)" result="viewScope.boughts"/>
 		</on-entry>
