@@ -16,7 +16,7 @@
 		</on-render>
 
 		<transition on="saveNews" to="saveItem">
-			<evaluate expression="boardItemDao.makePersistent(boardItems.selectedRow)"/>
+			<evaluate expression="boardItemDao.merge(boardItems.selectedRow)"/>
 			<set name="requestScope.savedItem" value="utils.getShortName(boardItems.selectedRow.content)"/>
 		</transition>
 

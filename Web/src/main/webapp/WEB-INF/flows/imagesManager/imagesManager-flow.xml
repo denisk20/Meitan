@@ -10,11 +10,11 @@
 	<input name="imageAwareId" required="true" type="long"/>
 	<input name="className" required="true"/>
 
-	<view-state id="imagesManager">
+	<view-state id="imagesManager" parent="global#newProductsAware">
 		<on-entry>
 			<!--refresh imageAware-->
-			<evaluate expression="imageDao.getByClass(imageAwareId, className)" result="flowScope.imageAware"/>
-			<evaluate expression="imageDao.getPersistentObject(imageAware)" result="viewScope.imageAware"/>
+			<evaluate expression="imageDao.getByClass(imageAwareId, className)" result="viewScope.imageAware"/>
+			<!--<evaluate expression="imageDao.getPersistentObject(imageAware)" result="viewScope.imageAware"/>-->
 			<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
 		</on-entry>
 

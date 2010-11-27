@@ -10,53 +10,54 @@
         xmlns:rich="http://richfaces.org/rich"
         >
 
-        <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(".flip").click(function() {
-                    $(".editPanel").slideToggle("slow");
-                });
+    <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".flip").click(function() {
+                $(".editPanel").slideToggle("slow");
             });
-        </script>
+        });
+    </script>
 
-        <c:if test="#{lastSavedItem != null}">
-            <p style="color:red"><h:outputText value="#{resourceBundle.boardSavedInfo}"/> #{lastSavedItem}</p>
-        </c:if>
+    <sec:ifAllGranted roles="ROLE_ADMIN">
+        <div class="flip"><h:outputText value="#{resourceBundle.boardAddNews}"/></div>
+
+        <div class="editPanel">
+            <h:form>
+
+                <rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
+                <!--<h:inputText value="#{newNews.content}"/>-->
+                <br/>
+                <h:commandButton value="#{resourceBundle.boardCreate}" action="createNews"/>
+            </h:form>
+        </div>
+    </sec:ifAllGranted>
+
+    <h:dataTable styleClass="newsTable" value="#{boardItems}" var="item">
+        <h:column>
+            <f:facet name="header"><h:outputText value="#{resourceBundle.boardNews}"/></f:facet>
+
+            <fieldset class="news">
+                <legend class="newsLegend">
+                    #{resourceBundle.boardAdded}
+                    <h:outputFormat value="{0, date, dd MM yyyy}">
+                        <f:param value="#{item.postDate}"/>
+                    </h:outputFormat>
+                </legend>
+                <h:outputText escape="false" value="#{item.content}"/>
+            </fieldset>
 
 
             <sec:ifAllGranted roles="ROLE_ADMIN">
-            <div class="flip"><h:outputText value="#{resourceBundle.boardAddNews}"/></div>
+                <rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
+                <br/>
 
-            <div class="editPanel" style="display:none;">
-                <h:form>
+                <h:commandButton value="#{resourceBundle.boardSave}" action="saveNews"/>
+                <h:commandButton value="#{resourceBundle.boardDelete}" action="deleteNews"/>
+            </sec:ifAllGranted>
 
-                    <rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
-                    <!--<h:inputText value="#{newNews.content}"/>-->
-                    <br/>
-                    <h:commandButton value="#{resourceBundle.boardCreate}" action="createNews"/>
-                </h:form>
-            </div>
-        </sec:ifAllGranted>
+        </h:column>
 
-        <h:dataTable value="#{boardItems}" var="item">
-            <h:column>
-                <f:facet name="header"><h:outputText value="#{resourceBundle.boardNews}"/></f:facet>
-                <sec:ifNotGranted roles="ROLE_ADMIN">
-                    <div id = "news#{item.id}" style="width:99%;overflow-x:auto;border:dotted 1px;padding:5px">
-                        <h:outputText escape="false" value="#{item.content}"/>
-                    </div>
-                </sec:ifNotGranted>
+    </h:dataTable>
 
-                <sec:ifAllGranted roles="ROLE_ADMIN">
-                    <rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
-                    <br/>
-
-                    <h:commandButton value="#{resourceBundle.boardSave}" action="saveNews"/>
-                    <h:commandButton value="#{resourceBundle.boardDelete}" action="deleteNews"/>
-                </sec:ifAllGranted>
-
-            </h:column>
-
-        </h:dataTable>
-    
 </ui:component>

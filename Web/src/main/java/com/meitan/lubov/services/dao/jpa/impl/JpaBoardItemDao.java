@@ -24,13 +24,6 @@ public class JpaBoardItemDao extends JpaDao<BoardItem,Long> implements BoardItem
 
 	@Override
 	@Transactional
-	public void makePersistent(BoardItem entity) {
-		entity=em.merge(entity);
-		super.makePersistent(entity);	//To change body of overridden methods use File | Settings | File Templates.
-	}
-
-	@Override
-	@Transactional
 	public void makeTransient(BoardItem entity) {
 		entity=em.merge(entity);
 		for (NewsBoard b : entity.getBoards()) {

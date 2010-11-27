@@ -4,9 +4,16 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow
 	  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <view-state id="menuAwareViewState">
+    <view-state id="newProductsAware">
+        <on-entry>
+            <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
+       </on-entry>
+    </view-state>
+
+    <view-state id="menuAwareViewState" parent="global#newProductsAware">
         <on-entry>
             <set name="menuBackgroundService.selectedItem" value="flowName"/>
-        </on-entry>
+            <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
+       </on-entry>
     </view-state>
 </flow>

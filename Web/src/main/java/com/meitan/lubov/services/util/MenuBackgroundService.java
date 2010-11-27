@@ -24,7 +24,14 @@ public class MenuBackgroundService {
 	private static final String SELECTED_BACKGROUND_IMAGE = "menu_selected_background.png";
 	private static final String PLAIN_BACKGROUND_IMAGE = "menu_background.png";
 
+	public String getSelectedImage() {
+		return SELECTED_BACKGROUND_IMAGE;
+	}
 
+	public String getDeselectedImage() {
+		return PLAIN_BACKGROUND_IMAGE;
+	}
+	
 	public String getSelectedItem() {
 		return selectedItem;
 	}

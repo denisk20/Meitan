@@ -6,7 +6,7 @@
 
     <!--todo unit test this-->
 
-	<view-state id="checkout" model="cart">
+	<view-state id="checkout" parent="global#newProductsAware" model="cart">
         <transition on="delete">
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
             <render fragments="checkout:quantityTable,checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
@@ -36,12 +36,12 @@
 		</transition>
 	</action-state>
 
-	<view-state id="changeQuickregDetails" model="client">
+	<view-state id="changeQuickregDetails" parent="global#newProductsAware" model="client">
 		<transition on="change" to="quickRegistrationAdjustDetails"/>
 		<transition on="itsOK" to="order"/>
 	</view-state>
 
-	<view-state id="quickRegistration" model="client">
+	<view-state id="quickRegistration" parent="global#newProductsAware" model="client">
 		<transition on="quickreg" to="order"/>
 		<transition on-exception="java.lang.IllegalAccessException" to="#{viewName}"/>
 		<transition on-exception="java.lang.IllegalArgumentException" to="#{viewName}"/>
@@ -70,7 +70,7 @@
 		</transition>
 	</view-state>
 
-	<view-state id="order">
+	<view-state id="order" parent="global#newProductsAware">
         <transition on="order" to="success">
             <evaluate expression="clientDao.buyGoods(cart, currentUser.name)"/>
             <evaluate expression="mailService.sendBuyingActNotification(cart, currentUser)"/>
@@ -83,7 +83,7 @@
   -->
     </view-state>
 
-    <view-state id="success">
+    <view-state id="success" parent="global#newProductsAware">
         <transition on="done" to="done"/>
     </view-state>
 

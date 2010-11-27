@@ -18,7 +18,7 @@
 		<evaluate expression="categoriesSelector.selectAppropriateItems(product.categories)"/>
 	</on-start>
 
-	<view-state id="editGood" model="product">
+	<view-state id="editGood" parent="global#newProductsAware" model="product">
 		<transition on="save" to="save">
 			<evaluate expression="productDao.assignCategoriesToProduct(product, categoriesSelector.items)"/>
 		</transition>
