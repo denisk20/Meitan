@@ -6,7 +6,7 @@
 
 	<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>
 
-	<view-state id="addCategory">
+	<view-state id="addCategory" parent="global#menuAwareViewState">
 
 		<transition on="create" to="categoryCreated">
 			<evaluate expression="categoryDao.makePersistent(newCategory)"/>

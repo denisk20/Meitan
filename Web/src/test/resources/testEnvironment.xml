@@ -169,5 +169,129 @@
         <!--<property name="subject" value="Ваш заказ"/>-->
     <!--</bean>-->
     <!-- /Mail settings===========================================================================-->
+	<!--colors-->
+	<bean id="blue" class="java.lang.String">
+		<constructor-arg value="77c8fb"/>
+	</bean>
+
+	<bean id="orange" class="java.lang.String">
+		<constructor-arg value="fde4a1"/>
+	</bean>
+
+	<bean id="yellow" class="java.lang.String">
+		<constructor-arg value="fffeb6"/>
+	</bean>
+
+	<bean id="red" class="java.lang.String">
+		<constructor-arg value="ffd4d4"/>
+	</bean>
+
+	<!--size literals-->
+	<bean id="bigName" class="java.lang.String">
+		<constructor-arg value="big"/>
+	</bean>
+
+	<bean id="smallName" class="java.lang.String">
+		<constructor-arg value="small"/>
+	</bean>
+
+	<bean id="tinyName" class="java.lang.String">
+		<constructor-arg value="tiny"/>
+	</bean>
+
+	<!--size values-->
+	<bean id="bigWidth" class="java.lang.Integer">
+		<constructor-arg value="25"/>
+	</bean>
+
+	<bean id="bigHeight" class="java.lang.Integer">
+		<constructor-arg value="29"/>
+	</bean>
+
+	<bean id="smallWidth" class="java.lang.Integer">
+		<constructor-arg value="17"/>
+	</bean>
+
+	<bean id="smallHeight" class="java.lang.Integer">
+		<constructor-arg value="20"/>
+	</bean>
+
+	<bean id="tinyWidth" class="java.lang.Integer">
+		<constructor-arg value="8"/>
+	</bean>
+
+	<bean id="tinyHeight" class="java.lang.Integer">
+		<constructor-arg value="9"/>
+	</bean>
+	<!--Rounded borders items-->
+	<bean id="blueBigRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="blue"/>
+		<property name="size" ref="bigName"/>
+		<property name="itemWidth" ref="bigWidth"/>
+		<property name="itemHeight" ref="bigHeight"/>
+	</bean>
+
+	<bean id="orangeBigRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="orange"/>
+		<property name="size" ref="bigName"/>
+		<property name="itemWidth" ref="bigWidth"/>
+		<property name="itemHeight" ref="bigHeight"/>
+	</bean>
+
+	<bean id="blueSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="blue"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
+	<bean id="redSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="red"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
+	<bean id="yellowSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="yellow"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
+	<bean id="orangeSmallRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="orange"/>
+		<property name="size" ref="smallName"/>
+		<property name="itemWidth" ref="smallWidth"/>
+		<property name="itemHeight" ref="smallHeight"/>
+	</bean>
+
+	<bean id="blueTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="blue"/>
+		<property name="size" ref="tinyName"/>
+		<property name="itemWidth" ref="tinyWidth"/>
+		<property name="itemHeight" ref="tinyHeight"/>
+	</bean>
+
+	<bean id="yellowTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="yellow"/>
+		<property name="size" ref="tinyName"/>
+		<property name="itemWidth" ref="tinyWidth"/>
+		<property name="itemHeight" ref="tinyHeight"/>
+	</bean>
+
+	<bean id="redTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="red"/>
+		<property name="size" ref="tinyName"/>
+		<property name="itemWidth" ref="tinyWidth"/>
+		<property name="itemHeight" ref="tinyHeight"/>
+	</bean>
+
+	<bean id="orangeTinyRoundedItem" class="com.meitan.lubov.services.util.RoundedItemBean">
+		<property name="color" ref="orange"/>
+		<property name="size" ref="tinyName"/>
+		<property name="itemWidth" ref="tinyWidth"/>
+		<property name="itemHeight" ref="tinyHeight"/>
+	</bean>
 
 </beans>

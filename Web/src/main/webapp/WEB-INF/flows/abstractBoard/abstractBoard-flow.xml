@@ -6,7 +6,7 @@
 <!--todo unit test-->
 	<input name="lastSavedItem" required="false"/>
 <!--this parent here is total hack to overcome the fact that views don't support multiple parents-->
-	<view-state id="abstractBoardViewState" parent="baseGood#baseGood">
+	<view-state id="abstractBoardViewState" parent="global#menuAwareViewState">
 		<on-entry>
             <evaluate expression="newsBoardDao.getBoardForType(boardType)" result="flowScope.board"/>
 		</on-entry>

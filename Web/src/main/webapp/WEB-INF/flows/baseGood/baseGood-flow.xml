@@ -2,17 +2,15 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
+		>
 
-	<view-state id="baseGood" view="" parent="abstractEditable#abstractEditable">
-
+	<view-state id="baseGood">
 		<transition on="buy">
 			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
 			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>
 			<evaluate expression="cart.addItem(product)"/>
 			<render fragments="topPanelForm:shoppingCartFragment"/>
 		</transition>
-
 	</view-state>
 
 </flow>
