@@ -38,7 +38,7 @@
                     <denis:image imageName="#{category.name}" imageUrl="#{category.image.url}"
                                  action="#{utils.getMethodExpression('select')}" id="#{category.id}"/>
                     <sec:ifAllGranted roles="ROLE_ADMIN">
-                        <denis:actionMenu entity="#{category}"/>
+                        <denis:actionMenu entity="#{category}" type="'Category'"/>
                     </sec:ifAllGranted>
 
                 </div>

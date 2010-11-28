@@ -2,7 +2,7 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global,baseGood,abstractEditable">
+		parent="global">
 
 	<input name="id" required="true" type="long" />
 
@@ -22,7 +22,7 @@
 		<set name="flowScope.afterDeleteFlowName" value="'viewGoods'"/>
 
 	</on-start>
-	<view-state id="good" parent="baseGood#baseGood">
+	<view-state id="good" parent="global#newProductsAware">
         <!--todo how to unit test this?-->
         <transition on="hitImage">
             <set name="requestScope.imageId" value="requestParameters.id" type="long"/>

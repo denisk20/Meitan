@@ -2,7 +2,7 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="baseGood,abstractEditable"
+		parent="global"
 		start-state="allCategoriesQueried">
 
 	<input name="id" type="long" required="false" />
@@ -22,7 +22,7 @@
 		<if test="id != null" then="goodsListForCategory" else="allGoodsList"/>
 	</decision-state>
 
-	<view-state id="baseGoodList" parent="baseGood#baseGood" view="goodsListForCategory.xhtml">
+	<view-state id="baseGoodList" parent="global#newProductsAware" view="goodsListForCategory.xhtml">
 		<transition on="back" to="back"/>
 	</view-state>
 

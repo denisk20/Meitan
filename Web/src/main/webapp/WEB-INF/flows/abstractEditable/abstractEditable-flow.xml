@@ -2,24 +2,28 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
+		>
 
-	<view-state id="abstractEditable" parent="global#menuAwareViewState">
+	<view-state id="abstractEditable" parent="baseGood#baseGood">
 		<transition on="select" to="selectFlow">
 			<set name="requestScope.id" value="requestParameters.id"/>
+			<set name="requestScope.type" value="requestParameters.type"/>
 		</transition>
 
 		<transition on="edit" to="edit">
 			<set name="flashScope.id" value="requestParameters.id" type="long"/>
+			<set name="requestScope.type" value="requestParameters.type"/>
 		</transition>
 
 		<transition on="editImages" to="imagesManager">
 			<set name="flashScope.id" value="requestParameters.id" type="long"/>
+			<set name="requestScope.type" value="requestParameters.type"/>
 		</transition>
 
 		<transition on="delete" to="conformDelete">
             <set name="requestScope.id" value="requestParameters.id"/>
             <set name="requestScope.name" value="requestParameters.name"/>
+			<set name="requestScope.type" value="requestParameters.type"/>
 		</transition>
 	</view-state>
 

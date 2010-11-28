@@ -31,8 +31,6 @@
 
     </view-state>
 
-    <view-state id="error"/>
-
     <end-state id="done" view="flowRedirect:/about"/>
     <end-state id="cancel" view="flowRedirect:/about"/>
 </flow>

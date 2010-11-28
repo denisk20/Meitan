@@ -9,7 +9,7 @@
 
 	<input name="categoryId" type="long" required="false"/>
 
-	<view-state id="addGood">
+	<view-state id="addGood" parent="global#newProductsAware">
 		<on-entry>
 			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>
 			<evaluate expression="utils.getSelectItems(viewScope.categories, categoryId)" result="viewScope.categoriesItems"/>

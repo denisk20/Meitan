@@ -175,7 +175,7 @@
                                                      action="#{utils.getMethodExpression('select')}"
                                                      id="#{product.id}"/>
                                         <sec:ifAllGranted roles="ROLE_ADMIN">
-                                            <denis:actionMenu entity="#{product}"/>
+                                            <denis:actionMenu entity="#{product}" type="'Product'"/>
                                         </sec:ifAllGranted>
                                         <denis:goodMenu entity="#{product}"/>
                                     </div>
