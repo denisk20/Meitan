@@ -9,6 +9,9 @@
 	<on-start>
 		<evaluate expression="clientDao.findByLoginOrCreateNew(currentUser)" result="flowScope.client"/>
 		<set name="client.enabled" value="true"/>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'userProfile'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'userProfile'"/>
 	</on-start>
 
 	<view-state id="userProfile"  parent="global#newProductsAware" model="client">

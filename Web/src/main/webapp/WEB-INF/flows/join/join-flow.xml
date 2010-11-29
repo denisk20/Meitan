@@ -7,11 +7,14 @@
 <!--
     todo unit test this
 -->
-    <persistence-context/>
+    <!--<persistence-context/>-->
     
     <on-start>
         <!--for global-->
         <set name="flowScope.flowName" value="'join'"/>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'join'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'join'"/>
     </on-start>
 
 	<view-state id="join" parent="global#menuAwareViewState">
@@ -19,7 +22,7 @@
         <transition on="signConsultant" to="sign"/>
 	</view-state>
 
-    <view-state id="sign" model="client">
+    <view-state id="sign" model="client" parent="global#newProductsAware">
         <secured attributes="ROLE_CLIENT"/>
         <on-entry>
             <evaluate expression="clientDao.getByLogin(currentUser.name)" result="viewScope.client"/>

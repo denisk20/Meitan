@@ -15,6 +15,7 @@
                  <sf:commandLink styleClass="menuItem" value="#{resourceBundle.goodMenuBuy}" action="buy"
                                  processIds="*">
                      <f:param name="productId" value="#{entity.id}"/>
+                     <f:param name="type" value="#{entity.class.name}"/>
                  </sf:commandLink>
              </li>
          </ul>

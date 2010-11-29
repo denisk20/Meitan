@@ -10,13 +10,19 @@
 	<input name="imageAwareId" required="true" type="long"/>
 	<input name="className" required="true"/>
 
+	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'imagesManager'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'about'"/>
+	</on-start>
+
 	<view-state id="imagesManager" parent="global#newProductsAware">
-		<on-entry>
+		<on-render>
 			<!--refresh imageAware-->
 			<evaluate expression="imageDao.getByClass(imageAwareId, className)" result="viewScope.imageAware"/>
 			<!--<evaluate expression="imageDao.getPersistentObject(imageAware)" result="viewScope.imageAware"/>-->
 			<evaluate expression="utils.asList(imageAware.getImages())" result="viewScope.images" result-type="dataModel"/>
-		</on-entry>
+		</on-render>
 
 		<transition on="upload" to="imagesManager">
 			<evaluate expression="imageIdGenerationService.generateIdForNextImage(imageAware)" result="requestScope.imageName"/>

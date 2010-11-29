@@ -173,9 +173,10 @@
                                         <denis:image imageName="#{product.name}" price="#{product.price.amount}"
                                                      imageUrl="#{product.avatar.url}"
                                                      action="#{utils.getMethodExpression('select')}"
-                                                     id="#{product.id}"/>
+                                                     id="#{product.id}"
+													 type="#{product.class.simpleName}"/>
                                         <sec:ifAllGranted roles="ROLE_ADMIN">
-                                            <denis:actionMenu entity="#{product}" type="'Product'"/>
+                                            <denis:actionMenu entity="#{product}"/>
                                         </sec:ifAllGranted>
                                         <denis:goodMenu entity="#{product}"/>
                                     </div>

@@ -7,13 +7,9 @@
     <on-start>
         <!--for abstractEditable-->
         <set name="flowScope.outState" value="'categories'"/>
-        <set name="flowScope.selectFlow" value="'viewGoods'"/>
-        <set name="flowScope.editFlow" value="'editCategory'"/>
-        <set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Category'"/>
-        <set name="conversationScope.dao" value="categoryDao"/>
-        <!--for global-->
-        <set name="flowScope.flowName" value="'categories'"/>
-		<set name="flowScope.afterDeleteFlowName" value="flowName"/>
+		<set name="flowScope.afterDeleteFlowName" value="'categories'"/>
+		<!--for menu highlight service-->
+		<set name="flowScope.flowName" value="'categories'"/>
     </on-start>
 
 	<view-state id="categories" parent="global#menuAwareViewState">
@@ -22,7 +18,7 @@
 			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>
 		</on-entry>
 
-		<transition on="all" to="selectFlow">
+		<transition on="all" to="viewGoods">
 			<set name="requestScope.id" value="null"/>
 		</transition>
 
@@ -40,4 +36,5 @@
 		<transition to="categories"/>
 	</subflow-state>
 
+	<end-state id="viewGoods" view="flowRedirect:viewGoods"/>
 </flow>

@@ -9,9 +9,13 @@
 	<!--this can't be removed-->    
 	<persistence-context/>
 
-	<input name="id" required="true"/>
+	<input name="id" required="true" type="long"/>
 
 	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'edit'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'about'"/>
+
 		<evaluate expression="categoryDao.findById(id)" result="flowScope.category"/>
 	</on-start>
 

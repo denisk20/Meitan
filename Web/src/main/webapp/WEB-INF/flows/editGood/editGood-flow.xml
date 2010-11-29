@@ -9,9 +9,13 @@
 
 	<var name="categoriesSelector" class="com.meitan.lubov.services.util.selectors.CategoriesSelector"/>
 
-	<input name="id" required="true"/>
+	<input name="id" required="true" type="long"/>
 
 	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'editGood'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'about'"/>
+
 		<evaluate expression="productDao.findById(id)" result="flowScope.product"/>
 		<evaluate expression="categoryDao.findAll()" result="requestScope.allCategories"/>
 		<evaluate expression="categoriesSelector.addItems(allCategories)"/>
