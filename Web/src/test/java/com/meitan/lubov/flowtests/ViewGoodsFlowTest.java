@@ -4,6 +4,7 @@ import com.meitan.lubov.model.PriceAware;
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.model.persistent.Product;
+import com.meitan.lubov.services.FlowEntitiesManager;
 import com.meitan.lubov.services.commerce.ShoppingCart;
 import com.meitan.lubov.services.commerce.ShoppingCartImpl;
 import com.meitan.lubov.services.dao.CategoryDao;
@@ -49,10 +50,11 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	private CategoryDao testCategoryDao;
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
-
 	private ShoppingCart cart = new ShoppingCartImpl();
 	@Autowired
 	private Utils utils;
+	@Autowired
+	FlowEntitiesManager testFlowEntitiesManager;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
@@ -63,6 +65,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
 		builderContext.registerBean("cart", cart);
+		builderContext.registerBean("flowEntitiesManager", testFlowEntitiesManager);
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
@@ -140,6 +143,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		MockParameterMap map = new MockParameterMap();
 		map.put("id", prodId.toString());
+		map.put("type", Product.class.getSimpleName());
 
 		context.setRequestParameterMap(map);
 
@@ -171,6 +175,8 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 		// I can't figure out how to reset input after this because
 		// I don't have access to the source of org.springframework.binding.mapping.Mapper
 		map.put("id", prodId.toString());
+		map.put("type", Product.class.getSimpleName());
+		map.put("entityClassName", Product.class.getName());
 
 		context.setRequestParameterMap(map);
 
@@ -210,6 +216,7 @@ public class ViewGoodsFlowTest extends AbstractFlowIntegrationTest {
 
 		MockParameterMap map = new MockParameterMap();
 		map.put("id", p.getId().toString());
+		map.put("type", Product.class.getSimpleName());
 		context.setRequestParameterMap(map);
 
 		context.setEventId("delete");

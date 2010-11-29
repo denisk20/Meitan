@@ -68,7 +68,7 @@ public class GoodFlowTest extends AbstractFlowIntegrationTest{
 
 		assertCurrentStateEquals("good");
 		
-		Product loaded = (Product) getFlowScope().getRequired("product", Product.class);
+		Product loaded = (Product) getViewScope().getRequired("product", Product.class);
 		assertEquals("Wrong product loaded", p, loaded);
 	}
 }
