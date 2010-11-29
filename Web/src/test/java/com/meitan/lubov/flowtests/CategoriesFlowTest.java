@@ -95,7 +95,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 		resumeFlow(context);
 
 		assertFlowExecutionEnded();
-		assertFlowExecutionOutcomeEquals("selectFlow");
+		assertFlowExecutionOutcomeEquals("viewGoods");
 	}
 
 	@Test
@@ -133,6 +133,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 		MockParameterMap map = new MockParameterMap();
 		map.put("id", Long.toString(categoryId));
+		map.put("type", Category.class.getSimpleName());
 		context.setRequestParameterMap(map);
 
 		context.setEventId("edit");
@@ -157,6 +158,8 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 		MockParameterMap map = new MockParameterMap();
 		map.put("id", Long.toString(categoryId));
+		map.put("type", Category.class.getSimpleName());
+		map.put("entityClassName", Category.class.getName());
 		context.setRequestParameterMap(map);
 
 		context.setEventId("editImages");
@@ -187,6 +190,7 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 
 			MockParameterMap map = new MockParameterMap();
 			map.put("id", persistentCategory.getId().toString());
+			map.put("type", Category.class.getSimpleName());
 			context.setRequestParameterMap(map);
 
 			context.setEventId("delete");
