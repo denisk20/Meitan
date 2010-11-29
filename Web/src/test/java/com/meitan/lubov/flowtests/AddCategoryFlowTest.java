@@ -2,12 +2,19 @@ package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.services.dao.CategoryDao;
+import com.meitan.lubov.services.dao.ProductDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author denis_k
@@ -18,6 +25,9 @@ public class AddCategoryFlowTest extends AbstractFlowIntegrationTest {
 
 	@Autowired
 	private CategoryDao testCategoryDao;
+
+	@Autowired
+	private ProductDao testProductDao;
 
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
@@ -30,6 +40,21 @@ public class AddCategoryFlowTest extends AbstractFlowIntegrationTest {
 		builderContext.registerBean("categoryDao", testCategoryDao);
 	}
 
+	@Override
+	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
+		FlowDefinitionResource[] superResources = super.getModelResources(resourceFactory);
+
+		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
+
+		result.addAll(Arrays.asList(superResources));
+
+		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
+		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
+		result.add(new FlowDefinitionResource("baseGood", localFlowResource1, null));
+		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource2, null));
+
+		return result.toArray(new FlowDefinitionResource[0]);
+	}
 	@Test
 	public void testFlowStart() {
 		MockExternalContext context = new MockExternalContext();

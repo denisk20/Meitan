@@ -3,6 +3,7 @@ package com.meitan.lubov.flowtests;
 import com.meitan.lubov.model.persistent.BoardItem;
 import com.meitan.lubov.model.persistent.NewsBoard;
 import com.meitan.lubov.model.persistent.Product;
+import com.meitan.lubov.services.FlowEntitiesManager;
 import com.meitan.lubov.services.dao.BoardItemDao;
 import com.meitan.lubov.services.dao.NewsBoardDao;
 import com.meitan.lubov.services.dao.ProductDao;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
-	private ProductDao testProductDao;
+	private FlowEntitiesManager testFlowEntitiesManager;
 
 	@Autowired
 	private NewsBoardDao testNewsBoardDao;
@@ -54,11 +55,7 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 		result.addAll(Arrays.asList(superResources));
 
 		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractBoard/abstractBoard-flow.xml"));
-		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
-		Resource localFlowResource3 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
 		result.add(new FlowDefinitionResource("abstractBoard", localFlowResource1, null));
-		result.add(new FlowDefinitionResource("baseGood", localFlowResource2, null));
-		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource3, null));
 
 		return result.toArray(new FlowDefinitionResource[0]);
 	}
@@ -66,7 +63,7 @@ public class AboutFlowTest extends AbstractFlowIntegrationTest {
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
-		builderContext.registerBean("productDao", testProductDao);
+		builderContext.registerBean("flowEntitiesManager", testFlowEntitiesManager);
 		builderContext.registerBean("newsBoardDao", testNewsBoardDao);
 		builderContext.registerBean("fileUploadHandler", fileUploadHandler);
 		builderContext.registerBean("boardItemDao", testBoardItemDao);

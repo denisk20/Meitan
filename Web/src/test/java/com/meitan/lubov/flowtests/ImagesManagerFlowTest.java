@@ -8,6 +8,8 @@ import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.util.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
@@ -20,6 +22,7 @@ import javax.faces.model.DataModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,8 +34,6 @@ import java.util.Set;
 public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 	@Autowired
 	private ImageDao testImageDao;
-	@Autowired
-	private ProductDao testProductDao;
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
 

@@ -37,7 +37,6 @@ public class AddGoodFlowIntegrationTest extends AbstractFlowIntegrationTest{
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
-		builderContext.registerBean("productDao", testProductDao);
 		builderContext.registerBean("categoryDao", testCategoryDao);
 		builderContext.registerBean("utils", new Utils());
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());

@@ -62,8 +62,6 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 	private SecurityService testSecurityService;
 
 	@Autowired
-	private ProductDao testProductDao;
-	@Autowired
 	private ClientDao testClientDao;
 	@Autowired
 	private ShoppingCartItemDao testShoppingCartItemDao;
@@ -129,7 +127,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		//assuming p1 corresponds to the first item
 		cart.getItemsDataModel().select(cart.getItems().get(0));
 
-		context.setEventId("delete");
+		context.setEventId("deleteFromCart");
 		resumeFlow(context);
 
 		ArrayList<PriceAware> cartItems = cart.getPriceAwares();
@@ -220,7 +218,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		Client c = createAndPersistClient("some@email.com", SecurityService.ROLE_UNREGISTERED);
 		Client stub = new Client(null, adminEmail);
 		stub.setId(c.getId());
-		getFlowScope().put("anonymousClient", stub);
+		getFlowScope().put("client", stub);
 		context.setEventId("quickreg");
 		getViewScope().put("viewName", "WTF view");
 		try {
@@ -271,7 +269,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 
 		assertCurrentStateEquals("quickRegistrationFirstTime");
 		//not persistent yet
-		Client anonymous = (Client) getFlowScope().get("anonymousClient", Client.class);
+		Client anonymous = (Client) getFlowScope().get("client", Client.class);
 		assertNotNull(anonymous);
 		assertEquals(new Long(0), anonymous.getId());
 
@@ -288,7 +286,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		context.setEventId("quickreg");
 		resumeFlow(context);
 
-		assertSame(getFlowScope().get("anonymousClient"), anonymous);
+		assertSame(getFlowScope().get("client"), anonymous);
 		
 		//persisted
 		assertTrue(anonymous.getId() != 0);
@@ -331,7 +329,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		resumeFlow(context);
 
 		//we can re-use previous user
-		assertEquals(anonymous, getFlowScope().get("anonymousClient"));
+		assertEquals(anonymous, getFlowScope().get("client"));
 
 		//assertThat auth in session is the same, that is, no re-auth happened
 		assertSame(authentication, SecurityContextHolder.getContext().getAuthentication());
@@ -349,12 +347,12 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		Client stub = new Client(null, newEmail);
 		stub.setId(anonymous.getId());
 		stub.setRoles(anonymous.getRoles());
-		getFlowScope().put("anonymousClient", stub);
+		getFlowScope().put("client", stub);
 		context.setEventId("quickreg");
 
 		resumeFlow(context);
 		//restore
-		getFlowScope().put("anonymousClient", anonymous);
+		getFlowScope().put("client", anonymous);
 
 		assertCurrentStateEquals("order");
 		testClientDao.flush();
@@ -379,12 +377,13 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		assertEquals(anonymous, anotherLoaded);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testAdjustQuickRegDetails() throws Throwable {
 		String email = "some@email.com";
 		Client c = new Client(new Name(), email);
 		c.setEmail(email);
 		c.setLogin(email);
+		testClientDao.makePersistent(c);
 
 		testAuthorityDao.assignAuthority(c, SecurityService.ROLE_UNREGISTERED);
 		testSecurityService.authenticateUser(c);
@@ -392,22 +391,15 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		MockExternalContext context = new MockExternalContext();
 		startFlow(context);
 
-		getFlowScope().put("anonymousClient", c);
+		getFlowScope().put("client", c);
 
 		setCurrentState("quickRegistrationAdjustDetails");
+		getViewScope().put("viewName", "quickRegistrationAdjustDetails");
 
 		context.setEventId("quickreg");
-		try {
-			try {
-				resumeFlow(context);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw e.getCause();
-			}
-		} catch (ActionExecutionException e) {
-			e.printStackTrace();
-			throw e.getCause();
-		}
+		resumeFlow(context);
+
+		assertCurrentStateEquals("quickRegistrationAdjustDetails");
 	}
 
 	@Test
@@ -431,7 +423,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		stub.setEmail(newEmail);
 		stub.setId(c.getId());
 
-		getFlowScope().put("anonymousClient", stub);
+		getFlowScope().put("client", stub);
 
 		setCurrentState("quickRegistrationAdjustDetails");
 		context.setEventId("quickreg");
@@ -490,7 +482,7 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 
 		assertCurrentStateEquals(stateId);
 
-		Client stub = (Client) getFlowScope().get("anonymousClient");
+		Client stub = (Client) getFlowScope().get("client");
 		assertEquals(new Long(0), stub.getId());
 		stub.setEmail(reEnterdEmail);
 
@@ -498,9 +490,9 @@ public class CheckoutFlowTest extends AbstractFlowIntegrationTest {
 		resumeFlow(context);
 
 		if (shouldCreateUser) {
-			assertSame(stub, getFlowScope().get("anonymousClient"));
+			assertSame(stub, getFlowScope().get("client"));
 		} else {
-			assertNotSame(stub, getFlowScope().get("anonymousClient"));
+			assertNotSame(stub, getFlowScope().get("client"));
 		}
 	}
 

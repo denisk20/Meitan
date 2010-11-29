@@ -151,6 +151,7 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 		checkIfUnregistered(result, requestContext);
 		final List sameEmails = em.createNamedQuery("getClientByEmail").setParameter("email", email).getResultList();
 		if (sameEmails.size() > 0) {
+			//todo I18N
 			requestContext.getMessageContext().addMessage(new MessageBuilder().error()
 					.defaultText("Пользователь с таким почтовым ящиком уже существует. Выберите другой").build());
 
