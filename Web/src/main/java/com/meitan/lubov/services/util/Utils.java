@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -58,6 +59,13 @@ public class Utils {
 		}
 	}
 
+	public <T> T getFirstItem(Collection<T> items) {
+		T result = null;
+		if (items.size() > 0) {
+			result = items.iterator().next();
+		}
+		return result;
+	}
 	//todo move this into SecurityService 
 
 	public String getMD5(String source) {

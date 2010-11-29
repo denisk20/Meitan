@@ -9,10 +9,6 @@
 
 	<on-start>
 		<set name="flowScope.outState" value="'allCategoriesQueried'"/>
-		<set name="flowScope.selectFlow" value="'good'"/>
-		<set name="flowScope.editFlow" value="'editGood'"/>
-		<set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Product'"/>
-		<set name="conversationScope.dao" value="productDao"/>
 
 		<set name="flowScope.flowName" value="'categories'"/>
 		<set name="flowScope.afterDeleteFlowName" value="'viewGoods'"/>

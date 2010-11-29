@@ -6,15 +6,14 @@
 		parent="abstractEditable">
 
     <view-state id="newProductsAware" parent="abstractEditable#abstractEditable">
-        <on-entry>
+        <on-render>
             <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
-       </on-entry>
+       </on-render>
     </view-state>
 
     <view-state id="menuAwareViewState" parent="global#newProductsAware">
         <on-entry>
             <set name="menuBackgroundService.selectedItem" value="flowName"/>
-            <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
        </on-entry>
     </view-state>
 </flow>

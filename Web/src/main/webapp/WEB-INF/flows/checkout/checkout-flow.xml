@@ -6,8 +6,15 @@
 
     <!--todo unit test this-->
 
+	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'checkout'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'checkout'"/>
+		<!--menu background-->
+	</on-start>
+
 	<view-state id="checkout" parent="global#newProductsAware" model="cart">
-        <transition on="delete">
+        <transition on="deleteFromCart">
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
             <render fragments="checkout:quantityTable,checkout:cartItemsFragment,topPanelForm:shoppingCartFragment"/>
         </transition>

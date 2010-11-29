@@ -186,7 +186,6 @@ img.menubg {
 .cart {
     background:            url(/images/cart_gift.png) center no-repeat;
     height:                300px;
-
 }
 
 .cartMenus {
@@ -360,9 +359,6 @@ div.desc {
 }
 
 .images {
-    width:                 110;
-    height:                150;
-    overflow:              auto;
     float:                 left;
 }
 

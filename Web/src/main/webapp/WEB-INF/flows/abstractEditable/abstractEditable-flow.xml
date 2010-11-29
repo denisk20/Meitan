@@ -5,22 +5,23 @@
 		>
 
 	<view-state id="abstractEditable" parent="baseGood#baseGood">
-		<transition on="select" to="selectFlow">
+		<transition on="select" to="selectFlow" bind="false">
 			<set name="requestScope.id" value="requestParameters.id"/>
-			<set name="requestScope.type" value="requestParameters.type"/>
+			<set name="requestScope.selectFlowName" value="flowEntitiesManager.selectFlows.get(requestParameters.type)"/>
 		</transition>
 
-		<transition on="edit" to="edit">
-			<set name="flashScope.id" value="requestParameters.id" type="long"/>
-			<set name="requestScope.type" value="requestParameters.type"/>
+		<transition on="edit" to="editItem" bind="false">
+			<set name="requestScope.id" value="requestParameters.id" type="long"/>
+			<set name="requestScope.editFlowName" value="flowEntitiesManager.editFlows.get(requestParameters.type)"/>
 		</transition>
 
-		<transition on="editImages" to="imagesManager">
-			<set name="flashScope.id" value="requestParameters.id" type="long"/>
+		<transition on="editImages" to="editImages" bind="false">
+			<set name="requestScope.id" value="requestParameters.id" type="long"/>
 			<set name="requestScope.type" value="requestParameters.type"/>
+			<set name="requestScope.entityClassName" value="requestParameters.entityClassName"/>
 		</transition>
 
-		<transition on="delete" to="conformDelete">
+		<transition on="delete" to="conformDelete" bind="false">
             <set name="requestScope.id" value="requestParameters.id"/>
             <set name="requestScope.name" value="requestParameters.name"/>
 			<set name="requestScope.type" value="requestParameters.type"/>
@@ -31,27 +32,28 @@
         <on-entry>
             <set name="viewScope.deleteId" value="id" type="long"/>
             <set name="viewScope.name" value="name"/>
+            <set name="viewScope.type" value="type"/>
         </on-entry>
 
         <transition on="ok" to="afterDeleteFlow">
-            <evaluate expression="dao.deleteById(deleteId)"/>
+            <evaluate expression="flowEntitiesManager.daos.get(type).deleteById(deleteId)"/>
         </transition>
 
         <transition on="cancel" to="#{outState}"/>
     </view-state>
 
-	<subflow-state id="edit" subflow="#{editFlow}">
+	<subflow-state id="editItem" subflow="#{editFlowName}">
 		<input name="id" value="id"/>
 		<transition to="#{outState}"/>
 	</subflow-state>
 
-	<subflow-state id="imagesManager" subflow="imagesManager">
+	<subflow-state id="editImages" subflow="imagesManager">
 		<input name="imageAwareId" value="id"/>
-		<input name="className" value="className"/>
-		<transition on="save" to="#{outState}"/>
+		<input name="className" value="entityClassName"/>
+		<transition to="#{outState}"/>
 	</subflow-state>
 
-	<end-state id="selectFlow" view="flowRedirect:#{selectFlow}?id=#{id}"/>
+	<end-state id="selectFlow" view="flowRedirect:#{selectFlowName}?id=#{id}"/>
 
 	<end-state id="afterDeleteFlow" view="flowRedirect:#{afterDeleteFlowName}"/>
 

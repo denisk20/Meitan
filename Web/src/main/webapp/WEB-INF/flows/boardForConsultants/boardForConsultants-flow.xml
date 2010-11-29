@@ -2,13 +2,16 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="abstractBoard">
-<!--todo unit test-->
-    <persistence-context/>
+	  parent="abstractBoard">
+	<!--todo unit test-->
 	<on-start>
 		<set name="flowScope.boardType" value="'FOR_CONSULTANTS'"/>
 		<set name="flowScope.viewName" value="'boardForConsultants'"/>
 		<set name="flowScope.flowName" value="'boardForConsultants'"/>
+
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="viewName"/>
+		<set name="flowScope.afterDeleteFlowName" value="flowName"/>
 	</on-start>
 
 	<view-state id="boardForConsultants" parent="abstractBoard#abstractBoardViewState">

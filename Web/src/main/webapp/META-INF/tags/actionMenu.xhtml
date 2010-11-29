@@ -14,14 +14,15 @@
             <li>
                 <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.actionMenuAdd}" action="edit">
                     <f:param name="id" value="#{entity.id}"/>
-                    <f:param name="type" value="#{type}"/>
+                    <f:param name="type" value="#{entity.class.simpleName}"/>
                 </sf:commandLink>
             </li>
             <li>
                 <sf:commandLink styleClass="menuItem adminItem" value="#{resourceBundle.actionMenuEditImages}"
                                 action="editImages">
                     <f:param name="id" value="#{entity.id}"/>
-                    <f:param name="type" value="#{type}"/>
+					<f:param name="type" value="#{entity.class.simpleName}"/>
+					<f:param name="entityClassName" value="#{entity.class.name}"/>
                 </sf:commandLink>
             </li>
             <li>
@@ -29,7 +30,7 @@
                                 processIds="*">
                     <f:param name="id" value="#{entity.id}"/>
                     <f:param name="name" value="#{entity.name}"/>
-                    <f:param name="type" value="#{type}"/>
+					<f:param name="type" value="#{entity.class.simpleName}"/>
                 </sf:commandLink>
             </li>
         </ul>

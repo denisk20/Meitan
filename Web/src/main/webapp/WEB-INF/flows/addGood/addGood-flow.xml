@@ -9,6 +9,12 @@
 
 	<input name="categoryId" type="long" required="false"/>
 
+	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'addGood'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'addGood'"/>
+	</on-start>
+
 	<view-state id="addGood" parent="global#newProductsAware">
 		<on-entry>
 			<evaluate expression="categoryDao.findAll()" result="viewScope.categories"/>

@@ -6,7 +6,13 @@
 
 	<var name="newCategory" class="com.meitan.lubov.model.persistent.Category"/>
 
-	<view-state id="addCategory" parent="global#menuAwareViewState">
+	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'addCategory'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'addCategory'"/>
+	</on-start>
+
+	<view-state id="addCategory" parent="global#newProductsAware">
 
 		<transition on="create" to="categoryCreated">
 			<evaluate expression="categoryDao.makePersistent(newCategory)"/>

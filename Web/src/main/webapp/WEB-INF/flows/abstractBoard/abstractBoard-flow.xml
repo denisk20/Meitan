@@ -30,8 +30,7 @@
 		</transition>
 
 		<transition on="test">
-						<evaluate expression="utils.printMessage('inside abstractBoardViewState')"/>
-
+			<evaluate expression="utils.printMessage('inside abstractBoardViewState')"/>
 		</transition>
 	</view-state>
 

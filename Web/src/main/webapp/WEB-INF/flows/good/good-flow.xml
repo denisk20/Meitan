@@ -2,34 +2,35 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
+	  parent="global"
+		start-state="checkNull">
 
-	<input name="id" required="true" type="long" />
+	<input name="id" required="false" type="long" />
 
 	<on-start>
-		<evaluate expression="productDao.findById(id)" result="flowScope.product"/>
-        <evaluate expression="utils.asList(product.images)" result="flowScope.imagesList"/>
-		
-		<set name="flashScope.selectedImage" value="utils.asList(product.images).get(0)"/>
-
 		<set name="flowScope.outState" value="'good'"/>
-		<set name="flowScope.selectFlow" value="'good'"/>
-		<set name="flowScope.editFlow" value="'editGood'"/>
-		<set name="flowScope.className" value="'com.meitan.lubov.model.persistent.Product'"/>
-		<set name="conversationScope.dao" value="productDao"/>
-
-		<set name="flowScope.flowName" value="'good'"/>
 		<set name="flowScope.afterDeleteFlowName" value="'viewGoods'"/>
-
 	</on-start>
+
+	<decision-state id="checkNull">
+		<if test="id != null" then="good" else="end"/>
+	</decision-state>
+	
 	<view-state id="good" parent="global#newProductsAware">
+		<on-entry>
+			<set name="requestScope.idLong" value="id" type="long"/>
+			<evaluate expression="productDao.findById(idLong)" result="viewScope.product"/>
+			<set name="viewScope.selectedImage" value="utils.getFirstItem(product.images)"/>
+
+			<evaluate expression="utils.asList(product.images)" result="viewScope.imagesList"/>
+		</on-entry>
         <!--todo how to unit test this?-->
         <transition on="hitImage">
             <set name="requestScope.imageId" value="requestParameters.id" type="long"/>
-            <set name="flashScope.selectedImage" value="imageDao.findById(imageId)"/>
+            <set name="selectedImage" value="imageDao.findById(imageId)"/>
             <render fragments="bigPicture"/>
         </transition>
 	</view-state>
 
-	<end-state id="end"/>
+	<end-state id="end" view="flowRedirect:about"/>
 </flow>

@@ -4,6 +4,12 @@
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 		parent="global">
 
+	<on-start>
+		<!--abstractEditable properties-->
+		<set name="flowScope.outState" value="'login'"/>
+		<set name="flowScope.afterDeleteFlowName" value="'login'"/>
+	</on-start>
+
 	<view-state id="login"  parent="global#newProductsAware">
 	</view-state>
 
