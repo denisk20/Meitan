@@ -8,6 +8,8 @@ import com.meitan.lubov.services.util.Selectable;
 import com.meitan.lubov.services.util.selectors.CategoriesSelector;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.webflow.config.FlowDefinitionResource;
 import org.springframework.webflow.config.FlowDefinitionResourceFactory;
 import org.springframework.webflow.core.collection.LocalAttributeMap;
@@ -15,6 +17,9 @@ import org.springframework.webflow.core.collection.MutableAttributeMap;
 import org.springframework.webflow.test.MockExternalContext;
 import org.springframework.webflow.test.MockFlowBuilderContext;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -26,9 +31,6 @@ public class EditGoodFlowTest extends AbstractFlowIntegrationTest{
 	@Autowired
 	private CategoryDao testCategoryDao;
 
-	@Autowired
-	private ProductDao testProductDao;
-
 	@Override
 	protected FlowDefinitionResource getResource(FlowDefinitionResourceFactory resourceFactory) {
 		return resourceFactory.createFileResource(rootPath + "/Web/src/main/webapp/WEB-INF/flows/editGood/editGood-flow.xml");
@@ -37,7 +39,6 @@ public class EditGoodFlowTest extends AbstractFlowIntegrationTest{
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
-		builderContext.registerBean("productDao", testProductDao);
 		builderContext.registerBean("categoryDao", testCategoryDao);
 	}
 

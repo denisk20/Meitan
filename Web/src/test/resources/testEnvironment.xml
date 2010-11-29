@@ -294,4 +294,25 @@
 		<property name="itemHeight" ref="tinyHeight"/>
 	</bean>
 
+	<bean id="testFlowEntitiesManager" class="com.meitan.lubov.services.FlowEntitiesManager">
+		<property name="selectFlows">
+			<map>
+				<entry key="Product" value="good"/>
+				<entry key="Category" value="viewGoods"/>
+			</map>
+		</property>
+		<property name="editFlows">
+			<map>
+				<entry key="Product" value="editGood"/>
+				<entry key="Category" value="editCategory"/>
+			</map>
+		</property>
+		<property name="daos">
+			<map>
+				<entry key="Product" value-ref="productDao"/>
+				<entry key="Category" value-ref="categoryDao"/>
+			</map>
+		</property>
+	</bean>
+
 </beans>

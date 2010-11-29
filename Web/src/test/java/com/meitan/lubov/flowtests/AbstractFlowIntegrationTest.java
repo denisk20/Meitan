@@ -1,5 +1,6 @@
 package com.meitan.lubov.flowtests;
 
+import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.util.MenuBackgroundService;
 import com.meitan.lubov.services.util.Utils;
 import org.junit.runner.RunWith;
@@ -19,6 +20,8 @@ import org.springframework.webflow.test.MockFlowBuilderContext;
 import org.springframework.webflow.test.execution.AbstractXmlFlowExecutionTests;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author denis_k
@@ -35,18 +38,29 @@ public abstract class AbstractFlowIntegrationTest extends AbstractXmlFlowExecuti
 	@Autowired
 	protected Utils utils;
 	
+	@Autowired
+	protected ProductDao testProductDao;
+
 	protected String rootPath = System.getenv("MEITAN_HOME");
 
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		builderContext.registerBean("menuBackgroundService", new MenuBackgroundService());
+		builderContext.registerBean("productDao", testProductDao);
 	}
 
 	@Override
 	protected FlowDefinitionResource[] getModelResources(FlowDefinitionResourceFactory resourceFactory) {
-		Resource globalFlowResource = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
-		return new FlowDefinitionResource[] {
-				new FlowDefinitionResource("global", globalFlowResource, null),
-		};
+		ArrayList<FlowDefinitionResource> result = new ArrayList<FlowDefinitionResource>();
+
+		Resource localFlowResource3 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/global/global-flow.xml"));
+		Resource localFlowResource1 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/baseGood/baseGood-flow.xml"));
+		Resource localFlowResource2 = new FileSystemResource(new File(rootPath + "/Web/src/main/webapp/WEB-INF/flows/abstractEditable/abstractEditable-flow.xml"));
+		result.add(new FlowDefinitionResource("baseGood", localFlowResource1, null));
+		result.add(new FlowDefinitionResource("abstractEditable", localFlowResource2, null));
+		result.add(new FlowDefinitionResource("global", localFlowResource3, null));
+
+		return result.toArray(new FlowDefinitionResource[0]);
+
 	}
 }

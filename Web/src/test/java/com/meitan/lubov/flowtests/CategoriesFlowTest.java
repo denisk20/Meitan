@@ -2,6 +2,7 @@ package com.meitan.lubov.flowtests;
 
 import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.persistent.Category;
+import com.meitan.lubov.services.FlowEntitiesManager;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.util.DenisConversionService;
 import com.meitan.lubov.services.util.FileBackupRestoreManager;
@@ -39,12 +40,16 @@ public class CategoriesFlowTest extends AbstractFlowIntegrationTest {
 	private CategoryDao testCategoryDao;
 
 	@Autowired
+	private FlowEntitiesManager testFlowEntitiesManager;
+
+	@Autowired
 	private FileUploadHandler fileUploadHandler;
 	
 	@Override
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
 		builderContext.registerBean("categoryDao", testCategoryDao);
+		builderContext.registerBean("flowEntitiesManager", testFlowEntitiesManager);
 		builderContext.getFlowBuilderServices().setConversionService(new DenisConversionService());
 	}
 
