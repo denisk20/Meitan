@@ -59,13 +59,11 @@ public class JpaClientDao extends JpaDao<Client, Long> implements ClientDao {
 	@Transactional(readOnly = true)
 	public Client getByLogin(String login) {
 		List<Client> result = em.createNamedQuery("getClientByLogin").setParameter("login", login).getResultList();
-		if (result.size() == 0) {
-			throw new IllegalArgumentException("Can't find user with login " + login);
-		}
-		if (result.size() != 1) {
+		int usersCount = result.size();
+		if (usersCount > 1) {
 			throw new IllegalStateException("Multiple users with login " + login);
 		}
-		return result.get(0);
+		return usersCount==0 ? null :result.get(0);
 	}
 
 	@Override

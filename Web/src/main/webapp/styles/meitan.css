@@ -1,234 +1,234 @@
 @font-face
 {
-    font-family:           matreshka
+	font-family: matreshka
 ;
-    src:                   url("/fonts/Matreshka.eot")
+	src: url("/fonts/Matreshka.eot")
 ;
-    src:                   local(matreshka), url("/fonts/Matreshka.ttf") format("opentype")
+	src: local(matreshka), url("/fonts/Matreshka.ttf") format("opentype")
 ;
 }
 
 body {
-    background-color:      #ccffff;
-    margin:                0;
-    padding:               0;
+	background-color: #ccffff;
+	margin: 0;
+	padding: 0;
 }
 
 .contentTable td {
-    vertical-align:        top;
+	vertical-align: top;
 }
 
 .contentTable {
-    width:                 100%;
+	width: 100%;
 }
 
 .contentTable td:first-child {
-    width:                 70%;
+	width: 68%;
 }
 
 .menuButtons {
-    margin:                3px 3px 0;
-    padding:               5px;
+	margin: 3px 3px 0;
+	padding: 5px;
 }
 
 .rowSmallButton {
-    float:                 left;
+	float: left;
 }
 
 .info {
-    vertical-align:        top;
+	vertical-align: top;
 }
 
 #content {
-    background-image:      url("/images/flower5.png");
-    background-attachment: fixed;
-    background-position:   79% 79%;
-    background-repeat:     no-repeat;
-    width:                 100%;
+	background-image: url("/images/flower5.png");
+	background-attachment: fixed;
+	background-position: 79% 79%;
+	background-repeat: no-repeat;
+	width: 100%;
 }
 
 .topPanelContent {
 /*float:left;*/
-    width:                 100%;
-    position:              relative;
+	width: 100%;
+	position: relative;
 }
 
 #loginPanel {
-    float:                 left;
-    margin-top:            8px;
-    margin-left:           8px;
+	float: left;
+	margin-top: 8px;
+	margin-left: 8px;
 }
 
 #cartDiv {
-    float:                 right;
-    margin-top:            14px;
-    margin-left:           40px;
+	float: right;
+	margin-top: 14px;
+	margin-left: 40px;
 }
 
 #cartDivTop {
-    float:                 right;
-    margin:                0 0 0 0;
+	float: right;
+	margin: 0 0 0 0;
 }
 
 #cartInfo {
-    margin-right:          15px;
+	margin-right: 15px;
 }
 
 #checkoutLink {
-    margin:                10px 0 0;
+	margin: 10px 0 0;
 }
 
 #topPanel {
 /*background-color:      #adff2f;*/
 /*height:                120px;*/
-    margin:                0;
+	margin: 0;
 }
 
 #middle {
-    background-color:      #f0fff0;
-    margin-top:            15px;
+	background-color: #f0fff0;
+	margin-top: 15px;
 }
 
 .content {
-    margin:                0 auto;
+	margin: 0 auto;
 }
 
 .container {
-    width:                 1000px;
-    margin:                auto;
-    background-color:      #ccffff;
-    margin-top:            10px;
+	width: 1000px;
+	margin: auto;
+	background-color: #ccffff;
+	margin-top: 10px;
 
-    font-family:           sans-serif;
-    font-style:            normal;
-    font-size:             1.2em;
+	font-family: sans-serif;
+	font-style: normal;
+	font-size: 1.2em;
 }
 
 .vmenu {
 /*width:                 165px;*/
-    list-style-type:       none;
-    margin-top:            10px;
+	list-style-type: none;
+	margin-top: 10px;
 }
 
 .vmenu li {
-    margin-left:           0;
-    margin-bottom:         0; /*font-weight:           bold;*/
-    font-size:             110%; /*background-color: white;*/
+	margin-left: 0;
+	margin-bottom: 0; /*font-weight:           bold;*/
+	font-size: 110%; /*background-color: white;*/
 /*background-image: url("/images/menu_background.png");*/
 }
 
 div.navMenuItem, div.sideMenuItem {
-    position:              relative;
-    line-height:           20px;
-    padding:               10px;
-    margin:                0; /*display: inline;*/
+	position: relative;
+	line-height: 20px;
+	padding: 10px;
+	margin: 0; /*display: inline;*/
 }
 
 div.navMenuItem {
-    font-size:             170%;
+	font-size: 170%;
 }
 
 div.navMenuItem *, div.sideMenuItem * {
-    position:              relative;
+	position: relative;
 }
 
 a.navMenuLink {
-    position:              relative;
+	position: relative;
 }
 
 img.menubg {
-    position:              absolute;
-    top:                   0;
-    left:                  0;
-    width:                 100%;
-    height:                100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .menu_side {
 /*display:inline;*/
-    float:                 left;
+	float: left;
 }
 
 .menu_links {
-    margin:                15px 0;
+	margin: 15px 0;
 }
 
 .menuItem {
-    padding:               0 10px;
-    margin:                0;
+	padding: 0 10px;
+	margin: 0;
 }
 
 .menuItem a {
 /*float:left;*/
-    margin:                0;
-    padding:               0 10px;
+	margin: 0;
+	padding: 0 10px;
 }
 
 .menuTable {
-    width:                 100%;
-    padding:               0;
-    margin:                0;
+	width: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 .menuItemText, .topMenuItemText {
-    padding:               2px 0;
-    margin:                0;
+	padding: 2px 0;
+	margin: 0;
 }
 
 .topMenuItemText {
-    margin:                0px;
+	margin: 0px;
 }
 
 .login, .cart {
-    margin:                0 5px 0 0;
+	margin: 0 5px 0 0;
 }
 
 .cart {
-    background:            url(/images/cart_gift.png) center no-repeat;
-    height:                300px;
+	background: url(/images/cart_gift.png) center no-repeat;
+	height: 300px;
 }
 
 .cartMenus {
-    margin-top:            117px;
-    margin-left:           30px;
-    position:              absolute;
+	margin-top: 117px;
+	margin-left: 30px;
+	position: absolute;
 }
 
 #cartMenusId .menuItemText {
-    padding:               5px;
+	padding: 5px;
 }
 
 .menuTable td {
-    width:                 30%;
+	width: 30%;
 }
 
 #menu_content {
-    overflow:              auto;
-    background-color:      red;
+	overflow: auto;
+	background-color: red;
 }
 
 #menu_content > div {
-    font-size:             125%;
+	font-size: 125%;
 }
 
 .menu_links li {
-    display:               inline;
+	display: inline;
 }
 
 #menu_links a:link, a:visited, a:hover, a:active {
-    background-color:      transparent;
+	background-color: transparent;
 }
 
 a:link, a:visited {
-    color:                 blue;
+	color: blue;
 }
 
 a:hover, a:active {
-    color:                 blue;
+	color: blue;
 }
 
 .actionMenu {
-    float:                 none;
+	float: none;
 }
 
 .sideMenuLink {
@@ -236,130 +236,158 @@ a:hover, a:active {
 }
 
 .actionMenu ul {
-    list-style-type:       none;
-    margin:                0;
-    padding:               0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 .actionMenu li {
-    margin:                5px 0;
+	margin: 5px 0;
 }
 
 a, a:link {
-    background-color:      transparent;
+	background-color: transparent;
 }
 
 a.menuItem:link, a.menuItem:visited {
-    display:               block;
-    width:                 130px;
-    font-weight:           bold;
-    color:                 #FFFFFF;
-    background-color:      #98bf21;
-    text-align:            center;
-    padding:               4px;
-    text-decoration:       none;
-    text-transform:        uppercase;
+	display: block;
+	width: 130px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #98bf21;
+	text-align: center;
+	padding: 4px;
+	text-decoration: none;
+	text-transform: uppercase;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 a.menuItem:hover, a.menuItem:active {
-    background-color:      #7A991A;
+	background-color: #7A991A;
 }
 
 a.adminItem:link, a.adminItem:visited {
-    background-color:      #ffcccc;
+	background-color: #ffcccc;
 }
 
 a.adminItem:hover, a.adminItem:active {
-    background-color:      #ff9999;
+	background-color: #ff9999;
 }
 
 #imageDiv {
-    overflow:              auto;
-    margin:                0;
+	overflow: auto;
+	margin: 0;
+	border: 1px solid;
+	padding:1px;
 }
 
 .imageItem {
-    float:                 left;
-    margin:                0 3px
+	float: left;
+	margin: 0 1px;
 }
 
 div.img {
-    margin:                5px;
-    border:                1px solid #0000ff;
-    height:                auto;
-    width:                 auto;
-    text-align:            center;
+	margin: 0;
+	border: 1px solid #0000ff;
+	height: auto;
+	width: auto;
+	text-align: center;
+	background-color:#FDE4A1;
 }
 
 div.img img {
-    display:               inline;
-    margin:                3px;
-    border:                1px solid #ffffff;
+	display: inline;
+	margin: 3px;
+	border: 1px solid #ffffff;
 }
 
 div.img a:hover img {
-    border:                1px solid #0000ff;
+	border: 1px solid #0000ff;
+}
+
+div.desc, div.price {
+	text-align: center;
+	font-weight: normal;
+	width: 120px;
+	margin: 0 2px;
+	padding: 6px 0;
 }
 
 div.desc {
-    text-align:            center;
-    font-weight:           normal;
-    width:                 120px;
-    margin:                2px;
+	background-color: #fffc00;
+}
+
+div.price {
+	background-color: #85D4F8;
+}
+
+div.iconBorderInner {
+	border: 1px solid;
+	padding: 10px;
+	margin:0;
+	background-color:#dbedfa;
+}
+
+div.iconBorderOuter {
+	border: 1px solid;
+	padding:1px;
+	margin:0;
 }
 
 .label {
-    font:                  15px arial, sans-serif;
+	font: 15px arial, sans-serif;
 }
 
 .field {
-    overflow:              auto;
+	overflow: auto;
 }
 
-.field .label,.field .nonLabel{
-    float:                 left;
-    padding-top:           5px;
-    padding-right:         5px;
-    font-weight:           bold;
-    width:                 150px;
-    text-align:            right;
+.field .label, .field .nonLabel {
+	float: left;
+	padding-top: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	width: 150px;
+	text-align: right;
 }
 
 .field .nonLabel {
-    float:none;
+	float: none;
 }
+
 .field .input {
-    float:                 left;
-    width:                 250px;
-    text-align:            left;
+	float: left;
+	width: 250px;
+	text-align: left;
 }
 
 .output {
-    overflow:              auto;
-    clear:                 both;
-    margin:                10px 15px 0px
+	overflow: auto;
+	clear: both;
+	margin: 10px 15px 0px
 }
 
 .output .name, .value {
-    margin:                5px;
+	margin: 5px;
 }
 
 .output .name {
-    float:                 left;
+	float: left;
 }
 
 .output .value {
-    float:                 right;
+	float: right;
 }
 
 .output .hugevalue {
-    width:                 200px;
-    height:                100px;
-    overflow:              auto;
+	width: 200px;
+	height: 100px;
+	overflow: auto;
 }
 
 .images {
-    float:                 left;
+	float: left;
 }
 
 .images .img {
@@ -367,27 +395,27 @@ div.desc {
 }
 
 .mceIframeContainer iframe {
-    width:                 610px;
-    height:                250px;
+	width: 610px;
+	height: 250px;
 }
 
 .imageEditSet {
-    margin:                5px 0;
-    border:                1px solid;
-    padding:               7px;
+	margin: 5px 0;
+	border: 1px solid;
+	padding: 7px;
 }
 
 .editImageMenuBar {
-    overflow:              auto;
+	overflow: auto;
 }
 
 .makeMainImageButton, .isMainLabel {
-    float:                 right;
-    margin:                5px;
+	float: right;
+	margin: 5px;
 }
 
 .deleteButton {
-    float:                 left
+	float: left
 }
 
 .saveEditedImages {
@@ -395,124 +423,126 @@ div.desc {
 }
 
 .flip {
-    background-color:      mediumSpringGreen;
+	background-color: mediumSpringGreen;
 }
 
 .topOutline {
-    background-image:      url(/images/top_border_small.png);
-    background-repeat:     repeat-x;
-    width:                 1033px;
-    height:                25px;
-    float:                 left;
+	background-image: url(/images/top_border_small.png);
+	background-repeat: repeat-x;
+	width: 1033px;
+	height: 25px;
+	float: left;
 }
 
 .topCorner_left, .topCorner_right, .bottomCorner_left, .bottomCorner_right {
-    background-image:      url(/images/top_border_corner.png);
-    background-repeat:     no-repeat;
+	background-image: url(/images/top_border_corner.png);
+	background-repeat: no-repeat;
 }
 
 .topCorner_right {
-    float:                 right;
-    border-top:            1px solid;
-    border-right:          1px solid;
-    width:                 20px;
-    height:                24px;
+	float: right;
+	border-top: 1px solid;
+	border-right: 1px solid;
+	width: 20px;
+	height: 24px;
 }
 
 .topCorner_left {
-    float:                 left;
-    border-top:            1px solid;
-    border-left:           1px solid;
-    width:                 20px;
-    height:                24px;
+	float: left;
+	border-top: 1px solid;
+	border-left: 1px solid;
+	width: 20px;
+	height: 24px;
 }
 
 .bottomCorner_right {
-    float:                 right;
-    border-bottom:         1px solid;
-    border-right:          1px solid;
-    width:                 20px;
-    height:                24px;
+	float: right;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+	width: 20px;
+	height: 24px;
 }
 
 .bottomCorner_left {
-    float:                 left;
-    border-bottom:         1px solid;
-    border-left:           1px solid;
-    width:                 20px;
-    height:                24px;
+	float: left;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	width: 20px;
+	height: 24px;
 }
 
 .topAlmostRight {
-    background-image:      url(/images/top_border_almost_right.png);
+	background-image: url(/images/top_border_almost_right.png);
 }
 
 .top_bottomOutline {
-    clear:                 both;
+	clear: both;
 }
 
 .sideOutlineRight, .sideOutlineLeft {
-    width:                 22px;
-    height:                95px;
-    background-image:      url(/images/side_border.png);
-    background-repeat:     repeat-y;
-    float:                 left;
+	width: 22px;
+	height: 95px;
+	background-image: url(/images/side_border.png);
+	background-repeat: repeat-y;
+	float: left;
 }
 
 .sideOutlineRight {
-    float:                 right;
+	float: right;
 }
 
 a.enter:link, a.enter:visited {
-    background-image:      url("/images/enter_button_mouseover.png");
+	background-image: url("/images/enter_button_mouseover.png");
 }
 
 a.enter:hover, a.enter:active {
-    background-image:      url("/images/enter_button_still.png");
+	background-image: url("/images/enter_button_still.png");
 }
 
 .exclamation {
-    font-size:             larger;
-    color:                 red;
+	font-size: larger;
+	color: red;
 }
 
 .captcha {
-    margin-left:           185px;
+	margin-left: 185px;
 }
 
 img.topPanelItem {
-    float:                 left;
+	float: left;
 }
 
 img.meitanLogo {
-    width:                 85%;
-    margin-left:           5px;
+	width: 85%;
+	margin-left: 5px;
 }
 
 .inKharkov {
-    font-size:             2em;
-    position:              absolute;
-    top:                   85px;
-    left:                  500px;
+	font-size: 2em;
+	position: absolute;
+	top: 85px;
+	left: 500px;
 }
 
 .roof {
-    width:                 100%;
+	width: 100%;
 }
 
 .newsTable {
-    width:                 100%;
+	width: 100%;
 }
 
 .news {
-    overflow-x:            auto;
-    border:                dotted blue 1px ;
-    padding:               10px
+	overflow-x: auto;
+	border: dotted blue 1px;
+	padding: 10px
 }
+
 .newsLegend {
-    color:red;
-    background-color:transparent;
+	color: red;
+	background-color: transparent;
 }
+
 .editPanel {
-    display:none;
+	display: none;
 }

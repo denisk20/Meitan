@@ -5,23 +5,23 @@
 		>
 
 	<view-state id="abstractEditable" parent="baseGood#baseGood">
-		<transition on="select" to="selectFlow" bind="false">
+		<transition on="select" to="selectFlow" validate="false">
 			<set name="requestScope.id" value="requestParameters.id"/>
 			<set name="requestScope.selectFlowName" value="flowEntitiesManager.selectFlows.get(requestParameters.type)"/>
 		</transition>
 
-		<transition on="edit" to="editItem" bind="false">
+		<transition on="edit" to="editItem" validate="false">
 			<set name="requestScope.id" value="requestParameters.id" type="long"/>
 			<set name="requestScope.editFlowName" value="flowEntitiesManager.editFlows.get(requestParameters.type)"/>
 		</transition>
 
-		<transition on="editImages" to="editImages" bind="false">
+		<transition on="editImages" to="editImages" validate="false">
 			<set name="requestScope.id" value="requestParameters.id" type="long"/>
 			<set name="requestScope.type" value="requestParameters.type"/>
 			<set name="requestScope.entityClassName" value="requestParameters.entityClassName"/>
 		</transition>
 
-		<transition on="delete" to="conformDelete" bind="false">
+		<transition on="delete" to="conformDelete" validate="false">
             <set name="requestScope.id" value="requestParameters.id"/>
             <set name="requestScope.name" value="requestParameters.name"/>
 			<set name="requestScope.type" value="requestParameters.type"/>

@@ -73,7 +73,7 @@ public class EditGoodFlowTest extends AbstractFlowIntegrationTest{
 		
 		assertEquals("Wrong items selected", p.getCategories(), selectedCategories);
 
-		Product productFromFlowScope = (Product) getFlowScope().getRequired("product", Product.class);
+		Product productFromFlowScope = (Product) getViewScope().getRequired("product", Product.class);
 
 		assertEquals("Products don't match", p, productFromFlowScope);
 

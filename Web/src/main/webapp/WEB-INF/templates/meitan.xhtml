@@ -28,6 +28,23 @@
         </sf:resourceGroup>
 
         <ui:insert name="header"/>
+		<script type="text/javascript">
+			//<![CDATA[
+			function shrinkDivs() {
+				var divsToShrink = document.getElementsByTagName('div');
+				for(i=0; i < divsToShrink.length; i++) {
+					var divToShrink = divsToShrink[i];
+					var className = divToShrink.className;
+					if(className == 'desc' || className == 'price') {
+						if(divToShrink.innerHTML==''){
+							divToShrink.style.padding='0';
+						}
+					}
+				}
+			}
+			window.onload = shrinkDivs;
+			//]]>
+		</script>
     </head>
 
     <body class="tundra spring">

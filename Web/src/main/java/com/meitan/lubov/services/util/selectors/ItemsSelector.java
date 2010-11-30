@@ -24,4 +24,6 @@ public interface ItemsSelector<T> {
 	ArrayList<Selectable<T>> getItems();
 
 	void selectAppropriateItems(Collection<T> items);
+
+	void clear();
 }
