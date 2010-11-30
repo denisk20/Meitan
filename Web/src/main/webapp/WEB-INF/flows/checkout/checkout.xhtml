@@ -19,9 +19,12 @@
 		<h:form id="checkout">
 
 			<ui:fragment id="quantityTable">
+				<ui:fragment id="cartItemsFragment">
 				<sf:ajaxEvent event="onkeyup" action="quantityChanged">
 					<h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
-							>
+							captionClass="checkoutCaption" columnClasses="" headerClass="captionHeader"
+							footerClass="captionFooter" rowClasses="checkoutEvenRow,checkoutOddRow"
+							styleClass="checkoutTable" summary="#{resourceBundle.checkoutCheckoutHeader}">
 						<h:column>
 							<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderGood}"/></f:facet>
 							<h:outputText value="#{shoppingCartItem.item.name}"/>
@@ -39,22 +42,15 @@
 							<sf:commandButton value="#{resourceBundle.checkoutCheckoutTableheaderDeleteButton}" action="deleteFromCart" processIds="*"/>
 						</h:column>
 
+						<h:column>
+							<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderPrices}"/></f:facet>
+							<h:outputText value="#{shoppingCartItem.price}"/>
+						</h:column>
+
+						<f:facet name="footer"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderTotalPrice}"/> #{cart.totalPrice}</f:facet>
 					</h:dataTable>
 				</sf:ajaxEvent>
 			</ui:fragment>
-
-			<ui:fragment id="cartItemsFragment">
-				<h:dataTable id="shoppingCartItems1" value="#{cart.itemsDataModel}" var="shoppingCartItem"
-						>
-					<h:column>
-						<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderPrices}"/></f:facet>
-						<h:outputText value="#{shoppingCartItem.price}"/>
-					</h:column>
-				</h:dataTable>
-
-				<div id="total">
-					<h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderTotalPrice}"/> #{cart.totalPrice}
-				</div>
 			</ui:fragment>
 
 			<c:if test="#{cart.count > 0}"><sf:commandButton value="#{resourceBundle.checkoutCheckoutNext}" action="order"/></c:if>
