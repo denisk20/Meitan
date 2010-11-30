@@ -123,4 +123,10 @@ public class ShoppingCartImpl implements ShoppingCart{
 	 public void sayHello() {
 		System.out.println("Hello!");
 	}
+
+	@Override
+	public boolean isEmpty() {
+		return items.isEmpty();
+	}
 }
+

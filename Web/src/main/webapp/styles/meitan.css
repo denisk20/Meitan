@@ -22,7 +22,7 @@ body {
 	width: 100%;
 }
 
-.contentTable td:first-child {
+#contentTd {
 	width: 68%;
 }
 
@@ -590,4 +590,48 @@ h1 {
 .goodDesc {
 	width:100%;
 	overflow:auto;
+}
+.checkoutTable {
+    border-collapse:collapse;
+    margin:10px;
+}
+.checkoutTable .dijitTextBox {
+    width:50%;
+}
+.checkoutHeader, .checkoutEvenRow, .checkoutOddRow, .checkoutTable td {
+    border:1px solid #076526;
+    vertical-align:middle;
+    padding:4px;
+}
+.checkoutHeader {
+    color:white;
+    background-color:#0ca73f;
+    font-size:1.5em;
+    line-height:1em;
+    text-align:center;
+}
+
+.checkoutItemNameCol {
+    width:50%;
+}
+.checkoutQuantityCol {
+    width:10%;
+}
+.checkoutDeleteCol {
+    width:20%;
+}
+.checkoutPriceCol {
+    width:20%;
+}
+.checkoutEvenRow {
+    background-color:#c2ecd0;
+}
+.checkoutOddRow {
+    background-color:#97c9a7;
+}
+td.checkoutFooter{
+    background-color:#dce07c;
+    text-align:right;
+    padding:15px;
+    font-size:1.5em;
 }
