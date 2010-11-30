@@ -4,6 +4,7 @@
 	<comment>This is main applications message source</comment>
 
 	<!--errors-->
+	<entry key="passwordsNull">Пароль не может быть пустым</entry>
 	<entry key="passwordsDontMatch">Пароли не совпадают</entry>
 	<entry key="emailCantBeNull">Почта не может быть пустой</entry>
 	<entry key="emailIsWrong">Почта задана в неправильном формате</entry>

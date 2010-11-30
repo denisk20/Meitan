@@ -15,14 +15,16 @@
 		<!--abstractEditable properties-->
 		<set name="flowScope.outState" value="'editGood'"/>
 		<set name="flowScope.afterDeleteFlowName" value="'about'"/>
-
-		<evaluate expression="productDao.findById(id)" result="flowScope.product"/>
-		<evaluate expression="categoryDao.findAll()" result="requestScope.allCategories"/>
-		<evaluate expression="categoriesSelector.addItems(allCategories)"/>
-		<evaluate expression="categoriesSelector.selectAppropriateItems(product.categories)"/>
 	</on-start>
 
 	<view-state id="editGood" parent="global#newProductsAware" model="product">
+		<on-render>
+			<evaluate expression="productDao.findById(id)" result="viewScope.product"/>
+			<evaluate expression="categoryDao.findAll()" result="requestScope.allCategories"/>
+			<evaluate expression="categoriesSelector.clear()"/>
+			<evaluate expression="categoriesSelector.addItems(allCategories)"/>
+			<evaluate expression="categoriesSelector.selectAppropriateItems(product.categories)"/>
+		</on-render>
 		<transition on="save" to="save">
 			<evaluate expression="productDao.assignCategoriesToProduct(product, categoriesSelector.items)"/>
 		</transition>

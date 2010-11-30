@@ -32,15 +32,20 @@ public class ClientValidator {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("passwordsNull")
 							.defaultText("Password can't be null")
 							.build());
 			valid = false;
+			throw new IllegalArgumentException();
 		}
 
 		if (original.equals("") || conformed.equals("")) {
 			context.getMessageContext()
 					.addMessage(new MessageBuilder()
 							.error()
+							.source("messages")
+							.code("passwordsNull")
 							.defaultText("Password can't be null")
 							.build());
 			valid = false;
@@ -145,9 +150,6 @@ public class ClientValidator {
 							.build());
 			valid = false;
 		}
-
-
-
 
 		if (!valid) {
 			throw new IllegalArgumentException("Passport validation failed");

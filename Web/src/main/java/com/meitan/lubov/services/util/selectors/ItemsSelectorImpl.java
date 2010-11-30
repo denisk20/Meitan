@@ -69,4 +69,9 @@ public abstract class ItemsSelectorImpl<T extends NameAware> implements ItemsSel
 		}
 		return null;
 	}
+
+	@Override
+	public void clear() {
+		items.clear();
+	}
 }
