@@ -9,7 +9,9 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
+		<div class="h1div">
             <h1><h:outputText value="#{resourceBundle.joinJoinHeader}"/></h1>
+		</div>
 
 		<sec:ifNotGranted roles="ROLE_CLIENT">
 			<sec:ifNotGranted roles="ROLE_CONSULTANT">

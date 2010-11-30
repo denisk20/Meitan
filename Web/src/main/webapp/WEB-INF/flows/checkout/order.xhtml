@@ -13,7 +13,9 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1><h:outputText value="#{resourceBundle.checkoutOrderHeader}"/></h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.checkoutOrderHeader}"/></h1>
+		</div>
 		<h:form id="orderForm">
 			<h:dataTable id="orderedItemsDT" value="#{cart.items}" var="item">
 				<h:column>

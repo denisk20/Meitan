@@ -9,9 +9,11 @@
 				xmlns:sec="http://www.springframework.org/security/facelets/tags"
 				xmlns:c="http://java.sun.com/jstl/core"
 				template="/WEB-INF/templates/meitan.xhtml">
-
+	<!--todo-->
 	<ui:define name="content">
-		<h1>Товары, купленные #{currentUser.name}</h1>
+		<div class="h1div">
+			<h1>Товары, купленные #{currentUser.name}</h1>
+		</div>
 		<table class="itemsTable">
 			<thead>
 			<tr>

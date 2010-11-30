@@ -561,3 +561,14 @@ img.meitanLogo {
 	bottom:-121px;
 	background: url("/images/flowersBottom.png") no-repeat;
 }
+
+h1 {
+	text-align:left;
+}
+
+.h1div{
+	background: url("/images/h1leaves.png") no-repeat;
+	margin-left:10px;
+	height:90px;
+	padding-left:31px;
+}

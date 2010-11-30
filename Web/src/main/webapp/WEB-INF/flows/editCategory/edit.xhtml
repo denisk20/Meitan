@@ -1,40 +1,42 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:sf="http://www.springframework.org/tags/faces"
-                xmlns:form="http://www.springframework.org/tags/form"
-                xmlns:sec="http://www.springframework.org/security/tags"
-                template="/WEB-INF/templates/meitan.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:form="http://www.springframework.org/tags/form"
+				xmlns:sec="http://www.springframework.org/security/tags"
+				template="/WEB-INF/templates/meitan.xhtml">
 
-    <ui:define name="content">
-        <h:messages/>
+	<ui:define name="content">
+		<h:messages/>
 
-        <h1><h:outputText value="#{resourceBundle.editCategoryHeader}"/></h1>
-        <h:form>
-            <fieldset>
-                <div class="field">
-                    <div class="label"><h:outputText value="#{resourceBundle.editCategoryCategoryNameLabel}"/></div>
-                    <div class="input">
-                        <sf:clientTextValidator promptMessage="#{resourceBundle.editCategoryCategoryNamePrompt}">
-                            <h:inputText id="categoryName" value="#{category.name}"/>
-                        </sf:clientTextValidator>
-                    </div>
-                </div>
-                <br/>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.editCategoryHeader}"/></h1>
+		</div>
+		<h:form>
+			<fieldset>
+				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.editCategoryCategoryNameLabel}"/></div>
+					<div class="input">
+						<sf:clientTextValidator promptMessage="#{resourceBundle.editCategoryCategoryNamePrompt}">
+							<h:inputText id="categoryName" value="#{category.name}"/>
+						</sf:clientTextValidator>
+					</div>
+				</div>
+				<br/>
 
-                <h:panelGrid rendered="${! empty(category.image)}">
-                    <p><h:outputText value="#{resourceBundle.editCategoryImages}"/></p>
-                    <br/>
-                    <img src="/image#{category.image.url}" alt="${category.name}"/>
-                </h:panelGrid>
-            </fieldset>
+				<h:panelGrid rendered="${! empty(category.image)}">
+					<p><h:outputText value="#{resourceBundle.editCategoryImages}"/></p>
+					<br/>
+					<img src="/image#{category.image.url}" alt="${category.name}"/>
+				</h:panelGrid>
+			</fieldset>
 
-            <sf:commandButton id="createCategoryButton" value="#{resourceBundle.editCategorySave}" processIds="*" action="save"/>
-            <sf:commandButton value="#{resourceBundle.editCategoryBack}" action="back"/>
-        </h:form>
+			<sf:commandButton id="createCategoryButton" value="#{resourceBundle.editCategorySave}" processIds="*" action="save"/>
+			<sf:commandButton value="#{resourceBundle.editCategoryBack}" action="back"/>
+		</h:form>
 
-    </ui:define>
+	</ui:define>
 </ui:composition>

@@ -1,60 +1,64 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:sf="http://www.springframework.org/tags/faces"
-                xmlns:form="http://www.springframework.org/tags/form"
-                xmlns:sec="http://www.springframework.org/security/tags"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jstl/core"
-                template="/WEB-INF/templates/meitan.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:form="http://www.springframework.org/tags/form"
+				xmlns:sec="http://www.springframework.org/security/tags"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jstl/core"
+				template="/WEB-INF/templates/meitan.xhtml">
 
-    <ui:define name="content">
-        <h:messages/>
+	<ui:define name="content">
+		<h:messages/>
 
-        <h1><h:outputText value="#{resourceBundle.checkoutCheckoutHeader}"/></h1>
-        <h:form id="checkout">
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.checkoutCheckoutHeader}"/></h1>
+		</div>
+		<h:form id="checkout">
 
-            <ui:fragment id="quantityTable">
-                <sf:ajaxEvent event="onkeyup" action="quantityChanged">
-                    <h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
-                            >
-                        <h:column>
-                            <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderGood}"/></f:facet>
-                            <h:outputText value="#{shoppingCartItem.item.name}"/>
-                        </h:column>
+			<ui:fragment id="quantityTable">
+				<sf:ajaxEvent event="onkeyup" action="quantityChanged">
+					<h:dataTable id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
+							>
+						<h:column>
+							<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderGood}"/></f:facet>
+							<h:outputText value="#{shoppingCartItem.item.name}"/>
+						</h:column>
 
-                        <h:column>
-                            <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderQuantity}"/></f:facet>
-                            <sf:clientNumberValidator promptMessage="#{resourceBundle.checkoutCheckoutTableheaderQuantityPrompt}">
-                                <h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
-                            </sf:clientNumberValidator>
-                        </h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderQuantity}"/></f:facet>
+							<sf:clientNumberValidator promptMessage="#{resourceBundle.checkoutCheckoutTableheaderQuantityPrompt}">
+								<h:inputText id="someinput" value="#{shoppingCartItem.quantity}"/>
+							</sf:clientNumberValidator>
+						</h:column>
 
-                        <h:column>
-                            <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderDelete}"/></f:facet>
-                            <sf:commandButton value="#{resourceBundle.checkoutCheckoutTableheaderDeleteButton}" action="deleteFromCart" processIds="*"/>
-                        </h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderDelete}"/></f:facet>
+							<sf:commandButton value="#{resourceBundle.checkoutCheckoutTableheaderDeleteButton}" action="deleteFromCart" processIds="*"/>
+						</h:column>
 
-                    </h:dataTable>
-                </sf:ajaxEvent>
-            </ui:fragment>
+					</h:dataTable>
+				</sf:ajaxEvent>
+			</ui:fragment>
 
-            <ui:fragment id="cartItemsFragment">
-                <h:dataTable id="shoppingCartItems1" value="#{cart.itemsDataModel}" var="shoppingCartItem"
-                        >
-                    <h:column>
-                        <f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderPrices}"/></f:facet>
-                        <h:outputText value="#{shoppingCartItem.price}"/>
-                    </h:column>
-                </h:dataTable>
+			<ui:fragment id="cartItemsFragment">
+				<h:dataTable id="shoppingCartItems1" value="#{cart.itemsDataModel}" var="shoppingCartItem"
+						>
+					<h:column>
+						<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderPrices}"/></f:facet>
+						<h:outputText value="#{shoppingCartItem.price}"/>
+					</h:column>
+				</h:dataTable>
 
-                <div id="total"> <h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderTotalPrice}"/> #{cart.totalPrice}</div>
-            </ui:fragment>
+				<div id="total">
+					<h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderTotalPrice}"/> #{cart.totalPrice}
+				</div>
+			</ui:fragment>
 
-            <c:if test="#{cart.count > 0}"><sf:commandButton value="#{resourceBundle.checkoutCheckoutNext}" action="order"/></c:if>
-        </h:form>
+			<c:if test="#{cart.count > 0}"><sf:commandButton value="#{resourceBundle.checkoutCheckoutNext}" action="order"/></c:if>
+		</h:form>
 
-    </ui:define>
+	</ui:define>
 </ui:composition>

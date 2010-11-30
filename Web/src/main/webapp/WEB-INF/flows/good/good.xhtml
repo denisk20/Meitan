@@ -11,7 +11,9 @@
                 template="/WEB-INF/templates/meitan.xhtml">
 
     <ui:define name="content">
-        <h1>#{product.name}</h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{product.name}"/></h1>
+		</div>
         <fieldset>
             <legend><h:outputText value="#{resourceBundle.goodHeader}"/></legend>
             <div class="output">

@@ -1,24 +1,26 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:sec="http://www.springframework.org/security/facelets/tags"
-                xmlns:sf="http://www.springframework.org/tags/faces"
-                xmlns:c="http://java.sun.com/jstl/core"
-                xmlns:denis="http://meitan-kh.com/"
-                xmlns:rich="http://richfaces.org/rich"
-                template="/WEB-INF/templates/meitan.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sec="http://www.springframework.org/security/facelets/tags"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:denis="http://meitan-kh.com/"
+				xmlns:rich="http://richfaces.org/rich"
+				template="/WEB-INF/templates/meitan.xhtml">
 
-    <ui:define name="content">
-        <h1><h:outputText value="#{resourceBundle.boardForConsultantsTitle}"/></h1>
+	<ui:define name="content">
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.boardForConsultantsTitle}"/></h1>
+		</div>
 
-        <p><h:outputText value="#{resourceBundle.boardForConsultantsHeader}"/></p>
+		<p><h:outputText value="#{resourceBundle.boardForConsultantsHeader}"/></p>
 
-        <h:form>
-            <denis:board boardItems="#{boardItems}"/>
-        </h:form>
+		<h:form>
+			<denis:board boardItems="#{boardItems}"/>
+		</h:form>
 
-    </ui:define>
+	</ui:define>
 </ui:composition>
