@@ -199,7 +199,7 @@
 	<entry key="boardAddNews">Добавить новую новость...</entry>
 	<entry key="boardAdded">Добавлено </entry>
 	<entry key="boardCreate">Создать</entry>
-	<entry key="boardNews">Объявление</entry>
+	<entry key="boardNews"></entry>
 	<entry key="boardSave">Сохранить</entry>
 	<entry key="boardDelete">Удалить</entry>
 	<!--goodMenu.xhtml-->
