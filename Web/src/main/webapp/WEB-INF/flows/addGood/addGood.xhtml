@@ -1,71 +1,73 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:sf="http://www.springframework.org/tags/faces"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:form="http://www.springframework.org/tags/form"
-                xmlns:j4j="http://javascript4jsf.dev.java.net/"
-                template="/WEB-INF/templates/meitan.xhtml">
-    <ui:define name="header">
-        <!--<script type="text/javascript" src="/WEB-INF/js/jquery-1.4.min.js"></script>-->
-        <!--<sf:resource path="/js/jquery-1.4.js"/>-->
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:form="http://www.springframework.org/tags/form"
+				xmlns:j4j="http://javascript4jsf.dev.java.net/"
+				template="/WEB-INF/templates/meitan.xhtml">
+	<ui:define name="header">
+		<!--<script type="text/javascript" src="/WEB-INF/js/jquery-1.4.min.js"></script>-->
+		<!--<sf:resource path="/js/jquery-1.4.js"/>-->
 
-    </ui:define>
-    <ui:define name="content">
-        <h1><h:outputText value="#{resourceBundle.addGoodHeader}"/></h1>
-        <h:form>
-            <fieldset>
-                <div class="field">
-                    <div class="label"><h:outputText value="#{resourceBundle.addGoodNameTitle}"/></div>
-                    <div class="input">
-                        <sf:clientTextValidator promptMessage="#{resourceBundle.addGoodNameEditPrompt}">
-                            <h:inputText id="inputGoodName" value="#{newGood.name}"/>
-                        </sf:clientTextValidator>
-                    </div>
-                </div>
+	</ui:define>
+	<ui:define name="content">
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.addGoodHeader}"/></h1>
+		</div>
+		<h:form>
+			<fieldset>
+				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.addGoodNameTitle}"/></div>
+					<div class="input">
+						<sf:clientTextValidator promptMessage="#{resourceBundle.addGoodNameEditPrompt}">
+							<h:inputText id="inputGoodName" value="#{newGood.name}"/>
+						</sf:clientTextValidator>
+					</div>
+				</div>
 
-                <div class="field">
-                    <div class="label"><h:outputText value="#{resourceBundle.addGoodDescriptionTitle}"/></div>
-                    <div class="input">
-                        <sf:clientTextValidator promptMessage="#{resourceBundle.addGoodDescriptionEditPrompt}">
-                            <h:inputText id="inputGoodDescription" value="#{newGood.description}"/>
-                        </sf:clientTextValidator>
-                    </div>
-                </div>
+				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.addGoodDescriptionTitle}"/></div>
+					<div class="input">
+						<sf:clientTextValidator promptMessage="#{resourceBundle.addGoodDescriptionEditPrompt}">
+							<h:inputText id="inputGoodDescription" value="#{newGood.description}"/>
+						</sf:clientTextValidator>
+					</div>
+				</div>
 
-                <div class="field">
-                    <div class="label"><h:outputText value="#{resourceBundle.addGoodPriceTitle}"/></div>
-                    <div class="input">
-                        <sf:clientCurrencyValidator currency="UAH" promptMessage="#{resourceBundle.addGoodPriceEditPrompt}">
-                            <h:inputText id="inputCurrency" value="#{newGood.price.amount}"/>
-                        </sf:clientCurrencyValidator>
-                    </div>
-                </div>
+				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.addGoodPriceTitle}"/></div>
+					<div class="input">
+						<sf:clientCurrencyValidator currency="UAH" promptMessage="#{resourceBundle.addGoodPriceEditPrompt}">
+							<h:inputText id="inputCurrency" value="#{newGood.price.amount}"/>
+						</sf:clientCurrencyValidator>
+					</div>
+				</div>
 
-                <div class="field">
-                    <div class="label"><h:outputText value="#{resourceBundle.addGoodIsNew}"/></div>
-                    <div class="input">
-                        <h:selectBooleanCheckbox id="isNew" value="#{newGood.new}"/>
-                    </div>
-                </div>
+				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.addGoodIsNew}"/></div>
+					<div class="input">
+						<h:selectBooleanCheckbox id="isNew" value="#{newGood.new}"/>
+					</div>
+				</div>
 
-                <div class="field">
-                    <div class="label"><h:outputText value="#{resourceBundle.addGoodCategories}"/></div>
-                    <div class="input">
-                        <h:selectManyListbox id="availableCategoriesListbox" value="#{newGood.categoriesIdArray}">
-                            <f:selectItems value="#{categoriesItems}"/>
-                            <j4j:idProxy id="_avCat"/>
-                        </h:selectManyListbox>
-                    </div>
-                </div>
-            </fieldset>
-            <sf:commandButton value="#{resourceBundle.addGoodCreate}" processIds="*" action="create"/>
-            <sf:commandButton value="#{resourceBundle.addGoodCancel}" action="back"/>
+				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.addGoodCategories}"/></div>
+					<div class="input">
+						<h:selectManyListbox id="availableCategoriesListbox" value="#{newGood.categoriesIdArray}">
+							<f:selectItems value="#{categoriesItems}"/>
+							<j4j:idProxy id="_avCat"/>
+						</h:selectManyListbox>
+					</div>
+				</div>
+			</fieldset>
+			<sf:commandButton value="#{resourceBundle.addGoodCreate}" processIds="*" action="create"/>
+			<sf:commandButton value="#{resourceBundle.addGoodCancel}" action="back"/>
 
-        </h:form>
+		</h:form>
 
-    </ui:define>
+	</ui:define>
 </ui:composition>

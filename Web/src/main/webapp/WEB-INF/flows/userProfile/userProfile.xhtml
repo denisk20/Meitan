@@ -13,7 +13,9 @@
 	</ui:define>
 	<ui:define name="content">
 
-		<h1><h:outputText value="#{resourceBundle.userProfileHeader}"/></h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.userProfileHeader}"/></h1>
+		</div>
 
 		<div class="section">
 			<h:messages/>
@@ -54,11 +56,11 @@
 							<!--todo this validator works only partially-->
 							<div class="input">
 								<sf:clientTextValidator
-									regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
-									promptMessage="#{resourceBundle.userProfileEmailPrompt}"
-									invalidMessage="#{resourceBundle.userProfileEmailError}">
-								<h:inputText id="emailAddress" value="#{client.email}" required="false"/>
-							</sf:clientTextValidator>
+										regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" required="false"
+										promptMessage="#{resourceBundle.userProfileEmailPrompt}"
+										invalidMessage="#{resourceBundle.userProfileEmailError}">
+									<h:inputText id="emailAddress" value="#{client.email}" required="false"/>
+								</sf:clientTextValidator>
 							</div>
 						</div>
 					</div>

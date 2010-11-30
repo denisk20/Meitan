@@ -206,6 +206,7 @@
 	<entry key="goodMenuBuy">Купить!</entry>
 
 	<!--login.xhtml-->
+	<entry key="loginNeeded">Требуется авторизация</entry>
 	<entry key="loginPleaseEnter">Пожалуйста, войдите или</entry>
 	<entry key="loginRegister">Зарегистрируйтесь</entry>
 	<entry key="loginUsername">Логин</entry>

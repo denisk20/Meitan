@@ -13,29 +13,32 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsHeader}"/></h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsHeader}"/></h1>
+		</div>
 
 		<h:form>
 			<fieldset>
 				<div class="field">
 					<div class="field">
-						<div class="label"><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsEmailTitle}"/></div>
+						<div class="label">
+							<h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsEmailTitle}"/></div>
 						<div class="output">
 							<h:outputLabel id="emailAddress" value="#{client.email}"/>
 						</div>
 					</div>
 				</div>
 
-<!--
-				<div class="field">
-					<div class="label">Телефон</div>
-					<div class="input">
-						<sf:clientTextValidator promptMessage="Номер телефона, по которому с вами можно связаться">
-							<h:inputText id="email" value="#{anonymousClient.phone}"/>
-						</sf:clientTextValidator>
+				<!--
+					<div class="field">
+						<div class="label">Телефон</div>
+						<div class="input">
+							<sf:clientTextValidator promptMessage="Номер телефона, по которому с вами можно связаться">
+								<h:inputText id="email" value="#{anonymousClient.phone}"/>
+							</sf:clientTextValidator>
+						</div>
 					</div>
-				</div>
--->
+	-->
 			</fieldset>
 
 			<p><h:outputText value="#{resourceBundle.checkoutChangeQuickregDetailsWannaChange}"/></p>

@@ -9,9 +9,12 @@
 				template="/WEB-INF/templates/meitan.xhtml">
 
 	<ui:define name="content">
-		<h1><h:outputText value="#{resourceBundle.joinSignHeader}"/></h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.joinSignHeader}"/></h1>
+		</div>
 
 		<p><h:messages/></p>
+
 		<p><h:outputText value="#{resourceBundle.joinSignTitle}"/></p>
 		<h:form>
 			<div class="field">

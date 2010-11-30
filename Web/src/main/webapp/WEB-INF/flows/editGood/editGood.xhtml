@@ -1,5 +1,5 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
@@ -11,7 +11,9 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1><h:outputText value="#{resourceBundle.editGoodHeader}"/></h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.editGoodHeader}"/></h1>
+		</div>
 		<h:form>
 			<fieldset>
 				<div class="field">
@@ -27,9 +29,9 @@
 					<div class="nonLabel"><h:outputText value="#{resourceBundle.editGoodGoodDescriptionLabel}"/></div>
 					<div class="input">
 
-							<rich:editor id="productDescription" configuration="editor" value="#{product.description}" theme="advanced"/>
+						<rich:editor id="productDescription" configuration="editor" value="#{product.description}" theme="advanced"/>
 
-							<!--<h:inputText id="productDescription" value="#{product.description}"/>-->
+						<!--<h:inputText id="productDescription" value="#{product.description}"/>-->
 
 					</div>
 				</div>

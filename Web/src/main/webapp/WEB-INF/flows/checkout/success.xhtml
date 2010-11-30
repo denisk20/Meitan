@@ -13,7 +13,9 @@
 	<ui:define name="content">
 		<h:messages/>
 
-		<h1><h:outputText value="#{resourceBundle.checkoutSuccessHeader}"/></h1>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.checkoutSuccessHeader}"/></h1>
+		</div>
 		<p><h:outputText value="#{resourceBundle.checkoutSuccessMessage}"/></p>
 		<h:form>
 			<h:commandLink value="#{resourceBundle.checkoutSuccessGo}" action="done"/>

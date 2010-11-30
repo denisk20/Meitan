@@ -15,26 +15,13 @@
 
 	<ui:define name="content">
 
-		<h1>Требуется авторизация</h1>
-
-<!--
-		<div class="section" style="font-weight:bold;color:red;">
-			&lt;!&ndash;this div will never work for webflow...&ndash;&gt;
-			<c:if test="${requestParameters.login_state==1}">
-				<div class="errors">
-					Логин или пароль неверен, попробуйте снова.<br/>
-					Причина: #{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
-				</div>
-			</c:if>
-			<c:if test="${requestParameters.login_state==2}">
-				<div style="font-weight:bold">Вы успешно покинули систему. Возвращайтесь поскорей!</div>
-			</c:if>
-			<br/>
+		<div class="h1div">
+			<h1><h:outputText value="#{resourceBundle.loginNeeded}"/></h1>
 		</div>
--->
 
 		<div class="section">
-			<p><h:outputFormat value="#{resourceBundle.loginPleaseEnter}"/> <a href="userProfile"><h:outputFormat value="#{resourceBundle.loginRegister}"/></a></p>
+			<p><h:outputFormat value="#{resourceBundle.loginPleaseEnter}"/>
+				<a href="userProfile"><h:outputFormat value="#{resourceBundle.loginRegister}"/></a></p>
 
 			<h:form id="loginForm"
 					prependId="false">
