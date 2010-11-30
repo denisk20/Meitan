@@ -51,7 +51,9 @@ public class ShoppingCartItem extends PersistentOrderableImpl implements Seriali
 	}
 
 	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+		if (quantity != null) {
+			this.quantity = quantity;
+		}
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

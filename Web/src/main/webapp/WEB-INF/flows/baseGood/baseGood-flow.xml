@@ -9,7 +9,7 @@
 			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
 			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>
 			<evaluate expression="cart.addItem(product)"/>
-			<render fragments="topPanelForm:shoppingCartFragment"/>
+			<render fragments="topPanelForm:shoppingCartFragment,checkout:quantityTable"/>
 		</transition>
 	</view-state>
 

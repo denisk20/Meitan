@@ -34,4 +34,6 @@ public interface ShoppingCart {
 	void emptyCart();
 
 	int getCount();
+
+	boolean isEmpty();
 }

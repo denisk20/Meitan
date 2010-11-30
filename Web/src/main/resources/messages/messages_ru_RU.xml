@@ -63,6 +63,7 @@
 	<entry key="checkoutChangeQuickregDetailsNo">Нет</entry>
 
 	<!--===checkout.xhtml-->
+	<entry key="checkoutCheckoutNoItems">Ваша корзина пуста</entry>
 	<entry key="checkoutCheckoutHeader">Оформление заказа</entry>
 	<entry key="checkoutCheckoutTableheaderGood">Товар</entry>
 	<entry key="checkoutCheckoutTableheaderQuantity">Количество</entry>
