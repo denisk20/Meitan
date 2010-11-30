@@ -300,13 +300,6 @@ public class ClientIntegrationTest extends GenericIntegrationTest<Client> {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testFindByLoginOrCreateNew_nullLogin() {
-		UsernamePasswordAuthenticationToken principal =
-				new UsernamePasswordAuthenticationToken("is this login or what?", null);
-		testClientDao.findByLoginOrCreateNew(principal);
-	}
-
 	@Test
 	public void testFindByLoginOrCreateNew_createNew() {
 		Client c = testClientDao.findByLoginOrCreateNew(null);
