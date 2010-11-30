@@ -1,61 +1,82 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:c="http://java.sun.com/jstl/core"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:denis="http://meitan-kh.com/"
-                xmlns:sf="http://www.springframework.org/tags/faces"
-                xmlns:sec="http://www.springframework.org/security/facelets/tags"
-                template="/WEB-INF/templates/meitan.xhtml">
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:denis="http://meitan-kh.com/"
+				xmlns:sf="http://www.springframework.org/tags/faces"
+				xmlns:sec="http://www.springframework.org/security/facelets/tags"
+				template="/WEB-INF/templates/meitan.xhtml">
 
-    <ui:define name="content">
+	<ui:define name="content">
 		<div class="h1div">
 			<h1><h:outputText value="#{product.name}"/></h1>
 		</div>
-        <fieldset>
-            <legend><h:outputText value="#{resourceBundle.goodHeader}"/></legend>
-            <div class="output">
-                <div class="name"><h:outputText value="#{resourceBundle.goodName}"/></div>
-                <div class="value" style="font: italic bold 19px/37px Georgia,serif; color:red">
-                    <h:outputText value="#{product.name}"/>
-                </div>
-            </div>
-            <div class="output">
-                <div class="name"><h:outputText value="#{resourceBundle.goodDescription}"/></div>
-                <!--<div class="value hugevalue">-->
-                <div id="news#{product.id}" style="width:98%;overflow-x:auto;border:dotted 1px;padding:5px">
-                    <h:outputText escape="false" value="#{product.description}"/>
-                </div>
-            </div>
-            <div class="output">
-                <div class="name"><h:outputText value="#{resourceBundle.goodPrice}"/></div>
-                <div class="value">
-                    <h:outputText value="#{product.price.amount}"/>
-                </div>
-            </div>
-        </fieldset>
+		<fieldset class="good">
+			<legend class="goodLegend">
+				<h:outputText value="#{resourceBundle.goodHeader}"/>
+			</legend>
+			<denis:roundedItem width="auto" height="auto" roundedItem="#{blueTinyRoundedItem}">
+				<div class="output">
+					<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+						<div class="name"><h:outputText value="#{resourceBundle.goodName}"/></div>
+						<div class="value" style="font: italic bold 19px/37px Georgia,serif; color:red">
+							<h:outputText value="#{product.name}"/>
+						</div>
+					</denis:roundedItem>
+				</div>
+				<div class="output">
+					<div class="name">
+						<h:outputText value="#{resourceBundle.goodDescription}"/>
+					</div>
+					<!--<div class="value hugevalue">-->
+					<div id="news#{product.id}" class="goodDesc">
+						<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+							<div class="newsContent">
+								<h:outputText escape="false" value="#{product.description}"/>
+							</div>
+						</denis:roundedItem>
 
-        <div class="images">
-            <h:form>
-                <sec:ifAllGranted roles="ROLE_ADMIN">
-                    <denis:actionMenu entity="#{product}"/>
-                </sec:ifAllGranted>
-
-                <denis:goodMenu entity="#{product}"/>
-                <c:forEach items="#{imagesList}" var="image">
-                    <denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}"
-                                 id="#{image.id}"/>
-                </c:forEach>
-            </h:form>
-        </div>
-        <ui:fragment id="bigPicture">
-            <div id="bigPictureDiv" style="">
-                <div class="image">
-                    <img src="/image#{selectedImage.url}" alt="image" style="max-width:110%; max-height:150%"/>
-                </div>
-            </div>
-        </ui:fragment>
-    </ui:define>
+					</div>
+				</div>
+				<div class="output">
+					<denis:roundedItem width="auto" height="auto" roundedItem="#{orangeTinyRoundedItem}">
+						<div class="name"><h:outputText value="#{resourceBundle.goodPrice}"/></div>
+						<div class="value">
+							<span class="exclamation">
+								<h:outputText value="#{product.price.amount}"/>
+							</span>
+						</div>
+					</denis:roundedItem>
+				</div>
+			</denis:roundedItem>
+		</fieldset>
+		<div class="images">
+			<h:form>
+				<div class="goodControls">
+					<div class="iconBorderOuter">
+						<div class="iconBorderInner">
+							<denis:goodMenu entity="#{product}"/>
+							<sec:ifAllGranted roles="ROLE_ADMIN">
+								<denis:actionMenu entity="#{product}"/>
+							</sec:ifAllGranted>
+						</div>
+					</div>
+				</div>
+				<c:forEach items="#{imagesList}" var="image">
+					<denis:image imageUrl="#{image.url}" action="#{utils.getMethodExpression('hitImage')}"
+								 id="#{image.id}"/>
+				</c:forEach>
+			</h:form>
+		</div>
+		<ui:fragment id="bigPicture">
+			<div id="bigPictureDiv" style="">
+				<div class="image">
+					<img src="/image#{selectedImage.url}" alt="image" style="max-width:110%; max-height:150%"/>
+				</div>
+			</div>
+		</ui:fragment>
+	</ui:define>
 </ui:composition>

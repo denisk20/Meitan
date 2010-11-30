@@ -259,9 +259,9 @@ a.menuItem:link, a.menuItem:visited {
 	padding: 4px;
 	text-decoration: none;
 	text-transform: uppercase;
-	margin-left:auto;
-	margin-right:auto;
-	border:1px solid;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid;
 }
 
 a.menuItem:hover, a.menuItem:active {
@@ -270,7 +270,7 @@ a.menuItem:hover, a.menuItem:active {
 
 a.adminItem:link, a.adminItem:visited {
 	background-color: #ffcccc;
-	border:1px solid;
+	border: 1px solid;
 }
 
 a.adminItem:hover, a.adminItem:active {
@@ -281,7 +281,7 @@ a.adminItem:hover, a.adminItem:active {
 	overflow: auto;
 	margin: 0;
 	border: 1px solid;
-	padding:1px;
+	padding: 1px;
 }
 
 .imageItem {
@@ -295,7 +295,7 @@ div.img {
 	height: auto;
 	width: auto;
 	text-align: center;
-	background-color:#FDE4A1;
+	background-color: #FDE4A1;
 }
 
 div.img img {
@@ -327,14 +327,14 @@ div.price {
 div.iconBorderInner {
 	border: 1px solid;
 	padding: 10px;
-	margin:0;
-	background-color:#dbedfa;
+	margin: 0;
+	background-color: #dbedfa;
 }
 
 div.iconBorderOuter {
 	border: 1px solid;
-	padding:1px;
-	margin:0;
+	padding: 1px;
+	margin: 0;
 }
 
 .label {
@@ -376,6 +376,7 @@ div.iconBorderOuter {
 
 .output .name {
 	float: left;
+	font:italic bold 16px Georgia,serif;
 }
 
 .output .value {
@@ -534,17 +535,25 @@ img.meitanLogo {
 	width: 100%;
 }
 
-.news {
+.news, .good {
 	overflow-x: auto;
 	border: dotted blue 1px;
 	padding: 10px;
-	position:relative;
-	margin-bottom:100px;
+	position: relative;
+	margin-bottom: 100px;
 }
 
-.newsLegend {
+.good {
+	margin-bottom: 30px;
+}
+
+.newsLegend, .goodLegend {
 	color: red;
 	background-color: transparent;
+}
+
+.goodLegend {
+	color: blue;
 }
 
 .editPanel {
@@ -554,21 +563,31 @@ img.meitanLogo {
 .newsContent {
 	margin: 0 7px;
 }
+
 .newsFlowersBottom {
-	height:90px;
-	width:650px;
-	position:absolute;
-	bottom:-121px;
+	height: 90px;
+	width: 650px;
+	position: absolute;
+	bottom: -121px;
 	background: url("/images/flowersBottom.png") no-repeat;
 }
 
 h1 {
-	text-align:left;
+	text-align: left;
 }
 
-.h1div{
+.h1div {
 	background: url("/images/h1leaves.png") no-repeat;
-	margin-left:10px;
-	height:90px;
-	padding-left:31px;
+	margin-left: 10px;
+	height: 90px;
+	padding-left: 31px;
+}
+
+.goodControls {
+	margin:10px;
+}
+
+.goodDesc {
+	width:100%;
+	overflow:auto;
 }
