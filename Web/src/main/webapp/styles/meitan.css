@@ -37,7 +37,7 @@
 }
 
 body {
-	background-color: #ccffff;
+	background-color: #1983f9;
 	margin: 0;
 	padding: 0;
 }
@@ -126,7 +126,7 @@ p {
 .container {
 	width: 1000px;
 	margin: auto;
-	background-color: #ccffff;
+	background-color: #1983f9;
 	margin-top: 10px;
 
 	font-family: sans-serif;
@@ -752,4 +752,15 @@ a.imagedLink {
 	font-size:150%;
 	background-color:#ffd700;
 	margin-right:9px;
+}
+#footer {
+	margin-top:70px;
+}
+#footerImage{
+	width:100%;
+}
+div.sun {
+	position:absolute;
+	right:-206px;
+	top:-11px;
 }
