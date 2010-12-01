@@ -14,6 +14,9 @@
 	</on-start>
 
 	<view-state id="checkout" parent="global#newProductsAware" model="cart">
+		<transition on="buy">
+			<render fragments="checkout:quantityTable"/>
+		</transition>
         <transition on="deleteFromCart">
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
             <render fragments="checkout:quantityTable,topPanelForm:shoppingCartFragment"/>
