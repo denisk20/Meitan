@@ -759,8 +759,28 @@ a.imagedLink {
 #footerImage{
 	width:100%;
 }
-div.sun {
+div.sun, div.leaves1, div.leaves2, div.leaves3, div.umbrella{
 	position:absolute;
-	right:-206px;
+    z-index:-1;
+}
+div.sun {
+   	right:-164px;
 	top:-11px;
+}
+
+div.leaves1 {
+    left:-151px;
+    top:-68px;
+}
+div.leaves2{
+    left:-651px;
+    bottom:-208px
+}
+div.leaves3{
+    right:-150px;
+    bottom:-180px
+}
+div.umbrella{
+    right:-186px;
+    bottom:-253px;
 }
