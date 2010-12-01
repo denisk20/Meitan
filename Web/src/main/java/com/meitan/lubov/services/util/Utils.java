@@ -14,6 +14,7 @@ import org.springframework.binding.message.MessageContext;
 import org.springframework.binding.message.MessageResolver;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.web.context.ServletContextAware;
@@ -141,6 +142,10 @@ public class Utils {
 	//todo replace all MEITAN_HOME usages with this one
 	public String getHomePath() {
 		return System.getenv(MEITAN_HOME);
+	}
+
+	public OneSelectionTrackingListDataModel getDataModel(List source) {
+		return new OneSelectionTrackingListDataModel(source);
 	}
 
 	public void printMessage(String msg) {

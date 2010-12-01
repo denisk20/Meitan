@@ -53,7 +53,7 @@ public class ShoppingCartItem extends PersistentOrderableImpl implements Seriali
 	public void setQuantity(Integer quantity) {
 		if (quantity != null) {
 			this.quantity = quantity;
-		}
+		} else throw new IllegalArgumentException("Quantity was null for item " + toString());
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

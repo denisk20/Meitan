@@ -2,8 +2,11 @@
 <flow xmlns="http://www.springframework.org/schema/webflow"
 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-		parent="global">
-<persistence-context/>
+	  parent="global">
+
+	<secured attributes="ROLE_UNREGISTERED,ROLE_CLIENT,ROLE_CONSULTANT,ROLE_ADMIN"/>
+
+	<persistence-context/>
 
 	<on-start>
 		<!--abstractEditable properties-->
@@ -14,11 +17,12 @@
 	<view-state id="itemsList" parent="global#newProductsAware">
 		<on-entry>
 			<evaluate expression="buyingActDao.findForLogin(currentUser.name)" result="viewScope.boughts"/>
+			<evaluate expression="utils.getDataModel(boughts)" result="viewScope.boughtsDataModel"/>
 		</on-entry>
 		<transition on="back" to="back">
 			<!--do nothing-->
 		</transition>
 	</view-state>
 
-	<end-state id="back" view="flowRedirect:/about"/>
+	<end-state id="back" view="flowRedirect:about"/>
 </flow>

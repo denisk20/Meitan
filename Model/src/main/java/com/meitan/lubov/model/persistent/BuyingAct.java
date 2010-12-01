@@ -105,7 +105,12 @@ public class BuyingAct extends PersistentOrderableImpl implements Cloneable, Ser
 		}
 		return result;
 	}
-	
+
+	@Transient
+	public List<ShoppingCartItem> getProductsList() {
+		return new ArrayList<ShoppingCartItem>(products);
+	}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

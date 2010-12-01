@@ -376,7 +376,7 @@ div.iconBorderOuter {
 
 .output .name {
 	float: left;
-	font:italic bold 16px Georgia,serif;
+	font: italic bold 16px Georgia, serif;
 }
 
 .output .value {
@@ -584,54 +584,122 @@ h1 {
 }
 
 .goodControls {
-	margin:10px;
+	margin: 10px;
 }
 
 .goodDesc {
-	width:100%;
-	overflow:auto;
+	width: 100%;
+	overflow: auto;
 }
+
 .checkoutTable {
-    border-collapse:collapse;
-    margin:10px;
+	border-collapse: collapse;
+	margin: 10px;
 }
+
 .checkoutTable .dijitTextBox {
-    width:50%;
+	width: 50%;
 }
+
 .checkoutHeader, .checkoutEvenRow, .checkoutOddRow, .checkoutTable td {
-    border:1px solid #076526;
-    vertical-align:middle;
-    padding:4px;
+	border: 1px solid #076526;
+	vertical-align: middle;
+	padding: 4px;
 }
+
 .checkoutHeader {
-    color:white;
-    background-color:#0ca73f;
-    font-size:1.5em;
-    line-height:1em;
-    text-align:center;
+	color: white;
+	background-color: #0ca73f;
+	font-size: 1.5em;
+	line-height: 1em;
+	text-align: center;
 }
 
 .checkoutItemNameCol {
-    width:50%;
+	width: 50%;
 }
+
 .checkoutQuantityCol {
-    width:10%;
+	width: 10%;
 }
+
 .checkoutDeleteCol {
-    width:20%;
+	width: 20%;
 }
+
 .checkoutPriceCol {
-    width:20%;
+	width: 20%;
 }
+
 .checkoutEvenRow {
-    background-color:#c2ecd0;
+	background-color: #c2ecd0;
 }
+
 .checkoutOddRow {
-    background-color:#97c9a7;
+	background-color: #97c9a7;
 }
-td.checkoutFooter{
-    background-color:#dce07c;
-    text-align:right;
-    padding:15px;
-    font-size:1.5em;
+
+td.checkoutFooter {
+	background-color: #dce07c;
+	text-align: right;
+	padding: 15px;
+	font-size: 1.5em;
+}
+
+caption.checkoutCaption {
+	border: 1px solid #076526;
+	background-color: #82E4A1;
+	font-size: 1.4em;
+	padding: 10px;
+	font-style: italic;
+	letter-spacing: 15px;
+}
+
+caption.checkoutCaption ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+caption.checkoutCaption ul li {
+	display: inline;
+}
+
+caption.checkoutCaption ul li.captionIcon {
+	margin: 5px;
+}
+
+table.itemsListTable .date {
+	font-size:2em;
+}
+.dateColumn {
+	width:34%;
+	
+}
+table.innerTable {
+	font-size: 0.8em;
+	border-collapse: collapse;
+	margin: auto;
+	text-align:center;
+	width:100%;
+}
+
+table.innerTable td, table.innerTable th {
+	border: 1px solid black;
+}
+
+table.innerTable th {
+	background-color: yellow;
+	text-align:center;
+}
+
+table.innerTable td {
+	background-color: #fffeb6;
+}
+table.innerTable td:first-child {
+	width:50%;
+}
+
+table.innerTable td.listItemsDates {
+	/*font-size:2em;*/
 }
