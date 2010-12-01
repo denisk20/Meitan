@@ -41,14 +41,16 @@
 							<h:column>
 								<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderQuantity}"/>
 								</f:facet>
-								<sf:clientNumberValidator>
+								
 									<h:inputText id="someinput" value="#{shoppingCartItem.quantity}" tabindex="0"/>
-								</sf:clientNumberValidator>
+
 							</h:column>
 
 							<h:column>
 								<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderDelete}"/></f:facet>
-								<sf:commandButton value="#{resourceBundle.checkoutCheckoutTableheaderDeleteButton}" action="deleteFromCart" processIds="*"/>
+								<sf:commandLink action="deleteFromCart" processIds="*">
+									<h:graphicImage url="/images/deleteIcon.png"/>
+								</sf:commandLink>
 							</h:column>
 
 							<h:column>
@@ -64,7 +66,11 @@
 							</f:facet>
 						</h:dataTable>
 					</sf:ajaxEvent>
-					<sf:commandButton rendered="#{cart.count > 0}" value="#{resourceBundle.checkoutCheckoutNext}" action="order"/>
+					<sf:commandLink rendered="#{cart.count > 0}" action="order" styleClass="imagedLink">
+						<h:graphicImage url="/images/okIcon.png"/>
+						<h:outputText value="#{resourceBundle.checkoutCheckoutNext}"/>
+					</sf:commandLink>
+					
 
 					<c:if test="#{cart.count == 0}">
                         <span class="exclamation">

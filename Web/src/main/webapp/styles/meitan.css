@@ -7,13 +7,43 @@
 	src: local(matreshka), url("/fonts/Matreshka.ttf") format("opentype")
 ;
 }
+@font-face
+{
+	font-family: corrida
+;
+	src: url("/fonts/CorridaBold.eot")
+;
+	src: local(corrida), url("/fonts/CorridaBold.ttf") format("opentype")
+;
+}
+
+@font-face
+{
+	font-family: tiffany
+;
+	src: url("/fonts/Tiffany.eot")
+;
+	src: local(tiffany), url("/fonts/Tiffany.ttf") format("opentype")
+;
+}
+@font-face
+{
+	font-family: globus
+;
+	src: url("/fonts/Globus.eot")
+;
+	src: local(globus), url("/fonts/Globus.ttf") format("opentype")
+;
+}
 
 body {
 	background-color: #ccffff;
 	margin: 0;
 	padding: 0;
 }
-
+p {
+	font: 1.2em tiffany;
+}
 .contentTable td {
 	vertical-align: top;
 }
@@ -125,7 +155,16 @@ div.navMenuItem, div.sideMenuItem {
 }
 
 div.navMenuItem {
-	font-size: 170%;
+	font-size: 200%;
+}
+
+div.navMenuItem {
+	font-family:tiffany;
+}
+
+div.login {
+	font-family:tiffany;
+	font-size:200%;
 }
 
 div.navMenuItem *, div.sideMenuItem * {
@@ -159,7 +198,6 @@ img.menubg {
 }
 
 .menuItem a {
-/*float:left;*/
 	margin: 0;
 	padding: 0 10px;
 }
@@ -171,8 +209,9 @@ img.menubg {
 }
 
 .menuItemText, .topMenuItemText {
-	padding: 2px 0;
+	padding: 5px 0;
 	margin: 0;
+	line-height:80%;
 }
 
 .topMenuItemText {
@@ -574,6 +613,7 @@ img.meitanLogo {
 
 h1 {
 	text-align: left;
+	font-family:corrida;
 }
 
 .h1div {
@@ -597,7 +637,7 @@ h1 {
 	margin: 10px;
 }
 
-.checkoutTable .dijitTextBox {
+.checkoutTable input {
 	width: 50%;
 }
 
@@ -702,4 +742,14 @@ table.innerTable td:first-child {
 
 table.innerTable td.listItemsDates {
 	/*font-size:2em;*/
+}
+
+a.imagedLink {
+	border:1px dotted green;
+	padding:5px;
+	float:right;
+	text-decoration:none;
+	font-size:150%;
+	background-color:#ffd700;
+	margin-right:9px;
 }

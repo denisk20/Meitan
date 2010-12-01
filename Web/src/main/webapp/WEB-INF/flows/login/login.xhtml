@@ -51,9 +51,11 @@
 					</div>
 				</fieldset>
 
-
 				<div class="buttonGroup">
-					<h:commandButton action="#{loginBean.doLogin}" value="#{resourceBundle.loginEnter}"/>
+					<h:commandLink action="#{loginBean.doLogin}" styleClass="imagedLink">
+						<h:graphicImage url="/images/okIcon.png"/>
+						<h:outputText value="#{resourceBundle.loginEnter}"/>
+					</h:commandLink>
 				</div>
 
 			</h:form>

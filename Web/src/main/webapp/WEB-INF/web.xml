@@ -3,7 +3,13 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 		 version="2.4">
-  <display-name>Добро пожаловать в Мейтан (Харьков)</display-name>
+
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/x-icon</mime-type>
+	</mime-mapping>
+
+	<display-name>Добро пожаловать в Мейтан (Харьков)</display-name>
 
 	<!-- The master configuration file for this Spring web application -->
 	<context-param>
@@ -21,9 +27,9 @@
 
 	<!-- Enables special Facelets debug output during development -->
 	<context-param>
-        <param-name>facelets.DEVELOPMENT</param-name>
-   		<param-value>true</param-value>
-  	</context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 	<context-param>
 		<param-name>facelets.BUFFER_SIZE</param-name>
@@ -31,19 +37,19 @@
 	</context-param>
 	<!-- Causes Facelets to refresh templates during development -->
 	<context-param>
-  		<param-name>facelets.REFRESH_PERIOD</param-name>
-  		<param-value>1</param-value>
-  	</context-param>
+		<param-name>facelets.REFRESH_PERIOD</param-name>
+		<param-value>1</param-value>
+	</context-param>
 
-    <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/META-INF/j4j.taglib.xml;/META-INF/denis.taglib.xml</param-value>
-    </context-param>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/META-INF/j4j.taglib.xml;/META-INF/denis.taglib.xml</param-value>
+	</context-param>
 
-    <context-param>
-        <param-name>facelets.SKIP_COMMENTS</param-name>
-        <param-value>true</param-value>
-    </context-param>
+	<context-param>
+		<param-name>facelets.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 	<context-param>
 		<param-name>com.sun.faces.expressionFactory</param-name>
@@ -51,49 +57,49 @@
 	</context-param>
 	<!-- Enforce UTF-8 Character Encoding -->
 	<filter>
-        <filter-name>charEncodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
+		<filter-name>charEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
 
-    <filter-mapping>
-        <filter-name>charEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+	<filter-mapping>
+		<filter-name>charEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- Enables Spring Security -->
 	<filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
 
-    <filter-mapping>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <url-pattern>/*</url-pattern>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
+	</filter-mapping>
 
-    <filter>
-        <display-name>RichFaces Filter</display-name>
-        <filter-name>richfaces</filter-name>
-        <filter-class>org.ajax4jsf.Filter</filter-class>
-    </filter>
+	<filter>
+		<display-name>RichFaces Filter</display-name>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
 
-    <filter-mapping>
-        <filter-name>richfaces</filter-name>
-        <servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-    </filter-mapping>
+	<filter-mapping>
+		<filter-name>richfaces</filter-name>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
 	<!-- Loads the Spring web application context -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -153,20 +159,19 @@
 		<url-pattern>/icon/*</url-pattern>
 	</servlet-mapping>
 
-    <servlet>
-        <servlet-name>image servlet</servlet-name>
-        <servlet-class>com.meitan.lubov.services.media.ImageServlet</servlet-class>
-    </servlet>
+	<servlet>
+		<servlet-name>image servlet</servlet-name>
+		<servlet-class>com.meitan.lubov.services.media.ImageServlet</servlet-class>
+	</servlet>
 
-    <servlet-mapping>
-        <servlet-name>image servlet</servlet-name>
-        <url-pattern>/image/*</url-pattern>
-    </servlet-mapping>
-    
+	<servlet-mapping>
+		<servlet-name>image servlet</servlet-name>
+		<url-pattern>/image/*</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-
 
 
 </web-app>
