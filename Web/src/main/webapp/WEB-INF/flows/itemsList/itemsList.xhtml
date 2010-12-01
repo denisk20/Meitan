@@ -12,32 +12,49 @@
 	<!--todo-->
 	<ui:define name="content">
 		<div class="h1div">
-			<h1>Товары, купленные #{currentUser.name}</h1>
+			<h1><h:outputText value="#{resourceBundle.itemsListHeader}"/></h1>
 		</div>
-		<table class="itemsTable">
-			<thead>
-			<tr>
-				<th>Дата</th>
-				<th>Купленные продукты</th>
-				<th>Общая сумма покупки</th>
-			</tr>
-			</thead>
-			<c:forEach items="#{boughts}" var="bought">
-				<tr>
-					<td>#{bought.date}</td>
-					<td>
-						<table class="innerBoughtsTable">
-							<c:forEach items="#{bought.products}" var="item">
-								<tr>
-									<td>#{item.item.name}##{item.quantity}##{item.price}</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</td>
-					<td>#{bought.totalPrice}</td>
-				</tr>
-			</c:forEach>
-		</table>
+		<h:dataTable value="#{boughtsDataModel}" var="bought"
+					 captionClass="checkoutCaption" headerClass="checkoutHeader"
+					 footerClass="checkoutFooter" rowClasses="checkoutEvenRow,checkoutOddRow"
+					 styleClass="checkoutTable itemsListTable" summary="#{resourceBundle.checkoutCheckoutHeader}">
+			<f:facet name="caption">
+				<ul>
+					<li>#{resourceBundle.itemsListCaption}#{currentUser.name}</li>
+				</ul>
+			</f:facet>
+			<h:column headerClass="dateColumn checkoutHeader">
+				<f:facet name="header"><h:outputText value="#{resourceBundle.itemsListTableDate}"/></f:facet>
+				<h:outputFormat value="{0, date, dd.MM.yyyy}" styleClass="date">
+					<f:param value="#{bought.date}"/>
+				</h:outputFormat>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header"><h:outputText value="#{resourceBundle.itemsListGoodsBought}"/>
+				</f:facet>
+				<table class="innerTable">
+					<tr>
+						<th><h:outputText value="#{resourceBundle.itemsListTableInnerName}"/></th>
+						<th><h:outputText value="#{resourceBundle.itemsListTableInnerQuantity}"/></th>
+						<th><h:outputText value="#{resourceBundle.itemsListTableInnerPrice}"/></th>
+					</tr>
+					<ui:repeat value="#{bought.productsList}" var="item">
+						<tr>
+							<td><h:outputText value="#{item.item.name}"/></td>
+							<td><h:outputText value="#{item.quantity}"/></td>
+							<td><h:outputText styleClass="exclamation" value="#{item.price}"/></td>
+						</tr>
+					</ui:repeat>
+				</table>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header"><h:outputText value="#{resourceBundle.itemsListTablePrice}"/></f:facet>
+				<h:outputText styleClass="exclamation" value="#{bought.totalPrice.amount}"/>
+			</h:column>
+
+		</h:dataTable>
 
 		<h:form>
 			<h:commandButton value="Назад" action="back"/>

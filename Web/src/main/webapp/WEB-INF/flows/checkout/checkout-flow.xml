@@ -31,6 +31,7 @@
         </transition>
 
         <transition on-exception="org.springframework.security.access.AccessDeniedException" to="error"/>
+		<!--<transition on-exception="java.lang.IllegalArgumentException" to="checkout"/>-->
     </view-state>
 
 	<action-state id="decideIfUserIsAuthenticated">

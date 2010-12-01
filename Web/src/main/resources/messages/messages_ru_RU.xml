@@ -64,6 +64,7 @@
 
 	<!--===checkout.xhtml-->
 	<entry key="checkoutCheckoutNoItems">Ваша корзина пуста</entry>
+	<entry key="checkoutCheckoutItemsOrdered">Ваш заказ</entry>
 	<entry key="checkoutCheckoutHeader">Оформление заказа</entry>
 	<entry key="checkoutCheckoutTableheaderGood">Товар</entry>
 	<entry key="checkoutCheckoutTableheaderQuantity">Количество</entry>
@@ -129,8 +130,10 @@
 	<entry key="imagesManagerUpload">Загрузить...</entry>
 
 	<!--itemsList-->
-	<entry key="itemsListHeader">Товары, купленные</entry>
+	<entry key="itemsListHeader">Список покупок</entry>
+	<entry key="itemsListCaption">Товары, купленные </entry>
 	<entry key="itemsListTableDate">Дата</entry>
+	<entry key="itemsListGoodsBought">Купленные продукты</entry>
 	<entry key="itemsListTablePrice">Общая сумма покупки</entry>
 	<entry key="itemsListTableBack">Назад</entry>
 	<!--todo-->
