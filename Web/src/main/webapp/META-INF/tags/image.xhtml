@@ -10,7 +10,7 @@
 		xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
 		>
 
-	<rich:panel styleClass="iconBorderOuter" >
+	<div class="iconBorderOuter">
 		<div class="iconBorderInner">
 			<div id="imageDiv">
 				<div class="img">
@@ -25,21 +25,5 @@
 				</div>
 			</div>
 		</div>
-
-
-		<rich:toolTip direction="top-right"  styleClass="tooltip" layout="block" followMouse="true">
-			<f:facet name="defaultContent">
-				<strong>Wait...</strong>
-			</f:facet>
-			<span   style="white-space:nowrap">This tool-tip content was <strong>rendered on server</strong>
-			 </span>
-			<h:panelGrid columns="2">
-				<h:outputText value="imageUrl" />
-				<h:outputText value="#{imageUrl}"/>
-				<h:outputText value="item id:" />
-				<h:outputText value="#{id}"/>
-			</h:panelGrid>
-		</rich:toolTip>
-
-	</rich:panel>
+	</div>
 </ui:component>

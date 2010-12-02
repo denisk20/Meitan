@@ -758,7 +758,7 @@ a.imagedLink {
 #footerImage{
 	width:100%;
 }
-div.sun, div.leaves1, div.leaves2, div.leaves3, div.umbrella{
+div.sun, div.leaves1, div.leaves2, div.leaves3, div.umbrella {
 	position:absolute;
     z-index:-1;
 }
@@ -768,9 +768,9 @@ div.sun {
 }
 
 div.leaves1 {
-    left:-321px;
-    top:-28px;
-	z-index:0;
+    left:-234px;
+    top:-18px;
+	z-index:1;
 }
 div.leaves2{
     left:-244px;
@@ -797,9 +797,3 @@ ul.applyButton li.button {
 	vertical-align:top;
 }
 
-/*hack over richfaces layout*/
-.rich-panel-body {
-	font-size:inherit;
-	padding:inherit;
-	margin:0;
-}

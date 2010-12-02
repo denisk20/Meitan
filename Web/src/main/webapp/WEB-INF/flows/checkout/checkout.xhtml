@@ -23,7 +23,7 @@
 
 				<div id="shoppingTable">
 					<sf:ajaxEvent event="onkeyup" action="quantityChanged">
-						<h:dataTable rendered="#{cart.count > 0}" value="#{cart.itemsDataModel}" var="shoppingCartItem"
+						<h:dataTable rendered="#{cart.count > 0}" id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
 									 captionClass="checkoutCaption" columnClasses="checkoutItemNameCol,checkoutQuantityCol,checkoutDeleteCol,checkoutPriceCol" headerClass="checkoutHeader"
 									 footerClass="checkoutFooter" rowClasses="checkoutEvenRow,checkoutOddRow"
 									 styleClass="checkoutTable" summary="#{resourceBundle.checkoutCheckoutHeader}">

@@ -9,12 +9,6 @@
         <on-render>
             <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
        </on-render>
-<!--
-		<transition on="tooltip">
-			<evaluate expression="utils.printMessage('tooltip activated')"/>
-			<render fragments="topPanelForm:shoppingCartFragment"/>
-		</transition>
--->
     </view-state>
 
     <view-state id="menuAwareViewState" parent="global#newProductsAware">
