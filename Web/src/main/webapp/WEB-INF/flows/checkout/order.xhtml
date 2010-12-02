@@ -11,13 +11,16 @@
 				template="/WEB-INF/templates/meitan.xhtml">
 
 	<ui:define name="content">
-		<h:messages/>
+		<h:messages styleClass="exclamation"/>
 
 		<div class="h1div">
 			<h1><h:outputText value="#{resourceBundle.checkoutOrderHeader}"/></h1>
 		</div>
 		<h:form id="orderForm">
-			<h:dataTable id="orderedItemsDT" value="#{cart.items}" var="item">
+			<h:dataTable id="orderedItemsDT" value="#{cart.items}" var="item"
+									 captionClass="checkoutCaption" headerClass="checkoutHeader"
+									 footerClass="checkoutFooter" rowClasses="checkoutEvenRow,checkoutOddRow"
+									 styleClass="checkoutTable" summary="#{resourceBundle.checkoutCheckoutHeader}">
 				<h:column>
 					<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutOrderTableheaderGood}"/></f:facet>
 					#{item.item.name}
@@ -32,7 +35,21 @@
 				</h:column>
 			</h:dataTable>
 
-			<h:commandButton value="#{resourceBundle.checkoutOrderGo}" action="order"/>
+			<ul class="applyButton">
+				<li>
+					<img src="/images/geysha_left.png" alt="geysha"/>
+				</li>
+				<li class="button">
+					<sf:commandLink action="order" styleClass="imagedLink">
+						<h:graphicImage url="/images/okIcon.png"/>
+						<h:outputText value="#{resourceBundle.checkoutOrderGo}"/>
+					</sf:commandLink>
+				</li>
+				<li>
+					<img src="/images/geysha_right.png" alt="geysha"/>
+				</li>
+			</ul>
+
 		</h:form>
 
 	</ui:define>

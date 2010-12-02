@@ -5,7 +5,7 @@
 		>
 
 	<view-state id="baseGood">
-		<transition on="buy">
+		<transition on="buy" bind="false" validate="false">
 			<set name="requestScope.productId" value="requestParameters.productId" type="long"/>
 			<evaluate expression="productDao.findById(productId)" result="requestScope.product"/>
 			<evaluate expression="cart.addItem(product)"/>

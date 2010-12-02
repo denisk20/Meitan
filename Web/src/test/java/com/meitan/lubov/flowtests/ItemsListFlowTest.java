@@ -38,6 +38,7 @@ public class ItemsListFlowTest extends AbstractFlowIntegrationTest{
 	protected void configureFlowBuilderContext(MockFlowBuilderContext builderContext) {
 		super.configureFlowBuilderContext(builderContext);
 
+		builderContext.registerBean("utils", utils);
 		builderContext.registerBean("clientDao", testClientDao);
 		builderContext.registerBean("buyingActDao", testBuyingActDao);
 	}
