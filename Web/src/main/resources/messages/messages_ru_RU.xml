@@ -19,7 +19,7 @@
 	<entry key="becomeConsultantMenu">Стань консультантом!</entry>
 	<entry key="addsForConsultantsMenu">Объявления для консультантов</entry>
 	<!--about us-->
-	<entry key="aboutH2">Компания очень интересная и классная!!!</entry>
+	<entry key="aboutH2">Здесь вы найдёте последние новости о компании Мейтан в городе Харькове</entry>
 	<entry key="aboutHeader">О компании</entry>
 	<entry key="aboutNewItems">Новинки!!!</entry>
 	<!--confirm delete-->
@@ -187,7 +187,7 @@
 	<entry key="enter">Войти</entry>
 	<entry key="register">Регистрация</entry>
 	<entry key="exit">Выйти</entry>
-	<entry key="meitanTitle">Мейтан в Харькове, лечебная китайская косметика</entry>
+	<entry key="meitanTitle">Мейтан в Харькове, лечебная китайская косметика Meitan, сетевой маркетинг в Харькове, Княжева Любовь Александровна</entry>
 	<entry key="meitanWelcome"> Добро пожаловать, </entry>
 	<entry key="meitanItemsList">Посмотреть историю покупок</entry>
 	<entry key="meitanProfile">Изменить личные данные</entry>
