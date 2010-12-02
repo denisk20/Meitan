@@ -747,7 +747,6 @@ table.innerTable td.listItemsDates {
 a.imagedLink {
 	border:1px dotted green;
 	padding:5px;
-	float:right;
 	text-decoration:none;
 	font-size:150%;
 	background-color:#ffd700;
@@ -764,23 +763,43 @@ div.sun, div.leaves1, div.leaves2, div.leaves3, div.umbrella{
     z-index:-1;
 }
 div.sun {
-   	right:-164px;
+   	right:-195px;
 	top:-11px;
 }
 
 div.leaves1 {
-    left:-151px;
-    top:-68px;
+    left:-321px;
+    top:-28px;
+	z-index:0;
 }
 div.leaves2{
-    left:-651px;
-    bottom:-208px
+    left:-244px;
+    bottom:-715px
 }
 div.leaves3{
-    right:-150px;
-    bottom:-180px
+    right:-261px;
+    bottom:-912px
 }
 div.umbrella{
-    right:-186px;
-    bottom:-253px;
+    right:-246px;
+    bottom:-340px;
+}
+
+ul.applyButton {
+	list-style-type:none;
+	margin-top:25px;
+}
+
+ul.applyButton li {
+	display:inline;
+}
+ul.applyButton li.button {
+	vertical-align:top;
+}
+
+/*hack over richfaces layout*/
+.rich-panel-body {
+	font-size:inherit;
+	padding:inherit;
+	margin:0;
 }

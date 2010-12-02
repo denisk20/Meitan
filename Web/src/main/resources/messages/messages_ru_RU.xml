@@ -130,13 +130,13 @@
 	<entry key="imagesManagerUpload">Загрузить...</entry>
 
 	<!--itemsList-->
+	<entry key="itemsListNoItems">Вы ещё не делали покупок в нашем магазине</entry>
 	<entry key="itemsListHeader">Список покупок</entry>
 	<entry key="itemsListCaption">Товары, купленные </entry>
 	<entry key="itemsListTableDate">Дата</entry>
 	<entry key="itemsListGoodsBought">Купленные продукты</entry>
 	<entry key="itemsListTablePrice">Общая сумма покупки</entry>
 	<entry key="itemsListTableBack">Назад</entry>
-	<!--todo-->
 	<entry key="itemsListTableInnerName">Название</entry>
 	<entry key="itemsListTableInnerQuantity">Количество</entry>
 	<entry key="itemsListTableInnerPrice">Цена</entry>

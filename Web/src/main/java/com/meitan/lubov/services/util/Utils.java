@@ -149,7 +149,7 @@ public class Utils {
 	}
 
 	public void printMessage(String msg) {
-		System.out.printf("Utils:" + msg);
+		System.out.println("Utils:" + msg);
 	}
 
 }

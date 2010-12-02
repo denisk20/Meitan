@@ -7,7 +7,8 @@
 				xmlns:sf="http://www.springframework.org/tags/faces"
 				xmlns:form="http://www.springframework.org/tags/form"
 				xmlns:sec="http://www.springframework.org/security/tags"
-				xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+				xmlns:c="http://java.sun.com/jstl/core"
 				template="/WEB-INF/templates/meitan.xhtml">
 
 	<ui:define name="content">
@@ -22,7 +23,7 @@
 
 				<div id="shoppingTable">
 					<sf:ajaxEvent event="onkeyup" action="quantityChanged">
-						<h:dataTable rendered="#{cart.count > 0}" id="shoppingCartItems" value="#{cart.itemsDataModel}" var="shoppingCartItem"
+						<h:dataTable rendered="#{cart.count > 0}" value="#{cart.itemsDataModel}" var="shoppingCartItem"
 									 captionClass="checkoutCaption" columnClasses="checkoutItemNameCol,checkoutQuantityCol,checkoutDeleteCol,checkoutPriceCol" headerClass="checkoutHeader"
 									 footerClass="checkoutFooter" rowClasses="checkoutEvenRow,checkoutOddRow"
 									 styleClass="checkoutTable" summary="#{resourceBundle.checkoutCheckoutHeader}">
@@ -41,8 +42,8 @@
 							<h:column>
 								<f:facet name="header"><h:outputText value="#{resourceBundle.checkoutCheckoutTableheaderQuantity}"/>
 								</f:facet>
-								
-									<h:inputText id="someinput" value="#{shoppingCartItem.quantity}" tabindex="0"/>
+
+								<h:inputText id="someinput" value="#{shoppingCartItem.quantity}" tabindex="0"/>
 
 							</h:column>
 
@@ -66,11 +67,23 @@
 							</f:facet>
 						</h:dataTable>
 					</sf:ajaxEvent>
-					<sf:commandLink rendered="#{cart.count > 0}" action="order" styleClass="imagedLink">
-						<h:graphicImage url="/images/okIcon.png"/>
-						<h:outputText value="#{resourceBundle.checkoutCheckoutNext}"/>
-					</sf:commandLink>
-					
+
+					<c:if test="#{cart.count > 0}">
+						<ul class="applyButton">
+							<li>
+								<img src="/images/geysha_left.png" alt="geysha"/>
+							</li>
+							<li class="button">
+								<sf:commandLink action="order" styleClass="imagedLink">
+									<h:graphicImage url="/images/okIcon.png"/>
+									<h:outputText value="#{resourceBundle.checkoutCheckoutNext}"/>
+								</sf:commandLink>
+							</li>
+							<li>
+								<img src="/images/geysha_right.png" alt="geysha"/>
+							</li>
+						</ul>
+					</c:if>
 
 					<c:if test="#{cart.count == 0}">
                         <span class="exclamation">
