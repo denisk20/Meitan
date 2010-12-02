@@ -11,12 +11,10 @@
 		<set name="flowScope.outState" value="'checkout'"/>
 		<set name="flowScope.afterDeleteFlowName" value="'checkout'"/>
 		<!--menu background-->
+		<set name="menuBackgroundService.selectedItem" value="'_none_'"/>
 	</on-start>
 
 	<view-state id="checkout" parent="global#newProductsAware" model="cart">
-		<transition on="buy">
-			<render fragments="checkout:quantityTable"/>
-		</transition>
         <transition on="deleteFromCart">
             <evaluate expression="cart.deleteItem(cart.itemsDataModel.selectedRow)"/>
             <render fragments="checkout:quantityTable,topPanelForm:shoppingCartFragment"/>

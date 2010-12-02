@@ -12,6 +12,7 @@
 		<!--abstractEditable properties-->
 		<set name="flowScope.outState" value="'userProfile'"/>
 		<set name="flowScope.afterDeleteFlowName" value="'userProfile'"/>
+		<set name="menuBackgroundService.selectedItem" value="'_none_'"/>
 	</on-start>
 
 	<view-state id="userProfile"  parent="global#newProductsAware" model="client">

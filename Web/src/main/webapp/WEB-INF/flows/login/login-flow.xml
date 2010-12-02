@@ -8,6 +8,7 @@
 		<!--abstractEditable properties-->
 		<set name="flowScope.outState" value="'login'"/>
 		<set name="flowScope.afterDeleteFlowName" value="'login'"/>
+		<set name="menuBackgroundService.selectedItem" value="'_none_'"/>
 	</on-start>
 
 	<view-state id="login"  parent="global#newProductsAware">
