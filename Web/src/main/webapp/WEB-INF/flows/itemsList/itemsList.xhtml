@@ -8,13 +8,14 @@
 				xmlns:sf="http://www.springframework.org/tags/faces"
 				xmlns:sec="http://www.springframework.org/security/facelets/tags"
 				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 				template="/WEB-INF/templates/meitan.xhtml">
 	<!--todo-->
 	<ui:define name="content">
 		<div class="h1div">
 			<h1><h:outputText value="#{resourceBundle.itemsListHeader}"/></h1>
 		</div>
-		<h:dataTable value="#{boughtsDataModel}" var="bought"
+		<h:dataTable rendered="#{fn:length(boughtsDataModel.wrappedData) > 0}" value="#{boughtsDataModel}" var="bought"
 					 captionClass="checkoutCaption" headerClass="checkoutHeader"
 					 footerClass="checkoutFooter" rowClasses="checkoutEvenRow,checkoutOddRow"
 					 styleClass="checkoutTable itemsListTable" summary="#{resourceBundle.checkoutCheckoutHeader}">
@@ -56,6 +57,10 @@
 
 		</h:dataTable>
 
+		<c:if test="#{fn:length(boughtsDataModel.wrappedData) == 0}">
+			<div class="exclamation"><h:outputText value="#{resourceBundle.itemsListNoItems}"/></div>
+		</c:if>
+		
 		<h:form>
 			<h:commandButton value="Назад" action="back"/>
 		</h:form>
