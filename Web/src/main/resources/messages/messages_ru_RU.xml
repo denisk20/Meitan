@@ -140,6 +140,7 @@
 	<entry key="itemsListTableInnerName">Название</entry>
 	<entry key="itemsListTableInnerQuantity">Количество</entry>
 	<entry key="itemsListTableInnerPrice">Цена</entry>
+	<entry key="itemsListBack">Назад</entry>
 
 	<!--join-->
 	<!--===join-->

@@ -62,7 +62,12 @@
 		</c:if>
 		
 		<h:form>
-			<h:commandButton value="Назад" action="back"/>
+			<h:commandLink action="back" styleClass="imagedLink">
+				<h:graphicImage url="/images/deleteIcon.png"/>
+				<h:outputText value="#{resourceBundle.itemsListBack}"/>
+			</h:commandLink>
+
+			<!--<h:commandButton value="Назад" action="back"/>-->
 		</h:form>
 	</ui:define>
 </ui:composition>

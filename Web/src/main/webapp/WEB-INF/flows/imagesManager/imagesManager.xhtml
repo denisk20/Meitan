@@ -18,8 +18,14 @@
 			</h1>
 		</div>
 		<h:form>
+			<sf:commandLink action="save" styleClass="imagedLink saveEditedImages">
+				<h:graphicImage url="/images/okIcon.png"/>
+				<h:outputText value="#{resourceBundle.imagesManagerSave}"/>
+			</sf:commandLink>
+
 			<br/>
-			<h:dataTable id="images" value="#{images}" var="image" rendered="#{! empty(images)}">
+			<h:dataTable id="images" value="#{images}" var="image" rendered="#{! empty(images)}"
+					styleClass="editImagesTable">
 				<h:column>
 					<div class="imageEditSet">
 						<f:facet name="header"> <h:outputText
@@ -28,12 +34,19 @@
 						<br/>
 
 						<div class="editImageMenuBar">
-							<sf:commandButton value="#{resourceBundle.imagesManagerDelete}" action="delete"
-											  styleClass="deleteButton"/>
+							<sf:commandLink action="delete" styleClass="imagedLink">
+								<h:graphicImage url="/images/deleteIcon.png"/>
+								<h:outputText value="#{resourceBundle.imagesManagerDelete}"/>
+							</sf:commandLink>
 
-							<sf:commandLink value="#{resourceBundle.imagesManagerMakeMain}" action="makeAvatar"
-											styleClass="makeMainImageButton"
-											rendered="#{(imageAware.avatar == null) || (image.id != imageAware.avatar.id)}"/>
+							<!--<sf:commandButton value="#{resourceBundle.imagesManagerDelete}" action="delete" styleClass="deleteButton"/>-->
+
+							<sf:commandLink action="makeAvatar" styleClass="imagedLink" rendered="#{(imageAware.avatar == null) || (image.id != imageAware.avatar.id)}">
+								<h:graphicImage url="/images/okIcon.png"/>
+								<h:outputText value="#{resourceBundle.imagesManagerMakeMain}"/>
+							</sf:commandLink>
+
+							<!--<sf:commandLink value="#{resourceBundle.imagesManagerMakeMain}" action="makeAvatar" styleClass="makeMainImageButton"-->
 							<h:outputText styleClass="isMainLabel" rendered="#{image.id == imageAware.avatar.id}"
 										  value="#{resourceBundle.imagesManagerMainLabel}"/>
 						</div>
@@ -41,7 +54,7 @@
 				</h:column>
 			</h:dataTable>
 
-			<sf:commandButton styleClass="saveEditedImages" value="#{resourceBundle.imagesManagerSave}" action="save"/>
+			<!--<sf:commandButton styleClass="saveEditedImages" value="#{resourceBundle.imagesManagerSave}" action="save"/>-->
 			<!--<sf:commandButton value="Back" action="back"/>-->
 		</h:form>
 		<br/>
@@ -49,7 +62,11 @@
 		<h:form enctype="multipart/form-data">
 			<h:panelGroup rendered="#{imageAware.allowedToAdd}">
 				<input type="file" name="file"/>
-				<h:commandButton action="upload" value="#{resourceBundle.imagesManagerUpload}"/>
+				<h:commandLink action="upload" styleClass="imagedLink">
+					<h:graphicImage url="/images/okIcon.png"/>
+					<h:outputText value="#{resourceBundle.imagesManagerUpload}"/>
+				</h:commandLink>
+				<!--<h:commandButton action="upload" value="#{resourceBundle.imagesManagerUpload}"/>-->
 			</h:panelGroup>
 		</h:form>
 
