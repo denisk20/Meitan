@@ -18,8 +18,18 @@
 		</div>
 		<h:form>
 			<fieldset>
-				<sf:commandButton value="#{resourceBundle.confirmDeleteYes}" action="ok"/>
-				<sf:commandButton value="#{resourceBundle.confirmDeleteNo}" action="cancel"/>
+				<sf:commandLink action="ok" styleClass="imagedLink">
+					<h:graphicImage url="/images/okIcon.png"/>
+					<h:outputText value="#{resourceBundle.confirmDeleteYes}"/>
+				</sf:commandLink>
+
+				<sf:commandLink action="cancel" styleClass="imagedLink">
+					<h:graphicImage url="/images/deleteIcon.png"/>
+					<h:outputText value="#{resourceBundle.confirmDeleteNo}"/>
+				</sf:commandLink>
+
+				<!--<sf:commandButton value="#{resourceBundle.confirmDeleteYes}" action="ok"/>-->
+				<!--<sf:commandButton value="#{resourceBundle.confirmDeleteNo}" action="cancel"/>-->
 			</fieldset>
 		</h:form>
 
