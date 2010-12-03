@@ -57,8 +57,18 @@
 				<rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
 				<br/>
 
-				<h:commandButton value="#{resourceBundle.boardSave}" action="saveNews"/>
-				<h:commandButton value="#{resourceBundle.boardDelete}" action="deleteNews"/>
+				<h:commandLink action="saveNews" styleClass="imagedLink">
+					<h:graphicImage url="/images/okIcon.png"/>
+					<h:outputText value="#{resourceBundle.boardSave}"/>
+				</h:commandLink>
+
+				<h:commandLink action="deleteNews" styleClass="imagedLink">
+					<h:graphicImage url="/images/deleteIcon.png"/>
+					<h:outputText value="#{resourceBundle.boardDelete}"/>
+				</h:commandLink>
+
+				<!--<h:commandButton value="#{resourceBundle.boardSave}" action="saveNews"/>-->
+				<!--<h:commandButton value="#{resourceBundle.boardDelete}" action="deleteNews"/>-->
 			</sec:ifAllGranted>
 
 		</h:column>

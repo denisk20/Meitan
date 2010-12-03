@@ -109,9 +109,19 @@
 
 				<div class="captcha"><h:outputFormat escape="false" value="#{captchaService.captchaHtml}"/>
 				</div>
-				<!--todo this doesn't work-->
-				<sf:commandButton value="#{resourceBundle.userProfileSave}" action="saveProfile" processIds="*"/>
-				<sf:commandButton value="#{resourceBundle.userProfileCancel}" action="cancel"/>
+
+				<sf:commandLink action="saveProfile" styleClass="imagedLink" processIds="*">
+					<h:graphicImage url="/images/okIcon.png"/>
+					<h:outputText value="#{resourceBundle.userProfileSave}"/>
+				</sf:commandLink>
+
+				<sf:commandLink action="cancel" styleClass="imagedLink">
+					<h:graphicImage url="/images/deleteIcon.png"/>
+					<h:outputText value="#{resourceBundle.userProfileCancel}"/>
+				</sf:commandLink>
+
+				<!--<sf:commandButton value="#{resourceBundle.userProfileSave}" action="saveProfile" processIds="*"/>-->
+				<!--<sf:commandButton value="#{resourceBundle.userProfileCancel}" action="cancel"/>-->
 			</h:form>
 		</div>
 

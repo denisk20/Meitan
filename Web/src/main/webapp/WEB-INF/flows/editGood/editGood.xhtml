@@ -5,7 +5,8 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
 				xmlns:sf="http://www.springframework.org/tags/faces"
-				xmlns:form="http://www.springframework.org/tags/form" xmlns:rich="http://richfaces.org/rich"
+				xmlns:form="http://www.springframework.org/tags/form"
+				xmlns:rich="http://richfaces.org/rich"
 				template="/WEB-INF/templates/meitan.xhtml">
 
 	<ui:define name="content">
@@ -28,11 +29,7 @@
 				<div class="field">
 					<div class="nonLabel"><h:outputText value="#{resourceBundle.editGoodGoodDescriptionLabel}"/></div>
 					<div class="input">
-
 						<rich:editor id="productDescription" configuration="editor" value="#{product.description}" theme="advanced"/>
-
-						<!--<h:inputText id="productDescription" value="#{product.description}"/>-->
-
 					</div>
 				</div>
 
@@ -64,8 +61,18 @@
 					</div>
 				</div>
 			</fieldset>
-			<h:commandButton id="createCategoryButton" value="#{resourceBundle.editGoodSave}" action="save"/>
-			<sf:commandButton value="#{resourceBundle.editGoodBack}" action="back"/>
+			<h:commandLink action="save" styleClass="imagedLink">
+				<h:graphicImage url="/images/okIcon.png"/>
+				<h:outputText value="#{resourceBundle.editGoodSave}"/>
+			</h:commandLink>
+
+			<sf:commandLink action="back" styleClass="imagedLink">
+				<h:graphicImage url="/images/deleteIcon.png"/>
+				<h:outputText value="#{resourceBundle.editGoodBack}"/>
+			</sf:commandLink>
+			
+			<!--<h:commandButton id="createCategoryButton" value="#{resourceBundle.editGoodSave}" action="save"/>-->
+			<!--<sf:commandButton value="#{resourceBundle.editGoodBack}" action="back"/>-->
 		</h:form>
 
 	</ui:define>

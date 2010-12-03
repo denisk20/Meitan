@@ -38,7 +38,12 @@
 
 			</div>
 			<br/>
-			<sf:commandLink value="#{resourceBundle.joinSignGo}" action="createNewConsultant" processIds="*"/>
+			<sf:commandLink action="createNewConsultant" styleClass="imagedLink" processIds="*">
+				<h:graphicImage url="/images/okIcon.png"/>
+				<h:outputText value="#{resourceBundle.joinSignGo}"/>
+			</sf:commandLink>
+
+			<!--<sf:commandLink value="#{resourceBundle.joinSignGo}" action="createNewConsultant" processIds="*"/>-->
 		</h:form>
 
 	</ui:define>

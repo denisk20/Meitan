@@ -23,8 +23,18 @@
 						</sf:clientTextValidator>
 					</div>
 				</div>
-				<sf:commandButton id="createCategoryButton" value="#{resourceBundle.addCategoryConfirm}" processIds="*" action="create"/>
-				<sf:commandButton value="#{resourceBundle.addCategoryCancel}" action="cancel"/>
+				<sf:commandLink action="create" styleClass="imagedLink" processIds="*">
+					<h:graphicImage url="/images/okIcon.png"/>
+					<h:outputText value="#{resourceBundle.addCategoryConfirm}"/>
+				</sf:commandLink>
+
+				<sf:commandLink action="cancel" styleClass="imagedLink">
+					<h:graphicImage url="/images/deleteIcon.png"/>
+					<h:outputText value="#{resourceBundle.addCategoryCancel}"/>
+				</sf:commandLink>
+
+				<!--<sf:commandButton id="createCategoryButton" value="#{resourceBundle.addCategoryConfirm}" processIds="*" action="create"/>-->
+				<!--<sf:commandButton value="#{resourceBundle.addCategoryCancel}" action="cancel"/>-->
 			</fieldset>
 		</h:form>
 

@@ -449,7 +449,7 @@ div.iconBorderOuter {
 }
 
 .editImageMenuBar {
-	overflow: auto;
+	margin:20px;
 }
 
 .makeMainImageButton, .isMainLabel {
@@ -462,7 +462,7 @@ div.iconBorderOuter {
 }
 
 .saveEditedImages {
-
+	float: right;
 }
 
 .flip {
@@ -800,3 +800,6 @@ ul.applyButton li.button {
 	vertical-align:top;
 }
 
+.editImagesTable {
+	width:100%;
+}
