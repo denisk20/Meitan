@@ -81,6 +81,7 @@ p {
 /*float:left;*/
 	width: 100%;
 	position: relative;
+    z-index:1;
 }
 
 #loginPanel {
@@ -121,6 +122,8 @@ p {
 
 .content {
 	margin: 0 auto;
+    z-index:1000;
+    position:relative;
 }
 
 .container {
@@ -151,37 +154,45 @@ div.navMenuItem, div.sideMenuItem {
 	position: relative;
 	line-height: 20px;
 	padding: 10px;
-	margin: 0; /*display: inline;*/
+	margin: 0;
+    height:60px;
 }
 
+div.sideMenuItem {
+    top:100px;
+}
 div.navMenuItem {
 	font-size: 200%;
 }
 
 div.navMenuItem {
-	font-family:tiffany;
+	font-family:tiffany,serif;
 }
 
 div.login {
-	font-family:tiffany;
+	font-family:tiffany,serif;
 	font-size:200%;
 	max-width:350px;
 }
 
 div.navMenuItem *, div.sideMenuItem * {
 	position: relative;
+    top:0px;
+    /*top:-40px;*/
 }
 
 a.navMenuLink {
 	position: relative;
+    vertical-align:middle;
+    /*top:-41px;*/
 }
 
 img.menubg {
 	position: absolute;
-	top: 0;
+    top: 0px;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 }
 
 .menu_side {
@@ -229,9 +240,10 @@ img.menubg {
 }
 
 .cartMenus {
-	margin-top: 117px;
+	margin-top: 50px;
 	margin-left: 30px;
-	position: absolute;
+	position: relative;
+    z-index:1;
 }
 
 #cartMenusId .menuItemText {
@@ -364,17 +376,18 @@ div.price {
 	background-color: #85D4F8;
 }
 
+div.iconBorderInner, div.iconBorderOuter {
+    border: 1px solid;
+    margin: 0;
+    overflow:auto;
+}
 div.iconBorderInner {
-	border: 1px solid;
 	padding: 10px;
-	margin: 0;
 	background-color: #dbedfa;
 }
 
 div.iconBorderOuter {
-	border: 1px solid;
 	padding: 1px;
-	margin: 0;
 }
 
 .label {
@@ -568,7 +581,7 @@ img.meitanLogo {
 }
 
 .roof {
-	width: 100%;
+	width: 304px;
 }
 
 .newsTable {
@@ -576,14 +589,17 @@ img.meitanLogo {
 }
 
 .news, .good {
-	overflow-x: auto;
 	border: dotted blue 1px;
 	padding: 10px;
 	position: relative;
 	margin-bottom: 100px;
 }
 
+.news {
+    overflow:visible;
+}
 .good {
+    overflow-x: auto;
 	margin-bottom: 30px;
 }
 
@@ -607,7 +623,7 @@ img.meitanLogo {
 .newsFlowersBottom {
 	height: 90px;
 	width: 650px;
-	position: absolute;
+	position: relative;
 	bottom: -121px;
 	background: url("/images/flowersBottom.png") no-repeat;
 }
@@ -802,4 +818,9 @@ ul.applyButton li.button {
 
 .editImagesTable {
 	width:100%;
+}
+.stream {
+    position:absolute;
+    right:28px;
+    top:1px;
 }
