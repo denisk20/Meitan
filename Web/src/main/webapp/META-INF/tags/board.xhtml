@@ -1,78 +1,79 @@
 <!DOCTYPE html
-		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:component
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:sec="http://www.springframework.org/security/facelets/tags"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:c="http://java.sun.com/jstl/core"
-		xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:denis="http://meitan-kh.com/"
-		xmlns:rich="http://richfaces.org/rich"
-		>
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:sec="http://www.springframework.org/security/facelets/tags"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:denis="http://meitan-kh.com/"
+        xmlns:rich="http://richfaces.org/rich"
+        >
 
-	<script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".flip").click(function() {
-				$(".editPanel").slideToggle("slow");
-			});
-		});
-	</script>
+    <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".flip").click(function() {
+                $(".editPanel").slideToggle("slow");
+            });
+        });
+    </script>
 
-	<sec:ifAllGranted roles="ROLE_ADMIN">
-		<div class="flip"><h:outputText value="#{resourceBundle.boardAddNews}"/></div>
+    <sec:ifAllGranted roles="ROLE_ADMIN">
+        <div class="flip"><h:outputText value="#{resourceBundle.boardAddNews}"/></div>
 
-		<div class="editPanel">
-			<h:form>
+        <div class="editPanel">
+            <h:form>
 
-				<rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
-				<!--<h:inputText value="#{newNews.content}"/>-->
-				<br/>
-				<h:commandButton value="#{resourceBundle.boardCreate}" action="createNews"/>
-			</h:form>
-		</div>
-	</sec:ifAllGranted>
+                <rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
+                <!--<h:inputText value="#{newNews.content}"/>-->
+                <br/>
+                <h:commandButton value="#{resourceBundle.boardCreate}" action="createNews"/>
+            </h:form>
+        </div>
+    </sec:ifAllGranted>
 
-	<h:dataTable styleClass="newsTable" value="#{boardItems}" var="item">
-		<h:column>
-			<f:facet name="header"><h:outputText value="#{resourceBundle.boardNews}"/></f:facet>
+    <h:dataTable styleClass="newsTable" value="#{boardItems}" var="item">
+        <h:column>
+            <f:facet name="header"><h:outputText value="#{resourceBundle.boardNews}"/></f:facet>
 
-			<fieldset class="news">
-				<legend class="newsLegend">
-					#{resourceBundle.boardAdded}
-					<h:outputFormat value="{0, date, dd MM yyyy}">
-						<f:param value="#{item.postDate}"/>
-					</h:outputFormat>
-				</legend>
-				<denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
-					<div class="newsContent">
-						<h:outputText escape="false" value="#{item.content}"/>
-					</div>
-				</denis:roundedItem>
-				<div class="newsFlowersBottom"></div>
-			</fieldset>
+            <fieldset class="news">
+                <legend class="newsLegend">
+                    #{resourceBundle.boardAdded}
+                    <h:outputFormat value="{0, date, dd MM yyyy}">
+                        <f:param value="#{item.postDate}"/>
+                    </h:outputFormat>
+                </legend>
+                <denis:roundedItem width="auto" height="auto" roundedItem="#{yellowTinyRoundedItem}">
+                    <div class="newsContent">
+                        <h:outputText escape="false" value="#{item.content}"/>
+                    </div>
+                </denis:roundedItem>
 
-			<sec:ifAllGranted roles="ROLE_ADMIN">
-				<rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
-				<br/>
+                <div class="newsFlowersBottom"></div>
+            </fieldset>
 
-				<h:commandLink action="saveNews" styleClass="imagedLink">
-					<h:graphicImage url="/images/okIcon.png"/>
-					<h:outputText value="#{resourceBundle.boardSave}"/>
-				</h:commandLink>
+            <sec:ifAllGranted roles="ROLE_ADMIN">
+                <rich:editor configuration="editor" value="#{item.content}" theme="advanced"/>
 
-				<h:commandLink action="deleteNews" styleClass="imagedLink">
-					<h:graphicImage url="/images/deleteIcon.png"/>
-					<h:outputText value="#{resourceBundle.boardDelete}"/>
-				</h:commandLink>
+                <div class="boardButtons">
+                    <h:commandLink action="saveNews" styleClass="imagedLink">
+                        <h:graphicImage url="/images/okIcon.png"/>
+                        <h:outputText value="#{resourceBundle.boardSave}"/>
+                    </h:commandLink>
 
-				<!--<h:commandButton value="#{resourceBundle.boardSave}" action="saveNews"/>-->
-				<!--<h:commandButton value="#{resourceBundle.boardDelete}" action="deleteNews"/>-->
-			</sec:ifAllGranted>
+                    <h:commandLink action="deleteNews" styleClass="imagedLink">
+                        <h:graphicImage url="/images/deleteIcon.png"/>
+                        <h:outputText value="#{resourceBundle.boardDelete}"/>
+                    </h:commandLink>
+                </div>
+                <!--<h:commandButton value="#{resourceBundle.boardSave}" action="saveNews"/>-->
+                <!--<h:commandButton value="#{resourceBundle.boardDelete}" action="deleteNews"/>-->
+            </sec:ifAllGranted>
 
-		</h:column>
+        </h:column>
 
-	</h:dataTable>
+    </h:dataTable>
 
 </ui:component>
