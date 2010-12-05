@@ -281,6 +281,7 @@ a:hover, a:active {
 
 .actionMenu {
 	float: none;
+    width:150px;
 }
 
 .sideMenuLink {
@@ -384,6 +385,7 @@ div.iconBorderInner, div.iconBorderOuter {
 div.iconBorderInner {
 	padding: 10px;
 	background-color: #dbedfa;
+    overflow:hidden;
 }
 
 div.iconBorderOuter {
@@ -418,7 +420,8 @@ div.iconBorderOuter {
 }
 
 .output {
-	overflow: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
 	clear: both;
 	margin: 10px 15px 0px
 }
@@ -578,6 +581,7 @@ img.meitanLogo {
 	position: absolute;
 	top: 85px;
 	left: 500px;
+    padding: 7px 0 9px;
 }
 
 .roof {
@@ -592,11 +596,12 @@ img.meitanLogo {
 	border: dotted blue 1px;
 	padding: 10px;
 	position: relative;
-	margin-bottom: 100px;
+	margin-bottom: 0px;
 }
 
 .news {
     overflow:visible;
+    margin-bottom:10px;
 }
 .good {
     overflow-x: auto;
@@ -624,7 +629,7 @@ img.meitanLogo {
 	height: 90px;
 	width: 650px;
 	position: relative;
-	bottom: -121px;
+	bottom: 0px;
 	background: url("/images/flowersBottom.png") no-repeat;
 }
 
@@ -642,11 +647,12 @@ h1 {
 
 .goodControls {
 	margin: 10px;
+    width:170px;
 }
 
 .goodDesc {
 	width: 100%;
-	overflow: auto;
+	overflow: visible;
 }
 
 .checkoutTable {
@@ -823,4 +829,8 @@ ul.applyButton li.button {
     position:absolute;
     right:28px;
     top:1px;
+}
+
+.boardButtons {
+    margin:10px;
 }

@@ -17,7 +17,11 @@
 
 		<h:form>
 			<sec:ifAllGranted roles="ROLE_ADMIN">
-				<h:commandButton value="#{resourceBundle.goodsListForCategoryAddProduct}" action="addGood"/>
+                <h:commandLink action="addGood" styleClass="imagedLink">
+                    <h:graphicImage url="/images/okIcon.png"/>
+                    <h:outputText value="#{resourceBundle.goodsListForCategoryAddProduct}"/>
+                </h:commandLink>
+				<!--<h:commandButton value="#{resourceBundle.goodsListForCategoryAddProduct}" action="addGood"/>-->
 			</sec:ifAllGranted>
 			<c:forEach items="#{products}" var="product">
 				<div class="imageItem">

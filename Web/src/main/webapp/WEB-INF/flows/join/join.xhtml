@@ -17,7 +17,11 @@
 			<sec:ifNotGranted roles="ROLE_CONSULTANT">
 				<p><h:outputText value="#{resourceBundle.joinJoinRegisterPrompt}"/></p>
 				<h:form>
-					<h:commandLink value="#{resourceBundle.joinJoinRegisterLink}" action="register"/>
+                    <h:commandLink action="register" styleClass="imagedLink">
+                        <h:graphicImage url="/images/okIcon.png"/>
+                        <h:outputText value="#{resourceBundle.joinJoinRegisterLink}"/>
+                    </h:commandLink>
+					<!--<h:commandLink value="#{resourceBundle.joinJoinRegisterLink}" action="register"/>-->
 				</h:form>
 			</sec:ifNotGranted>
 		</sec:ifNotGranted>
