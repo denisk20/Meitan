@@ -653,6 +653,7 @@ h1 {
 .goodDesc {
 	width: 100%;
 	overflow: visible;
+	clear: left;
 }
 
 .checkoutTable {
