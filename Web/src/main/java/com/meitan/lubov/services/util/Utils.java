@@ -152,4 +152,7 @@ public class Utils {
 		System.out.println("Utils:" + msg);
 	}
 
+	public void test() {
+		new org.springframework.web.context.ContextCleanupListener();
+	}
 }
