@@ -19,7 +19,7 @@
         </on-render>
 
         		<transition on="test">
-						<evaluate expression="utils.testMessage(messageContext)"/>
+						<evaluate expression="utils.test()"/>
 
 		</transition>
 
