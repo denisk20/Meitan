@@ -9,7 +9,7 @@
 		xmlns:c="http://java.sun.com/jstl/core"
 		xmlns:sf="http://www.springframework.org/tags/faces"
 		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-		xmlns:denis="http://meitan-kh.com/"
+		xmlns:denis="http://meitan-kh.com/" xmlns:rich="http://richfaces.org/rich"
 		contentType="text/html" encoding="utf-8">
 
 <html>
@@ -30,6 +30,11 @@
 	<ui:insert name="header"/>
 	<script type="text/javascript">
 		//<![CDATA[
+		function main() {
+			shrinkDivs();
+			setInterval('prepareNewGoods()', 5000);
+		}
+
 		function shrinkDivs() {
 			var divsToShrink = document.getElementsByTagName('div');
 			for (i = 0; i < divsToShrink.length; i++) {
@@ -42,7 +47,27 @@
 				}
 			}
 		}
-		window.onload = shrinkDivs;
+
+		var toggled = false;
+
+		function prepareNewGoods() {
+			var itemsToDisplay = 3;
+			var items = dojo.query(".imageItem");
+			for(var i=0; i< items.length; i++ ) {
+				var item = items[i];
+				if(toggled) {
+					dojo.fadeOut({node: item ,duration: 3000}).play();
+					item.style.display='none';
+				} else {
+					dojo.fadeIn({node: item ,duration: 1000}).play();
+					item.style.display='block';
+				}
+			}
+			toggled = !toggled;
+		}
+
+		window.onload = main;
+
 		//]]>
 	</script>
 </head>
@@ -55,22 +80,50 @@
 
 		<div class="topPanelContent">
 			<denis:roundedItem width="auto" height="auto" roundedItem="#{blueBigRoundedItem}">
-                <div class="leaves1"><img src="/images/leaves1.png" alt="leaves1"/></div>
-                <div class="leaves2"><img src="/images/leaves2.png" alt="leaves2"/></div>
-                <div class="leaves3"><img src="/images/leaves3.png" alt="leaves3"/></div>
-                <div class="umbrella"><img src="/images/Chinese-Culture-Umbrella.png" alt="umbrella"/></div>
+				<div class="leaves1"><img src="/images/leaves1.png" alt="leaves1"/></div>
+				<div class="leaves2"><img src="/images/leaves2.png" alt="leaves2"/></div>
+				<div class="leaves3"><img src="/images/leaves3.png" alt="leaves3"/></div>
+				<div class="umbrella"><img src="/images/Chinese-Culture-Umbrella.png" alt="umbrella"/></div>
 				<div class="sun"><img src="/images/sun.png" alt="sun"/></div>
 				<div class="inKharkov">В Харькове</div>
-				<!--<img src="/images/geysha_left.png" alt="geisha" class="topPanelItem"/>-->
 				<img class="stream" src="/images/mirrorStream.png" alt="stream"/>
 				<img src="/images/meitanLogo.png" alt="logo" class="topPanelItem meitanLogo"/>
-				<!--<img src="/images/geysha_right.png" alt="geisha" class="topPanelItem"/>-->
-
 			</denis:roundedItem>
 		</div>
 	</div>
 
 	<ui:include src="menu.xhtml"/>
+
+	<div class="newProductsDiv">
+		<h:form id="newProductsForm">
+			<c:forEach items="#{newProducts}" var="product">
+				<div class="imageItem">
+					<rich:panel>
+						<denis:image imageName="#{product.name}" price="#{product.price.amount}"
+									 imageUrl="#{product.avatar.url}"
+									 action="#{utils.getMethodExpression('select')}"
+									 id="#{product.id}"
+									 type="#{product.class.simpleName}"/>
+						<rich:toolTip direction="top-right" styleClass="tooltip" layout="block" followMouse="false">
+							<span style="white-space:nowrap">This tool-tip content was <strong>rendered on server</strong>
+							 </span>
+							<h:panelGrid columns="2">
+								<h:outputText value=" imageUrl"/>
+								<h:outputText value="#{product.avatar.url}"/>
+								<h:outputText value=" item id:"/>
+								<h:outputText value="#{product.id}"/>
+								<h:outputText value=" out state:"/>
+							</h:panelGrid>
+						</rich:toolTip>
+					</rich:panel>
+					<sec:ifAllGranted roles="ROLE_ADMIN">
+						<denis:actionMenu entity="#{product}"/>
+					</sec:ifAllGranted>
+					<denis:goodMenu entity="#{product}"/>
+				</div>
+			</c:forEach>
+		</h:form>
+	</div>
 
 	<div class="content">
 		<denis:roundedItem width="auto" height="auto" roundedItem="#{orangeBigRoundedItem}">
@@ -190,22 +243,6 @@
 							<h1><h:outputText value="#{resourceBundle.aboutNewItems}"/></h1>
 						</div>
 						<!--<img src="/uploaded/ava.jpg" alt="Denis should be here"/>-->
-						<h:form id="newProductsForm">
-							<c:forEach items="#{newProducts}" var="product">
-								<div class="imageItem">
-
-									<denis:image imageName="#{product.name}" price="#{product.price.amount}"
-												 imageUrl="#{product.avatar.url}"
-												 action="#{utils.getMethodExpression('select')}"
-												 id="#{product.id}"
-												 type="#{product.class.simpleName}"/>
-									<sec:ifAllGranted roles="ROLE_ADMIN">
-										<denis:actionMenu entity="#{product}"/>
-									</sec:ifAllGranted>
-									<denis:goodMenu entity="#{product}"/>
-								</div>
-							</c:forEach>
-						</h:form>
 					</td>
 				</tr>
 			</table>
