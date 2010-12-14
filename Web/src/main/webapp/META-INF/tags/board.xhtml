@@ -11,19 +11,24 @@
         xmlns:rich="http://richfaces.org/rich"
         >
 
-    <script type="text/javascript" src="/js/jquery-1.4.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $(".flip").click(function() {
-                $(".editPanel").slideToggle("slow");
-            });
-        });
+		var opened = false;
+
+		function toggleNewPanel() {
+			if(opened) {
+				dojo.fx.wipeOut({node: "editPanelId",duration: 1000}).play();
+				opened = false;
+			} else{
+				dojo.fx.wipeIn({node: "editPanelId",duration: 1000}).play();
+				opened = true;
+			}
+		}
     </script>
 
     <sec:ifAllGranted roles="ROLE_ADMIN">
-        <div class="flip"><h:outputText value="#{resourceBundle.boardAddNews}"/></div>
+        <div class="flip" onClick="toggleNewPanel()"><h:outputText value="#{resourceBundle.boardAddNews}"/></div>
 
-        <div class="editPanel">
+        <div class="editPanel" id="editPanelId" style="display:none">
             <h:form>
 
                 <rich:editor configuration="editor" value="#{newNews.content}" theme="advanced"/>
