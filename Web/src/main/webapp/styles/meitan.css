@@ -771,13 +771,16 @@ table.innerTable td.listItemsDates {
 }
 
 a.imagedLink {
-	border:1px dotted green;
+	border:1px solid green;
 	padding:5px;
 	text-decoration:none;
 	font-size:150%;
 	background-color:#ffd700;
 	margin-right:9px;
+	-moz-border-radius: 20px;
+	border-radius:20px;
 }
+
 #footer {
 	margin-top:70px;
 }
@@ -824,7 +827,7 @@ ul.applyButton li.button {
 }
 
 .editImagesTable {
-	width:100%;
+	width:100%
 }
 .stream {
     position:absolute;
@@ -834,4 +837,14 @@ ul.applyButton li.button {
 
 .boardButtons {
     margin:10px;
+}
+
+.newProductsDiv {
+	height:275px;
+
+}
+
+.rich-panel, .rich-panel-body {
+	padding:0;
+	border:none;
 }
