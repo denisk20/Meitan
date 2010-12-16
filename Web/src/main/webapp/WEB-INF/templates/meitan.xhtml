@@ -32,7 +32,7 @@
 		//<![CDATA[
 		function main() {
 			shrinkDivs();
-			setInterval('prepareNewGoods()', 5000);
+			setInterval('prepareNewGoods()', 10000);
 		}
 
 		function shrinkDivs() {
@@ -56,8 +56,7 @@
 			for(var i=0; i< items.length; i++ ) {
 				var item = items[i];
 				if(toggled) {
-					dojo.fadeOut({node: item ,duration: 3000}).play();
-					item.style.display='none';
+					var animFadeOut = dojo.fadeOut({node: item ,duration: 1000, onEnd: function() {item.style.display='none'}}).play();
 				} else {
 					dojo.fadeIn({node: item ,duration: 1000}).play();
 					item.style.display='block';
@@ -104,7 +103,7 @@
 									 action="#{utils.getMethodExpression('select')}"
 									 id="#{product.id}"
 									 type="#{product.class.simpleName}"/>
-						<rich:toolTip direction="top-right" styleClass="tooltip" layout="block" followMouse="false">
+						<rich:toolTip direction="top-right" styleClass="tooltip" layout="block" followMouse="true">
 							<span style="white-space:nowrap">This tool-tip content was <strong>rendered on server</strong>
 							 </span>
 							<h:panelGrid columns="2">
