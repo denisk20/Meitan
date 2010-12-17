@@ -330,7 +330,7 @@ a.adminItem:hover, a.adminItem:active {
 	background-color: #ff9999;
 }
 
-#imageDiv {
+div.imageDiv {
 	overflow: auto;
 	margin: 0;
 	border: 1px solid;
