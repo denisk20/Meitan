@@ -48,21 +48,15 @@
 			}
 		}
 
-		var toggled = false;
-
 		function prepareNewGoods() {
 			var itemsToDisplay = 3;
 			var items = dojo.query(".imageItem");
 			for(var i=0; i< items.length; i++ ) {
 				var item = items[i];
-				if(toggled) {
-					var animFadeOut = dojo.fadeOut({node: item ,duration: 1000, onEnd: function() {item.style.display='none'}}).play();
-				} else {
-					dojo.fadeIn({node: item ,duration: 1000}).play();
-					item.style.display='block';
-				}
+					var animFadeOut = dojo.fadeOut({node: item ,duration: 1000, onEnd: function() {item.style.display='none'}});
+					var animFadeIn = dojo.fadeIn({node: item ,duration: 1000, beforeBegin: function(){item.style.display='block'}});
+					dojo.fx.chain([animFadeOut, animFadeIn]).play();
 			}
-			toggled = !toggled;
 		}
 
 		window.onload = main;
