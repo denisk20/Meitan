@@ -64,21 +64,15 @@
 									 action="#{utils.getMethodExpression('select')}"
 									 id="#{product.id}"
 									 type="#{product.class.simpleName}"/>
-						<rich:toolTip direction="top-right" styleClass="tooltip" layout="block" followMouse="false">
-							<span style="white-space:nowrap">This tool-tip content was <strong>rendered on server</strong>
-							 </span>
-							<h:panelGrid columns="2">
-								<h:outputText value=" imageUrl"/>
-								<h:outputText value="#{product.avatar.url}"/>
-								<h:outputText value=" item id:"/>
-								<h:outputText value="#{product.id}"/>
-								<h:outputText value=" out state:"/>
-							</h:panelGrid>
+						<rich:toolTip verticalOffset="0" hideDelay="500" direction="auto" styleClass="tooltip" layout="block" followMouse="false">
+							<div class="productTooltipName"><h:outputText value="#{product.name}"/></div>
+							<div class="productTooltipDescription"><h:outputText value="#{product.description}"/></div>
+           					<div class="productTooltipBuy"><denis:goodMenu entity="#{product}"/></div>
 						</rich:toolTip>
 					</rich:panel>
-					<sec:ifAllGranted roles="ROLE_ADMIN">
-						<denis:actionMenu entity="#{product}"/>
-					</sec:ifAllGranted>
+					<!--<sec:ifAllGranted roles="ROLE_ADMIN">-->
+						<!--<denis:actionMenu entity="#{product}"/>-->
+					<!--</sec:ifAllGranted>-->
 					<denis:goodMenu entity="#{product}"/>
 				</div>
 			</c:forEach>
