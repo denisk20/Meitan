@@ -1,6 +1,12 @@
 		var items;
-		var itemsToDisplayCount = 2;
+		var itemsToDisplayCount = 3;
 		var lastUsedItems;
+        var currentAnimation;
+        var mouseOver = false;
+
+        var renewPeriod = 1000;
+        var fadeOutTime = 500;
+        var fadeInTime = 500;
 
         Array.prototype.shuffle = function() {
             var s = [];
@@ -16,9 +22,10 @@
 
 			shrinkDivs();
 			prepareNewGoods();
-			setInterval('prepareNewGoods()', 1500);
+			setInterval('prepareNewGoods()', renewPeriod);
 		}
 
+        //todo remove this
 		function shrinkDivs() {
 			var divsToShrink = document.getElementsByTagName('div');
 			for (i = 0; i < divsToShrink.length; i++) {
@@ -33,6 +40,9 @@
 		}
 
         function prepareNewGoods() {
+            if(mouseOver) {
+                return;
+            }
 			var itemsToDisplay = [];
 			if (items.length <= itemsToDisplayCount) {
 				itemsToDisplay = items;
@@ -51,16 +61,16 @@
 
 			for(var i=0; i<lastUsedItems.length; i++) {
 				var item = lastUsedItems[i];
-				var animFadeOut = dojo.fadeOut({node: item ,duration: 500});
-				animFadeOut.play();
-                dojo.style(item, 'display', 'none');
+				currentAnimation = dojo.fadeOut({node: item ,duration: fadeOutTime});
+				currentAnimation.play();
+                item.style.display='none';
             }
 
 			for (var i = 0; i < itemsToDisplay.length; i++) {
 				var item = itemsToDisplay[i];
-				var animFadeIn = dojo.fadeIn({node: item ,duration: 500});
-				animFadeIn.play();
-                var animNoDisplay = dojo.style(item, 'display', 'block');
+                item.style.display='block';
+                currentAnimation = dojo.fadeIn({node: item ,duration: fadeInTime});
+                currentAnimation.play();
             }
 
 			lastUsedItems = itemsToDisplay;
