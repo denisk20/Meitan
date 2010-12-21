@@ -63,24 +63,24 @@ function prepareNewGoods() {
 		}
 	}
 
-	var fadeouts = [];
-	var disappears = [];
-
-	var fadeins = [];
-	var appears = [];
+    //merry christmas!
+	var fadeouts =          [];
+	var disappears =      [    ];
+	var fadeins =       [        ];
+	var appears =           [];
 
 	for (var i = 0; i < lastUsedItems.length; i++) {
 		var item = lastUsedItems[i];
 //		currentAnimation = dojo.fadeOut({node: item ,duration: fadeOutTime, onEnd: function(){item.style.display = 'none';}});
 		currentAnimation = dojo.fx.wipeOut({node: item ,duration: fadeOutTime});
 		fadeouts[i] = currentAnimation;
-		var setInVisible = dojo.animateProperty({
-			node: item, duration: 1,
-			properties: {
-				display:		 { start: "block", end: "none" }
-			}
-		});
-		disappears[i] = setInVisible;
+//		var setInVisible = dojo.animateProperty({
+//			node: item, duration: 1,
+//			properties: {
+//				display:		 { start: "block", end: "none" }
+//			}
+//		});
+//		disappears[i] = setInVisible;
 		//				currentAnimation.play();
 		//                item.style.display='none';
 	}
@@ -92,17 +92,23 @@ function prepareNewGoods() {
 		currentAnimation = dojo.fx.wipeIn({node: item ,duration: fadeInTime});
 		fadeins[i] = currentAnimation;
 
-		var setVisible = dojo.animateProperty({
-			node: item, duration: 1,
-			properties: {
-				display:		 { start: "none", end: "block" }
-			}
-		});
-		appears[i] = setVisible;
+//		var setVisible = dojo.animateProperty({
+//			node: item, duration: 1,
+//			properties: {
+//				display:		 { start: "none", end: "block" }
+//			}
+//		});
+//		appears[i] = setVisible;
 		//                currentAnimation.play();
 	}
-	currentAnimation = dojo.fx.chain(fadeouts.concat(fadeins));
+//	currentAnimation = dojo.fx.chain(fadeouts.concat(fadeins));
+//	currentAnimation = dojo.fx.combine(fadeouts);
+//    currentAnimation.play();
+
+//	currentAnimation = dojo.fx.combine(fadeins);
+    currentAnimation = dojo.fx.chain([dojo.fx.combine(fadeouts), dojo.fx.combine(fadeins)]);
 	currentAnimation.play();
+    
 	lastUsedItems = itemsToDisplay;
 }
 
