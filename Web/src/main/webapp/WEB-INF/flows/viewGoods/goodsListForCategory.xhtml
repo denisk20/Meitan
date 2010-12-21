@@ -24,7 +24,7 @@
 				<!--<h:commandButton value="#{resourceBundle.goodsListForCategoryAddProduct}" action="addGood"/>-->
 			</sec:ifAllGranted>
 			<c:forEach items="#{products}" var="product">
-				<div class="imageItem">
+				<div class="detailedItem">
 					<denis:image imageName="#{product.name}" price="#{product.price.amount}" imageUrl="#{product.avatar.url}"
 								 action="#{utils.getMethodExpression('select')}" id="#{product.id}"
 								 type="#{product.class.simpleName}"/>

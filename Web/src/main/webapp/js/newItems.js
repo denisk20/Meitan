@@ -1,12 +1,12 @@
 var items;
-var itemsToDisplayCount = 3;
+var itemsToDisplayCount = 4;
 var lastUsedItems;
 var currentAnimation;
 var mouseOver = false;
 
 var renewPeriod = 5000;
-var fadeOutTime = 300;
-var fadeInTime = 300;
+var fadeOutTime = 1000;
+var fadeInTime = 1000;
 
 Array.prototype.shuffle = function() {
 	var s = [];
