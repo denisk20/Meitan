@@ -33,7 +33,7 @@
 			</div>
 
 			<c:forEach items="#{categories}" var="category">
-				<div class="imageItem">
+				<div class="detailedItem">
 					<denis:image imageName="#{category.name}" imageUrl="#{category.image.url}"
 								 action="#{utils.getMethodExpression('select')}" id="#{category.id}" type="#{category.class.simpleName}"/>
 					<sec:ifAllGranted roles="ROLE_ADMIN">
