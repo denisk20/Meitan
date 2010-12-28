@@ -245,6 +245,12 @@ public class ProductIntegrationTest extends GenericIntegrationTest<Product> {
 			}
 			avatarRestoreManager.restore();
 		}
+	}
 
+	@Test
+	public void topProducts() {
+		//yes, this is for now...
+		final int expectedTopCount = 1;
+		assertEquals(expectedTopCount, testProductDao.getTop().size());
 	}
 }

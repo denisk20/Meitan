@@ -57,7 +57,7 @@
     <div class="newProductsDiv">
         <h:form id="newProductsForm">
             <ul class="newProductsList">
-                <c:forEach items="#{newProducts}" var="product">
+                <c:forEach items="#{topProducts}" var="product">
                     <li>
                         <div class="imageItem" style="display:none" onmouseover="currentAnimation.pause();mouseOver=true;" onmouseout="currentAnimation.play();mouseOver=false;">
                             <rich:panel>

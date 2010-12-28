@@ -46,6 +46,8 @@
 			</set>
 		</property>
 		<property name="new" value="false"/>
+		<property name="top" value="true"/>
+
 		<property name="price">
 			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="20.25"/>
@@ -106,6 +108,7 @@
 			</set>
 		</property>
 		<property name="new" value="true"/>
+		<property name="top" value="false"/>
 		<property name="price">
 			<bean class="com.meitan.lubov.model.components.Price">
 				<property name="amount" value="40.50"/>

@@ -3,6 +3,7 @@ package com.meitan.lubov.services.dao;
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.util.Selectable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,4 +28,8 @@ public interface ProductDao extends Dao <Product, Long>{
     CategoryDao getCategoryDao();
 
     void setCategoryDao(CategoryDao categoryDao);
+
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	ArrayList<Product> getTop();
 }

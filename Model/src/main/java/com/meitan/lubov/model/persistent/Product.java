@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "getProductsNew", query = "from Product p where p.new=true"),
+		@NamedQuery(name = "getProductsTop", query = "from Product p where p.top=true"),
 		@NamedQuery(name = "getProductsForCategory", query = "select c.products from Category c where c.id=:categoryId")
 })
 public class Product extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable, PriceAware {
@@ -27,6 +28,7 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 	private String name;
 	private String description;
 	private boolean isNew;
+	private boolean isTop;
 	private Set<Category> categories = new HashSet<Category>();
     private Object[] categoriesIdArray;
 	private Set<BuyingAct> purchases = new HashSet<BuyingAct>();
@@ -100,6 +102,14 @@ public class Product extends PersistentOrderableImpl implements NameAware, Image
 
 	public void setNew(boolean aNew) {
 		isNew = aNew;
+	}
+
+	public boolean isTop() {
+		return isTop;
+	}
+
+	public void setTop(boolean top) {
+		isTop = top;
 	}
 
 	@ManyToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
