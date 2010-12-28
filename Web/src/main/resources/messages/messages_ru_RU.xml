@@ -109,6 +109,7 @@
 	<entry key="editGoodGoodPriceLabel">Цена</entry>
 	<entry key="editGoodGoodPricePrompt">Введите цену продукта</entry>
 	<entry key="editGoodNewLabel">Отметьте, если продукт - новинка</entry>
+	<entry key="editGoodTopLabel">Отметьте, если продукт следует разместить вверху страницы</entry>
 	<entry key="editGoodCategoriesLabel">Выберите категории для данного продукта</entry>
 	<entry key="editGoodSave">Сохранить</entry>
 	<entry key="editGoodBack">Назад</entry>

@@ -50,6 +50,15 @@ private final Log log = LogFactory.getLog(getClass());
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional(readOnly = true)
+	public ArrayList<Product> getTop() {
+		ArrayList<Product> result = (ArrayList<Product>)
+				em.createNamedQuery("getProductsTop").getResultList();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	@Transactional
 	public ArrayList<Product> getForCategory(Long categoryId) {
 		ArrayList<Product> result = (ArrayList<Product>)

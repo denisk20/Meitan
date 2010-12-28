@@ -51,6 +51,13 @@
 				</div>
 
 				<div class="field">
+					<div class="label"><h:outputText value="#{resourceBundle.editGoodTopLabel}"/></div>
+					<div class="input">
+						<h:selectBooleanCheckbox value="#{product.top}"/>
+					</div>
+				</div>
+
+				<div class="field">
 					<div class="label"><h:outputText value="#{resourceBundle.editGoodCategoriesLabel}"/></div>
 					<div class="input">
 						<ui:repeat value="#{categoriesSelector.items}" var="selectable">

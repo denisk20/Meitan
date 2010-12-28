@@ -8,6 +8,7 @@
     <view-state id="newProductsAware" parent="abstractEditable#abstractEditable">
         <on-render>
             <evaluate expression="productDao.getNew()" result="viewScope.newProducts"/>
+            <evaluate expression="productDao.getTop()" result="viewScope.topProducts"/>
        </on-render>
     </view-state>
 
