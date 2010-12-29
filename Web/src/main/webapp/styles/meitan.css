@@ -341,7 +341,7 @@ div.imageDiv {
 
 .imageItem {
     float:                 left;
-    margin:               0;
+    margin:                0;
 }
 
 div.img {
@@ -873,12 +873,31 @@ ul.applyButton li.button {
 }
 
 ul.toolTipBottomLine {
-    /*display:               block;*/
+/*display:               block;*/
 }
 
 ul.toolTipBottomLine li, ul.newProductsList li {
     list-style-type:       none;
-    display: inline-table;
-    margin:0;
+    display:               inline-table;
+    margin:                0;
 }
 
+.productHeader {
+    font-size:             1.5em;
+    color:                 red;
+    font-style:            italic;
+    margin: 0 0 20px;
+    text-align:center;
+}
+
+.productImage {
+    width:                 200px;
+    height:                200px;
+    float: left;
+    margin:5px;
+}
+
+.productItemFooter > * {
+    float:right;
+    margin:0 35px;
+}

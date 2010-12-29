@@ -9,14 +9,14 @@
 		xmlns:sf="http://www.springframework.org/tags/faces" xmlns:f="http://java.sun.com/jsf/core"
 		>
 
-	<div style="margin: 0; width:#{width}; height:#{height}">
+	<div style="margin: 0; width:#{width};">
 		<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}TopLeft.png) no-repeat top left;">
 			<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}#{roundedItem.color}TopRight.png) no-repeat top right;">
 				<div style="margin: 0;background:url(/images/borders/#{roundedItem.size}Filler#{roundedItem.color}Top.png) repeat-x top right;height:#{roundedItem.itemHeight}px; margin:0 #{roundedItem.itemWidth}px"></div>
 			</div>
 		</div>
 
-		<div style="margin: 0;background-color:##{roundedItem.color}; overflow:hidden">
+		<div style="margin: 0;background-color:##{roundedItem.color};  height:#{height};overflow:hidden">
 			<ui:insert/>
 		</div>
 
