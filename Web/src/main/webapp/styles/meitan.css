@@ -891,13 +891,18 @@ ul.toolTipBottomLine li, ul.newProductsList li {
 }
 
 .productImage {
-    width:                 200px;
+    width:                 140px;
     height:                200px;
     float: left;
     margin:5px;
 }
-
+.productItemFooter {
+    margin: 0 5px 0 0;
+}
 .productItemFooter > * {
     float:right;
     margin:0 35px;
+}
+.detailedItem{
+    float:left;
 }
