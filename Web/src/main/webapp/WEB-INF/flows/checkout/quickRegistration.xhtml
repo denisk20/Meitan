@@ -17,8 +17,12 @@
 			<h1><h:outputText value="#{resourceBundle.checkoutQuickRegHeader}"/></h1>
 		</div>
 
-		<p><h:outputText value="#{resourceBundle.checkoutQuickRegRegisterPrompt}"/> <a href="userProfile"><h:outputText
-				value="#{resourceBundle.checkoutQuickRegRegisterLink}"/></a></p>
+		<p><h:outputText value="#{resourceBundle.checkoutQuickRegRegisterPrompt}"/>
+            <a href="userProfile" class="imagedLink">
+                <h:graphicImage url="/images/okIcon.png"/>
+                <h:outputText value="#{resourceBundle.checkoutQuickRegRegisterLink}"/>
+            </a>
+        </p>
 		<h:form>
 			<fieldset>
 				<div class="field">

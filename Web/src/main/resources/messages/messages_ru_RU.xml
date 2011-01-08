@@ -28,6 +28,7 @@
 	<entry key="confirmDeleteNo">Нет</entry>
 	<!--create category-->
 	<entry key="addCategoryHeader">Введите название категории</entry>
+	<entry key="addCategoryDescriptionTitle">Введите описание категории</entry>
 	<entry key="addCategoryTitle">Создание новой категории</entry>
 	<entry key="addCategoryEditBoxPrompt">Название категории</entry>
 	<entry key="addCategoryConfirm">Создать категорию</entry>
@@ -53,6 +54,7 @@
 	<entry key="categoriesAllProductsMenu">Показать товары для всех категорий</entry>
 	<entry key="categoriesAddCategoryMenu">Добавить категорию</entry>
 	<entry key="categoriesAddGoodMenu">Добавить продукт</entry>
+	<entry key="categoriesMore">Показать продукты</entry>
 
 	<!--checkout-->
 	<!--===changeQuickregDetails.xhtml-->
@@ -96,6 +98,7 @@
 	<!--editCategory-->
 	<entry key="editCategoryHeader">Редактирование категории</entry>
 	<entry key="editCategoryCategoryNameLabel">Название категории</entry>
+	<entry key="editCategoryDescriptionLabel">Описание категории</entry>
 	<entry key="editCategoryCategoryNamePrompt">Измените название категории</entry>
 	<entry key="editCategoryImages">Изображения:</entry>
 	<entry key="editCategorySave">Сохранить:</entry>

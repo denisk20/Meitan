@@ -30,4 +30,9 @@
         <tag-name>roundedItem</tag-name>
         <source>tags/roundedItem.xhtml</source>
     </tag>
+
+    <tag>
+        <tag-name>descriptionItem</tag-name>
+        <source>tags/descriptionItem.xhtml</source>
+    </tag>
 </facelet-taglib>

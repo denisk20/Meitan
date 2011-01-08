@@ -7,4 +7,6 @@ package com.meitan.lubov.model;
  */
 public interface NameAware extends IdAware{
 	String getName();
+
+	String getDescription();
 }

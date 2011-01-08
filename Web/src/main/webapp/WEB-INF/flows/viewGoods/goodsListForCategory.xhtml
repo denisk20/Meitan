@@ -26,25 +26,32 @@
             <c:forEach items="#{products}" var="product">
 
                 <div style="margin-bottom:5px;">
-                <denis:roundedItem width="600px" roundedItem="#{yellowBigRoundedItem}">
-                    <p>
+                    <denis:descriptionItem width="600px" roundedItem="#{yellowBigRoundedItem}" item="#{product}" charCount="704" minHeight="144px"/>
+<!--
+                    <denis:roundedItem width="600px" roundedItem="#{yellowBigRoundedItem}">
+                        <div class="productHeader"><h:outputText value="#{product.name}"/></div>
+                        <p class="itemDescription">
                         <span class="productImage">
                             <denis:image imageName="#{product.name}" price="#{product.price.amount}" imageUrl="#{product.avatar.url}"
                                          action="#{utils.getMethodExpression('select')}" id="#{product.id}"
                                          type="#{product.class.simpleName}"/>
-                            <sec:ifAllGranted roles="ROLE_ADMIN">
-                                <denis:actionMenu entity="#{product}"/>
-                            </sec:ifAllGranted>
+                            <span class="itemSideMenu">
+                                <sec:ifAllGranted roles="ROLE_ADMIN">
+                                    <denis:actionMenu entity="#{product}"/>
+                                </sec:ifAllGranted>
+                            </span>
                         </span>
-                        <h:outputText value="#{utils.getShortName(product.description, '706')}"/>
-                    </p>
+                            <h:outputText value="#{utils.html2text(utils.getShortName(product.description, '706'))}" escape="false"/>
+                        </p>
+                    </denis:roundedItem>
+-->
 
-                    <div class="productItemFooter">
-                        <span style="margin-top:3px">
-                            <denis:roundedItem width="60px" roundedItem="#{blueTinyRoundedItem}">
-                                <h:outputText value="#{product.price.amount}"/>
-                            </denis:roundedItem>
-                        </span>
+                    <div class="descriptionItemFooter">
+                            <span style="margin-top:3px">
+                                <denis:roundedItem width="60px" roundedItem="#{blueTinyRoundedItem}">
+                                    <h:outputText value="#{product.price.amount}"/>
+                                </denis:roundedItem>
+                            </span>
 
                         <denis:goodMenu entity="#{product}"/>
 
@@ -59,8 +66,7 @@
                             </ul>
                         </div>
                     </div>
-                </denis:roundedItem>
-</div>
+                </div>
                 <!--
                 <div class="detailedItem">
                     <denis:image imageName="#{product.name}" price="#{product.price.amount}" imageUrl="#{product.avatar.url}"

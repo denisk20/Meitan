@@ -17,6 +17,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -33,6 +34,7 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 
 	private long id;
 	private String name;
+	private String description;
 	private Image image;
 
 	private Set<Product> products = new HashSet<Product>();
@@ -61,6 +63,15 @@ public class Category extends PersistentOrderableImpl implements NameAware, Imag
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Lob
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@ManyToMany

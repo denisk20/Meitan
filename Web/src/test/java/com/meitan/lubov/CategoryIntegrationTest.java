@@ -55,6 +55,8 @@ public class CategoryIntegrationTest extends GenericIntegrationTest<Category> {
 	protected void compareAdditionalProperties(Category beanFromSpring, Category beanFromDB) {
 		assertThat(beanFromSpring.getImage(), is(beanFromDB.getImage()));
 		assertThat(beanFromSpring.getProducts(), is(beanFromDB.getProducts()));
+		assertFalse(beanFromSpring.getDescription().isEmpty());
+		assertThat(beanFromSpring.getDescription(), is(beanFromDB.getDescription()));
 	}
 
 	@Test
