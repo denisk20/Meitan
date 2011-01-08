@@ -1,6 +1,9 @@
 package com.meitan.lubov.services.util.sync;
 
 import com.meitan.lubov.model.persistent.Category;
+import com.meitan.lubov.model.persistent.Image;
+import com.meitan.lubov.services.dao.CategoryDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -19,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -42,6 +46,9 @@ public class MeitanSyncronizerImpl {
 
 	private String url = GOODS_URL;
 
+	@Autowired
+	private CategoryDao categoryDao;
+
 	public String getUrl() {
 		return url;
 	}
@@ -53,18 +60,15 @@ public class MeitanSyncronizerImpl {
 	public void sync() throws IOException, XPathExpressionException {
 		URL catalog = new URL(url);
 
-        URLConnection urlConnection = catalog.openConnection();
-
 		Tidy tidy = new Tidy();
 		tidy.setInputEncoding("windows-1251");
 
-		Document document = tidy.parseDOM(urlConnection.getInputStream(), null);
+		Document document = tidy.parseDOM(catalog.openStream(), null);
 
 		Set<ParsedCategory> newCategories = getNewCategories(document);
 
 		for (ParsedCategory c : newCategories) {
 			createNewCategory(c);
-			processItems(c);
 		}
 	}
 
@@ -72,7 +76,19 @@ public class MeitanSyncronizerImpl {
 	}
 
 	private void createNewCategory(ParsedCategory c) {
+		if (!categoryExists(c)) {
+			persistCategory(c);
+			processItems(c);
+		}
+	}
 
+	private void persistCategory(ParsedCategory c) {
+		Image image = new Image();
+	}
+
+	private boolean categoryExists(ParsedCategory c) {
+		List<Category> fromDB = categoryDao.findByExample(c.getCategory(), "id", "description", "image");
+		return fromDB != null;
 	}
 
 	protected Set<ParsedCategory> getNewCategories(Document document) throws XPathExpressionException, MalformedURLException, UnsupportedEncodingException {

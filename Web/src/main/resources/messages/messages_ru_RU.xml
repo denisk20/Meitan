@@ -129,6 +129,7 @@
 	<entry key="imagesManagerHasImages">Изображения:</entry>
 	<entry key="imagesManagerDelete">Удалить</entry>
 	<entry key="imagesManagerMakeMain">Сдалать главным изборажением</entry>
+	<entry key="imagesManagerUploadUrl">Загрузить из интернета...</entry>
 	<entry key="imagesManagerMainLabel">Главное изображение</entry>
 	<entry key="imagesManagerSave">Сохранить</entry>
 	<entry key="imagesManagerUpload">Загрузить...</entry>
