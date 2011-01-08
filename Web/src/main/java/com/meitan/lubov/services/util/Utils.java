@@ -7,31 +7,21 @@ import com.sun.facelets.tag.TagAttribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.el.MethodExpressionLiteral;
-import org.springframework.beans.BeansException;
-import org.springframework.binding.message.Message;
-import org.springframework.binding.message.MessageBuilder;
-import org.springframework.binding.message.MessageContext;
-import org.springframework.binding.message.MessageResolver;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.web.context.ServletContextAware;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 import javax.faces.model.SelectItem;
-import javax.servlet.ServletContext;
 
 /**
  * @author denis_k
@@ -40,10 +30,9 @@ import javax.servlet.ServletContext;
  */
 //todo remove ServletContextAware
 public class Utils {
+	//todo rename this
 	private static final int STRING_LIMIT = 30;
 	private static final String DOTS = "...";
-
-	private ServletContext servletContext;
 
 	private final Log log = LogFactory.getLog(getClass());
 	private static final String MEITAN_PROPS = "MEITAN_PROPS";
@@ -84,15 +73,19 @@ public class Utils {
 	}
 
 	public String getShortName(String longName) {
+		return getShortName(longName, STRING_LIMIT);
+	}
+
+	public String getShortName(String longName, int limit) {
 		String result = "";
-		if (longName.length() > STRING_LIMIT) {
-			result = longName.substring(0, STRING_LIMIT) + DOTS;
+		if (longName.length() > limit) {
+			result = longName.substring(0, limit) + DOTS;
 		} else {
 			result = longName + DOTS;
 		}
 		return result;
-	}
 
+	}
 	public ArrayList<SelectItem> getSelectItems(List<NameAware> source, Long selectedId) {
 		if (source == null) {
 			throw new IllegalArgumentException("Source for SelectItems was null");

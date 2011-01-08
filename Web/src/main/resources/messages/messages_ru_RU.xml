@@ -184,6 +184,7 @@
 	<!--goodsListForCategory-->
 	<entry key="goodsListForCategoryHeader">Товары! Самые лучшие!!!</entry>
 	<entry key="goodsListForCategoryAddProduct">Добавить продукт</entry>
+	<entry key="goodsListForCategoryMore">Подробнее</entry>
 
 	<!--meitan.xhtml-->
 	<entry key="enter">Войти</entry>
