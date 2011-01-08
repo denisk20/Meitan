@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=$MEITAN_HOME/jtidy-r938.jar -DgroupId=jtidy -DartifactId=jtidy -Dversion=r938 -Dpackaging=jar
