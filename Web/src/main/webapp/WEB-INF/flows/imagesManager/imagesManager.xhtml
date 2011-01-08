@@ -56,6 +56,12 @@
 
 			<!--<sf:commandButton styleClass="saveEditedImages" value="#{resourceBundle.imagesManagerSave}" action="save"/>-->
 			<!--<sf:commandButton value="Back" action="back"/>-->
+            <h:inputText id="url"/>
+            <sf:commandLink action="uploadFromUrl" styleClass="imagedLink" processIds="url">
+                <h:graphicImage url="/images/okIcon.png"/>
+                <h:outputText value="#{resourceBundle.imagesManagerUploadUrl}"/>
+            </sf:commandLink>
+
 		</h:form>
 		<br/>
 		<br/>

@@ -13,8 +13,11 @@ import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -87,7 +90,16 @@ public class ImageManager {
 	//todo unit test
 
 	public void uploadImage(MultipartFile file, File imageFile, int maxWidth, int maxHeight) throws IOException {
-		BufferedImage sourceImage = ImageIO.read(file.getInputStream());
+		uploadImageInternal(file.getInputStream(), file.getContentType(), imageFile, maxWidth, maxHeight);
+	}
+
+	public void uploadImage(URL url, File imageFile, int maxWidth, int maxHeight) throws IOException {
+		String contentType = url.openConnection().getContentType();
+		uploadImageInternal(url.openStream(), contentType, imageFile, maxWidth, maxHeight);
+	}
+
+	private void uploadImageInternal(InputStream is, String contentType, File imageFile, int maxWidth, int maxHeight) throws IOException {
+		BufferedImage sourceImage = ImageIO.read(is);
 		int width = sourceImage.getWidth(null);
 		int height = sourceImage.getHeight(null);
 		//todo unit test
@@ -107,10 +119,10 @@ public class ImageManager {
 			sourceImage = toBufferedImage(scaledImage);
 		}
 
-		String contentType = file.getContentType();
 		int slash = contentType.indexOf("/");
 		String trimmedContentType = contentType.substring(slash + 1);
 		ImageIO.write(sourceImage, trimmedContentType, imageFile);
+
 	}
 
 	private boolean isXPriority(int width, int height, int maxWidth, int maxHeight) {

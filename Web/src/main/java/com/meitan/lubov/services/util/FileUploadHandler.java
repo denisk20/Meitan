@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.webflow.core.collection.ParameterMap;
 import org.springframework.webflow.execution.RequestContext;
 import sun.awt.image.ToolkitImage;
 
@@ -16,6 +17,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Date: Apr 19, 2010
@@ -23,6 +26,7 @@ import java.io.Serializable;
  *
  * @author denisk
  */
+//todo I18N
 public class FileUploadHandler implements Serializable {
 	public final static String FILE_PARAM_NAME = "file";
 
@@ -50,6 +54,38 @@ public class FileUploadHandler implements Serializable {
 		return processFile(requestContext, imageName.getWrapped());
 	}
 
+	public Image precessTempFileUrl(RequestContext requestContext, StringWrap imageName) throws IOException {
+		return processUrl(requestContext, imageName.getWrapped());
+	}
+
+	protected Image processUrl(RequestContext requestContext, String imageName) throws IOException {
+		ParameterMap map = requestContext.getRequestParameters();
+		String urlParam = null;
+		for(Object o: map.asAttributeMap().asMap().keySet()) {
+			String key = (String)o;
+			if (key.contains("url")) {
+				urlParam = map.get(key);
+			}
+		}
+
+		URL url;
+		try {
+			url = new URL(urlParam);
+		} catch (MalformedURLException e) {
+			requestContext.getMessageContext()
+					.addMessage(new MessageBuilder()
+							.error()
+							.defaultText("Плохая строка файла")
+							.build());
+			throw new IllegalArgumentException("Плохая строка файла " + urlParam);
+		}
+		File imageFile = new File(uploadPath + "/" + imageName);
+
+		imageManager.uploadImage(url, imageFile, MAX_WIDTH, MAX_HEIGHT);
+
+		Image image = createImage("/" + imageName);
+		return image;
+	}
 	protected Image processFile(RequestContext requestContext, String imageName) throws IOException {
 		MultipartFile file = requestContext.getRequestParameters().getMultipartFile(FILE_PARAM_NAME);
 
@@ -57,8 +93,10 @@ public class FileUploadHandler implements Serializable {
 			throw new IllegalArgumentException("File was null");
 		}
 		if (file.getSize() > 0) {
-			if (! isFileValid(requestContext, file)) {
-				throw new IllegalArgumentException("Not valid image type: " + file.getContentType());
+			String contentType = file.getContentType();
+
+			if (! isFileValid(requestContext, contentType)) {
+				throw new IllegalArgumentException("Not valid image type: " + contentType);
 			}
 			File imageFile = new File(uploadPath + "/" + imageName);
 
@@ -77,10 +115,9 @@ public class FileUploadHandler implements Serializable {
 		}
 	}
 
-	private boolean isFileValid(RequestContext requestContext, MultipartFile file) {
-		String contentType = file.getContentType();
+	private boolean isFileValid(RequestContext requestContext, String contentType) {
 		if (contentType == null) {
-			throw new IllegalArgumentException("No extension in file " + file);
+			throw new IllegalArgumentException("No extension in file");
 		}
 		if (contentType.equals(JPEG_TYPE) || contentType.equals(BMP_TYPE)|| contentType.equals(GIF_TYPE)) {
 			return true;

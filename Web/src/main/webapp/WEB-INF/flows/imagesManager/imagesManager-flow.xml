@@ -30,6 +30,13 @@
 			<evaluate expression="imageDao.addImageToEntity(imageAware, image)"/>
 		</transition>
 
+		<transition on="uploadFromUrl" to="imagesManager">
+			<evaluate expression="imageIdGenerationService.generateIdForNextImage(imageAware)" result="requestScope.imageName"/>
+			<evaluate expression="fileUploadHandler.precessTempFileUrl(flowRequestContext, imageName)" result="requestScope.image"/>
+			<evaluate expression="imageDao.addImageToEntity(imageAware, image)"/>
+		</transition>
+
+
 		<!--todo make custom exception here-->
 		<transition on-exception="java.lang.IllegalArgumentException" to="imagesManager"/>
 		
