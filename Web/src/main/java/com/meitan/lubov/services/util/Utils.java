@@ -7,6 +7,7 @@ import com.sun.facelets.tag.TagAttribute;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.el.MethodExpressionLiteral;
+import org.jsoup.Jsoup;
 import org.springframework.context.ApplicationContext;
 import org.springframework.faces.model.OneSelectionTrackingListDataModel;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -28,7 +29,6 @@ import javax.faces.model.SelectItem;
  *         Date: 19.05.2010
  *         Time: 15:39:14
  */
-//todo remove ServletContextAware
 public class Utils {
 	//todo rename this
 	private static final int STRING_LIMIT = 30;
@@ -81,7 +81,7 @@ public class Utils {
 		if (longName.length() > limit) {
 			result = longName.substring(0, limit) + DOTS;
 		} else {
-			result = longName + DOTS;
+			result = longName;
 		}
 		return result;
 
@@ -140,6 +140,10 @@ public class Utils {
 	public OneSelectionTrackingListDataModel getDataModel(List source) {
 		return new OneSelectionTrackingListDataModel(source);
 	}
+
+	public String html2text(String html) {
+    return Jsoup.parse(html).text();
+}
 
 	public void printMessage(String msg) {
 		System.out.println("Utils:" + msg);

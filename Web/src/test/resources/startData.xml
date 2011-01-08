@@ -127,6 +127,7 @@
 
 	<bean id="ent_creams" class="com.meitan.lubov.model.persistent.Category">
 		<constructor-arg index="0" value="Creams"/>
+
 		<property name="image" ref="ent_creamsImage"/>
 		<property name="products">
 			<set>
@@ -135,8 +136,9 @@
 			</set>
 		</property>
         <property name="order" value="2"/>
+		<property name="description" value="This category is great!!!"/>
 	</bean>
-<!--todo this is really dirty hack but is saves much effort...-->
+	
 	<bean id="ent_creamsImage" class="com.meitan.lubov.model.persistent.Image" >
 		<property name="url" value="/img_Category_1_1_1275307423579"/>
         <property name="order" value="2"/>
