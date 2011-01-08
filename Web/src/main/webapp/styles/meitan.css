@@ -914,3 +914,8 @@ ul.toolTipBottomLine li, ul.newProductsList li {
 .itemDescription {
     /*min-height:144px;*/
 }
+.newItem {
+    width:150px;
+    float:left;
+    /*display:inline;*/
+}
