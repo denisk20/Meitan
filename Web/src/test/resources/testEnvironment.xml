@@ -114,6 +114,7 @@
 		<property name="utils" ref="utils"/>
 		<property name="imageIdGenerationService" ref="testImageIdGenerationService"/>
 		<property name="imageManager" ref="testImageManager"/>
+		<property name="imageDao" ref="testImageDao"/>
 	</bean>
 
 	<bean id="testImageIdGenerationService" class="com.meitan.lubov.services.util.ImageIdGenerationServiceImpl"/>
