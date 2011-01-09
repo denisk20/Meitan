@@ -34,8 +34,8 @@ public class FileUploadHandler implements Serializable {
 	private static final String BMP_TYPE = "image/bmp";
 	private static final String GIF_TYPE = "image/gif";
 
-	private static final int MAX_WIDTH = 475;
-	private static final int MAX_HEIGHT = 475;
+	public static final int MAX_WIDTH = 475;
+	public static final int MAX_HEIGHT = 475;
 
 	@Autowired
 	protected ImageManager imageManager;
@@ -65,6 +65,7 @@ public class FileUploadHandler implements Serializable {
 			String key = (String)o;
 			if (key.contains("url")) {
 				urlParam = map.get(key);
+				break;
 			}
 		}
 

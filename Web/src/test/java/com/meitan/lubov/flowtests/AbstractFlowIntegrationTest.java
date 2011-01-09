@@ -21,7 +21,6 @@ import org.springframework.webflow.test.execution.AbstractXmlFlowExecutionTests;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * @author denis_k
