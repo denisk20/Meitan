@@ -3,6 +3,7 @@ package com.meitan.lubov.services.util.sync;
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.CategoryDao;
+import com.meitan.lubov.services.dao.ImageDao;
 import com.meitan.lubov.services.media.ImageManager;
 import com.meitan.lubov.services.util.FileUploadHandler;
 import com.meitan.lubov.services.util.ImageIdGenerationService;
@@ -10,6 +11,7 @@ import com.meitan.lubov.services.util.StringWrap;
 import com.meitan.lubov.services.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -55,6 +57,10 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	private ImageIdGenerationService imageIdGenerationService;
 	@Autowired
 	protected ImageManager imageManager;
+	@Autowired
+	protected ImageDao imageDao;
+	private static final XPathFactory FACTORY = XPathFactory.newInstance();
+	private static final XPath X_PATH = FACTORY.newXPath();
 
 	@Override
 	public String getUrl() {
@@ -67,41 +73,52 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	}
 
 	@Override
+	@Transactional
 	public void sync() throws IOException, XPathExpressionException {
-		URL catalog = new URL(url);
+		URL catalogUrl = new URL(url);
 
-		Tidy tidy = new Tidy();
-		tidy.setInputEncoding("windows-1251");
-
-		Document document = tidy.parseDOM(catalog.openStream(), null);
+		Document document = parseHtml(catalogUrl);
 
 		Set<ParsedCategory> categories = getCategories(document);
 
 		for (ParsedCategory c : categories) {
-			createNewCategory(c);
+			processCategory(c);
 		}
 	}
 
-	private void processItems(ParsedCategory c) {
+	private Document parseHtml(URL catalog) throws IOException {
+		Tidy tidy = new Tidy();
+		tidy.setInputEncoding("windows-1251");
+
+		Document document = tidy.parseDOM(catalog.openStream(), null);
+		return document;
 	}
 
-	private void createNewCategory(ParsedCategory c) throws IOException {
+	private void processItems(ParsedCategory c) throws IOException, XPathExpressionException {
+		Document itemsPage = parseHtml(c.getItemsUrl());
+		final String xPathString = "//div[@class='catalog-section']/table/tr/td/table/tr[1]/td";
+		XPathExpression expression = X_PATH.compile(xPathString);
+		NodeList nodeList = (NodeList) expression.evaluate(itemsPage, XPathConstants.NODESET);
+	}
+
+	private void processCategory(ParsedCategory c) throws IOException {
 		if (!categoryExists(c)) {
 			persistCategory(c);
-			processItems(c);
 		}
+		processItems(c);
 	}
 
 	private void persistCategory(ParsedCategory c) throws IOException {
-		categoryDao.makePersistent(c.getCategory());
+		Category category = c.getCategory();
+		categoryDao.makePersistent(category);
 
-		StringWrap imageName = imageIdGenerationService.generateIdForNextImage(c.getCategory());
+		StringWrap imageName = imageIdGenerationService.generateIdForNextImage(category);
 		File imageFile = new File(utils.getImageUploadDirectoryPath() + "/" + imageName.getWrapped());
 
 		imageManager.uploadImage(c.getImageUrl(), imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
 
-
-		Image image = new Image();
+		Image image = new Image("/" + imageName.getWrapped());
+		imageDao.addImageToEntity(category, image);
 	}
 
 	private boolean categoryExists(ParsedCategory c) {
@@ -110,10 +127,8 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	}
 
 	protected Set<ParsedCategory> getCategories(Document document) throws XPathExpressionException, MalformedURLException, UnsupportedEncodingException {
-		XPathFactory factory= XPathFactory.newInstance();
-		XPath xPath=factory.newXPath();
 		XPathExpression xPathExpression =
-				xPath.compile(CATALOG_XPATH);
+				X_PATH.compile(CATALOG_XPATH);
 		Node categories = (Node) xPathExpression.evaluate(document, XPathConstants.NODE);
 
 		NodeList childNodes = categories.getChildNodes();
@@ -191,5 +206,13 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	@Override
 	public void setImageManager(ImageManager imageManager) {
 		this.imageManager = imageManager;
+	}
+
+	public ImageDao getImageDao() {
+		return imageDao;
+	}
+
+	public void setImageDao(ImageDao imageDao) {
+		this.imageDao = imageDao;
 	}
 }
