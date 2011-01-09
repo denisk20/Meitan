@@ -3,6 +3,11 @@ package com.meitan.lubov.services.util.sync;
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
 import com.meitan.lubov.services.dao.CategoryDao;
+import com.meitan.lubov.services.media.ImageManager;
+import com.meitan.lubov.services.util.FileUploadHandler;
+import com.meitan.lubov.services.util.ImageIdGenerationService;
+import com.meitan.lubov.services.util.StringWrap;
+import com.meitan.lubov.services.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -11,16 +16,12 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.DOMAttrImpl;
 import org.w3c.tidy.DOMTextImpl;
 import org.w3c.tidy.Tidy;
-import org.xml.sax.InputSource;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,7 @@ import javax.xml.xpath.XPathFactory;
  * @author denisk
  */
 @Service("meitanSyncronizer")
-public class MeitanSyncronizerImpl {
+public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	private final String MEITAN_URL = "http://meitan.ru";
 	private final String MEITAN_PRODUCTS = "/catalog/products";
 	private final String GOODS_URL = MEITAN_URL + MEITAN_PRODUCTS + "/main.php?SECTION_ID=144";
@@ -48,15 +49,24 @@ public class MeitanSyncronizerImpl {
 
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private Utils utils;
+	@Autowired
+	private ImageIdGenerationService imageIdGenerationService;
+	@Autowired
+	protected ImageManager imageManager;
 
+	@Override
 	public String getUrl() {
 		return url;
 	}
 
+	@Override
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	@Override
 	public void sync() throws IOException, XPathExpressionException {
 		URL catalog = new URL(url);
 
@@ -65,9 +75,9 @@ public class MeitanSyncronizerImpl {
 
 		Document document = tidy.parseDOM(catalog.openStream(), null);
 
-		Set<ParsedCategory> newCategories = getNewCategories(document);
+		Set<ParsedCategory> categories = getCategories(document);
 
-		for (ParsedCategory c : newCategories) {
+		for (ParsedCategory c : categories) {
 			createNewCategory(c);
 		}
 	}
@@ -75,23 +85,31 @@ public class MeitanSyncronizerImpl {
 	private void processItems(ParsedCategory c) {
 	}
 
-	private void createNewCategory(ParsedCategory c) {
+	private void createNewCategory(ParsedCategory c) throws IOException {
 		if (!categoryExists(c)) {
 			persistCategory(c);
 			processItems(c);
 		}
 	}
 
-	private void persistCategory(ParsedCategory c) {
+	private void persistCategory(ParsedCategory c) throws IOException {
+		categoryDao.makePersistent(c.getCategory());
+
+		StringWrap imageName = imageIdGenerationService.generateIdForNextImage(c.getCategory());
+		File imageFile = new File(utils.getImageUploadDirectoryPath() + "/" + imageName.getWrapped());
+
+		imageManager.uploadImage(c.getImageUrl(), imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
+
+
 		Image image = new Image();
 	}
 
 	private boolean categoryExists(ParsedCategory c) {
 		List<Category> fromDB = categoryDao.findByExample(c.getCategory(), "id", "description", "image");
-		return fromDB != null;
+		return fromDB.size() > 0;
 	}
 
-	protected Set<ParsedCategory> getNewCategories(Document document) throws XPathExpressionException, MalformedURLException, UnsupportedEncodingException {
+	protected Set<ParsedCategory> getCategories(Document document) throws XPathExpressionException, MalformedURLException, UnsupportedEncodingException {
 		XPathFactory factory= XPathFactory.newInstance();
 		XPath xPath=factory.newXPath();
 		XPathExpression xPathExpression =
@@ -133,5 +151,45 @@ public class MeitanSyncronizerImpl {
 		parsedCategorySet.add(parsedCategory);
 
 		return parsedCategorySet;
+	}
+
+	@Override
+	public CategoryDao getCategoryDao() {
+		return categoryDao;
+	}
+
+	@Override
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
+
+	@Override
+	public Utils getUtils() {
+		return utils;
+	}
+
+	@Override
+	public void setUtils(Utils utils) {
+		this.utils = utils;
+	}
+
+	@Override
+	public ImageIdGenerationService getImageIdGenerationService() {
+		return imageIdGenerationService;
+	}
+
+	@Override
+	public void setImageIdGenerationService(ImageIdGenerationService imageIdGenerationService) {
+		this.imageIdGenerationService = imageIdGenerationService;
+	}
+
+	@Override
+	public ImageManager getImageManager() {
+		return imageManager;
+	}
+
+	@Override
+	public void setImageManager(ImageManager imageManager) {
+		this.imageManager = imageManager;
 	}
 }

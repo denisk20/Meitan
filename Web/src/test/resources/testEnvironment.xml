@@ -108,9 +108,19 @@
         <property name="uploadPath" value="#{utils.imageUploadDirectoryPath}"/>
     </bean>
 
-    <bean id="testBuyingActDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaBuyingActDao"/>
+	<bean id="testImageManager" class="com.meitan.lubov.services.media.ImageManager"/>
+	<bean id="testMeitanSyncronizerImpl" class="com.meitan.lubov.services.util.sync.MeitanSyncronizerImpl">
+		<property name="categoryDao" ref="testCategoryDao"/>
+		<property name="utils" ref="utils"/>
+		<property name="imageIdGenerationService" ref="testImageIdGenerationService"/>
+		<property name="imageManager" ref="testImageManager"/>
+	</bean>
 
-    <bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">
+	<bean id="testImageIdGenerationService" class="com.meitan.lubov.services.util.ImageIdGenerationServiceImpl"/>
+
+	<bean id="testBuyingActDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaBuyingActDao"/>
+
+	<bean id="testClientDao" class="com.meitan.lubov.services.dao.jpa.impl.JpaClientDao">
         <property name="buyingActDao" ref="testBuyingActDao"/>
 		<property name="shoppingCartItemDao" ref="testShoppingCartItemDao"/>
 		<property name="authorityDao" ref="testAuthorityDao"/>
