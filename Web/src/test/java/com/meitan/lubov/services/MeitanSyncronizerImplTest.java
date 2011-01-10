@@ -56,6 +56,7 @@ public class MeitanSyncronizerImplTest extends AbstractTransactionalJUnit4Spring
 			syncronizer.setUrl(testsPath + "meitan.ru.catalog.html");
 			syncronizer.setPrefixUrl("");
 			syncronizer.setProductsUrl("");
+			syncronizer.setFullPrefixUrl("");
 			syncronizer.setFilePrefix(testsPath);
 			syncronizer.sync();
 

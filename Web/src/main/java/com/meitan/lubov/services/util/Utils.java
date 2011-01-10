@@ -17,6 +17,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -126,6 +130,21 @@ public class Utils {
 
 		return property;
 
+	}
+
+	public URLConnection getURLConnection(URL url) throws IOException {
+		URLConnection urlConnection;
+		if (shouldUseProxy()) {
+			String hostname = getProxyHost();
+			int port = getProxyPort();
+			InetSocketAddress inetSocketAddress = new InetSocketAddress(hostname, port);
+			Proxy proxy = new Proxy(Proxy.Type.HTTP, inetSocketAddress);
+			urlConnection = url.openConnection(proxy);
+		} else {
+			urlConnection = url.openConnection();
+		}
+
+		return urlConnection;
 	}
 
 	public String getImageUploadDirectoryPath() {

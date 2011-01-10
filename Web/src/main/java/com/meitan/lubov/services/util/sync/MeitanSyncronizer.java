@@ -48,4 +48,8 @@ public interface MeitanSyncronizer {
 	String getFilePrefix();
 
 	void setFilePrefix(String filePrefix);
+
+	String getFullPrefixUrl();
+
+	void setFullPrefixUrl(String fullPrefixUrl);
 }

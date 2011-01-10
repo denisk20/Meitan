@@ -27,6 +27,11 @@
             <evaluate expression="securityService.authenticateUser(client)"/>
         </transition>
 
+		<transition on="sync" validate="false" bind="false" to="done">
+			<secured attributes="ROLE_ADMIN"/>
+			<evaluate expression="meitanSyncronizer.sync()"/>
+		</transition>
+
         <transition on="cancel" to="cancel" bind="false"/>
         <transition on-exception="net.tanesha.recaptcha.ReCaptchaException" to="userProfile"/>
 		<!--passwords don't match-->

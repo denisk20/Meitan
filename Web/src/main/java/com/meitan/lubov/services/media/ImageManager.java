@@ -98,16 +98,7 @@ public class ImageManager {
 	}
 
 	public void uploadImage(URL url, File imageFile, int maxWidth, int maxHeight) throws IOException {
-		URLConnection urlConnection;
-		if (utils.shouldUseProxy()) {
-			String hostname = utils.getProxyHost();
-			int port = utils.getProxyPort();
-			InetSocketAddress inetSocketAddress = new InetSocketAddress(hostname, port);
-			Proxy proxy = new Proxy(Proxy.Type.HTTP, inetSocketAddress);
-			urlConnection = url.openConnection(proxy);
-		} else {
-			urlConnection = url.openConnection();
-		}
+		URLConnection urlConnection = utils.getURLConnection(url);
 		String contentType = urlConnection.getContentType();
 		uploadImageInternal(urlConnection.getInputStream(), contentType, imageFile, maxWidth, maxHeight);
 	}
