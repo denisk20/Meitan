@@ -185,6 +185,7 @@
 	<entry key="userProfilePassword1Prompt">Введите пароль ещё раз</entry>
 	<entry key="userProfileSave">Сохранить личные данные</entry>
 	<entry key="userProfileCancel">Отмена</entry>
+	<entry key="userProfileSync">Скачать продукцию с meitan.ru</entry>
 	<!--goodsListForCategory-->
 	<entry key="goodsListForCategoryHeader">Товары! Самые лучшие!!!</entry>
 	<entry key="goodsListForCategoryAddProduct">Добавить продукт</entry>

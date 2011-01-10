@@ -21,7 +21,11 @@
 
 		<div class="section">
 			<p><h:outputFormat value="#{resourceBundle.loginPleaseEnter}"/>
-				<a href="userProfile"><h:outputFormat value="#{resourceBundle.loginRegister}"/></a></p>
+				<a href="userProfile" class="imagedLink">
+					<h:graphicImage url="/images/okIcon.png"/>
+					<h:outputFormat value="#{resourceBundle.loginRegister}"/>
+				</a>
+			</p>
 
 			<h:form id="loginForm"
 					prependId="false">

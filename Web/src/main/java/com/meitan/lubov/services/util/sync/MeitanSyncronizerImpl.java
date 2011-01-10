@@ -12,9 +12,12 @@ import com.meitan.lubov.services.util.FileUploadHandler;
 import com.meitan.lubov.services.util.ImageIdGenerationService;
 import com.meitan.lubov.services.util.StringWrap;
 import com.meitan.lubov.services.util.Utils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -23,6 +26,7 @@ import org.w3c.tidy.DOMTextImpl;
 import org.w3c.tidy.Tidy;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -43,6 +47,7 @@ import javax.xml.xpath.XPathFactory;
  */
 @Service("meitanSyncronizer")
 public class MeitanSyncronizerImpl implements MeitanSyncronizer {
+	private final Log log = LogFactory.getLog(getClass());
 	private final String MEITAN_URL = "http://meitan.ru";
 	private final String MEITAN_PRODUCTS = "/catalog/products/";
 	private final String GOODS_URL = MEITAN_URL + MEITAN_PRODUCTS + "main.php?SECTION_ID=144";
@@ -67,6 +72,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	private static final XPathFactory FACTORY = XPathFactory.newInstance();
 	private static final XPath X_PATH = FACTORY.newXPath();
 	private String prefixUrl = MEITAN_URL;
+	private String fullPrefixUrl = MEITAN_URL + MEITAN_PRODUCTS;
 	private String productsUrl = MEITAN_PRODUCTS;
 	private String filePrefix = "";
 	@Override
@@ -110,6 +116,16 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	}
 
 	@Override
+	public String getFullPrefixUrl() {
+		return fullPrefixUrl;
+	}
+
+	@Override
+	public void setFullPrefixUrl(String fullPrefixUrl) {
+		this.fullPrefixUrl = fullPrefixUrl;
+	}
+
+	@Override
 	@Transactional
 	public void sync() throws IOException, XPathExpressionException {
 		URL catalogUrl = new URL(url);
@@ -119,7 +135,11 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		Set<ParsedCategory> categories = getCategories(document);
 
 		for (ParsedCategory c : categories) {
-			processCategory(c);
+			try {
+				processCategory(c);
+			} catch (StringIndexOutOfBoundsException e) {
+				log.error("Cant't parse category " + c.getCategory().getName(), e);
+			}
 		}
 	}
 
@@ -127,25 +147,29 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		Tidy tidy = new Tidy();
 		tidy.setInputEncoding("windows-1251");
 
-		Document document = tidy.parseDOM(catalog.openStream(), null);
+		Document document = tidy.parseDOM(utils.getURLConnection(catalog).getInputStream(), null);
 		return document;
 	}
 
 	private void processItems(ParsedCategory c) throws IOException, XPathExpressionException {
-		Document page = parseHtml(c.getItemsUrl());
-		Category category = c.getCategory();
-		assembleCategory(page, category);
-		//handle other pages
-		final String paginatorXPath = "//div[@id='pagenator']/a";
-		XPathExpression expression = X_PATH.compile(paginatorXPath);
-		NodeList otherPages = (NodeList) expression.evaluate(page, XPathConstants.NODESET);
-		//we don't need the last one, this is usually 'далее'
-		for (int i = 0; i < otherPages.getLength() - 1; i++) {
-			Node a = otherPages.item(i);
-			String address = a.getAttributes().getNamedItem("href").getNodeValue();
+		try {
+			Document page = parseHtml(c.getItemsUrl());
+			Category category = c.getCategory();
+			assembleCategory(page, category);
+			//handle other pages
+			final String paginatorXPath = "//div[@id='pagenator']/a";
+			XPathExpression expression = X_PATH.compile(paginatorXPath);
+			NodeList otherPages = (NodeList) expression.evaluate(page, XPathConstants.NODESET);
+			//we don't need the last one, this is usually 'далее'
+			for (int i = 0; i < otherPages.getLength() - 1; i++) {
+				Node a = otherPages.item(i);
+				String address = a.getAttributes().getNamedItem("href").getNodeValue();
 
-			Document nextPage = parseHtml(new URL(filePrefix + address));
-			assembleCategory(nextPage, category);
+				Document nextPage = parseHtml(new URL(prefixUrl + filePrefix + address));
+				assembleCategory(nextPage, category);
+			}
+		} catch (IOException e) {
+			log.error("can't process category " + c.getCategory(), e);
 		}
 	}
 
@@ -159,7 +183,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 			Node a = node.getChildNodes().item(0);
 			String itemAddress = a.getAttributes().getNamedItem("href").getNodeValue();
 
-			processProduct(category, itemAddress);
+			processProduct(category, fullPrefixUrl + itemAddress);
 		}
 	}
 
@@ -168,7 +192,12 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		final String imageXPath = "//div[@class='catalog-element']/table/tr/td[1]/img";
 		final String descriptionXPath = "//div[@class='catalog-element']/div[1]";
 
-		Document page = parseHtml(new URL(filePrefix + itemAddress));
+		Document page = null;
+		try {
+			page = parseHtml(new URL(filePrefix + itemAddress));
+		} catch (IOException e) {
+			log.error("Can't process product at " + itemAddress, e);
+		}
 
 		XPathExpression nameExpression = X_PATH.compile(nameXPath);
 		XPathExpression imageExpression = X_PATH.compile(imageXPath);
@@ -179,7 +208,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		Node descriptionNode = (Node) descriptionExpression.evaluate(page, XPathConstants.NODE);
 
 		String name = nameNode.getFirstChild().getNodeValue();
-		String imageAddress = imageNode.getAttributes().getNamedItem("src").getNodeValue();
+		String imageAddress = prefixUrl + imageNode.getAttributes().getNamedItem("src").getNodeValue();
 		String description = descriptionNode.getFirstChild().getNodeValue();
 
 		if (!productExists(name)) {
@@ -190,7 +219,10 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 			addImageToEntity(new URL(filePrefix + imageAddress), p);
 			category.getProducts().add(p);
 			p.getCategories().add(category);
-			p.setAvatar(p.getImages().iterator().next());
+			final Set<Image> images = p.getImages();
+			if (images.size() > 0) {
+				p.setAvatar(images.iterator().next());
+			}
 		}
 	}
 
@@ -212,11 +244,15 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		StringWrap imageName = imageIdGenerationService.generateIdForNextImage(entity);
 		File imageFile = new File(utils.getImageUploadDirectoryPath() + "/" + imageName.getWrapped());
 
-		imageManager.uploadImage(imageUrl, imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
+		try {
+			imageManager.uploadImage(imageUrl, imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
 
-		Image image = new Image("/" + imageName.getWrapped());
-		imageDao.makePersistent(image);
-		imageDao.addImageToEntity(entity, image);
+			Image image = new Image("/" + imageName.getWrapped());
+			imageDao.makePersistent(image);
+			imageDao.addImageToEntity(entity, image);
+		} catch (FileNotFoundException e) {
+			log.error("Can't find file " + imageUrl, e);
+		}
 	}
 
 	private boolean categoryExists(String name) {
