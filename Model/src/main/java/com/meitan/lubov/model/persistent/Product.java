@@ -19,6 +19,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
+		@NamedQuery(name = "getProductByName", query = "from Product p where p.name=:name"),
 		@NamedQuery(name = "getProductsNew", query = "from Product p where p.new=true"),
 		@NamedQuery(name = "getProductsTop", query = "from Product p where p.top=true"),
 		@NamedQuery(name = "getProductsForCategory", query = "select c.products from Category c where c.id=:categoryId")

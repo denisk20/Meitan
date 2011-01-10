@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Date: Mar 5, 2010
  * Time: 10:04:30 PM
@@ -41,6 +43,21 @@ public class JpaCategoryDao extends JpaDao<Category, Long> implements CategoryDa
 
 		if (image != null) {
 			imageDao.removeImageFromEntity(c, image);
+		}
+	}
+
+	@Override
+	@Transactional
+	public Category getCategoryByName(String name) {
+		List resultList = em.createNamedQuery("getCategoryByName").setParameter("name", name).getResultList();
+		int size = resultList.size();
+		if (size > 1) {
+			throw new IllegalStateException("Multiple categories with name " + name);
+		}
+		if (size > 0) {
+			return (Category) resultList.get(0);
+		} else {
+			return null;
 		}
 	}
 

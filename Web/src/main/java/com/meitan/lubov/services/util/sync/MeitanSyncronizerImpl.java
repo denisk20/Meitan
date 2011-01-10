@@ -1,9 +1,12 @@
 package com.meitan.lubov.services.util.sync;
 
+import com.meitan.lubov.model.ImageAware;
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.model.persistent.Image;
+import com.meitan.lubov.model.persistent.Product;
 import com.meitan.lubov.services.dao.CategoryDao;
 import com.meitan.lubov.services.dao.ImageDao;
+import com.meitan.lubov.services.dao.ProductDao;
 import com.meitan.lubov.services.media.ImageManager;
 import com.meitan.lubov.services.util.FileUploadHandler;
 import com.meitan.lubov.services.util.ImageIdGenerationService;
@@ -25,7 +28,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -59,6 +61,8 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	protected ImageManager imageManager;
 	@Autowired
 	protected ImageDao imageDao;
+	@Autowired
+	protected ProductDao productDao;
 	private static final XPathFactory FACTORY = XPathFactory.newInstance();
 	private static final XPath X_PATH = FACTORY.newXPath();
 
@@ -95,14 +99,70 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	}
 
 	private void processItems(ParsedCategory c) throws IOException, XPathExpressionException {
-		Document itemsPage = parseHtml(c.getItemsUrl());
+		Document page = parseHtml(c.getItemsUrl());
+		Category category = c.getCategory();
+		assembleCategory(page, category);
+		//handle other pages
+		final String paginatorXPath = "//div[@id='pagenator']/a";
+		XPathExpression expression = X_PATH.compile(paginatorXPath);
+		NodeList otherPages = (NodeList) expression.evaluate(page, XPathConstants.NODESET);
+		//we don't need the last one, this is usually 'далее'
+		for (int i = 0; i < otherPages.getLength() - 1; i++) {
+			Node a = otherPages.item(i);
+			String address = a.getAttributes().getNamedItem("href").getNodeValue();
+
+			Document nextPage = parseHtml(new URL(address));
+			assembleCategory(nextPage, category);
+		}
+	}
+
+	private void assembleCategory(Document itemsPage, Category category) throws IOException, XPathExpressionException {
 		final String xPathString = "//div[@class='catalog-section']/table/tr/td/table/tr[1]/td";
 		XPathExpression expression = X_PATH.compile(xPathString);
 		NodeList nodeList = (NodeList) expression.evaluate(itemsPage, XPathConstants.NODESET);
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			//<a href...
+			Node a = node.getChildNodes().item(0);
+			String itemAddress = a.getAttributes().getNamedItem("href").getNodeValue();
+
+			processProduct(category, itemAddress);
+		}
+	}
+
+	private void processProduct(Category category, String itemAddress) throws IOException, XPathExpressionException {
+		final String nameXPath = "//ul[@class='breadcrumb-navigation']/li[last()]";
+		final String imageXPath = "//div[@class='catalog-element']/table/tr/td[1]/img";
+		final String descriptionXPath = "//div[@class='catalog-element']/div[1]";
+
+		Document page = parseHtml(new URL(itemAddress));
+
+		XPathExpression nameExpression = X_PATH.compile(nameXPath);
+		XPathExpression imageExpression = X_PATH.compile(imageXPath);
+		XPathExpression descriptionExpression = X_PATH.compile(descriptionXPath);
+
+		Node nameNode = (Node) nameExpression.evaluate(page, XPathConstants.NODE);
+		Node imageNode = (Node) imageExpression.evaluate(page, XPathConstants.NODE);
+		Node descriptionNode = (Node) descriptionExpression.evaluate(page, XPathConstants.NODE);
+
+		String name = nameNode.getFirstChild().getNodeValue();
+		String imageAddress = imageNode.getFirstChild().getNodeValue();
+		String description = descriptionNode.getFirstChild().getNodeValue();
+
+		if (!productExists(name)) {
+			Product p = new Product(name);
+			p.setDescription(description);
+
+			productDao.makePersistent(p);
+			addImageToEntity(new URL(imageAddress), p);
+			category.getProducts().add(p);
+			p.getCategories().add(category);
+			p.setAvatar(p.getImages().iterator().next());
+		}
 	}
 
 	private void processCategory(ParsedCategory c) throws IOException, XPathExpressionException {
-		if (!categoryExists(c)) {
+		if (!categoryExists(c.getCategory().getName())) {
 			persistCategory(c);
 		}
 		processItems(c);
@@ -112,18 +172,25 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		Category category = c.getCategory();
 		categoryDao.makePersistent(category);
 
-		StringWrap imageName = imageIdGenerationService.generateIdForNextImage(category);
-		File imageFile = new File(utils.getImageUploadDirectoryPath() + "/" + imageName.getWrapped());
-
-		imageManager.uploadImage(c.getImageUrl(), imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
-
-		Image image = new Image("/" + imageName.getWrapped());
-		imageDao.addImageToEntity(category, image);
+		addImageToEntity(c.getImageUrl(), category);
 	}
 
-	private boolean categoryExists(ParsedCategory c) {
-		List<Category> fromDB = categoryDao.findByExample(c.getCategory(), "id", "description", "image");
-		return fromDB.size() > 0;
+	private void addImageToEntity(URL imageUrl, ImageAware entity) throws IOException {
+		StringWrap imageName = imageIdGenerationService.generateIdForNextImage(entity);
+		File imageFile = new File(utils.getImageUploadDirectoryPath() + "/" + imageName.getWrapped());
+
+		imageManager.uploadImage(imageUrl, imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
+
+		Image image = new Image("/" + imageName.getWrapped());
+		imageDao.addImageToEntity(entity, image);
+	}
+
+	private boolean categoryExists(String name) {
+		return categoryDao.getCategoryByName(name) != null;
+	}
+
+	private boolean productExists(String name) {
+		return productDao.getProductByName(name) != null;
 	}
 
 	protected Set<ParsedCategory> getCategories(Document document) throws XPathExpressionException, MalformedURLException, UnsupportedEncodingException {

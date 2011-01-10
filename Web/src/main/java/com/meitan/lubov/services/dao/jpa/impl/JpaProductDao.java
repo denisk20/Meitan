@@ -148,6 +148,20 @@ private final Log log = LogFactory.getLog(getClass());
 	}
 
 	@Override
+	@Transactional
+	public Product getProductByName(String name) {
+		List resultList = em.createNamedQuery("getProductByName").setParameter("name", name).getResultList();
+		int size = resultList.size();
+		if (size > 1) {
+			throw new IllegalStateException("Multiple products with name " + name);
+		}
+		if (size > 0) {
+			return (Product) resultList.get(0);
+		} else {
+			return null;
+		}
+	}
+	@Override
     public ImageDao getImageDao() {
         return imageDao;
     }
