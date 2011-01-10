@@ -2,6 +2,7 @@ package com.meitan.lubov.services.dao;
 
 import com.meitan.lubov.model.persistent.Category;
 import com.meitan.lubov.services.dao.Dao;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface CategoryDao extends Dao<Category, Long>{
 
     void setImageDao(ImageDao imageDao);
 
+	@Transactional
+	Category getCategoryByName(String name);
 }

@@ -32,4 +32,7 @@ public interface ProductDao extends Dao <Product, Long>{
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	ArrayList<Product> getTop();
+
+	@Transactional
+	Product getProductByName(String name);
 }

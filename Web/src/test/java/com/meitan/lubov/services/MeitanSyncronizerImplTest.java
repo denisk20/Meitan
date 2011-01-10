@@ -22,7 +22,7 @@ import javax.xml.xpath.XPathExpressionException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:testsSetup.xml"})
 @Ignore
-public class MeitanSyncTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class MeitanSyncronizerImplTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Test
 	public void getCategories() throws IOException, XPathExpressionException {
 		MeitanSyncronizerImpl syncronizer = applicationContext.getBean(MeitanSyncronizerImpl.class);

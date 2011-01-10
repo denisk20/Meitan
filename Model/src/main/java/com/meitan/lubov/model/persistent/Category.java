@@ -19,6 +19,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -29,6 +31,9 @@ import javax.persistence.Transient;
  * @author denisk
  */
 @Entity
+@NamedQueries({
+		@NamedQuery(name = "getCategoryByName", query = "from Category p where p.name=:name")
+})
 public class Category extends PersistentOrderableImpl implements NameAware, ImageAware, Serializable {
 	private final Log log = LogFactory.getLog(getClass());
 
