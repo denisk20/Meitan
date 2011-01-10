@@ -889,7 +889,8 @@ ul.toolTipBottomLine li, ul.newProductsList li {
     margin: 0 0 20px;
     /*padding:2px 0;*/
     text-align:center;
-    line-height:100%
+    line-height:100%;
+    min-height:60px;
 }
 
 .productImage {
@@ -913,6 +914,8 @@ ul.toolTipBottomLine li, ul.newProductsList li {
 }
 .itemDescription {
     /*min-height:144px;*/
+    text-align:justify;
+    padding: 3px;
 }
 .newItem {
     width:150px;
