@@ -101,7 +101,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		NodeList nodeList = (NodeList) expression.evaluate(itemsPage, XPathConstants.NODESET);
 	}
 
-	private void processCategory(ParsedCategory c) throws IOException {
+	private void processCategory(ParsedCategory c) throws IOException, XPathExpressionException {
 		if (!categoryExists(c)) {
 			persistCategory(c);
 		}

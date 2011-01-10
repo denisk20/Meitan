@@ -29,8 +29,6 @@ public class ReCaptchaService implements CaptchaService{
 
 	@Autowired
 	private Utils utils;
-	private static final String PROXY_ADDRESS = "10.10.0.1";
-	private static final int PROXY_PORT = 3128;
 	private static final String MEITAN_USE_PROXY = "meitan.use_proxy";
 	private static final String PRIVATE_KEY = "6LcTPLsSAAAAAHuWXn5FMN4Cx96AXOdVVr0w2O0-";
 	private static final String PUBLIC_KEY = "6LcTPLsSAAAAAGxZPlc-ho30s-GlcYREXPM3sAzx";
@@ -84,9 +82,9 @@ public class ReCaptchaService implements CaptchaService{
 
 	private HttpLoader getHttpLoader() {
 		HttpLoader httpLoader;
-		Boolean useProxy = Boolean.parseBoolean(utils.getMeitanProperty(MEITAN_USE_PROXY));
+		Boolean useProxy = utils.shouldUseProxy();
 		if (useProxy) {
-			httpLoader = new ProxyHttpLoader(PROXY_ADDRESS, PROXY_PORT);
+			httpLoader = new ProxyHttpLoader(utils.getProxyHost(), utils.getProxyPort());
 		} else {
 			httpLoader = new SimpleHttpLoader();
 		}

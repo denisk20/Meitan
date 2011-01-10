@@ -39,7 +39,10 @@ public class Utils {
 	private static final String COMMON_PROPERTIES = "common.properties";
 	private static final String MEITAN_UPLOAD_FOLDER = "meitan.upload_folder";
 	private static final String MEITAN_HOME = "MEITAN_HOME";
+	private static final String MEITAN_USE_PROXY = "meitan.use_proxy";
 	private ApplicationContext applicationContext;
+	private static final String MEITAN_PROXY_HOST = "meitan.proxy_host";
+	private static final String MEITAN_PROXY_PORT = "meitan.proxy_port";
 
 	public ArrayList asList(Set s) {
 		if (s != null) {
@@ -144,6 +147,18 @@ public class Utils {
 	public String html2text(String html) {
     return Jsoup.parse(html).text();
 }
+
+	public boolean shouldUseProxy() {
+		return Boolean.parseBoolean(getMeitanProperty(MEITAN_USE_PROXY));
+	}
+
+	public String getProxyHost() {
+		return getMeitanProperty(MEITAN_PROXY_HOST);
+	}
+
+	public int getProxyPort() {
+		return Integer.parseInt(getMeitanProperty(MEITAN_PROXY_PORT));
+	}
 
 	public void printMessage(String msg) {
 		System.out.println("Utils:" + msg);
