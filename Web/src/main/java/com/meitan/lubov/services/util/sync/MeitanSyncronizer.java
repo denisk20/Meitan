@@ -36,4 +36,16 @@ public interface MeitanSyncronizer {
 	ImageManager getImageManager();
 
 	void setImageManager(ImageManager imageManager);
+
+	String getPrefixUrl();
+
+	void setPrefixUrl(String prefixUrl);
+
+	String getProductsUrl();
+
+	void setProductsUrl(String productsUrl);
+
+	String getFilePrefix();
+
+	void setFilePrefix(String filePrefix);
 }

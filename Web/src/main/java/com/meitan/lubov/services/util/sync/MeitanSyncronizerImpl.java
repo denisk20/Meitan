@@ -44,8 +44,9 @@ import javax.xml.xpath.XPathFactory;
 @Service("meitanSyncronizer")
 public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	private final String MEITAN_URL = "http://meitan.ru";
-	private final String MEITAN_PRODUCTS = "/catalog/products";
-	private final String GOODS_URL = MEITAN_URL + MEITAN_PRODUCTS + "/main.php?SECTION_ID=144";
+	private final String MEITAN_PRODUCTS = "/catalog/products/";
+	private final String GOODS_URL = MEITAN_URL + MEITAN_PRODUCTS + "main.php?SECTION_ID=144";
+	private final String FILE_PREFIX = "file://";
 
 	private static final String CATALOG_XPATH = "/html/body/div[2]/div/table/tr/td[2]/div/div[2]/div";
 
@@ -65,7 +66,9 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	protected ProductDao productDao;
 	private static final XPathFactory FACTORY = XPathFactory.newInstance();
 	private static final XPath X_PATH = FACTORY.newXPath();
-
+	private String prefixUrl = MEITAN_URL;
+	private String productsUrl = MEITAN_PRODUCTS;
+	private String filePrefix = "";
 	@Override
 	public String getUrl() {
 		return url;
@@ -74,6 +77,36 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 	@Override
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	@Override
+	public String getPrefixUrl() {
+		return prefixUrl;
+	}
+
+	@Override
+	public void setPrefixUrl(String prefixUrl) {
+		this.prefixUrl = prefixUrl;
+	}
+
+	@Override
+	public String getProductsUrl() {
+		return productsUrl;
+	}
+
+	@Override
+	public void setProductsUrl(String productsUrl) {
+		this.productsUrl = productsUrl;
+	}
+
+	@Override
+	public String getFilePrefix() {
+		return filePrefix;
+	}
+
+	@Override
+	public void setFilePrefix(String filePrefix) {
+		this.filePrefix = filePrefix;
 	}
 
 	@Override
@@ -111,7 +144,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 			Node a = otherPages.item(i);
 			String address = a.getAttributes().getNamedItem("href").getNodeValue();
 
-			Document nextPage = parseHtml(new URL(address));
+			Document nextPage = parseHtml(new URL(filePrefix + address));
 			assembleCategory(nextPage, category);
 		}
 	}
@@ -135,7 +168,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		final String imageXPath = "//div[@class='catalog-element']/table/tr/td[1]/img";
 		final String descriptionXPath = "//div[@class='catalog-element']/div[1]";
 
-		Document page = parseHtml(new URL(itemAddress));
+		Document page = parseHtml(new URL(filePrefix + itemAddress));
 
 		XPathExpression nameExpression = X_PATH.compile(nameXPath);
 		XPathExpression imageExpression = X_PATH.compile(imageXPath);
@@ -146,7 +179,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		Node descriptionNode = (Node) descriptionExpression.evaluate(page, XPathConstants.NODE);
 
 		String name = nameNode.getFirstChild().getNodeValue();
-		String imageAddress = imageNode.getFirstChild().getNodeValue();
+		String imageAddress = imageNode.getAttributes().getNamedItem("src").getNodeValue();
 		String description = descriptionNode.getFirstChild().getNodeValue();
 
 		if (!productExists(name)) {
@@ -154,7 +187,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 			p.setDescription(description);
 
 			productDao.makePersistent(p);
-			addImageToEntity(new URL(imageAddress), p);
+			addImageToEntity(new URL(filePrefix + imageAddress), p);
 			category.getProducts().add(p);
 			p.getCategories().add(category);
 			p.setAvatar(p.getImages().iterator().next());
@@ -182,6 +215,7 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 		imageManager.uploadImage(imageUrl, imageFile, FileUploadHandler.MAX_WIDTH, FileUploadHandler.MAX_HEIGHT);
 
 		Image image = new Image("/" + imageName.getWrapped());
+		imageDao.makePersistent(image);
 		imageDao.addImageToEntity(entity, image);
 	}
 
@@ -213,15 +247,16 @@ public class MeitanSyncronizerImpl implements MeitanSyncronizer {
 				category = new Category();
 				parsedCategory.setCategory(category);
 
-				String imageUrlSuffix = ((DOMAttrImpl) node.getAttributes().item(0)).getValue();
-				String imageUrl = MEITAN_URL + imageUrlSuffix;
-				parsedCategory.setImageUrl(new URL(imageUrl));
+				//todo can this be simpler?
+				String imageUrlSuffix = node.getAttributes().item(0).getNodeValue();
+				String imageUrl = prefixUrl + imageUrlSuffix;
+				parsedCategory.setImageUrl(new URL(filePrefix + imageUrl));
 			} else if (name.equals("a")) {
 				String itemsUrlSuffix =
-						((DOMAttrImpl) node.getAttributes().getNamedItem("href")).getValue();
-				String itemsUrl = MEITAN_URL + MEITAN_PRODUCTS + "/" + itemsUrlSuffix;
-				parsedCategory.setItemsUrl(new URL(itemsUrl));
-				String categoryName = ((DOMTextImpl) node.getChildNodes().item(0)).getData();
+						node.getAttributes().getNamedItem("href").getNodeValue();
+				String itemsUrl = prefixUrl + productsUrl + itemsUrlSuffix;
+				parsedCategory.setItemsUrl(new URL(filePrefix + itemsUrl));
+				String categoryName = node.getChildNodes().item(0).getNodeValue();
 				category.setName(categoryName);
 			} else if(node.getLocalName().equals("#text")) {
 				String description = node.getNodeValue();
