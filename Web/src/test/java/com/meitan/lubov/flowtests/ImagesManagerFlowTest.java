@@ -44,9 +44,9 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 	private ImageDao testImageDao;
 	@Autowired
 	private FileUploadHandler fileUploadHandler;
-
 	@Autowired
 	private Utils utils;
+
 	private static final String URL_PARAM_NAME = "abc:url";
 	private static final String MEITAN_HOST = "89.253.241.64";
 
@@ -89,7 +89,7 @@ public class ImagesManagerFlowTest extends AbstractFlowIntegrationTest {
 
 	@Test
 	public void testUploadFromLocalUrl() throws IOException {
-		final String localUrl = "file:///media/Windows_data/Mama/Meitan-Mama/Web/src/test/resources/Toolbelt.jpg";
+		final String localUrl = "file:///" + utils.getHomePath() + "/Web/src/test/resources/Toolbelt.jpg";
 		final String uploadEventName = "uploadFromUrl";
 		MockParameterMap parameterMap = new MockParameterMap();
 		parameterMap.put(URL_PARAM_NAME, localUrl);

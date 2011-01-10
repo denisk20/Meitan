@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import javax.imageio.ImageIO;
@@ -33,6 +35,8 @@ public class ImageManager {
 	private static final int ICON_WIDTH = 100;
 	private static final int ICON_HEIGHT = 100;
 
+	@Autowired
+	private Utils utils;
 	//todo unit test
 	// This method returns a buffered image with the contents of an image
 
@@ -94,8 +98,18 @@ public class ImageManager {
 	}
 
 	public void uploadImage(URL url, File imageFile, int maxWidth, int maxHeight) throws IOException {
-		String contentType = url.openConnection().getContentType();
-		uploadImageInternal(url.openStream(), contentType, imageFile, maxWidth, maxHeight);
+		URLConnection urlConnection;
+		if (utils.shouldUseProxy()) {
+			String hostname = utils.getProxyHost();
+			int port = utils.getProxyPort();
+			InetSocketAddress inetSocketAddress = new InetSocketAddress(hostname, port);
+			Proxy proxy = new Proxy(Proxy.Type.HTTP, inetSocketAddress);
+			urlConnection = url.openConnection(proxy);
+		} else {
+			urlConnection = url.openConnection();
+		}
+		String contentType = urlConnection.getContentType();
+		uploadImageInternal(urlConnection.getInputStream(), contentType, imageFile, maxWidth, maxHeight);
 	}
 
 	private void uploadImageInternal(InputStream is, String contentType, File imageFile, int maxWidth, int maxHeight) throws IOException {
