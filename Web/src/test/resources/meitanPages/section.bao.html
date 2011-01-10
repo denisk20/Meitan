@@ -6,12 +6,13 @@
     <link href="/bitrix/templates/catalog_template/components/bitrix/menu/horizontal_multilevel/style.css?1242101005" type="text/css" rel="stylesheet"/>
     <link href="/bitrix/templates/catalog_template/components/bitrix/breadcrumb/bread_page/style.css" type="text/css" rel="stylesheet"/>
     <link href="/js/customselect/customselect.css" type="text/css" rel="stylesheet"/>
+    <link href="/bitrix/templates/catalog_template/components/bitrix/catalog.section/template1/style.css?1240552214" type="text/css" rel="stylesheet"/>
     <link href="/bitrix/templates/catalog_template/styles.css" type="text/css" rel="stylesheet"/>
     <link href="/bitrix/templates/catalog_template/template_styles.css" type="text/css" rel="stylesheet"/>
 
-    <script type="text/javascript" src="/js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-1.2.3.pack.js"></script>
     <script type="text/javascript" src="/js/customselect/customselect.js"></script>
-    <title>Продукция</title>
+    <title>Bао Gold - серия для лица и тела</title>
 </head>
 <body style="padding:0;margin:auto;background-color:#fff8e6;text-align:center;">
 <div id="panel"></div>
@@ -137,102 +138,156 @@
 <!--/LEFT_COLUMN-->
 <!--CENTER-->
 <td style="height:100%;text-align:left;vertical-align:top;">
-    <div class="content">
-        <table class="h1" cellpadding="0" cellspacing="0" style="background:url('/bitrix/templates/catalog_template/images/layer.gif') bottom left no-repeat;height:13px;">
+<div class="content">
+<table class="h1" cellpadding="0" cellspacing="0" style="background:url('/bitrix/templates/catalog_template/images/layer.gif') bottom left no-repeat;height:13px;">
+    <tr>
+        <td><h1 class="h1" style="margin:0;padding:0;">Весь ассортимент</a></td>
+    </tr>
+    <tr>
+        <td class="layer" style="padding:0;margin:0;height:7px;"></td>
+    </tr>
+</table>
+<div id="navigation" style="margin-top:20px;margin-bottom:5px;">
+    <ul class="breadcrumb-navigation" style="font-size:9pt;font-family:Trebuchet MS;">
+        <li><a href="/" title="Главная" style="color:#990000;">Главная</a></li>
+        <li><span>&nbsp;/&nbsp;</span></li>
+        <li><a href="/catalog/" title="Продукция" style="color:#990000;">Продукция</a></li>
+        <li><span>&nbsp;/&nbsp;</span></li>
+        <li><a href="/catalog/products/" title="Весь ассортимент" style="color:#990000;">Весь ассортимент</a></li>
+        <li><span>&nbsp;/&nbsp;</span></li>
+        <li>
+            <a href="/catalog/products/section.php?IBLOCK_ID=5&amp;SECTION_ID=144" title="Продукция" style="color:#990000;">Продукция</a>
+        </li>
+        <li><span>&nbsp;/&nbsp;</span></li>
+        <li>Bао Gold - серия для лица и тела</li>
+    </ul>
+</div>
+<div style="color:#333333;font-family:Trebuchet MS;font-size:9pt;"><br>
+<script type="text/javascript">
+    var cat;
+    var ser;
+    jQuery(document).ready(function() {
+        cat = $('#select-cat').finalselect({id:"test",
+            zIndex:1,
+            viewWidth:'160px',
+            viewHeight:'150px',
+            selectWidth: '160px',
+            viewLeft: '5px',
+            selectImage:'http://meitan.ru/js/customselect/select-160px.jpg',
+            selectText: 'Категория',
+            itemClass: 'thistext'});
+
+        ser = $('#select-ser').finalselect({id:"test1",
+            zIndex:1,
+            viewWidth:'177px',
+            viewHeight:'150px',
+            selectWidth: '177px',
+            viewLeft: '5px',
+            selectImage:'http://meitan.ru/js/customselect/select-177px.jpg',
+            selectText: 'Серия',
+            itemClass: 'thistext'});
+
+
+    })
+
+    function ShowCatalog() {
+        var cat_id;
+        var ser_id
+        cat_id = cat.getValue();
+        ser_id = ser.getValue();
+
+
+        if (cat_id == 'undefined') cat_id = '';
+        if (ser_id == 'undefined') ser_id = '';
+
+        if (cat_id == '' && ser_id == '') {
+            alert('Выберете категорию или серию');
+        } else {
+            window.location.href = '/catalog/products/section-search.php?CATEGORY_ID=' + cat_id + '&SERIA_ID=' + ser_id;
+        }
+    }
+</script>
+<font style="font-family: Trebuchet MS; color: rgb(153, 0, 0); font-size: 9pt;">Показать продукцию:</font>
+<br/>
+
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <div id="select-cat"> <span style="display: none;" class="thistext" id="">
+            <div style="margin-left: 0px;">Категория</div>
+           </span> <span style="display: none;" class="thistext" id="187"><div style="margin-left: 0px;">Косметика</div></span><span style="display: none;" class="thistext" id="188"><div style="margin-left: 15px;">Уход за волосами</div></span><span style="display: none;" class="thistext" id="189"><div style="margin-left: 15px;">Уход за руками</div></span><span style="display: none;" class="thistext" id="190"><div style="margin-left: 15px;">Уход за ногами</div></span><span style="display: none;" class="thistext" id="191"><div style="margin-left: 15px;">Уход за телом</div></span><span style="display: none;" class="thistext" id="192"><div style="margin-left: 15px;">Уход за лицом</div></span><span style="display: none;" class="thistext" id="193"><div style="margin-left: 30px;">16+</div></span><span style="display: none;" class="thistext" id="194"><div style="margin-left: 30px;">25+</div></span><span style="display: none;" class="thistext" id="195"><div style="margin-left: 30px;">35+</div></span><span style="display: none;" class="thistext" id="196"><div style="margin-left: 15px;">Для мужчин</div></span><span style="display: none;" class="thistext" id="197"><div style="margin-left: 15px;">Аксессуары</div></span><span style="display: none;" class="thistext" id="198"><div style="margin-left: 15px;">Декоративная косметика</div></span><span style="display: none;" class="thistext" id="199"><div style="margin-left: 0px;">Ароматы</div></span><span style="display: none;" class="thistext" id="200"><div style="margin-left: 0px;">Гигиена</div></span>
+            </div>
+        </td>
+        <td>
+            <div id="select-ser"> <span style="display: none;" class="thistext" id="">
+            <div style="margin-left: 0px;">Серия</div>
+           </span> <span style="display: none;" class="thistext" id="344"><div style="margin-left: 0px;">Доброе тепло МейТан</div></span><span style="display: none;" class="thistext" id="146"><div style="margin-left: 0px;">Bао Gold - серия для лица и тела</div></span><span style="display: none;" class="thistext" id="145"><div style="margin-left: 0px;">Aomi - серия для лица</div></span><span style="display: none;" class="thistext" id="148"><div style="margin-left: 0px;">Dali - мужская серия</div></span><span style="display: none;" class="thistext" id="149"><div style="margin-left: 0px;">Dao de Mei</div></span><span style="display: none;" class="thistext" id="150"><div style="margin-left: 15px;">Гели для умывания</div></span><span style="display: none;" class="thistext" id="151"><div style="margin-left: 15px;">Маски</div></span><span style="display: none;" class="thistext" id="152"><div style="margin-left: 15px;">Фитокомплекс</div></span><span style="display: none;" class="thistext" id="153"><div style="margin-left: 15px;">Плацентарный комплекс</div></span><span style="display: none;" class="thistext" id="154"><div style="margin-left: 15px;">Крема для рук</div></span><span style="display: none;" class="thistext" id="155"><div style="margin-left: 15px;">Средства для волос</div></span><span style="display: none;" class="thistext" id="156"><div style="margin-left: 0px;">DUG - антицеллюлитная серия</div></span><span style="display: none;" class="thistext" id="157"><div style="margin-left: 0px;">He Sheng - серия для ног</div></span><span style="display: none;" class="thistext" id="158"><div style="margin-left: 0px;">Ke ai de - антистрессовая серия</div></span><span style="display: none;" class="thistext" id="160"><div style="margin-left: 0px;">LuCha - для молодой кожи</div></span><span style="display: none;" class="thistext" id="351"><div style="margin-left: 0px;">Mi Dami - снежно-белая серия на основе экстрактов белого чая и риса</div></span><span style="display: none;" class="thistext" id="163"><div style="margin-left: 0px;">Mei Li - серия для лица и тела</div></span><span style="display: none;" class="thistext" id="164"><div style="margin-left: 0px;">Shi Mao - серия для волос</div></span><span style="display: none;" class="thistext" id="165"><div style="margin-left: 0px;">Si Ti Spa - серия для тела</div></span><span style="display: none;" class="thistext" id="340"><div style="margin-left: 0px;">Tai Tai</div></span><span style="display: none;" class="thistext" id="167"><div style="margin-left: 0px;">Sivel'er</div></span><span style="display: none;" class="thistext" id="274"><div style="margin-left: 0px;">Yin - серия декоративной косметики</div></span><span style="display: none;" class="thistext" id="339"><div style="margin-left: 0px;">Ароматы</div></span><span style="display: none;" class="thistext" id="168"><div style="margin-left: 0px;">Бамбук</div></span><span style="display: none;" class="thistext" id="265"><div style="margin-left: 0px;">Восточные сувениры и аксессуары</div></span><span style="display: none;" class="thistext" id="169"><div style="margin-left: 0px;">Декоративная косметика YaoYan</div></span><span style="display: none;" class="thistext" id="171"><div style="margin-left: 0px;">Домашний косметолог - серия эксклюзивных масок</div></span><span style="display: none;" class="thistext" id="172"><div style="margin-left: 0px;">Маски МейТан</div></span><span style="display: none;" class="thistext" id="176"><div style="margin-left: 0px;">Зубные пасты Shan Shan Mei</div></span><span style="display: none;" class="thistext" id="175"><div style="margin-left: 0px;">Интимная гигиена JuMei</div></span><span style="display: none;" class="thistext" id="173"><div style="margin-left: 0px;">Капсульная косметика для лица МейТан</div></span>
+            </div>
+        </td>
+        <td><img src="http://meitan.ru/js/customselect/catalog-b.jpg" style="cursor: pointer;" onclick="ShowCatalog()"/>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<div class="catalog-section">
+<table cellpadding="0" cellspacing="0">
+<tr>
+    <td valign="top" width="33%">
+        <table cellpadding="0" cellspacing="0" style="width:130px;text-align:left;">
             <tr>
-                <td><h1 class="h1" style="margin:0;padding:0;">Весь ассортимент</a></td>
+                <td>
+                    <a href="element.milk.html">
+                        <img border="0" src="/upload/iblock/7e3/ qhn pydi.jpg" alt="" title="Bao Gold Молочко для тела омолаживающее" style="width:115px;border:2px solid #e6ddc4;">
+                    </a>
+                </td>
             </tr>
             <tr>
-                <td class="layer" style="padding:0;margin:0;height:7px;"></td>
+                <td>
+                    <a href="element.milk.html" style="font-size:8pt;font-family:Trebuchet MS;">Bao Gold Молочко для тела омолаживающее</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:8pt;font-family:Trebuchet MS;color:#333333;">
+                    Омолаживающее молочко обладает легкой текстурой, быстро впитывается, не оставляя жирных следов.
+                </td>
             </tr>
         </table>
-        <div id="navigation" style="margin-top:20px;margin-bottom:5px;">
-            <ul class="breadcrumb-navigation" style="font-size:9pt;font-family:Trebuchet MS;">
-                <li><a href="/" title="Главная" style="color:#990000;">Главная</a></li>
-                <li><span>&nbsp;/&nbsp;</span></li>
-                <li><a href="/catalog/" title="Продукция" style="color:#990000;">Продукция</a></li>
-                <li><span>&nbsp;/&nbsp;</span></li>
-                <li><a href="/catalog/products/" title="Весь ассортимент" style="color:#990000;">Весь ассортимент</a>
-                </li>
-                <li><span>&nbsp;/&nbsp;</span></li>
-                <li>Продукция</li>
-            </ul>
-        </div>
-        <div style="color:#333333;font-family:Trebuchet MS;font-size:9pt;"><br>
-            <script type="text/javascript">
-                var cat;
-                var ser;
-                jQuery(document).ready(function() {
-                    cat = $('#select-cat').finalselect({id:"test",
-                        zIndex:1,
-                        viewWidth:'160px',
-                        viewHeight:'150px',
-                        selectWidth: '160px',
-                        viewLeft: '5px',
-                        selectImage:'/js/customselect/select-160px.jpg',
-                        selectText: 'Категория',
-                        itemClass: 'thistext'});
+    </td>
 
-                    ser = $('#select-ser').finalselect({id:"test1",
-                        zIndex:1,
-                        viewWidth:'177px',
-                        viewHeight:'150px',
-                        selectWidth: '177px',
-                        viewLeft: '5px',
-                        selectImage:'/js/customselect/select-177px.jpg',
-                        selectText: 'Серия',
-                        itemClass: 'thistext'});
-                })
+</tr>
 
-                function ShowCatalog() {
-                    var cat_id = cat.getValue();
-                    var ser_id = ser.getValue();
+<tr>
+</table>
+<br/><br/>
+<center>
+    <div id="pagenator">
 
-                    if (cat_id == 'undefined') cat_id = '';
-                    if (ser_id == 'undefined') ser_id = '';
 
-                    if (cat_id == '' && ser_id == '') {
-                        alert('Выберете категорию или серию');
-                    } else {
-                        window.location.href = '/catalog/products/section-search.php?CATEGORY_ID=' + cat_id + '&SERIA_ID=' + ser_id;
-                    }
-                }
-            </script>
-            <font style="font-family:Trebuchet MS;color:#990000;font-size:9pt;">Показать продукцию:</font>
-            <br/>
-            <table>
-                <tr>
-                    <td>
-                        <div id="select-cat">
-    <span style="display: none;" class="thistext" id="">
-    <div style="margin-left: 0px;">Категория</div>
-    </span>
-                            <span style="display: none;" class="thistext" id="187"><div style="margin-left: 0px;">Косметика</div></span><span style="display: none;" class="thistext" id="188"><div style="margin-left: 20px;">Уход за волосами</div></span><span style="display: none;" class="thistext" id="189"><div style="margin-left: 20px;">Уход за руками</div></span><span style="display: none;" class="thistext" id="190"><div style="margin-left: 20px;">Уход за ногами</div></span><span style="display: none;" class="thistext" id="191"><div style="margin-left: 20px;">Уход за телом</div></span><span style="display: none;" class="thistext" id="192"><div style="margin-left: 20px;">Уход за лицом</div></span><span style="display: none;" class="thistext" id="193"><div style="margin-left: 40px;">16+</div></span><span style="display: none;" class="thistext" id="194"><div style="margin-left: 40px;">25+</div></span><span style="display: none;" class="thistext" id="195"><div style="margin-left: 40px;">35+</div></span><span style="display: none;" class="thistext" id="196"><div style="margin-left: 20px;">Для мужчин</div></span><span style="display: none;" class="thistext" id="197"><div style="margin-left: 20px;">Аксессуары</div></span><span style="display: none;" class="thistext" id="198"><div style="margin-left: 20px;">Декоративная косметика</div></span><span style="display: none;" class="thistext" id="199"><div style="margin-left: 0px;">Ароматы</div></span><span style="display: none;" class="thistext" id="200"><div style="margin-left: 0px;">Гигиена</div></span>
-                        </div>
-                    </td>
-                    <td>
-                        <div id="select-ser">
-    <span style="display: none;" class="thistext" id="">
-    <div style="margin-left: 0px;">Серия</div>
-    </span>
-                            <span style="display: none;" class="thistext" id="344"><div style="margin-left: 0px;">Доброе тепло МейТан</div></span><span style="display: none;" class="thistext" id="146"><div style="margin-left: 0px;">Bао Gold - серия для лица и тела</div></span><span style="display: none;" class="thistext" id="145"><div style="margin-left: 0px;">Aomi - серия для лица</div></span><span style="display: none;" class="thistext" id="148"><div style="margin-left: 0px;">Dali - мужская серия</div></span><span style="display: none;" class="thistext" id="149"><div style="margin-left: 0px;">Dao de Mei</div></span><span style="display: none;" class="thistext" id="150"><div style="margin-left: 20px;">Гели для умывания</div></span><span style="display: none;" class="thistext" id="151"><div style="margin-left: 20px;">Маски</div></span><span style="display: none;" class="thistext" id="152"><div style="margin-left: 20px;">Фитокомплекс</div></span><span style="display: none;" class="thistext" id="153"><div style="margin-left: 20px;">Плацентарный комплекс</div></span><span style="display: none;" class="thistext" id="154"><div style="margin-left: 20px;">Крема для рук</div></span><span style="display: none;" class="thistext" id="155"><div style="margin-left: 20px;">Средства для волос</div></span><span style="display: none;" class="thistext" id="156"><div style="margin-left: 0px;">DUG - антицеллюлитная серия</div></span><span style="display: none;" class="thistext" id="157"><div style="margin-left: 0px;">He Sheng - серия для ног</div></span><span style="display: none;" class="thistext" id="158"><div style="margin-left: 0px;">Ke ai de - антистрессовая серия</div></span><span style="display: none;" class="thistext" id="160"><div style="margin-left: 0px;">LuCha - для молодой кожи</div></span><span style="display: none;" class="thistext" id="351"><div style="margin-left: 0px;">Mi Dami - снежно-белая серия на основе экстрактов белого чая и риса</div></span><span style="display: none;" class="thistext" id="163"><div style="margin-left: 0px;">Mei Li - серия для лица и тела</div></span><span style="display: none;" class="thistext" id="164"><div style="margin-left: 0px;">Shi Mao - серия для волос</div></span><span style="display: none;" class="thistext" id="165"><div style="margin-left: 0px;">Si Ti Spa - серия для тела</div></span><span style="display: none;" class="thistext" id="340"><div style="margin-left: 0px;">Tai Tai</div></span><span style="display: none;" class="thistext" id="167"><div style="margin-left: 0px;">Sivel'er</div></span><span style="display: none;" class="thistext" id="274"><div style="margin-left: 0px;">Yin - серия декоративной косметики</div></span><span style="display: none;" class="thistext" id="339"><div style="margin-left: 0px;">Ароматы</div></span><span style="display: none;" class="thistext" id="168"><div style="margin-left: 0px;">Бамбук</div></span><span style="display: none;" class="thistext" id="265"><div style="margin-left: 0px;">Восточные сувениры и аксессуары</div></span><span style="display: none;" class="thistext" id="169"><div style="margin-left: 0px;">Декоративная косметика YaoYan</div></span><span style="display: none;" class="thistext" id="171"><div style="margin-left: 0px;">Домашний косметолог - серия эксклюзивных масок</div></span><span style="display: none;" class="thistext" id="172"><div style="margin-left: 0px;">Маски МейТан</div></span><span style="display: none;" class="thistext" id="176"><div style="margin-left: 0px;">Зубные пасты Shan Shan Mei</div></span><span style="display: none;" class="thistext" id="175"><div style="margin-left: 0px;">Интимная гигиена JuMei</div></span><span style="display: none;" class="thistext" id="173"><div style="margin-left: 0px;">Капсульная косметика для лица МейТан</div></span>
-                        </div>
-                    </td>
-                    <td>
-                        <img src='/js/customselect/catalog-b.jpg' style="cursor: pointer;" onClick=ShowCatalog()/>
-                    </td>
-                </tr>
-            </table>
-            <div class="catalog-section-list">
-                <img src='/upload/iblock/efb/.jpg'/> <br/>
-                <a href="section.bao.html" style="font-size:10pt;">Bао Gold - серия для лица и тела</a>
-                <br/>
-                Изысканная линия &quot;Вао Gold&quot; &#40;&quot;Бао Голд&quot;&#41; создана для идеального ухода за зрелой кожей. Уникальные средства для лица, шеи, бюста и рук содержат натуральный коллаген и богатство ценнейших экстрактов камелии, лакричника, оливы, орхидеи, кедра, мастикового дерева, гарцинии, а также натуральных витаминов и аминокислот для интенсивного увлажнения, питания, лифтинга и разглаживания морщин.
-                <div style="background:url('/bitrix/templates/page_template/images/layer2.gif') top left repeat-x;height:1px;width:100%;font-size:0%;margin-top:10px;"></div>
-            </div>
-            <img src="http://xn--80ajmki2a.xn--p1ai/bitrix/spread.php?s=QklUUklYX1NNX0dVRVNUX0lEATUyODQwMgExMzI1NjA3ODI4AS8BAQJCSVRSSVhfU01fTEFTVF9WSVNJVAEwOC4wMS4yMDExIDE5OjIzOjQ4ATEzMjU2MDc4MjgBLwEBAg%3D%3D&amp;k=7dba7e30ee8e5d0275a211a346469020" alt="" style="width:0px; height:0px; position:absolute; left:-1px; top:-1px;"/>
-        </div>
+        <span style="color:#990000;">назад</span>&nbsp;
+
+        <span class="page_current">&nbsp;1&nbsp;</span>
+        <a href="section.bao1.html">2</a>&nbsp;
+
+        <a style="color:#990000;" href="section.bao1.html"><u>далее</u></a>
+
+
+        <!--
+           |&nbsp;<a href="/catalog/products/section.php?IBLOCK_ID=5&amp;SECTION_ID=146&amp;SHOWALL_1=1">Все</a>
+   -->
     </div>
+    <div style="background:url('/bitrix/templates/page_template/images/layer2.gif') repeat-x; height:1px; width:100%; margin-top:20px;font-size:0%;"></div>
+    <center><br/>
+</div>
+<br/>
+
+
+<img src="http://xn--80ajmki2a.xn--p1ai/bitrix/spread.php?s=QklUUklYX1NNX0dVRVNUX0lEATUyODQwMgExMzI1Njc5NjYyAS8BAQJCSVRSSVhfU01fTEFTVF9WSVNJVAEwOS4wMS4yMDExIDE1OjIxOjAyATEzMjU2Nzk2NjIBLwEBAg%3D%3D&amp;k=c8e4532e8445fc2177b23bc2f5c618eb" alt="" style="width:0px; height:0px; position:absolute; left:-1px; top:-1px;"/>
+</div>
+</div>
 </td>
 <!--/CENTER-->
 <!--RIGHT_COLUMN-->
@@ -256,10 +311,10 @@
     [NEW_USER_REGISTRATION] => N
     [USE_OPENID] => N
     [USE_LIVEID] => N
-    [AUTH_URL] => /catalog/products/main.php?login=yes&amp;SECTION_ID=144
-    [BACKURL] => /catalog/products/main.php?SECTION_ID=144
-    [AUTH_REGISTER_URL] => /network_business/registry/?register=yes&amp;backurl=%2Fcatalog%2Fproducts%2Fmain.php%3FSECTION_ID%3D144
-    [AUTH_FORGOT_PASSWORD_URL] => /network_business/registry/?forgot_password=yes&amp;backurl=%2Fcatalog%2Fproducts%2Fmain.php%3FSECTION_ID%3D144
+    [AUTH_URL] => /catalog/products/section.php?login=yes&amp;IBLOCK_ID=5&amp;SECTION_ID=146
+    [BACKURL] => /catalog/products/section.php?IBLOCK_ID=5&amp;SECTION_ID=146
+    [AUTH_REGISTER_URL] => /network_business/registry/?register=yes&amp;backurl=%2Fcatalog%2Fproducts%2Fsection.php%3FIBLOCK_ID%3D5%26SECTION_ID%3D146
+    [AUTH_FORGOT_PASSWORD_URL] => /network_business/registry/?forgot_password=yes&amp;backurl=%2Fcatalog%2Fproducts%2Fsection.php%3FIBLOCK_ID%3D5%26SECTION_ID%3D146
     [POST] => Array
         (
         )
@@ -270,8 +325,8 @@
 </pre>-->
 
             <div id="at_bitrix">
-                <form method="post" target="_top" action="/catalog/products/main.php?login=yes&amp;SECTION_ID=144">
-                    <input type="hidden" name="backurl" value="/catalog/products/main.php?SECTION_ID=144"/>
+                <form method="post" target="_top" action="/catalog/products/section.php?login=yes&amp;IBLOCK_ID=5&amp;SECTION_ID=146">
+                    <input type="hidden" name="backurl" value="/catalog/products/section.php?IBLOCK_ID=5&amp;SECTION_ID=146"/>
                     <input type="hidden" name="AUTH_FORM" value="Y"/>
                     <input type="hidden" name="TYPE" value="AUTH"/>
 
@@ -438,7 +493,7 @@
             document.write("<a href=''><img " + " src='http://www.meitan.ru/statdir/stat.php?" + sg_r + "&' border=0 width=0 height=0 alt='Web Log Analyzer and Page Counter - AWLA'></a>")
         </script>
         <noscript>
-            <a href="" title="Web Log Analyzer and Page Counter - AWLA"><img src="http://www.meitan.ru/statdir/stat.php?nojs=1" border=0 alt="Web Log Analyzer and Page Counter - AWLA"></a>
+            <a href="../" title="Web Log Analyzer and Page Counter - AWLA"><img src="http://www.meitan.ru/statdir/stat.php?nojs=1" border=0 alt="Web Log Analyzer and Page Counter - AWLA"></a>
         </noscript>
         <!-- /AWLA -->
         <!-- Yandex.Metrika counter -->

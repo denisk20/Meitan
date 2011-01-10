@@ -109,6 +109,7 @@
     </bean>
 
 	<bean id="testImageManager" class="com.meitan.lubov.services.media.ImageManager"/>
+	
 	<bean id="testMeitanSyncronizerImpl" class="com.meitan.lubov.services.util.sync.MeitanSyncronizerImpl">
 		<property name="categoryDao" ref="testCategoryDao"/>
 		<property name="utils" ref="utils"/>
