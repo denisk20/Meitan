@@ -856,7 +856,9 @@ ul.applyButton li.button {
 
 .newProductsDiv {
     height:                175px;
-
+    width:                 645px;
+    margin-left:           auto;
+    margin-right:          auto;
 }
 
 .rich-panel, .rich-panel-body {
@@ -876,49 +878,55 @@ ul.toolTipBottomLine {
 /*display:               block;*/
 }
 
-ul.toolTipBottomLine li, ul.newProductsList li {
+ul.toolTipBottomLine li {
     list-style-type:       none;
-    display:               inline-table;
+    display:               inline;
     margin:                0;
 }
-
+ul.newProductsList li {
+      list-style-type:       none;
+margin: 0 10px;
+}
 .productHeader {
     font-size:             1.5em;
     color:                 red;
     font-style:            italic;
-    margin: 0 0 20px;
-    /*padding:2px 0;*/
-    text-align:center;
-    line-height:100%;
-    min-height:60px;
+    margin:                0 0 20px; /*padding:2px 0;*/
+    text-align:            center;
+    line-height:           100%;
+    min-height:            60px;
 }
 
 .productImage {
-    width:                 140px;
-    /*height:                200px;*/
-    float: left;
-    margin:5px;
+    width:                 140px; /*height:                200px;*/
+    float:                 left;
+    margin:                5px;
 }
+
 .descriptionItemFooter {
-    margin: 1px 66px 0 0;
-    overflow:auto;
+    margin:                1px 66px 0 0;
+    overflow:              auto;
 }
+
 .descriptionItemFooter > * {
-    float:right;
-    margin:0 10px;
+    float:                 right;
+    margin:                0 10px;
 }
-.detailedItem{
-    float:left;
-    margin:3px;
-    display:inline;
+
+.detailedItem {
+    float:                 left;
+    margin:                3px;
+    display:               inline;
 }
+
 .itemDescription {
-    /*min-height:144px;*/
-    text-align:justify;
-    padding: 3px;
+/*min-height:144px;*/
+    text-align:            justify;
+    padding:               3px;
 }
+
 .newItem {
-    width:150px;
-    float:left;
-    /*display:inline;*/
+    width:                 150px;
+    float:                 left; /*display:inline;*/
 }
+
